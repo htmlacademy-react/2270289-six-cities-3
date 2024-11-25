@@ -41,11 +41,11 @@ function App (props) {
             <ul className="locations__list tabs__list">
               {
                 directions.map((item) =>
-                <li className="locations__item">
-                  <a className="locations__item-link tabs__item" href="#">
-                    <span>{item}</span>
-                  </a>
-                </li>
+                  <li className="locations__item">
+                    <a className="locations__item-link tabs__item" href="#">
+                      <span>{item}</span>
+                    </a>
+                  </li>
                 )
               }
             </ul>
@@ -96,9 +96,7 @@ function App (props) {
                     </div>
                     <div className="place-card__rating rating">
                       <div className="place-card__stars rating__stars">
-                        <span style = {{
-                                         width: "80%",
-                                      }}>
+                        <span style = {{width: "80%",}}>
                         </span>
                         <span className="visually-hidden">Rating</span>
                       </div>
@@ -131,9 +129,7 @@ function App (props) {
                     </div>
                     <div className="place-card__rating rating">
                       <div className="place-card__stars rating__stars">
-                        <span style= {{
-                                        width: "80%"
-                                     }}>
+                        <span style= {{width: "80%"}}>
                         </span>
                         <span className="visually-hidden">Rating</span>
                       </div>
@@ -166,8 +162,7 @@ function App (props) {
                     </div>
                     <div className="place-card__rating rating">
                       <div className="place-card__stars rating__stars">
-                        <span style = {{width: "80%",
-                                      }}>
+                        <span style = {{width: "80%",}}>
                         </span>
                         <span className="visually-hidden">Rating</span>
                       </div>
@@ -203,9 +198,7 @@ function App (props) {
                     </div>
                     <div className="place-card__rating rating">
                       <div className="place-card__stars rating__stars">
-                        <span style={{
-                                      width: "100%"
-                                    }}>
+                        <span style={{width: "100%"}}>
                         </span>
                         <span className="visually-hidden">Rating</span>
                       </div>
@@ -238,9 +231,7 @@ function App (props) {
                     </div>
                     <div className="place-card__rating rating">
                       <div className="place-card__stars rating__stars">
-                        <span style={{
-                                      width: "80%",
-                                    }}>
+                        <span style={{width: "80%",}}>
                         </span>
                         <span className="visually-hidden">Rating</span>
                       </div>
@@ -274,9 +265,9 @@ function ChoiceDirection() {
         </li>
       }
       ).join()
-      }
+      };
     </React.Fragment>
   )
-}
+};
 
 export {App};
