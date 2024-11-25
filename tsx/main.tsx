@@ -1,5 +1,6 @@
+const directions:string[] = ['Paris','Cologne','Brussels','Amsterdam','Hamburg','Dusseldorf'];
 
-function mainComponent () {
+function App () {
   return ( `
 <!DOCTYPE html>
 <html lang="en">
@@ -54,36 +55,7 @@ function mainComponent () {
         <div class="tabs">
           <section class="locations container">
             <ul class="locations__list tabs__list">
-              <li class="locations__item">
-                <a class="locations__item-link tabs__item" href="#">
-                  <span>Paris</span>
-                </a>
-              </li>
-              <li class="locations__item">
-                <a class="locations__item-link tabs__item" href="#">
-                  <span>Cologne</span>
-                </a>
-              </li>
-              <li class="locations__item">
-                <a class="locations__item-link tabs__item" href="#">
-                  <span>Brussels</span>
-                </a>
-              </li>
-              <li class="locations__item">
-                <a class="locations__item-link tabs__item tabs__item--active">
-                  <span>Amsterdam</span>
-                </a>
-              </li>
-              <li class="locations__item">
-                <a class="locations__item-link tabs__item" href="#">
-                  <span>Hamburg</span>
-                </a>
-              </li>
-              <li class="locations__item">
-                <a class="locations__item-link tabs__item" href="#">
-                  <span>Dusseldorf</span>
-                </a>
-              </li>
+              ${<ChoiceDirection />}
             </ul>
           </section>
         </div>
@@ -285,5 +257,18 @@ function mainComponent () {
   </body>
 </html>
 `
+  )
+}
+
+function ChoiceDirection() {
+  return (
+    directions.map((item) => {
+      <li className='locations__item'>
+        <a className='locations__item-link tabs__item' href='#'>
+          <span>{item}</span>
+        </a>
+      </li>
+    }
+    )
   )
 }
