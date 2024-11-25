@@ -1,4 +1,3 @@
-import React from 'react';
 
 const directions:string[] = ['Paris','Cologne','Brussels','Amsterdam','Hamburg','Dusseldorf'];
 
@@ -254,9 +253,10 @@ function App (props) {
   )
 }
 
+/*
 function ChoiceDirection() {
   return (
-    <React.Fragment>
+    <>
       {directions.map((item) => {
         <li className="locations__item">
           <a className="locations__item-link tabs__item" href="#">
@@ -264,10 +264,11 @@ function ChoiceDirection() {
           </a>
         </li>
       }
-      ).join()
+      )
       };
-    </React.Fragment>
+    </>
   )
 };
+*/
 
 export {App};
