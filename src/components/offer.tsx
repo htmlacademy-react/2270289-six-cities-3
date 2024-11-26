@@ -66,14 +66,14 @@ export default function Offer() {
                 </h1>
                 <button className="offer__bookmark-button button" type="button">
                   <svg className="offer__bookmark-icon" width="31" height="33">
-                    <use xlink:href="#icon-bookmark"></use>
+                    <use xlinkHref="#icon-bookmark"></use>
                   </svg>
                   <span className="visually-hidden">To bookmarks</span>
                 </button>
               </div>
               <div className="offer__rating rating">
                 <div className="offer__stars rating__stars">
-                  <span style="width: 80%"></span>
+                  <span style={{width: '80%'}}"></span>
                   <span className="visually-hidden">Rating</span>
                 </div>
                 <span className="offer__rating-value rating__value">4.8</span>
@@ -132,7 +132,7 @@ export default function Offer() {
                 <h2 className="offer__host-title">Meet the host</h2>
                 <div className="offer__host-user user">
                   <div className="offer__avatar-wrapper offer__avatar-wrapper--pro user__avatar-wrapper">
-                    <img className="offer__avatar user__avatar" src="img/avatar-angelina.jpg" width="74" height="74" alt="Host avatar">
+                    <img className="offer__avatar user__avatar" src="img/avatar-angelina.jpg" width="74" height="74" alt="Host avatar" />
                   </div>
                   <span className="offer__user-name">
                     Angelina
@@ -156,7 +156,7 @@ export default function Offer() {
                   <li className="reviews__item">
                     <div className="reviews__user user">
                       <div className="reviews__avatar-wrapper user__avatar-wrapper">
-                        <img className="reviews__avatar user__avatar" src="img/avatar-max.jpg" width="54" height="54" alt="Reviews avatar">
+                        <img className="reviews__avatar user__avatar" src="img/avatar-max.jpg" width="54" height="54" alt="Reviews avatar" />
                       </div>
                       <span className="reviews__user-name">
                         Max
@@ -165,52 +165,52 @@ export default function Offer() {
                     <div className="reviews__info">
                       <div className="reviews__rating rating">
                         <div className="reviews__stars rating__stars">
-                          <span style="width: 80%"></span>
+                          <span style={{width: '80%'}}></span>
                           <span className="visually-hidden">Rating</span>
                         </div>
                       </div>
                       <p className="reviews__text">
                         A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.
                       </p>
-                      <time className="reviews__time" datetime="2019-04-24">April 2019</time>
+                      <time className="reviews__time" dateTime="2019-04-24">April 2019</time>
                     </div>
                   </li>
                 </ul>
                 <form className="reviews__form form" action="#" method="post">
                   <label className="reviews__label form__label" for="review">Your review</label>
                   <div className="reviews__rating-form form__rating">
-                    <input className="form__rating-input visually-hidden" name="rating" value="5" id="5-stars" type="radio">
+                    <input className="form__rating-input visually-hidden" name="rating" value="5" id="5-stars" type="radio" />
                     <label for="5-stars" className="reviews__rating-label form__rating-label" title="perfect">
                       <svg className="form__star-image" width="37" height="33">
-                        <use xlink:href="#icon-star"></use>
+                        <use xlinkHref="#icon-star"></use>
                       </svg>
                     </label>
 
-                    <input className="form__rating-input visually-hidden" name="rating" value="4" id="4-stars" type="radio">
+                    <input className="form__rating-input visually-hidden" name="rating" value="4" id="4-stars" type="radio" />
                     <label for="4-stars" className="reviews__rating-label form__rating-label" title="good">
                       <svg className="form__star-image" width="37" height="33">
-                        <use xlink:href="#icon-star"></use>
+                        <use xlinkHref="#icon-star"></use>
                       </svg>
                     </label>
 
                     <input className="form__rating-input visually-hidden" name="rating" value="3" id="3-stars" type="radio">
                     <label for="3-stars" className="reviews__rating-label form__rating-label" title="not bad">
                       <svg className="form__star-image" width="37" height="33">
-                        <use xlink:href="#icon-star"></use>
+                        <use xlinkHref="#icon-star"></use>
                       </svg>
                     </label>
 
                     <input className="form__rating-input visually-hidden" name="rating" value="2" id="2-stars" type="radio">
                     <label for="2-stars" className="reviews__rating-label form__rating-label" title="badly">
                       <svg className="form__star-image" width="37" height="33">
-                        <use xlink:href="#icon-star"></use>
+                        <use xlinkHref="#icon-star"></use>
                       </svg>
                     </label>
 
                     <input className="form__rating-input visually-hidden" name="rating" value="1" id="1-star" type="radio">
                     <label for="1-star" className="reviews__rating-label form__rating-label" title="terribly">
                       <svg className="form__star-image" width="37" height="33">
-                        <use xlink:href="#icon-star"></use>
+                        <use xlinkHref="#icon-star"></use>
                       </svg>
                     </label>
                   </div>
@@ -234,7 +234,7 @@ export default function Offer() {
               <article className="near-places__card place-card">
                 <div className="near-places__image-wrapper place-card__image-wrapper">
                   <a href="#">
-                    <img className="place-card__image" src="img/room.jpg" width="260" height="200" alt="Place image">
+                    <img className="place-card__image" src="img/room.jpg" width="260" height="200" alt="Place image" />
                   </a>
                 </div>
                 <div className="place-card__info">
@@ -245,14 +245,14 @@ export default function Offer() {
                     </div>
                     <button className="place-card__bookmark-button place-card__bookmark-button--active button" type="button">
                       <svg className="place-card__bookmark-icon" width="18" height="19">
-                        <use xlink:href="#icon-bookmark"></use>
+                        <use xlinkHref="#icon-bookmark"></use>
                       </svg>
                       <span className="visually-hidden">In bookmarks</span>
                     </button>
                   </div>
                   <div className="place-card__rating rating">
                     <div className="place-card__stars rating__stars">
-                      <span style="width: 80%"></span>
+                      <span style={{width: '80%'}}></span>
                       <span className="visually-hidden">Rating</span>
                     </div>
                   </div>
@@ -266,7 +266,7 @@ export default function Offer() {
               <article className="near-places__card place-card">
                 <div className="near-places__image-wrapper place-card__image-wrapper">
                   <a href="#">
-                    <img className="place-card__image" src="img/apartment-02.jpg" width="260" height="200" alt="Place image">
+                    <img className="place-card__image" src="img/apartment-02.jpg" width="260" height="200" alt="Place image" />
                   </a>
                 </div>
                 <div className="place-card__info">
@@ -277,14 +277,14 @@ export default function Offer() {
                     </div>
                     <button className="place-card__bookmark-button button" type="button">
                       <svg className="place-card__bookmark-icon" width="18" height="19">
-                        <use xlink:href="#icon-bookmark"></use>
+                        <use xlinkHref="#icon-bookmark"></use>
                       </svg>
                       <span className="visually-hidden">To bookmarks</span>
                     </button>
                   </div>
                   <div className="place-card__rating rating">
                     <div className="place-card__stars rating__stars">
-                      <span style="width: 80%"></span>
+                      <span style={{width: '80%'}}></span>
                       <span className="visually-hidden">Rating</span>
                     </div>
                   </div>
@@ -301,7 +301,7 @@ export default function Offer() {
                 </div>
                 <div className="near-places__image-wrapper place-card__image-wrapper">
                   <a href="#">
-                    <img className="place-card__image" src="img/apartment-03.jpg" width="260" height="200" alt="Place image">
+                    <img className="place-card__image" src="img/apartment-03.jpg" width="260" height="200" alt="Place image" />
                   </a>
                 </div>
                 <div className="place-card__info">
@@ -312,14 +312,14 @@ export default function Offer() {
                     </div>
                     <button className="place-card__bookmark-button button" type="button">
                       <svg className="place-card__bookmark-icon" width="18" height="19">
-                        <use xlink:href="#icon-bookmark"></use>
+                        <use xlinkHref="#icon-bookmark"></use>
                       </svg>
                       <span className="visually-hidden">To bookmarks</span>
                     </button>
                   </div>
                   <div className="place-card__rating rating">
                     <div className="place-card__stars rating__stars">
-                      <span style="width: 100%"></span>
+                      <span style={{width: '100%'}}></span>
                       <span className="visually-hidden">Rating</span>
                     </div>
                   </div>

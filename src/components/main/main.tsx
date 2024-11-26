@@ -1,7 +1,10 @@
 
 const directions:string[] = ['Paris','Cologne','Brussels','Amsterdam','Hamburg','Dusseldorf'];
+type CountArendaProps = {
+  countArenda : number;
+}
 
-function App (props) {
+export default function Main ({countArenda} : CountArendaProps ) {
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -54,7 +57,7 @@ function App (props) {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{props.countArenda} places to stay in Amsterdam</b>
+              <b className="places__found">{countArenda} places to stay in Amsterdam</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex={0}>
@@ -271,4 +274,4 @@ function ChoiceDirection() {
 };
 */
 
-export {App};
+
