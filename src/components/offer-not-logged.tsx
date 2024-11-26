@@ -1,5 +1,5 @@
 
-export default function OfferNotLogged () {
+export default function OfferNotLogged () : JSX.Element {
   return (
     <div className="page">
       <header className="header">

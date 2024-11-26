@@ -2,7 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
 
-
+const Setting = {
+  countArenda : 300,
+} as const;
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -10,6 +12,6 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <App countArenda={300} />
+    <App countArenda={Setting.countArenda} />
   </React.StrictMode>
 );

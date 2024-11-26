@@ -4,7 +4,7 @@ type CountArendaProps = {
   countArenda : number;
 }
 
-export default function Main ({countArenda} : CountArendaProps ) {
+export default function Main ({countArenda} : CountArendaProps ) : JSX.Element {
   return (
     <div className="page page--gray page--main">
       <header className="header">
