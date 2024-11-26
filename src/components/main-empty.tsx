@@ -82,5 +82,5 @@ export default function MainEmpty() : JSX.Element {
         </div>
       </main>
     </div>
-  )
+  );
 }

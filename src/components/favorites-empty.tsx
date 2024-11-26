@@ -49,5 +49,5 @@ export default function FavoritesEmpty() : JSX.Element {
       </footer>
     </div>
 
-  )
-};
+  );
+}

@@ -282,5 +282,5 @@ export default function OfferNotLogged () : JSX.Element {
         </div>
       </main>
     </div>
-  )
+  );
 }

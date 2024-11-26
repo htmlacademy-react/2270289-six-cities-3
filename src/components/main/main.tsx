@@ -4,7 +4,7 @@ type CountArendaProps = {
   countArenda : number;
 }
 
-export default function Main ({countArenda} : CountArendaProps ) : JSX.Element {
+export default function Main ({countArenda} : CountArendaProps) : JSX.Element {
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -42,12 +42,12 @@ export default function Main ({countArenda} : CountArendaProps ) : JSX.Element {
           <section className="locations container">
             <ul className="locations__list tabs__list">
               {
-                directions.map((item) =>
+                directions.map((item) => (
                   <li className="locations__item">
                     <a className="locations__item-link tabs__item" href="#">
                       <span>{item}</span>
                     </a>
-                  </li>
+                  </li>)
                 )
               }
             </ul>
@@ -98,7 +98,7 @@ export default function Main ({countArenda} : CountArendaProps ) : JSX.Element {
                     </div>
                     <div className="place-card__rating rating">
                       <div className="place-card__stars rating__stars">
-                        <span style = {{width: "80%",}}>
+                        <span style = {{width: '80%'}}>
                         </span>
                         <span className="visually-hidden">Rating</span>
                       </div>
@@ -131,7 +131,7 @@ export default function Main ({countArenda} : CountArendaProps ) : JSX.Element {
                     </div>
                     <div className="place-card__rating rating">
                       <div className="place-card__stars rating__stars">
-                        <span style= {{width: "80%"}}>
+                        <span style= {{width: '80%'}}>
                         </span>
                         <span className="visually-hidden">Rating</span>
                       </div>
@@ -164,7 +164,7 @@ export default function Main ({countArenda} : CountArendaProps ) : JSX.Element {
                     </div>
                     <div className="place-card__rating rating">
                       <div className="place-card__stars rating__stars">
-                        <span style = {{width: "80%",}}>
+                        <span style = {{width: '80%'}}>
                         </span>
                         <span className="visually-hidden">Rating</span>
                       </div>
@@ -200,7 +200,7 @@ export default function Main ({countArenda} : CountArendaProps ) : JSX.Element {
                     </div>
                     <div className="place-card__rating rating">
                       <div className="place-card__stars rating__stars">
-                        <span style={{width: "100%"}}>
+                        <span style={{width: '100%'}}>
                         </span>
                         <span className="visually-hidden">Rating</span>
                       </div>
@@ -233,7 +233,7 @@ export default function Main ({countArenda} : CountArendaProps ) : JSX.Element {
                     </div>
                     <div className="place-card__rating rating">
                       <div className="place-card__stars rating__stars">
-                        <span style={{width: "80%",}}>
+                        <span style={{width: '80%'}}>
                         </span>
                         <span className="visually-hidden">Rating</span>
                       </div>
@@ -253,7 +253,7 @@ export default function Main ({countArenda} : CountArendaProps ) : JSX.Element {
         </div>
       </main>
     </div>
-  )
+  );
 }
 
 /*
