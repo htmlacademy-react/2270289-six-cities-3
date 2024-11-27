@@ -1,4 +1,46 @@
 
+type TypePlacement = string;
+type CityName = string;
+
+type Location = {
+  latitude: number,
+  longitude: number,
+  zoom: number
+};
+
+type CityDestination = {
+  name: CityName,
+  location: Location
+};
+
+type Goods = string[];
+
+type Hostel = {
+  name: string,
+  avatarUrl: string,
+  isPro: boolean
+};
+
+type Images = string[];
+
+type OfferCard = {
+  id: string,
+  title: string,
+  type: TypePlacement,
+  price: number,
+  city: CityDestination,
+  location: Location,
+  isFavorite: boolean,
+  isPremium: boolean,
+  rating: number,
+  description: string,
+  bedrooms: number,
+  goods: Goods,
+  host: Hostel,
+  images: Images,
+  maxAdults: number
+}
+
 export default function Card() : JSX.Element {
   return (
     <>
