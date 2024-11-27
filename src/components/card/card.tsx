@@ -61,7 +61,7 @@ type Hostel = {
 type Images = string[];
 
 type OfferCard = {
-  id: string,
+  id : string,
   title: string,
   type: TypePlacement,
   price: number,
@@ -78,21 +78,40 @@ type OfferCard = {
   maxAdults: number
 }
 
+type OfferPreviewCard = {
+  id : string,
+  title: string,
+  type: TypePlacement,
+  price: number,
+  previewImage: string,
+  city: CityDestination,
+  location: Location,
+  isFavorite: boolean,
+  isPremium: boolean,
+  rating: number,
+}
+
 type ListCardProps = {
   listCards : OfferCard[],
 };
 
-export default function Card({listCards}:ListCardProps) : JSX.Element {
+type ListPreviewCardProps = {
+  listPreviewCards: OfferPreviewCard[],
+}
+
+export default function Card({listPreviewCards}:ListPreviewCardProps) : JSX.Element {
   return (
     <>
-      {listCards.map((card) => (
-        <article className="cities__card place-card">
+      {listPreviewCards.map((card) => (
+        <article className="cities__card place-card" key = {card.id}>
                   <div className="place-card__mark">
-                    {card.isPremium ? '<span>Premium</span>' : ''}
+                    <span>
+                      {card.isPremium ? 'Premium' : ''}
+                    </span>
                   </div>
                   <div className="cities__image-wrapper place-card__image-wrapper">
                     <a href="#">
-                      <img className="place-card__image" src="{card.host.avatarUrl}" width="260" height="200" alt="Place image" />
+                      <img className="place-card__image" src={card.previewImage} width="260" height="200" alt="Place image" />
                     </a>
                   </div>
                   <div className="place-card__info">
@@ -126,3 +145,5 @@ export default function Card({listCards}:ListCardProps) : JSX.Element {
     </>
   );
 }
+
+export type {ListCardProps,ListPreviewCardProps}
