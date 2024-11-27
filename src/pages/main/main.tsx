@@ -1,3 +1,5 @@
+import Card from "../../components/card";
+import {mockCard} from "../../../mock/mock-card.tsx"
 
 const directions:string[] = ['Paris','Cologne','Brussels','Amsterdam','Hamburg','Dusseldorf'];
 type CountArendaProps = {
@@ -74,9 +76,7 @@ export default function Main ({countArenda} : CountArendaProps) : JSX.Element {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-
-                <> </>
-
+                <Card listCards={mockCard.listCards} />
               </div>
             </section>
             <div className="cities__right-section">
@@ -88,23 +88,3 @@ export default function Main ({countArenda} : CountArendaProps) : JSX.Element {
     </div>
   );
 }
-
-/*
-function ChoiceDirection() {
-  return (
-    <>
-      {directions.map((item) => {
-        <li className="locations__item">
-          <a className="locations__item-link tabs__item" href="#">
-            <span>{item}</span>
-          </a>
-        </li>
-      }
-      )
-      };
-    </>
-  )
-};
-*/
-
-

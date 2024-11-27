@@ -1,3 +1,40 @@
+/*
+{
+"id": "6af6f711-c28d-4121-82cd-e0b462a27f00",
+"title": "Beautiful & luxurious studio at great location",
+"type": "apartment",
+"price": 120,
+"city": {
+"name": "Amsterdam",
+"location": {
+"latitude": 52.35514938496378,
+"longitude": 4.673877537499948,
+"zoom": 8
+}},
+"location": {
+"latitude": 52.35514938496378,
+"longitude": 4.673877537499948,
+"zoom": 8
+},
+"isFavorite": false,
+"isPremium": false,
+"rating": 4,
+"description": "A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.",
+"bedrooms": 3,
+"goods": [
+"Heating"
+],
+"host": {
+"name": "Oliver Conner",
+"avatarUrl": "https://url-to-image/image.png",
+"isPro": false
+},
+"images": [
+"https://url-to-image/image.png"
+],
+"maxAdults": 4
+}
+*/
 
 type TypePlacement = string;
 type CityName = string;
@@ -41,22 +78,27 @@ type OfferCard = {
   maxAdults: number
 }
 
-export default function Card() : JSX.Element {
+type ListCardProps = {
+  listCards : OfferCard[],
+};
+
+export default function Card({listCards}:ListCardProps) : JSX.Element {
   return (
     <>
-      <article className="cities__card place-card">
+      {listCards.map((card) => (
+        <article className="cities__card place-card">
                   <div className="place-card__mark">
-                    <span>Premium</span>
+                    {card.isPremium ? '<span>Premium</span>' : ''}
                   </div>
                   <div className="cities__image-wrapper place-card__image-wrapper">
                     <a href="#">
-                      <img className="place-card__image" src="img/apartment-01.jpg" width="260" height="200" alt="Place image" />
+                      <img className="place-card__image" src="{card.host.avatarUrl}" width="260" height="200" alt="Place image" />
                     </a>
                   </div>
                   <div className="place-card__info">
                     <div className="place-card__price-wrapper">
                       <div className="place-card__price">
-                        <b className="place-card__price-value">&euro;120</b>
+                        <b className="place-card__price-value">&euro;{card.price}</b>
                         <span className="place-card__price-text">&#47;&nbsp;night</span>
                       </div>
                       <button className="place-card__bookmark-button button" type="button">
@@ -73,143 +115,14 @@ export default function Card() : JSX.Element {
                       </div>
                     </div>
                     <h2 className="place-card__name">
-                      <a href="#">Beautiful &amp; luxurious apartment at great location</a>
+                      <a href="#">{card.title}</a>
                     </h2>
-                    <p className="place-card__type">Apartment</p>
+                    <p className="place-card__type">{card.type}</p>
                   </div>
                 </article>
-
-                <article className="cities__card place-card">
-                  <div className="cities__image-wrapper place-card__image-wrapper">
-                    <a href="#">
-                      <img className="place-card__image" src="img/room.jpg" width="260" height="200" alt="Place image" />
-                    </a>
-                  </div>
-                  <div className="place-card__info">
-                    <div className="place-card__price-wrapper">
-                      <div className="place-card__price">
-                        <b className="place-card__price-value">&euro;80</b>
-                        <span className="place-card__price-text">&#47;&nbsp;night</span>
-                      </div>
-                      <button className="place-card__bookmark-button place-card__bookmark-button--active button" type="button">
-                        <svg className="place-card__bookmark-icon" width="18" height="19">
-                          <use xlinkHref="#icon-bookmark"></use>
-                        </svg>
-                        <span className="visually-hidden">In bookmarks</span>
-                      </button>
-                    </div>
-                    <div className="place-card__rating rating">
-                      <div className="place-card__stars rating__stars">
-                        <span style={{width: '80%'}}></span>
-                        <span className="visually-hidden">Rating</span>
-                      </div>
-                    </div>
-                    <h2 className="place-card__name">
-                      <a href="#">Wood and stone place</a>
-                    </h2>
-                    <p className="place-card__type">Room</p>
-                  </div>
-                </article>
-
-                <article className="cities__card place-card">
-                  <div className="cities__image-wrapper place-card__image-wrapper">
-                    <a href="#">
-                      <img className="place-card__image" src="img/apartment-02.jpg" width="260" height="200" alt="Place image" />
-                    </a>
-                  </div>
-                  <div className="place-card__info">
-                    <div className="place-card__price-wrapper">
-                      <div className="place-card__price">
-                        <b className="place-card__price-value">&euro;132</b>
-                        <span className="place-card__price-text">&#47;&nbsp;night</span>
-                      </div>
-                      <button className="place-card__bookmark-button button" type="button">
-                        <svg className="place-card__bookmark-icon" width="18" height="19">
-                          <use xlinkHref="#icon-bookmark"></use>
-                        </svg>
-                        <span className="visually-hidden">To bookmarks</span>
-                      </button>
-                    </div>
-                    <div className="place-card__rating rating">
-                      <div className="place-card__stars rating__stars">
-                        <span style={{width: '80%'}}></span>
-                        <span className="visually-hidden">Rating</span>
-                      </div>
-                    </div>
-                    <h2 className="place-card__name">
-                      <a href="#">Canal View Prinsengracht</a>
-                    </h2>
-                    <p className="place-card__type">Apartment</p>
-                  </div>
-                </article>
-
-                <article className="cities__card place-card">
-                  <div className="place-card__mark">
-                    <span>Premium</span>
-                  </div>
-                  <div className="cities__image-wrapper place-card__image-wrapper">
-                    <a href="#">
-                      <img className="place-card__image" src="img/apartment-03.jpg" width="260" height="200" alt="Place image" />
-                    </a>
-                  </div>
-                  <div className="place-card__info">
-                    <div className="place-card__price-wrapper">
-                      <div className="place-card__price">
-                        <b className="place-card__price-value">&euro;180</b>
-                        <span className="place-card__price-text">&#47;&nbsp;night</span>
-                      </div>
-                      <button className="place-card__bookmark-button button" type="button">
-                        <svg className="place-card__bookmark-icon" width="18" height="19">
-                          <use xlinkHref="#icon-bookmark"></use>
-                        </svg>
-                        <span className="visually-hidden">To bookmarks</span>
-                      </button>
-                    </div>
-                    <div className="place-card__rating rating">
-                      <div className="place-card__stars rating__stars">
-                        <span style={{width: '100%'}}></span>
-                        <span className="visually-hidden">Rating</span>
-                      </div>
-                    </div>
-                    <h2 className="place-card__name">
-                      <a href="#">Nice, cozy, warm big bed apartment</a>
-                    </h2>
-                    <p className="place-card__type">Apartment</p>
-                  </div>
-                </article>
-
-                <article className="cities__card place-card">
-                  <div className="cities__image-wrapper place-card__image-wrapper">
-                    <a href="#">
-                      <img className="place-card__image" src="img/room.jpg" width="260" height="200" alt="Place image" />
-                    </a>
-                  </div>
-                  <div className="place-card__info">
-                    <div className="place-card__price-wrapper">
-                      <div className="place-card__price">
-                        <b className="place-card__price-value">&euro;80</b>
-                        <span className="place-card__price-text">&#47;&nbsp;night</span>
-                      </div>
-                      <button className="place-card__bookmark-button place-card__bookmark-button--active button" type="button">
-                        <svg className="place-card__bookmark-icon" width="18" height="19">
-                          <use xlinkHref="#icon-bookmark"></use>
-                        </svg>
-                        <span className="visually-hidden">In bookmarks</span>
-                      </button>
-                    </div>
-                    <div className="place-card__rating rating">
-                      <div className="place-card__stars rating__stars">
-                        <span style={{width: '80%'}}></span>
-                        <span className="visually-hidden">Rating</span>
-                      </div>
-                    </div>
-                    <h2 className="place-card__name">
-                      <a href="#">Wood and stone place</a>
-                    </h2>
-                    <p className="place-card__type">Room</p>
-                  </div>
-                </article>
-
+          )
+          )
+        }
     </>
   );
 }
