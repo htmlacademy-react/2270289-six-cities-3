@@ -1,5 +1,5 @@
 import Card from "../../components/card/card.tsx";
-import {mockCard, mockPreviewCard} from "../../../mock/mock-card.tsx"
+import {mockPreviewCard} from "../../../mock/mock-card.tsx"
 
 const directions:string[] = ['Paris','Cologne','Brussels','Amsterdam','Hamburg','Dusseldorf'];
 type CountArendaProps = {
