@@ -27,7 +27,7 @@ export default function App ({countArenda}: AppCountArendaProps) : JSX.Element {
             </PrivateRoute>
           }
         />
-        <Route path={AppRoute.Page404} element={<Page404 />}/>
+        <Route path='*' element={<Page404 />}/>
       </Routes>
     </BrowserRouter>
 
