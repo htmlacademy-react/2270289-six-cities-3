@@ -22,7 +22,7 @@ export default function App ({countArenda}: AppCountArendaProps) : JSX.Element {
           element={
             <PrivateRoute
               authorizationStatus={AuthorizationStatus.NoAuth}
-              >
+            >
               <Favorites />
             </PrivateRoute>
           }

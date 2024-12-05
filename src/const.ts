@@ -5,7 +5,7 @@ export enum AppRoute {
   Favorites = '/favorites',
   Offer = '/offer/:id',
   Page404 = '/*'
-};
+}
 
 export enum AuthorizationStatus {
   Auth = 'AUTH',
