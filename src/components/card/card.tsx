@@ -1,4 +1,5 @@
 import {useState} from 'react';
+import {Link} from 'react-router-dom';
 
 type TypePlacement = string;
 type CityName = string;
@@ -79,9 +80,15 @@ function CardOffer ({card} : {card: OfferPreviewCard}) : JSX.Element {
         </span>
       </div>
       <div className="cities__image-wrapper place-card__image-wrapper">
-        <a href="#">
+
+
+
+        <Link to='/offer/:1'>
           <img className="place-card__image" src={card.previewImage} width="260" height="200" alt="Place image" />
-        </a>
+        </Link>
+
+
+
       </div>
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
