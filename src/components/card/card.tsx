@@ -1,3 +1,4 @@
+import {useState} from 'react';
 
 type TypePlacement = string;
 type CityName = string;
@@ -62,9 +63,15 @@ type ListPreviewCardProps = {
   listPreviewCards: OfferPreviewCard[];
 }
 
+const [cardActive, setCardActive] = useState('445f03aa-9650-4b58-9304-8f0e453a4f41');
+
 function CardOffer ({card} : {card: OfferPreviewCard}) : JSX.Element {
   return (
-    <article className="cities__card place-card" key = {card.id}>
+    <article className="cities__card place-card" key = {card.id}
+      onMouseOver={() => {
+        setCardActive(card.id)
+      }}
+    >
       <div className="place-card__mark">
         <span>
           {card.isPremium ? 'Premium' : ''}
@@ -108,7 +115,6 @@ export default function ListOffer({listPreviewCards}:ListPreviewCardProps) : JSX
     <>
       {listPreviewCards.map((cardItem) => (
         <CardOffer card = {cardItem}/>
-
       )
       )}
     </>
