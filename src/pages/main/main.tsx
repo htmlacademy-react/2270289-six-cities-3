@@ -1,7 +1,8 @@
 import Card from '../../components/card/card.tsx';
 import {mockPreviewCard} from '../../mocks/mock-card.ts';
+import {directions} from '../../const.ts'
 
-const directions:string[] = ['Paris','Cologne','Brussels','Amsterdam','Hamburg','Dusseldorf'];
+
 type CountArendaProps = {
   countArenda : number;
 }

@@ -1,3 +1,5 @@
+export const directions:string[] = ['Paris','Cologne','Brussels','Amsterdam','Hamburg','Dusseldorf'];
+
 export enum AppRoute {
   Main = '/',
   Login = '/login',

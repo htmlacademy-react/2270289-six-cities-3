@@ -6,10 +6,14 @@ import Offer from '../pages/offer/offer.tsx';
 import Favorites from '../pages/favorites/favorites.tsx';
 import Page404 from '../pages/404/page-404.tsx';
 import PrivateRoute from '../components/private-route/private-route.tsx';
+import {mockPreviewCard} from '../mocks/mock-card.ts';
 
 type AppCountArendaProps = {
   countArenda : number;
 }
+console.log(mockPreviewCard);
+const favoritesCard = mockPreviewCard.listPreviewCards.filter((itemCard) => itemCard.isFavorite)
+console.log(favoritesCard);
 
 export default function App ({countArenda}: AppCountArendaProps) : JSX.Element {
   return (
@@ -21,15 +25,14 @@ export default function App ({countArenda}: AppCountArendaProps) : JSX.Element {
         <Route path={AppRoute.Favorites}
           element={
             <PrivateRoute
-              authorizationStatus={AuthorizationStatus.NoAuth}
+              authorizationStatus={AuthorizationStatus.Auth}
             >
-              <Favorites />
+              <Favorites listPreviewCards = {favoritesCard}/>
             </PrivateRoute>
           }
         />
         <Route path='*' element={<Page404 />}/>
       </Routes>
     </BrowserRouter>
-
   );
 }

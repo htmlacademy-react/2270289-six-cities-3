@@ -60,7 +60,7 @@ const mockPreviewCard: ListPreviewCardProps = {
         longitude: 2.342499,
         zoom: 16
       },
-      isFavorite: false,
+      isFavorite: true,
       isPremium: false,
       rating: 4.2
     },
@@ -83,7 +83,7 @@ const mockPreviewCard: ListPreviewCardProps = {
         longitude: 2.330499,
         zoom: 16
       },
-      isFavorite: false,
+      isFavorite: true,
       isPremium: true,
       rating: 2.1
     },
@@ -163,7 +163,7 @@ const mockPreviewCard: ListPreviewCardProps = {
       price: 354,
       previewImage: 'https://15.design.htmlacademy.pro/static/hotel/2.jpg',
       city: {
-        name: 'Paris',
+        name: 'Amsterdam',
         location: {
           latitude: 48.85661,
           longitude: 2.351499,
@@ -175,7 +175,7 @@ const mockPreviewCard: ListPreviewCardProps = {
         longitude: 2.353499,
         zoom: 16
       },
-      isFavorite: false,
+      isFavorite: true,
       isPremium: false,
       rating: 4.6
     },

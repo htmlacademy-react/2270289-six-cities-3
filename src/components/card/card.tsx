@@ -63,13 +63,14 @@ type ListPreviewCardProps = {
   listPreviewCards: OfferPreviewCard[];
 }
 
-const [cardActive, setCardActive] = useState('445f03aa-9650-4b58-9304-8f0e453a4f41');
 
 function CardOffer ({card} : {card: OfferPreviewCard}) : JSX.Element {
+  const [cardActive, setCardActive] = useState('');
   return (
-    <article className="cities__card place-card" key = {card.id}
+    <article className="cities__card place-card"
       onMouseOver={() => {
         setCardActive(card.id)
+        console.log(cardActive);
       }}
     >
       <div className="place-card__mark">
@@ -114,11 +115,11 @@ export default function ListOffer({listPreviewCards}:ListPreviewCardProps) : JSX
   return (
     <>
       {listPreviewCards.map((cardItem) => (
-        <CardOffer card = {cardItem}/>
+        <CardOffer card = {cardItem}  key = {cardItem.id} />
       )
       )}
     </>
   );
 }
 
-export type {ListCardProps,ListPreviewCardProps};
+export type {ListCardProps,ListPreviewCardProps,OfferPreviewCard};
