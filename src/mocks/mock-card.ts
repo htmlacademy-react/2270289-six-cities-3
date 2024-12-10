@@ -1,4 +1,4 @@
-import type {ListCardProps,ListPreviewCardProps} from '../src/components/card/card.tsx'
+import type {ListCardProps,ListPreviewCardProps} from '../components/card/card.tsx'
 
 const mockCard: ListCardProps = {
   listCards : [
