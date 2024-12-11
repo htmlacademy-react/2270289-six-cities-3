@@ -1,11 +1,5 @@
 import {useState } from 'react';
-
-type CommentForOffer = {
-  id : string;
-  title: string;
-  rating: number;
-  description: string;
-}
+import type {CommentForOffer} from '../../types.ts'
 
 const nullCommentForOffer : CommentForOffer = {
   id : '',

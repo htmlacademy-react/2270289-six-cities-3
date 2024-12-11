@@ -52,5 +52,26 @@ type OfferPreviewCard = {
 }
 
 
+type CommentForOffer = {
+  id : string;
+  title: string;
+  rating: number;
+  description: string;
+}
 
-export type {OfferCard,OfferPreviewCard}
+type UserDescription = {
+  nameUser : string;
+  avatarUrl: string;
+  isPro : boolean;
+}
+
+type CommentProposal = {
+  id: string;
+  date: Date;
+  user: UserDescription;
+  comment: string;
+  rating: number;
+}
+
+
+export type {OfferCard,OfferPreviewCard,CommentForOffer,CommentProposal}

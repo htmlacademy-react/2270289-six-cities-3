@@ -1,17 +1,4 @@
-
-type UserDescription = {
-  nameUser : string;
-  avatarUrl: string;
-  isPro : boolean;
-}
-
-type CommentProposal = {
-  id: string;
-  date: Date;
-  user: UserDescription;
-  comment: string;
-  rating: number;
-}
+import type {CommentProposal} from '../types.ts'
 
 type ListCommentsProposalProps = {
   ListCommentsProposal: CommentProposal[];
@@ -98,3 +85,5 @@ const ListComments : ListCommentsProposalProps = {
 ]
 
 }
+
+export {ListComments}
