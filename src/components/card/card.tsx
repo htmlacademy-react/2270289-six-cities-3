@@ -1,60 +1,6 @@
 import {useState} from 'react';
 import {Link} from 'react-router-dom';
-
-type TypePlacement = string;
-type CityName = string;
-
-type Location = {
-  latitude: number;
-  longitude: number;
-  zoom: number;
-};
-
-type CityDestination = {
-  name: CityName;
-  location: Location;
-};
-
-type Goods = string[];
-
-type Hostel = {
-  name: string;
-  avatarUrl: string;
-  isPro: boolean;
-};
-
-type Images = string[];
-
-type OfferCard = {
-  id : string;
-  title: string;
-  type: TypePlacement;
-  price: number;
-  city: CityDestination;
-  location: Location;
-  isFavorite: boolean;
-  isPremium: boolean;
-  rating: number;
-  description: string;
-  bedrooms: number;
-  goods: Goods;
-  host: Hostel;
-  images: Images;
-  maxAdults: number;
-}
-
-type OfferPreviewCard = {
-  id : string;
-  title: string;
-  type: TypePlacement;
-  price: number;
-  previewImage: string;
-  city: CityDestination;
-  location: Location;
-  isFavorite: boolean;
-  isPremium: boolean;
-  rating: number;
-}
+import type {OfferCard,OfferPreviewCard} from '../../types.ts'
 
 type ListCardProps = {
   listCards : OfferCard[];
@@ -63,7 +9,6 @@ type ListCardProps = {
 type ListPreviewCardProps = {
   listPreviewCards: OfferPreviewCard[];
 }
-
 
 function CardOffer ({card} : {card: OfferPreviewCard}) : JSX.Element {
   const [cardActive, setCardActive] = useState('');
