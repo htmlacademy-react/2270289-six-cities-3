@@ -11,9 +11,9 @@ import {mockPreviewCard} from '../mocks/mock-card.ts';
 type AppCountArendaProps = {
   countArenda : number;
 }
-console.log(mockPreviewCard);
+//console.log(mockPreviewCard);
 const favoritesCard = mockPreviewCard.listPreviewCards.filter((itemCard) => itemCard.isFavorite)
-console.log(favoritesCard);
+//console.log(favoritesCard);
 
 export default function App ({countArenda}: AppCountArendaProps) : JSX.Element {
   return (

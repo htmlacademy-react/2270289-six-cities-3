@@ -1,5 +1,7 @@
 import {useState} from 'react';
 import {Link} from 'react-router-dom';
+//import {TypeCard} from '../../const.ts'
+
 import type {OfferCard,OfferPreviewCard} from '../../types.ts'
 
 type ListCardProps = {
@@ -7,14 +9,15 @@ type ListCardProps = {
 };
 
 type ListPreviewCardProps = {
-  listPreviewCards: OfferPreviewCard[];
+  listPreviewCards: OfferPreviewCard [];
 }
 
 function CardOffer ({card} : {card: OfferPreviewCard}) : JSX.Element {
+
   const [cardActive, setCardActive] = useState('');
   return (
     <article className="cities__card place-card"
-      onMouseOver={() => {
+      onMouseEnter={() => {
         setCardActive(card.id)
         console.log(cardActive);
       }}
@@ -27,11 +30,9 @@ function CardOffer ({card} : {card: OfferPreviewCard}) : JSX.Element {
       <div className="cities__image-wrapper place-card__image-wrapper">
 
 
-
         <Link to='/offer/:1'>
           <img className="place-card__image" src={card.previewImage} width="260" height="200" alt="Place image" />
         </Link>
-
 
 
       </div>
@@ -63,11 +64,12 @@ function CardOffer ({card} : {card: OfferPreviewCard}) : JSX.Element {
   )
 }
 
-export default function ListOffer({listPreviewCards}:ListPreviewCardProps) : JSX.Element {
+export default function ListOffer({listPreviewCards}: ListPreviewCardProps ) : JSX.Element {
+  console.log(listPreviewCards);
   return (
     <>
       {listPreviewCards.map((cardItem) => (
-        <CardOffer card = {cardItem}  key = {cardItem.id} />
+        <CardOffer card = {cardItem} key = {cardItem.id} />
       )
       )}
     </>
