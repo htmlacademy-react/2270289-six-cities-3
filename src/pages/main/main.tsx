@@ -1,6 +1,6 @@
 import ListOffer from '../../components/card/card.tsx';
 import {mockPreviewCard} from '../../mocks/mock-card.ts';
-import {directions} from '../../const.ts'
+import {directions} from '../../const.ts';
 import {Link } from 'react-router-dom';
 
 type CountArendaProps = {

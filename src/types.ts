@@ -41,7 +41,7 @@ type OfferCard = {
 type OfferPreviewCard = {
   id : string;
   title: string;
-  type: string
+  type: string;
   price: number;
   previewImage: string;
   city: CityDestination;
@@ -74,4 +74,4 @@ type CommentProposal = {
 }
 
 
-export type {OfferCard,OfferPreviewCard,CommentForOffer,CommentProposal}
+export type {OfferCard,OfferPreviewCard,CommentForOffer,CommentProposal};

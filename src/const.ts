@@ -14,7 +14,7 @@ export enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 
-export enum TypeCard  {
+export enum TypeCard {
   City = 'cities__card place-card',
   Favorite = 'favorites__card place-card'
 }

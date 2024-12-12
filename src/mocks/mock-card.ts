@@ -1,46 +1,48 @@
-import type {ListCardProps,ListPreviewCardProps} from '../components/card/card.tsx'
+import type { ListCardProps, ListPreviewCardProps } from '../components/card/card.tsx';
 
 const mockCard: ListCardProps = {
-  listCards : [
-    {id: '6af6f711-c28d-4121-82cd-e0b462a27f00',
-    title: 'Beautiful & luxurious studio at great location',
-    type: 'apartment',
-    price: 120,
-    city: {
-      name: 'Amsterdam',
+  listCards: [
+    {
+      id: '6af6f711-c28d-4121-82cd-e0b462a27f00',
+      title: 'Beautiful & luxurious studio at great location',
+      type: 'apartment',
+      price: 120,
+      city: {
+        name: 'Amsterdam',
+        location: {
+          latitude: 52.35514938496378,
+          longitude: 4.673877537499948,
+          zoom: 8
+        }
+      },
       location: {
         latitude: 52.35514938496378,
         longitude: 4.673877537499948,
         zoom: 8
-      }
-    },
-    location: {
-      latitude: 52.35514938496378,
-      longitude: 4.673877537499948,
-      zoom: 8
-    },
-    isFavorite: false,
-    isPremium: false,
-    rating: 4,
-    description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
-    bedrooms: 3,
-    goods: [
-      'Heating'
+      },
+      isFavorite: false,
+      isPremium: false,
+      rating: 4,
+      description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
+      bedrooms: 3,
+      goods: [
+        'Heating'
       ],
-    host: {
-      name: 'Oliver Conner',
-      avatarUrl: 'https://url-to-image/image.png',
-      isPro: false
-    },
-    images: [
-      'https://url-to-image/image.png'
+      host: {
+        name: 'Oliver Conner',
+        avatarUrl: 'https://url-to-image/image.png',
+        isPro: false
+      },
+      images: [
+        'https://url-to-image/image.png'
       ],
-    maxAdults: 4}
+      maxAdults: 4
+    }
   ]
-}
+};
 
 const mockPreviewCard: ListPreviewCardProps = {
-  listPreviewCards : [
+  listPreviewCards: [
     {
       id: '445f03aa-9650-4b58-9304-8f0e453a4f41',
       title: 'Penthouse, 4-5 rooms + 5 balconies',
@@ -226,6 +228,6 @@ const mockPreviewCard: ListPreviewCardProps = {
       rating: 2.7
     },
   ]
-}
+};
 
-export {mockCard, mockPreviewCard}
+export { mockCard, mockPreviewCard };

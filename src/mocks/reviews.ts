@@ -1,4 +1,4 @@
-import type {CommentProposal} from '../types.ts'
+import type {CommentProposal} from '../types.ts';
 
 type ListCommentsProposalProps = {
   ListCommentsProposal: CommentProposal[];
@@ -82,8 +82,7 @@ const ListComments : ListCommentsProposalProps = {
       isPro: false
     }
   }
-]
+  ]
+};
 
-}
-
-export {ListComments}
+export {ListComments};
