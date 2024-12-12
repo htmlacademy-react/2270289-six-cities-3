@@ -1,7 +1,8 @@
-import Card from '../../components/card/card.tsx';
-import {mockPreviewCard} from '../../../mock/mock-card.tsx';
+import ListOffer from '../../components/card/card.tsx';
+import {mockPreviewCard} from '../../mocks/mock-card.ts';
+import {directions} from '../../const.ts';
+import {Link } from 'react-router-dom';
 
-const directions:string[] = ['Paris','Cologne','Brussels','Amsterdam','Hamburg','Dusseldorf'];
 type CountArendaProps = {
   countArenda : number;
 }
@@ -13,9 +14,9 @@ export default function Main ({countArenda} : CountArendaProps) : JSX.Element {
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-              <a className="header__logo-link header__logo-link--active">
+              <Link className="header__logo-link header__logo-link--active" to='/'>
                 <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41" />
-              </a>
+              </Link>
             </div>
             <nav className="header__nav">
               <ul className="header__nav-list">
@@ -76,7 +77,7 @@ export default function Main ({countArenda} : CountArendaProps) : JSX.Element {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                <Card listPreviewCards={mockPreviewCard.listPreviewCards} />
+                <ListOffer listPreviewCards={mockPreviewCard.listPreviewCards} />
               </div>
             </section>
             <div className="cities__right-section">
