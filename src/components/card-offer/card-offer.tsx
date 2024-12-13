@@ -1,12 +1,5 @@
-
+import type {OfferProps} from '../../types.ts';
 import {Link} from 'react-router-dom';
-import type {OfferPreview} from '../../types.ts';
-
-type OfferProps = {
-  offer: OfferPreview;
-  variantCard : 'cities'|'favorite';
-  mouseMove: (id:string|null) => void;
-}
 
 export default function CardOffer ({offer,variantCard,mouseMove} : OfferProps) : JSX.Element {
 

@@ -73,5 +73,16 @@ type CommentProposal = {
   rating: number;
 }
 
+type OfferProps = {
+  offer: OfferPreview;
+  variantCard : 'cities'|'favorite';
+  mouseMove: (id:string|null) => void;
+}
 
-export type {Offer,OfferPreview,CommentForOffer,CommentProposal};
+type ListOfferProps = {
+  listOffer: OfferPreview[];
+  variantCard : 'cities'|'favorite';
+  mouseMove: (id:string|null) => void;
+}
+
+export type {Offer,OfferPreview,CommentForOffer,CommentProposal,OfferProps,ListOfferProps};

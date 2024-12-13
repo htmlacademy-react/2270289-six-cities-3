@@ -1,14 +1,5 @@
-
-import type {OfferPreview} from '../../types.ts';
-//import FavoriteCard from '../favorite-card/favorite-card.tsx';
-import CardOffer from '../card-offer/card-offer.tsx'
-
-
-type ListOfferProps = {
-  listOffer: OfferPreview[];
-  variantCard : 'cities'|'favorite';
-  mouseMove: (id:string|null) => void;
-}
+import type {ListOfferProps} from '../../types.ts';
+import CardOffer from '../card-offer/card-offer.tsx';
 
 export default function FavoriteCardItemGroup({listOffer, variantCard, mouseMove}: ListOfferProps): JSX.Element {
   const citySet = new Set(listOffer.map((item) => item.city.name));
@@ -27,9 +18,7 @@ export default function FavoriteCardItemGroup({listOffer, variantCard, mouseMove
           <div className="favorites__places">
             {listOffer.map((itemOffer) =>
               (
-                //(itemOffer.city.name === city) && <FavoriteCard offer={itemOffer} key={itemOffer.id} variantCard={variantCard} mouseMove={mouseMove} />
                 (itemOffer.city.name === city) && <CardOffer offer = {itemOffer} key = {itemOffer.id} variantCard={variantCard} mouseMove={mouseMove} />
-
               )
             )}
           </div>

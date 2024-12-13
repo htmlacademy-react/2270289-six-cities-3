@@ -1,11 +1,5 @@
-import type {OfferPreview} from '../../types.ts';
-import CardOffer from '../card-offer/card-offer.tsx'
-
-type ListOfferProps = {
-  listOffer: OfferPreview[];
-  variantCard : 'cities'|'favorite';
-  mouseMove: (id:string|null) => void;
-}
+import type {ListOfferProps} from '../../types.ts';
+import CardOffer from '../card-offer/card-offer.tsx';
 
 export default function ListOffer({listOffer,variantCard, mouseMove} : ListOfferProps) : JSX.Element {
   return (
