@@ -1,4 +1,4 @@
-import type {OfferPreviewCard} from '../../components/card/card.tsx';
+import type {OfferPreviewCard} from '../card-offer/card-offer.tsx';
 
 export default function FavoriteCard ({card} : {card: OfferPreviewCard}) : JSX.Element {
   return (

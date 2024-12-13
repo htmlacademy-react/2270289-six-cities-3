@@ -1,5 +1,5 @@
 
-import type { ListPreviewCardProps } from '../../components/card/card.tsx';
+import type { ListPreviewCardProps } from '../card-offer/card-offer.tsx';
 import FavoriteCard from '../favorite-card/favorite-card.tsx';
 
 export default function FavoriteCardItemGroup({ listPreviewCards }: ListPreviewCardProps): JSX.Element {

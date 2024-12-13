@@ -1,4 +1,4 @@
-import type {ListPreviewCardProps} from '../../components/card/card.tsx';
+import type {ListPreviewCardProps} from '../../components/card-offer/card-offer.tsx';
 
 import FavoriteCardItemGroup from '../../components/favorite-card-item-group/favorite-card-item-group.tsx';
 

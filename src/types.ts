@@ -20,7 +20,7 @@ type Hostel = {
 
 type Images = string[];
 
-type OfferCard = {
+type Offer = {
   id : string;
   title: string;
   type: string;
@@ -38,7 +38,7 @@ type OfferCard = {
   maxAdults: number;
 }
 
-type OfferPreviewCard = {
+type OfferPreview = {
   id : string;
   title: string;
   type: string;
@@ -74,4 +74,4 @@ type CommentProposal = {
 }
 
 
-export type {OfferCard,OfferPreviewCard,CommentForOffer,CommentProposal};
+export type {Offer,OfferPreview,CommentForOffer,CommentProposal};
