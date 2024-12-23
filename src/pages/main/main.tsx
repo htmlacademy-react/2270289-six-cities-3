@@ -3,6 +3,7 @@ import ListOffer from '../../components/card-offer-list/card-offer-list.tsx';
 import {mockPreviewCard} from '../../mocks/mock-card.ts';
 import {directions} from '../../const.ts';
 import {Link } from 'react-router-dom';
+import MapComponent from '../../components/map/map.tsx';
 
 type CountArendaProps = {
   countArenda : number;
@@ -84,7 +85,9 @@ export default function Main ({countArenda} : CountArendaProps) : JSX.Element {
               </div>
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map"></section>
+
+              <MapComponent />
+
             </div>
           </div>
         </div>
