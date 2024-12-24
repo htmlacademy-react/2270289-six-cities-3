@@ -1,7 +1,7 @@
 import {Link } from 'react-router-dom';
 import OfferComment from '../../components/offer-comment/offer-comment';
 import ReviewList from '../../components/review-list/review-list';
-import { MockReviewByOffer } from '../../mocks/mock-reviews'
+import { MockReviewByOffer } from '../../mocks/mock-reviews';
 
 
 export default function Offer() : JSX.Element {
