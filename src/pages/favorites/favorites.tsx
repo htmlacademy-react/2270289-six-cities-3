@@ -1,8 +1,7 @@
-import type {ListPreviewCardProps} from '../../components/card/card.tsx';
-
+import type {ListOfferProps} from '../../types.ts';
 import FavoriteCardItemGroup from '../../components/favorite-card-item-group/favorite-card-item-group.tsx';
 
-export default function Favorites({listPreviewCards}:ListPreviewCardProps) : JSX.Element {
+export default function Favorites({listOffer, variantCard, mouseMove}:ListOfferProps) : JSX.Element {
   return (
     <div className="page">
       <header className="header">
@@ -40,7 +39,7 @@ export default function Favorites({listPreviewCards}:ListPreviewCardProps) : JSX
             <h1 className="favorites__title">Saved listing</h1>
             <ul className="favorites__list">
 
-              <FavoriteCardItemGroup listPreviewCards = {listPreviewCards} />
+              <FavoriteCardItemGroup listOffer={listOffer} variantCard={variantCard} mouseMove={mouseMove} />
 
             </ul>
           </section>

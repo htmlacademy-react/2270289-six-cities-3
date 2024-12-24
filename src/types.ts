@@ -10,8 +10,6 @@ type CityDestination = {
   location: LocationPlace;
 };
 
-type Goods = string[];
-
 type Hostel = {
   name: string;
   avatarUrl: string;
@@ -20,7 +18,7 @@ type Hostel = {
 
 type Images = string[];
 
-type OfferCard = {
+type Offer = {
   id : string;
   title: string;
   type: string;
@@ -32,13 +30,13 @@ type OfferCard = {
   rating: number;
   description: string;
   bedrooms: number;
-  goods: Goods;
+  goods: string[];
   host: Hostel;
   images: Images;
   maxAdults: number;
 }
 
-type OfferPreviewCard = {
+type OfferPreview = {
   id : string;
   title: string;
   type: string;
@@ -60,18 +58,37 @@ type CommentForOffer = {
 }
 
 type UserDescription = {
-  nameUser : string;
+  name : string;
   avatarUrl: string;
   isPro : boolean;
 }
 
 type CommentProposal = {
   id: string;
-  date: Date;
-  user: UserDescription;
   comment: string;
+  date: Date;
   rating: number;
+  user: UserDescription;
+}
+
+type OfferProps = {
+  offer: OfferPreview;
+  variantCard : 'cities'|'favorite';
+  mouseMove: (id:string|null) => void;
+}
+
+type ListOfferProps = {
+  listOffer: OfferPreview[];
+  variantCard : 'cities'|'favorite';
+  mouseMove: (id:string|null) => void;
 }
 
 
-export type {OfferCard,OfferPreviewCard,CommentForOffer,CommentProposal};
+type RewiewByOffer = {
+  offerId:string;
+  listComments: CommentProposal[];
+}
+
+type Points = LocationPlace[];
+
+export type {Offer,OfferPreview,CommentForOffer,CommentProposal,OfferProps,ListOfferProps, CityDestination, LocationPlace, RewiewByOffer,Points};

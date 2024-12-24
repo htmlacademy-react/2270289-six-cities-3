@@ -27,7 +27,7 @@ export default function App ({countArenda}: AppCountArendaProps) : JSX.Element {
             <PrivateRoute
               authorizationStatus={AuthorizationStatus.Auth}
             >
-              <Favorites listPreviewCards = {favoritesCard}/>
+              <Favorites listOffer={favoritesCard} variantCard='favorite' mouseMove={() => {}}/>
             </PrivateRoute>
           }
         />

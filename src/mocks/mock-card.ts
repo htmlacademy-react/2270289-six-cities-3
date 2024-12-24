@@ -1,6 +1,5 @@
-import type { ListCardProps, ListPreviewCardProps } from '../components/card/card.tsx';
 
-const mockCard: ListCardProps = {
+const mockCard = {
   listCards: [
     {
       id: '6af6f711-c28d-4121-82cd-e0b462a27f00',
@@ -41,7 +40,7 @@ const mockCard: ListCardProps = {
   ]
 };
 
-const mockPreviewCard: ListPreviewCardProps = {
+const mockPreviewCard = {
   listPreviewCards: [
     {
       id: '445f03aa-9650-4b58-9304-8f0e453a4f41',
@@ -230,4 +229,4 @@ const mockPreviewCard: ListPreviewCardProps = {
   ]
 };
 
-export { mockCard, mockPreviewCard };
+export {mockCard,mockPreviewCard };
