@@ -58,17 +58,17 @@ type CommentForOffer = {
 }
 
 type UserDescription = {
-  nameUser : string;
+  name : string;
   avatarUrl: string;
   isPro : boolean;
 }
 
 type CommentProposal = {
   id: string;
-  date: Date;
-  user: UserDescription;
   comment: string;
+  date: Date;
   rating: number;
+  user: UserDescription;
 }
 
 type OfferProps = {
