@@ -1,5 +1,5 @@
-import Review from "../review/review"
-import type { CommentProposal } from "../../types"
+import Review from '../review/review'
+import type { CommentProposal } from '../../types'
 
 type CommentsListProps = {
   offerId: string;

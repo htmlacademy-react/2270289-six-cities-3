@@ -1,6 +1,6 @@
-import type { CommentProposal } from "../../types"
-import { dateToTypeFormat } from "../../utils"
-import { TYPE_FORMAT_DATE } from "../../utils"
+import type { CommentProposal } from '../../types'
+import { dateToTypeFormat } from '../../utils'
+import { TYPE_FORMAT_DATE } from '../../utils'
 
 type CommentProps = {
   comment: CommentProposal
@@ -27,7 +27,7 @@ export default function Review({comment} : CommentProps): JSX.Element {
           <p className="reviews__text">
             {comment.comment}
           </p>
-          <time className="reviews__time" dateTime="2019-04-24">{dateToTypeFormat(comment.date,TYPE_FORMAT_DATE.MonthString_YYYY)}</time>
+          <time className="reviews__time" dateTime="2019-04-24">{dateToTypeFormat(comment.date,TYPE_FORMAT_DATE.monthStringYYYY)}</time>
         </div>
       </li>
   )

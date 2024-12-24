@@ -89,8 +89,6 @@ type RewiewByOffer = {
   listComments: CommentProposal[];
 }
 
-export type Points = LocationPlace[];
+type Points = LocationPlace[];
 
-
-
-export type {Offer,OfferPreview,CommentForOffer,CommentProposal,OfferProps,ListOfferProps, CityDestination, LocationPlace, RewiewByOffer};
+export type {Offer,OfferPreview,CommentForOffer,CommentProposal,OfferProps,ListOfferProps, CityDestination, LocationPlace, RewiewByOffer,Points};
