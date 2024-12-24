@@ -83,6 +83,14 @@ type ListOfferProps = {
   mouseMove: (id:string|null) => void;
 }
 
+
+type RewiewByOffer = {
+  offerId:string;
+  listComments: CommentProposal[];
+}
+
 export type Points = LocationPlace[];
 
-export type {Offer,OfferPreview,CommentForOffer,CommentProposal,OfferProps,ListOfferProps, CityDestination, LocationPlace};
+
+
+export type {Offer,OfferPreview,CommentForOffer,CommentProposal,OfferProps,ListOfferProps, CityDestination, LocationPlace, RewiewByOffer};
