@@ -3,7 +3,7 @@ import ListOffer from '../../components/card-offer-list/card-offer-list.tsx';
 import {mockPreviewCard} from '../../mocks/mock-card.ts';
 import {directions} from '../../const.ts';
 import {Link } from 'react-router-dom';
-import MapComponent from '../../components/map/map.tsx';
+import Map from '../../components/map/map.tsx';
 
 type CountArendaProps = {
   countArenda : number;
@@ -11,6 +11,8 @@ type CountArendaProps = {
 
 export default function Main ({countArenda} : CountArendaProps) : JSX.Element {
   const [cardActiveId, setCardActiveId] = useState<string|null>(null);
+
+  const currentCity = mockPreviewCard.listPreviewCards[0].city;
 
   return (
     <div className="page page--gray page--main">
@@ -86,7 +88,7 @@ export default function Main ({countArenda} : CountArendaProps) : JSX.Element {
             </section>
             <div className="cities__right-section">
 
-              <MapComponent />
+              <Map city={currentCity} offers={mockPreviewCard.listPreviewCards} selectedPointId={cardActiveId} />
 
             </div>
           </div>

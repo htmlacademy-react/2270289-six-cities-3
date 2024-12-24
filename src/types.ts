@@ -10,8 +10,6 @@ type CityDestination = {
   location: LocationPlace;
 };
 
-type Goods = string[];
-
 type Hostel = {
   name: string;
   avatarUrl: string;
@@ -32,7 +30,7 @@ type Offer = {
   rating: number;
   description: string;
   bedrooms: number;
-  goods: Goods;
+  goods: string[];
   host: Hostel;
   images: Images;
   maxAdults: number;
@@ -85,19 +83,6 @@ type ListOfferProps = {
   mouseMove: (id:string|null) => void;
 }
 
-export type City = {
-  title: string;
-  lat: number;
-  lng: number;
-  zoom: number;
-};
+export type Points = LocationPlace[];
 
-export type Point = {
-  title: string;
-  lat: number;
-  lng: number;
-};
-
-export type Points = Point[];
-
-export type {Offer,OfferPreview,CommentForOffer,CommentProposal,OfferProps,ListOfferProps};
+export type {Offer,OfferPreview,CommentForOffer,CommentProposal,OfferProps,ListOfferProps, CityDestination, LocationPlace};

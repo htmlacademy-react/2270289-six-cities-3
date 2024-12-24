@@ -9,7 +9,6 @@ export default function CardOffer ({offer,variantCard,mouseMove} : OfferProps) :
     <article className={currentClass}
       onMouseEnter={() => {
         mouseMove(offer.id);
-        console.log(offer.id);
       }}
       onMouseLeave={() => {
         mouseMove(null);
