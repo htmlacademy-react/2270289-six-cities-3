@@ -2762,3 +2762,5 @@ const mockOffers = {
     }
   ]
 };
+
+export {mockOffers};

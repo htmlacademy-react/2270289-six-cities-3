@@ -1,18 +1,17 @@
 import {useState} from 'react';
 import ListOffer from '../../components/card-offer-list/card-offer-list.tsx';
-import {mockPreviewCard} from '../../mocks/mock-card.ts';
+//import {mockPreviewCard} from '../../mocks/mock-card.ts';
 import {directions} from '../../const.ts';
 import {Link } from 'react-router-dom';
 import Map from '../../components/map/map.tsx';
+import {mockOffers} from '../../mocks/mock-offers-many.ts';
 
-type CountArendaProps = {
-  countArenda : number;
-}
+const cardFilteredByCity = mockOffers.listOffers.filter((itemCard) => itemCard.city.name === 'Amsterdam');
 
-export default function Main ({countArenda} : CountArendaProps) : JSX.Element {
+export default function Main () : JSX.Element {
   const [cardActiveId, setCardActiveId] = useState<string|null>(null);
 
-  const currentCity = mockPreviewCard.listPreviewCards[0].city;
+  const currentCity = cardFilteredByCity[0].city;
 
   return (
     <div className="page page--gray page--main">
@@ -66,7 +65,7 @@ export default function Main ({countArenda} : CountArendaProps) : JSX.Element {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{countArenda} places to stay in Amsterdam</b>
+              <b className="places__found">{cardFilteredByCity.length} places to stay in Amsterdam</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex={0}>
@@ -83,12 +82,12 @@ export default function Main ({countArenda} : CountArendaProps) : JSX.Element {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                <ListOffer listOffer={mockPreviewCard.listPreviewCards} variantCard='cities' mouseMove={setCardActiveId} />
+                <ListOffer listOffer={cardFilteredByCity} variantCard='cities' mouseMove={setCardActiveId} />
               </div>
             </section>
             <div className="cities__right-section">
 
-              <Map city={currentCity} offers={mockPreviewCard.listPreviewCards} selectedPointId={cardActiveId} />
+              <Map city={currentCity} offers={cardFilteredByCity} selectedPointId={cardActiveId} />
 
             </div>
           </div>
