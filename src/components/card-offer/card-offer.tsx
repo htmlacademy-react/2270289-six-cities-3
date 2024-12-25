@@ -10,6 +10,7 @@ type OfferProps = {
 export default function CardOffer ({offer,variantCard,mouseMove} : OfferProps) : JSX.Element {
 
   const linkTo = `/offer/:${offer.id}`;
+  const isShowSpanPremium = (variantCard==='near-places') ? false : true;
 
   return (
     <article className={`${variantCard}__card place-card`}
@@ -21,7 +22,7 @@ export default function CardOffer ({offer,variantCard,mouseMove} : OfferProps) :
       }}
     >
 
-      {offer.isPremium && <div className="place-card__mark"><span>Premium</span></div>}
+      {isShowSpanPremium && (offer.isPremium && <div className="place-card__mark"><span>Premium</span></div>)}
 
       <div className={`${variantCard}__image-wrapper place-card__image-wrapper`}>
 
