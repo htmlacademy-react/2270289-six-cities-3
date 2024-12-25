@@ -3,7 +3,7 @@ import CardOffer from '../card-offer/card-offer.tsx';
 
 type ListOfferProps = {
   listOffer: OfferPreview[];
-  variantCard : 'cities'|'favorite';
+  variantCard : 'cities'|'favorite'|'near-places';
   mouseMove: (id:string|null) => void;
 }
 

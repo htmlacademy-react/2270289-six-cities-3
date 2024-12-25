@@ -7,7 +7,7 @@ import {Marker,Icon,layerGroup} from 'leaflet';
 import useMap from '../../hooks/use-map';
 import {URL_MARKER_DEFAULT} from '../../const';
 import type { CityDestination,OfferPreview } from '../../types';
-import CardOfferListNear from '../../components/card-offer-near-list/card-offer-near-list';
+import ListOffer from '../../components/card-offer-list/card-offer-list.tsx';
 
 type offerProps = {
   city: CityDestination;
@@ -199,9 +199,7 @@ export default function Offer({city,offersNear} : offerProps) : JSX.Element {
               <section className="offer__reviews reviews">
 
                 <ReviewList commentsList={MockReviewByOffer.commentsList} offerId={MockReviewByOffer.offerId} />
-
                 <ReviewForm />
-
 
               </section>
             </div>
@@ -211,8 +209,12 @@ export default function Offer({city,offersNear} : offerProps) : JSX.Element {
 
         </section>
         <div className="container">
-
-          <CardOfferListNear offersNear = {offersNear} />
+          <section className="near-places places">
+            <h2 className="near-places__title">Other places in the neighbourhood</h2>
+            <div className="near-places__list places__list">
+              <ListOffer listOffer={offersNear} variantCard='near-places' mouseMove={()=>{}} />
+            </div>
+          </section>
 
         </div>
       </main>

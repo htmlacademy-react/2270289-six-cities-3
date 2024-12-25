@@ -1,3 +1,4 @@
+import { typeCard } from "./const";
 
 export const TYPE_FORMAT_DATE = {
   monthStringYYYY : 'MonthString_YYYY',
@@ -39,4 +40,15 @@ function dateToTypeFormat(date: Date, type: string) {
 
 }
 
-export {dateToTypeFormat};
+function getClassCardByType (type:string) {
+  switch (type) {
+    case typeCard.favorite : return 'favorites__card place-card';
+      break;
+    case typeCard.near : return 'near-places__card place-card';
+      break;
+    default: return 'cities__card place-card';
+      break;
+  }
+}
+
+export {dateToTypeFormat,getClassCardByType};
