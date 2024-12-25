@@ -2,10 +2,10 @@ import {Link } from 'react-router-dom';
 import ReviewForm from '../../components/review-form/review-form';
 import ReviewList from '../../components/review-list/review-list';
 import { MockReviewByOffer } from '../../mocks/mock-reviews';
-import { useRef, useEffect } from 'react';
+import { useState,useRef, useEffect } from 'react';
 import {Marker,Icon,layerGroup} from 'leaflet';
 import useMap from '../../hooks/use-map';
-import {URL_MARKER_DEFAULT} from '../../const';
+import {URL_MARKER_DEFAULT,URL_MARKER_CURRENT} from '../../const';
 import type { CityDestination,OfferPreview } from '../../types';
 import ListOffer from '../../components/card-offer-list/card-offer-list.tsx';
 
@@ -20,8 +20,15 @@ const defaultCustomIcon = new Icon({
   iconAnchor: [20, 40]
 });
 
+const currentCustomIcon = new Icon({
+  iconUrl: URL_MARKER_CURRENT,
+  iconSize: [40, 40],
+  iconAnchor: [20, 40]
+});
+
 export default function Offer({city,offersNear} : offerProps) : JSX.Element {
 
+  const [offerNearActiveId, setOfferNearActiveId] = useState<string|null>(null);
   const mapRef = useRef(null);
   const map = useMap(mapRef,city)
 
@@ -35,7 +42,11 @@ export default function Offer({city,offersNear} : offerProps) : JSX.Element {
         });
 
         marker
-          .setIcon(defaultCustomIcon)
+          .setIcon(
+            offerNearActiveId !== undefined && offer.id === offerNearActiveId
+              ? currentCustomIcon
+              : defaultCustomIcon
+          )
           .addTo(markerLayer);
       });
 
@@ -43,7 +54,7 @@ export default function Offer({city,offersNear} : offerProps) : JSX.Element {
         map.removeLayer(markerLayer);
       };
     }
-  }, [map, offersNear]);
+  }, [map, offersNear, offerNearActiveId]);
 
 
   return (
@@ -212,7 +223,7 @@ export default function Offer({city,offersNear} : offerProps) : JSX.Element {
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              <ListOffer listOffer={offersNear} variantCard='near-places' mouseMove={()=>{}} />
+              <ListOffer listOffer={offersNear} variantCard='near-places' mouseMove={setOfferNearActiveId} />
             </div>
           </section>
 
