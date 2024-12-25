@@ -1,4 +1,3 @@
-
 import type { OfferPreview } from '../../types';
 
 type CardOfferNearProps = {
@@ -38,7 +37,5 @@ export default function CardOfferNear({ offer }: CardOfferNearProps): JSX.Elemen
         <p className="place-card__type">{offer.type}</p>
       </div>
     </article>
-
-
-  )
+  );
 }

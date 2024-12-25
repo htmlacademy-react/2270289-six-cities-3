@@ -3,12 +3,14 @@ import { dateToTypeFormat } from '../../utils';
 import { TYPE_FORMAT_DATE } from '../../utils';
 
 type CommentProps = {
+  offerId: string;
   comment: CommentProposal;
 }
 
-export default function Review({ comment }: CommentProps): JSX.Element {
+export default function Review({offerId,comment}: CommentProps): JSX.Element {
+
   return (
-    <li className="reviews__item">
+    <li className="reviews__item" data-offerId={offerId}>
       <div className="reviews__user user">
         <div className="reviews__avatar-wrapper user__avatar-wrapper">
           <img className="reviews__avatar user__avatar" src={comment.user.avatarUrl} width="54" height="54" alt="Reviews avatar" />

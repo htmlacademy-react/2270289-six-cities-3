@@ -30,7 +30,7 @@ export default function Offer({city,offersNear} : offerProps) : JSX.Element {
 
   const [offerNearActiveId, setOfferNearActiveId] = useState<string|null>(null);
   const mapRef = useRef(null);
-  const map = useMap(mapRef,city)
+  const map = useMap(mapRef,city);
 
   useEffect(() => {
     if (map) {

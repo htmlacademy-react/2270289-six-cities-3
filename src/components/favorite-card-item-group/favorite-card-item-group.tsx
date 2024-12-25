@@ -1,5 +1,11 @@
-import type {ListOfferProps} from '../../types.ts';
+import type {OfferPreview} from '../../types.ts';
 import CardOffer from '../card-offer/card-offer.tsx';
+
+type ListOfferProps = {
+  listOffer: OfferPreview[];
+  variantCard : 'cities'|'favorite'|'near-places';
+  mouseMove: (id:string|null) => void;
+}
 
 export default function FavoriteCardItemGroup({listOffer, variantCard, mouseMove}: ListOfferProps): JSX.Element {
   const citySet = new Set(listOffer.map((item) => item.city.name));

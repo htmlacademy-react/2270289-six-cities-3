@@ -13,11 +13,11 @@ export default function CardOfferListNear({ offersNear }: CardOfferNearProps): J
       <div className="near-places__list places__list">
         {
           offersNear.map((offer) => (
-            <CardOfferNear offer={offer} />
+            <CardOfferNear offer={offer} key = {offer.id} />
           ))
         }
 
       </div>
     </section>
-  )
+  );
 }

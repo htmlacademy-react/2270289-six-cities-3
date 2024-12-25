@@ -6,7 +6,7 @@ import Map from '../../components/map/map.tsx';
 import type {OfferPreview} from '../../types.ts';
 
 type MainProps = {
-  countArenda: number
+  countArenda: number;
   offersByCity : OfferPreview[];
 }
 
