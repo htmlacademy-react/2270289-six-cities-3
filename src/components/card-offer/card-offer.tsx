@@ -4,6 +4,7 @@ import {Link} from 'react-router-dom';
 export default function CardOffer ({offer,variantCard,mouseMove} : OfferProps) : JSX.Element {
 
   const currentClass = variantCard === 'cities' ? 'cities__card place-card' : 'favorites__card place-card';
+  const linkTo = `/offer/:${offer.id}`;
 
   return (
     <article className={currentClass}
@@ -19,7 +20,7 @@ export default function CardOffer ({offer,variantCard,mouseMove} : OfferProps) :
 
       <div className="cities__image-wrapper place-card__image-wrapper">
 
-        <Link to='/offer/:1'>
+        <Link to={linkTo}>
           <img className="place-card__image" src={offer.previewImage} width="260" height="200" alt="Place image" />
         </Link>
 
