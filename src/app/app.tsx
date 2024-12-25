@@ -11,6 +11,8 @@ import {mockOffers} from '../mocks/mock-offers-many.ts';
 
 const favoritesCard = mockPreviewCard.listPreviewCards.filter((itemCard) => itemCard.isFavorite);
 const cardFilteredByCity = mockOffers.listOffers.filter((itemCard) => itemCard.city.name === 'Amsterdam');
+const currentCity = cardFilteredByCity[0].city;
+const offersNear = cardFilteredByCity.slice(0,3);
 
 export default function App () : JSX.Element {
   return (
@@ -18,7 +20,7 @@ export default function App () : JSX.Element {
       <Routes>
         <Route path={AppRoute.Main} element={<Main countArenda = {cardFilteredByCity.length} offersByCity = {cardFilteredByCity} />}/>
         <Route path={AppRoute.Login} element={<Login />}/>
-        <Route path={AppRoute.Offer} element={<Offer />}/>
+        <Route path={AppRoute.Offer} element={<Offer city = {currentCity} offersNear = {offersNear} />}/>
         <Route path={AppRoute.Favorites}
           element={
             <PrivateRoute
