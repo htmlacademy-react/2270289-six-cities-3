@@ -11,8 +11,11 @@ export default function CardOfferListNear({ offersNear }: CardOfferNearProps): J
     <section className="near-places places">
       <h2 className="near-places__title">Other places in the neighbourhood</h2>
       <div className="near-places__list places__list">
-
-        <CardOfferNear offer={offersNear[0]} />
+        {
+          offersNear.map((offer) => (
+            <CardOfferNear offer={offer} />
+          ))
+        }
 
       </div>
     </section>
