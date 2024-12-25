@@ -8,7 +8,7 @@ const nullCommentForOffer: CommentForOffer = {
   description: '',
 };
 
-export default function OfferComment(): JSX.Element {
+export default function ReviewForm(): JSX.Element {
   const [commentForOffer, setCommentForOffer] = useState(nullCommentForOffer);
   return (
     <form className="reviews__form form" action="#" method="post">

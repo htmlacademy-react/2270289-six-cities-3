@@ -1,5 +1,5 @@
 import {Link } from 'react-router-dom';
-import OfferComment from '../../components/offer-comment/offer-comment';
+import ReviewForm from '../../components/review-form/review-form';
 import ReviewList from '../../components/review-list/review-list';
 import { MockReviewByOffer } from '../../mocks/mock-reviews';
 import { useRef, useEffect } from 'react';
@@ -200,7 +200,7 @@ export default function Offer({city,offersNear} : offerProps) : JSX.Element {
 
                 <ReviewList commentsList={MockReviewByOffer.commentsList} offerId={MockReviewByOffer.offerId} />
 
-                <OfferComment />
+                <ReviewForm />
 
 
               </section>
