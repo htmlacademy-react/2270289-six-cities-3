@@ -7,21 +7,20 @@ import Favorites from '../pages/favorites/favorites.tsx';
 import Page404 from '../pages/404/page-404.tsx';
 import PrivateRoute from '../components/private-route/private-route.tsx';
 import {mockPreviewCard} from '../mocks/mock-card.ts';
-
-type AppCountArendaProps = {
-  countArenda : number;
-}
+import {mockOffers} from '../mocks/mock-offers-many.ts';
 
 const favoritesCard = mockPreviewCard.listPreviewCards.filter((itemCard) => itemCard.isFavorite);
+const cardFilteredByCity = mockOffers.listOffers.filter((itemCard) => itemCard.city.name === 'Amsterdam');
+const currentCity = cardFilteredByCity[0].city;
+const offersNear = cardFilteredByCity.slice(0,3);
 
-
-export default function App ({countArenda}: AppCountArendaProps) : JSX.Element {
+export default function App () : JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path={AppRoute.Main} element={<Main countArenda = {countArenda} />}/>
+        <Route path={AppRoute.Main} element={<Main countArenda = {cardFilteredByCity.length} offersByCity = {cardFilteredByCity} />}/>
         <Route path={AppRoute.Login} element={<Login />}/>
-        <Route path={AppRoute.Offer} element={<Offer />}/>
+        <Route path={AppRoute.Offer} element={<Offer city = {currentCity} offersNear = {offersNear} />}/>
         <Route path={AppRoute.Favorites}
           element={
             <PrivateRoute

@@ -1,18 +1,19 @@
 import {useState} from 'react';
 import ListOffer from '../../components/card-offer-list/card-offer-list.tsx';
-import {mockPreviewCard} from '../../mocks/mock-card.ts';
 import {directions} from '../../const.ts';
 import {Link } from 'react-router-dom';
 import Map from '../../components/map/map.tsx';
+import type {OfferPreview} from '../../types.ts';
 
-type CountArendaProps = {
-  countArenda : number;
+type MainProps = {
+  countArenda: number;
+  offersByCity : OfferPreview[];
 }
 
-export default function Main ({countArenda} : CountArendaProps) : JSX.Element {
+export default function Main ({countArenda, offersByCity} : MainProps) : JSX.Element {
   const [cardActiveId, setCardActiveId] = useState<string|null>(null);
 
-  const currentCity = mockPreviewCard.listPreviewCards[0].city;
+  const currentCity = offersByCity[0].city;
 
   return (
     <div className="page page--gray page--main">
@@ -83,12 +84,12 @@ export default function Main ({countArenda} : CountArendaProps) : JSX.Element {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                <ListOffer listOffer={mockPreviewCard.listPreviewCards} variantCard='cities' mouseMove={setCardActiveId} />
+                <ListOffer listOffer={offersByCity} variantCard='cities' mouseMove={setCardActiveId} />
               </div>
             </section>
             <div className="cities__right-section">
 
-              <Map city={currentCity} offers={mockPreviewCard.listPreviewCards} selectedPointId={cardActiveId} />
+              <Map city={currentCity} offers={offersByCity} selectedPointId={cardActiveId} />
 
             </div>
           </div>

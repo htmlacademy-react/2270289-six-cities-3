@@ -71,19 +71,6 @@ type CommentProposal = {
   user: UserDescription;
 }
 
-type OfferProps = {
-  offer: OfferPreview;
-  variantCard : 'cities'|'favorite';
-  mouseMove: (id:string|null) => void;
-}
-
-type ListOfferProps = {
-  listOffer: OfferPreview[];
-  variantCard : 'cities'|'favorite';
-  mouseMove: (id:string|null) => void;
-}
-
-
 type RewiewByOffer = {
   offerId:string;
   listComments: CommentProposal[];
@@ -91,4 +78,4 @@ type RewiewByOffer = {
 
 type Points = LocationPlace[];
 
-export type {Offer,OfferPreview,CommentForOffer,CommentProposal,OfferProps,ListOfferProps, CityDestination, LocationPlace, RewiewByOffer,Points};
+export type {Offer,OfferPreview,CommentForOffer,CommentProposal,CityDestination, LocationPlace, RewiewByOffer,Points};

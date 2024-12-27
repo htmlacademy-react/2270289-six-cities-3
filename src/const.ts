@@ -14,10 +14,11 @@ export enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 
-export enum TypeCard {
-  City = 'cities__card place-card',
-  Favorite = 'favorites__card place-card'
-}
+export const typeCard = {
+  cities : 'cities',
+  favorite : 'favorite',
+  near : 'near',
+};
 
 export const URL_MARKER_DEFAULT =
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/pin.svg';
