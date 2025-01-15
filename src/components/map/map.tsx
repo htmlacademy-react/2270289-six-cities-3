@@ -1,13 +1,14 @@
 import {useRef, useEffect} from 'react';
 import {Marker,Icon,layerGroup} from 'leaflet';
 import useMap from '../../hooks/use-map';
-import type {CityDestination,OfferPreview} from '../../types';
+
 import {URL_MARKER_DEFAULT, URL_MARKER_CURRENT } from '../../const';
 import 'leaflet/dist/leaflet.css';
+import { store } from '../../store/store';
+
+import { useSelector } from 'react-redux/es/hooks/useSelector';
 
 type MapProps = {
-  city: CityDestination;
-  offers: OfferPreview[];
   selectedPointId: string | null ;
 }
 
@@ -23,15 +24,20 @@ const currentCustomIcon = new Icon({
   iconAnchor: [20, 40]
 });
 
-export default function Map({city, offers, selectedPointId} : MapProps):JSX.Element {
+export default function Map({selectedPointId} : MapProps) : JSX.Element {
+
+  const currentState = store.getState();
+  const cityName = useSelector(() => store.getState().city);
+  const currentOffersByCity = currentState.offers.filter((itemCard) => itemCard.city.name === cityName);
+  const currentCity = currentOffersByCity[0].city;
 
   const mapRef = useRef(null);
-  const map = useMap(mapRef, city);
+  const map = useMap(mapRef, currentCity);
 
   useEffect(() => {
     if (map) {
       const markerLayer = layerGroup().addTo(map);
-      offers.forEach((offer) => {
+      currentOffersByCity.forEach((offer) => {
         const marker = new Marker({
           lat: offer.location.latitude,
           lng: offer.location.longitude
@@ -50,10 +56,10 @@ export default function Map({city, offers, selectedPointId} : MapProps):JSX.Elem
         map.removeLayer(markerLayer);
       };
     }
-  }, [map, offers, selectedPointId]);
+  }, [map, currentOffersByCity, selectedPointId]);
 
   return(
-    <section className="cities__map map" ref={mapRef}>
+    <section className="cities__map map" ref={mapRef} id={cityName}>
     </section>
   );
 }

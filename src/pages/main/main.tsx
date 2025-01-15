@@ -1,21 +1,19 @@
 import {useState} from 'react';
-import ListOffer from '../../components/card-offer-list/card-offer-list.tsx';
-
 import {Link } from 'react-router-dom';
+import ListOffer from '../../components/card-offer-list/card-offer-list.tsx';
 import Map from '../../components/map/map.tsx';
-import type {OfferPreview} from '../../types.ts';
-
 import MainCityMenu from '../../components/main-city-menu/main-city-menu.tsx';
+import {store} from '../../store/store.ts';
+import { useSelector } from 'react-redux/es/hooks/useSelector';
 
-type MainProps = {
-  countArenda: number;
-  offersByCity : OfferPreview[];
-}
+export default function Main () : JSX.Element {
 
-export default function Main ({countArenda, offersByCity} : MainProps) : JSX.Element {
+  const currentState = store.getState();
+  const cityName = useSelector(() => store.getState().city);
+  const currentOffersByCity = currentState.offers.filter((itemCard) => itemCard.city.name === cityName);
+  const countOffers = currentOffersByCity.length;
+
   const [cardActiveId, setCardActiveId] = useState<string|null>(null);
-
-  const currentCity = offersByCity[0].city;
 
   return (
     <div className="page page--gray page--main">
@@ -57,7 +55,7 @@ export default function Main ({countArenda, offersByCity} : MainProps) : JSX.Ele
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{countArenda} places to stay in Amsterdam</b>
+              <b className="places__found">{countOffers} places to stay in {cityName}</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex={0}>
@@ -74,12 +72,12 @@ export default function Main ({countArenda, offersByCity} : MainProps) : JSX.Ele
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                <ListOffer listOffer={offersByCity} variantCard='cities' mouseMove={setCardActiveId} />
+                <ListOffer listOffer={currentOffersByCity} variantCard='cities' mouseMove={setCardActiveId} />
               </div>
             </section>
             <div className="cities__right-section">
 
-              <Map city={currentCity} offers={offersByCity} selectedPointId={cardActiveId} />
+              <Map selectedPointId={cardActiveId} />
 
             </div>
           </div>

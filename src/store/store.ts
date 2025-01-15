@@ -1,9 +1,7 @@
 import { createStore } from "redux";
-//import { setCityDefaultRedux } from "./action";
 import { initialState } from "./reducer";
 import type { OfferPreview } from "../types";
 import { ActionType } from "../const";
-
 
 const setCityDefaultRedux = (city: string) => ({
   payload:city,
@@ -17,22 +15,19 @@ interface IOffersState {
 
 type Action = ReturnType<typeof setCityDefaultRedux>
 
-
 // Функция для обновления хранилища
-const updateStore = (state: IOffersState = initialState, action : Action) => {
-  console.log(action);
+const updateStore = (state: IOffersState = initialState, action : Action): IOffersState => {
   switch (action.type) {
-    case ActionType.SetCity :
+    case ActionType.SetCity : {
       return {
         ...state,
         city : action.payload as string
       }
+      }
       break;
     default : return state;
   }
-
 };
-
 
 export const store = createStore(updateStore);
 

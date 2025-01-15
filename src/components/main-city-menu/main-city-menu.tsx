@@ -1,4 +1,7 @@
-import {directions} from '../../const.ts';
+import { Link } from 'react-router-dom';
+import { directions } from '../../const.ts';
+import { store } from '../../store/store.ts';
+import { setCityDefaultRedux } from '../../store/action.ts';
 
 export default function MainCityMenu () : JSX.Element
 {
@@ -8,10 +11,15 @@ export default function MainCityMenu () : JSX.Element
             <ul className="locations__list tabs__list">
               {
                 directions.map((item) => (
-                  <li className="locations__item" key = {item}>
-                    <a className="locations__item-link tabs__item" href="#">
+
+                  <li className="locations__item" key = {item} >
+                    <Link className="locations__item-link tabs__item" to="" onClick={() =>{
+                    store.dispatch(setCityDefaultRedux(item));
+                    console.log(store.getState());
+                    }
+                  }>
                       <span>{item}</span>
-                    </a>
+                    </Link>
                   </li>)
                 )
               }
