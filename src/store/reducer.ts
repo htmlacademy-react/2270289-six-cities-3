@@ -5,12 +5,10 @@ import { nextCity } from "./action";
 import { ActionType } from "../const";
 import type { OfferPreview } from "../types";
 
-
 interface OffersState {
   city: string;
   offers: OfferPreview[];
 }
-
 
 const cityNameDefault = mockOffers.listOffers[0].city.name;
 

@@ -1,9 +1,11 @@
 import {useState} from 'react';
 import ListOffer from '../../components/card-offer-list/card-offer-list.tsx';
-import {directions} from '../../const.ts';
+
 import {Link } from 'react-router-dom';
 import Map from '../../components/map/map.tsx';
 import type {OfferPreview} from '../../types.ts';
+
+import MainCityMenu from '../../components/main-city-menu/main-city-menu.tsx';
 
 type MainProps = {
   countArenda: number;
@@ -48,21 +50,9 @@ export default function Main ({countArenda, offersByCity} : MainProps) : JSX.Ele
 
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
-        <div className="tabs">
-          <section className="locations container">
-            <ul className="locations__list tabs__list">
-              {
-                directions.map((item) => (
-                  <li className="locations__item" key = {item}>
-                    <a className="locations__item-link tabs__item" href="#">
-                      <span>{item}</span>
-                    </a>
-                  </li>)
-                )
-              }
-            </ul>
-          </section>
-        </div>
+
+        <MainCityMenu />
+
         <div className="cities">
           <div className="cities__places-container container">
             <section className="cities__places places">
