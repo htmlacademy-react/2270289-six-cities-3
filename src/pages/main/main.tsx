@@ -1,18 +1,13 @@
 import {Link } from 'react-router-dom';
 import {useState} from 'react';
-import {useAppDispatch,useAppSelector } from '../../hooks/index.ts';
+import {useAppSelector } from '../../hooks/index.ts';
 import ListOffer from '../../components/card-offer-list/card-offer-list.tsx';
 import Map from '../../components/map/map.tsx';
 import MainCityMenu from '../../components/main-city-menu/main-city-menu.tsx';
-//import {store} from '../../store/store.ts';
-//import { useSelector } from 'react-redux/es/hooks/useSelector';
-
 
 export default function Main () : JSX.Element {
 
-  const dispatch = useAppDispatch();
-
-  const offers = useAppSelector((state) => state.offers );
+  const offers = useAppSelector((state) => state.offers);
   const cityName = useAppSelector((state) => state.city);
   const currentOffersByCity = offers.filter((itemCard) => itemCard.city.name === cityName);
   const currentCity = currentOffersByCity[0].city;
