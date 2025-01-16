@@ -1,16 +1,21 @@
-import {useState} from 'react';
 import {Link } from 'react-router-dom';
+import {useState} from 'react';
+import {useAppDispatch,useAppSelector } from '../../hooks/index.ts';
 import ListOffer from '../../components/card-offer-list/card-offer-list.tsx';
 import Map from '../../components/map/map.tsx';
 import MainCityMenu from '../../components/main-city-menu/main-city-menu.tsx';
-import {store} from '../../store/store.ts';
-import { useSelector } from 'react-redux/es/hooks/useSelector';
+//import {store} from '../../store/store.ts';
+//import { useSelector } from 'react-redux/es/hooks/useSelector';
+
 
 export default function Main () : JSX.Element {
 
-  const currentState = store.getState();
-  const cityName = useSelector(() => store.getState().city);
-  const currentOffersByCity = currentState.offers.filter((itemCard) => itemCard.city.name === cityName);
+  const dispatch = useAppDispatch();
+
+  const offers = useAppSelector((state) => state.offers );
+  const cityName = useAppSelector((state) => state.city);
+  const currentOffersByCity = offers.filter((itemCard) => itemCard.city.name === cityName);
+  const currentCity = currentOffersByCity[0].city;
   const countOffers = currentOffersByCity.length;
 
   const [cardActiveId, setCardActiveId] = useState<string|null>(null);
@@ -77,7 +82,7 @@ export default function Main () : JSX.Element {
             </section>
             <div className="cities__right-section">
 
-              <Map selectedPointId={cardActiveId} />
+              <Map currentCity={currentCity} currentOffers={currentOffersByCity} selectedPointId={cardActiveId} />
 
             </div>
           </div>

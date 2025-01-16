@@ -1,14 +1,15 @@
 import {useRef, useEffect} from 'react';
-import {Marker,Icon,layerGroup} from 'leaflet';
 import useMap from '../../hooks/use-map';
 
+import {Marker,Icon,layerGroup} from 'leaflet';
 import {URL_MARKER_DEFAULT, URL_MARKER_CURRENT } from '../../const';
 import 'leaflet/dist/leaflet.css';
-import { store } from '../../store/store';
 
-import { useSelector } from 'react-redux/es/hooks/useSelector';
+import type {CityDestination,OfferPreview } from '../../types';
 
 type MapProps = {
+  currentCity: CityDestination;
+  currentOffers: OfferPreview[];
   selectedPointId: string | null ;
 }
 
@@ -24,12 +25,7 @@ const currentCustomIcon = new Icon({
   iconAnchor: [20, 40]
 });
 
-export default function Map({selectedPointId} : MapProps) : JSX.Element {
-
-  const currentState = store.getState();
-  const cityName = useSelector(() => store.getState().city);
-  const currentOffersByCity = currentState.offers.filter((itemCard) => itemCard.city.name === cityName);
-  const currentCity = currentOffersByCity[0].city;
+export default function Map({currentCity, currentOffers, selectedPointId} : MapProps) : JSX.Element {
 
   const mapRef = useRef(null);
   const map = useMap(mapRef, currentCity);
@@ -37,7 +33,7 @@ export default function Map({selectedPointId} : MapProps) : JSX.Element {
   useEffect(() => {
     if (map) {
       const markerLayer = layerGroup().addTo(map);
-      currentOffersByCity.forEach((offer) => {
+      currentOffers.forEach((offer) => {
         const marker = new Marker({
           lat: offer.location.latitude,
           lng: offer.location.longitude
@@ -56,10 +52,10 @@ export default function Map({selectedPointId} : MapProps) : JSX.Element {
         map.removeLayer(markerLayer);
       };
     }
-  }, [map, currentOffersByCity, selectedPointId]);
+  }, [map, currentOffers, selectedPointId]);
 
   return(
-    <section className="cities__map map" ref={mapRef} id={cityName}>
+    <section className="cities__map map" ref={mapRef} id={currentCity.name}>
     </section>
   );
 }

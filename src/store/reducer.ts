@@ -1,22 +1,25 @@
 
 import { mockOffers } from "../mocks/mock-offers-many";
 import { createReducer } from "@reduxjs/toolkit";
-import { nextCity } from "./action";
-import { ActionType } from "../const";
-import type { OfferPreview } from "../types";
-
+import { nextCity, setCity } from "./action";
+//import { ActionType } from "../const";
+//import type { OfferPreview } from "../types";
+/*
 interface OffersState {
   city: string;
   offers: OfferPreview[];
 }
+*/
+//const cityNameDefault = mockOffers.listOffers[0].city.name;
 
-const cityNameDefault = mockOffers.listOffers[0].city.name;
+const cityNameDefault = 'Paris';
 
 export const initialState =  {
   city : cityNameDefault,
   offers : mockOffers.listOffers,
 };
 
+/*
 // reducer на голом redux;
 function reducerReduxDefault (state: OffersState = initialState, action: {payload: unknown, type: ActionType}) : OffersState
 {
@@ -31,12 +34,13 @@ function reducerReduxDefault (state: OffersState = initialState, action: {payloa
       return state;
   }
 }
+*/
 
 const reducer = createReducer(initialState, (builder) => {
   builder
-    .addCase(nextCity,(state) => {
-      state.city ='';
+    .addCase(setCity,(state,action) => {
+      state.city = action.payload;
     })
 } );
 
-export {reducer, reducerReduxDefault}
+export {reducer}
