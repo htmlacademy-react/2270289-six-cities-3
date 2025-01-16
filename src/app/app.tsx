@@ -18,7 +18,7 @@ export default function App () : JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path={AppRoute.Main} element={<Main countArenda = {cardFilteredByCity.length} offersByCity = {cardFilteredByCity} />}/>
+        <Route path={AppRoute.Main} element={<Main />}/>
         <Route path={AppRoute.Login} element={<Login />}/>
         <Route path={AppRoute.Offer} element={<Offer city = {currentCity} offersNear = {offersNear} />}/>
         <Route path={AppRoute.Favorites}

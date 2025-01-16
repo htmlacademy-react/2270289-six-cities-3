@@ -1,13 +1,15 @@
 import {useRef, useEffect} from 'react';
-import {Marker,Icon,layerGroup} from 'leaflet';
 import useMap from '../../hooks/use-map';
-import type {CityDestination,OfferPreview} from '../../types';
+
+import {Marker,Icon,layerGroup} from 'leaflet';
 import {URL_MARKER_DEFAULT, URL_MARKER_CURRENT } from '../../const';
 import 'leaflet/dist/leaflet.css';
 
+import type {CityDestination,OfferPreview } from '../../types';
+
 type MapProps = {
-  city: CityDestination;
-  offers: OfferPreview[];
+  currentCity: CityDestination;
+  currentOffers: OfferPreview[];
   selectedPointId: string | null ;
 }
 
@@ -23,15 +25,17 @@ const currentCustomIcon = new Icon({
   iconAnchor: [20, 40]
 });
 
-export default function Map({city, offers, selectedPointId} : MapProps):JSX.Element {
+export default function Map({currentCity, currentOffers, selectedPointId} : MapProps) : JSX.Element {
 
   const mapRef = useRef(null);
-  const map = useMap(mapRef, city);
+  const map = useMap(mapRef, currentCity);
+  const geolocation: [number,number] = [currentCity.location.latitude,currentCity.location.longitude];
 
   useEffect(() => {
     if (map) {
+      map.setView(geolocation);
       const markerLayer = layerGroup().addTo(map);
-      offers.forEach((offer) => {
+      currentOffers.forEach((offer) => {
         const marker = new Marker({
           lat: offer.location.latitude,
           lng: offer.location.longitude
@@ -50,10 +54,10 @@ export default function Map({city, offers, selectedPointId} : MapProps):JSX.Elem
         map.removeLayer(markerLayer);
       };
     }
-  }, [map, offers, selectedPointId]);
+  }, [map, currentOffers, currentCity, selectedPointId]);
 
   return(
-    <section className="cities__map map" ref={mapRef}>
+    <section className="cities__map map" ref={mapRef} id={currentCity.name}>
     </section>
   );
 }
