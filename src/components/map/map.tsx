@@ -29,9 +29,11 @@ export default function Map({currentCity, currentOffers, selectedPointId} : MapP
 
   const mapRef = useRef(null);
   const map = useMap(mapRef, currentCity);
+  const geolocation: [number,number] = [currentCity.location.latitude,currentCity.location.longitude];
 
   useEffect(() => {
     if (map) {
+      map.setView(geolocation);
       const markerLayer = layerGroup().addTo(map);
       currentOffers.forEach((offer) => {
         const marker = new Marker({
@@ -52,7 +54,7 @@ export default function Map({currentCity, currentOffers, selectedPointId} : MapP
         map.removeLayer(markerLayer);
       };
     }
-  }, [map, currentOffers, selectedPointId]);
+  }, [map, currentOffers, currentCity, selectedPointId]);
 
   return(
     <section className="cities__map map" ref={mapRef} id={currentCity.name}>
