@@ -1,24 +1,30 @@
+import {useAppDispatch,useAppSelector} from '../../hooks/index.ts';
+import {setCardActiveId} from '../../store/action.ts';
 import type {OfferPreview} from '../../types.ts';
 import {Link} from 'react-router-dom';
 
 type OfferProps = {
   offer: OfferPreview;
   variantCard : 'cities'|'favorite'|'near-places';
-  mouseMove: (id:string|null) => void | null;
+  //mouseMove: (id:string|null) => void | null;
 }
 
-export default function CardOffer ({offer,variantCard,mouseMove} : OfferProps) : JSX.Element {
+export default function CardOffer ({offer,variantCard} : OfferProps) : JSX.Element {
 
   const linkTo = `/offer/:${offer.id}`;
   const isShowSpanPremium = variantCard !== 'near-places';
+  const dispatch = useAppDispatch();
+  const cardActiveId = useAppSelector((state) => state.cardActiveId);
 
   return (
     <article className={`${variantCard}__card place-card`}
       onMouseEnter={() => {
-        mouseMove(offer.id);
+        console.log('cardActiveId_1',cardActiveId)
+        console.log('offer.id_1',offer.id)
+        dispatch(setCardActiveId(offer.id));
       }}
       onMouseLeave={() => {
-        mouseMove(null);
+        dispatch(setCardActiveId(''));
       }}
     >
 

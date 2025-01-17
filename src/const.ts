@@ -29,5 +29,5 @@ export const URL_MARKER_CURRENT =
 export const enum ActionType {
     SetCity = 'offers/setCity',
     FillOffer = 'offers/fillOffer',
-    SetActiveCardID = 'card/setAcdiveId'
+    SetCardActiveId = 'card/setActiveId'
   }

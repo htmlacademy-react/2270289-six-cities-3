@@ -1,12 +1,13 @@
 import {mockOffers} from '../mocks/mock-offers-many';
 import {createReducer} from '@reduxjs/toolkit';
-import {setCity,fillOffer} from './action';
+import {setCity,fillOffer,setCardActiveId} from './action';
 
 const cityNameDefault = 'Paris';
 
 export const initialState = {
   city : cityNameDefault,
   offers : mockOffers.listOffers,
+  cardActiveId: '',
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -16,7 +17,10 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(fillOffer,(state,action) => {
       state.offers = action.payload;
-    });
+    })
+    .addCase(setCardActiveId,(state,action) => {
+      state.cardActiveId = action.payload;
+    })
 });
 
 export {reducer};

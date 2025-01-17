@@ -13,7 +13,8 @@ export default function Main () : JSX.Element {
   const currentCity = currentOffersByCity[0].city;
   const countOffers = currentOffersByCity.length;
 
-  const [cardActiveId, setCardActiveId] = useState<string|null>(null);
+  //const [cardActiveId, setCardActiveId] = useState<string|null>(null);
+  const cardActiveId = currentOffersByCity[0].id;
 
   return (
     <div className="page page--gray page--main">
@@ -47,13 +48,13 @@ export default function Main () : JSX.Element {
               </form>
               <div className="cities__places-list places__list tabs__content">
 
-                <ListOffer listOffer={currentOffersByCity} variantCard='cities' mouseMove={setCardActiveId} />
+                <ListOffer listOffer={currentOffersByCity} variantCard='cities'  />
 
               </div>
             </section>
             <div className="cities__right-section">
 
-              <Map currentCity={currentCity} currentOffers={currentOffersByCity} selectedPointId={cardActiveId} />
+              <Map currentCity={currentCity} currentOffers={currentOffersByCity}  />
 
             </div>
           </div>
@@ -62,3 +63,5 @@ export default function Main () : JSX.Element {
     </div>
   );
 }
+//mouseMove={setCardActiveId}
+//selectedPointId={cardActiveId}
