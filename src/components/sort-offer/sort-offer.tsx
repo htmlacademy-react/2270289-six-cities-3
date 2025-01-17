@@ -18,3 +18,5 @@ export default function SortOffer(): JSX.Element {
     </form>
   )
 }
+
+// places__options--opened
