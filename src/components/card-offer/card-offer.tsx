@@ -1,26 +1,22 @@
-import {useAppDispatch,useAppSelector} from '../../hooks/index.ts';
+import {Link} from 'react-router-dom';
+import {useAppDispatch} from '../../hooks/index.ts';
 import {setCardActiveId} from '../../store/action.ts';
 import type {OfferPreview} from '../../types.ts';
-import {Link} from 'react-router-dom';
 
 type OfferProps = {
   offer: OfferPreview;
-  variantCard : 'cities'|'favorite'|'near-places';
-  //mouseMove: (id:string|null) => void | null;
+  variantCard: 'cities' | 'favorite' | 'near-places';
 }
 
-export default function CardOffer ({offer,variantCard} : OfferProps) : JSX.Element {
+export default function CardOffer({ offer, variantCard }: OfferProps): JSX.Element {
 
   const linkTo = `/offer/:${offer.id}`;
   const isShowSpanPremium = variantCard !== 'near-places';
   const dispatch = useAppDispatch();
-  const cardActiveId = useAppSelector((state) => state.cardActiveId);
 
   return (
     <article className={`${variantCard}__card place-card`}
       onMouseEnter={() => {
-        console.log('cardActiveId_1',cardActiveId)
-        console.log('offer.id_1',offer.id)
         dispatch(setCardActiveId(offer.id));
       }}
       onMouseLeave={() => {
@@ -52,7 +48,7 @@ export default function CardOffer ({offer,variantCard} : OfferProps) : JSX.Eleme
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: '80%'}}></span>
+            <span style={{ width: '80%' }}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

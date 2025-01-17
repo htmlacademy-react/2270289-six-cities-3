@@ -11,7 +11,6 @@ import { useAppSelector } from '../../hooks';
 type MapProps = {
   currentCity: CityDestination;
   currentOffers: OfferPreview[];
-  //selectedPointId: string | null ;
 }
 
 const defaultCustomIcon = new Icon({
@@ -36,7 +35,6 @@ export default function Map({currentCity, currentOffers} : MapProps) : JSX.Eleme
   useEffect(() => {
     if (map) {
       map.setView(geolocation);
-      console.log('cardActiveId',cardActiveId);
       const markerLayer = layerGroup().addTo(map);
       currentOffers.forEach((offer) => {
         const marker = new Marker({
