@@ -3,7 +3,7 @@ import {useAppSelector } from '../../hooks/index.ts';
 import Header from '../../components/header/header.tsx';
 import ListOffer from '../../components/card-offer-list/card-offer-list.tsx';
 import Map from '../../components/map/map.tsx';
-import MainCityMenu from '../../components/list-city/list-city.tsx';
+import ListCity from '../../components/list-city/list-city.tsx';
 
 export default function Main () : JSX.Element {
 

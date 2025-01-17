@@ -1,9 +1,9 @@
-import {Link } from 'react-router-dom';
-import {AppRoute, directions } from '../../const.ts';
-import {setCity } from '../../store/action.ts';
-import {useAppDispatch } from '../../hooks/index.ts';
+import {Link} from 'react-router-dom';
+import {AppRoute,directions} from '../../const.ts';
+import {setCity} from '../../store/action.ts';
+import {useAppDispatch} from '../../hooks/index.ts';
 
-export default function MainCityMenu(): JSX.Element {
+export default function ListCity(): JSX.Element {
   const dispatch = useAppDispatch();
   return (
     <div className="tabs">
