@@ -23,7 +23,7 @@ export default function Main () : JSX.Element {
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
 
-        <MainCityMenu />
+        <ListCity />
 
         <div className="cities">
           <div className="cities__places-container container">
