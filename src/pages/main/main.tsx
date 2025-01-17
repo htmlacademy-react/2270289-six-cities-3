@@ -46,7 +46,9 @@ export default function Main () : JSX.Element {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
+
                 <ListOffer listOffer={currentOffersByCity} variantCard='cities' mouseMove={setCardActiveId} />
+
               </div>
             </section>
             <div className="cities__right-section">
