@@ -13,13 +13,13 @@ export default function ListOffer({listOffer,variantCard} : ListOfferProps) : JS
   const sortedListOffer = listOffer;
 
   switch (currentSort) {
-    case (SORT_OPTIONS[SortOption.Popular]): sortedListOffer;
+    //case (SORT_OPTIONS[SortOption.Popular]): sortedListOffer;
+    //break;
+    case (SORT_OPTIONS[SortOption.PriceHighToLow]): sortedListOffer.sort((a,b) => b.price - a.price);
       break;
-    case (SORT_OPTIONS[SortOption.PriceHighToLow]): sortedListOffer.sort((a,b) => b.price - a.price)
+    case (SORT_OPTIONS[SortOption.PriceLowToHigh]): sortedListOffer.sort((a,b) => a.price - b.price);
       break;
-    case (SORT_OPTIONS[SortOption.PriceLowToHigh]): sortedListOffer.sort((a,b) => a.price - b.price)
-      break;
-    case (SORT_OPTIONS[SortOption.TopRatedFirst]): sortedListOffer.sort((a,b) => b.rating - a.rating)
+    case (SORT_OPTIONS[SortOption.TopRatedFirst]): sortedListOffer.sort((a,b) => b.rating - a.rating);
       break;
   }
 
@@ -32,4 +32,3 @@ export default function ListOffer({listOffer,variantCard} : ListOfferProps) : JS
     </>
   );
 }
-

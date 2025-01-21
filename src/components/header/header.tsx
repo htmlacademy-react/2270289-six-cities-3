@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom"
-import { AppRoute } from "../../const"
+import { Link } from 'react-router-dom';
+import { AppRoute } from '../../const';
 
 export default function Header(): JSX.Element {
   return (
@@ -31,5 +31,5 @@ export default function Header(): JSX.Element {
         </div>
       </div>
     </header>
-  )
+  );
 }

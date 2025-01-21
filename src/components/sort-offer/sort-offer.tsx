@@ -1,11 +1,11 @@
-import {useBoolean} from '../../hooks/use-boolean';
-import {useAppDispatch,useAppSelector} from '../../hooks';
-import {SORT_OPTIONS} from '../../const';
-import {setCurrentSort} from '../../store/action';
+import { useBoolean } from '../../hooks/use-boolean';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { SORT_OPTIONS } from '../../const';
+import { setCurrentSort } from '../../store/action';
 import classNames from 'classnames';
 
 export default function SortOffer(): JSX.Element {
-  const {isOn, toggle} = useBoolean(false);
+  const { isOn, toggle } = useBoolean(false);
   const dispatch = useAppDispatch();
   const currentSort = useAppSelector((state) => state.currentSort);
 
@@ -20,16 +20,18 @@ export default function SortOffer(): JSX.Element {
       </span>
       <ul
         className={classNames('places__options', 'places__options--custom',
-        {'places__options--opened':isOn})}
+          { 'places__options--opened': isOn })}
       >
         {SORT_OPTIONS.map((item) => (
-          <li className = {classNames('places__option',{'places__option--active': currentSort===item})}
+          <li className={classNames('places__option', { 'places__option--active': currentSort === item })}
             tabIndex={0} key={item}
             onClick={() => {
-            dispatch(setCurrentSort(item))}}
-          >{item}</li>
+              dispatch(setCurrentSort(item));
+            }}
+          >{item}
+          </li>
         ))}
       </ul>
     </form>
-  )
+  );
 }

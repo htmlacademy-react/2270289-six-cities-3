@@ -24,7 +24,7 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setCurrentSort,(state,action) => {
       state.currentSort = action.payload;
-    })
+    });
 });
 
 export {reducer};
