@@ -1,11 +1,11 @@
 import {useBoolean} from '../../hooks/use-boolean';
 import {useAppDispatch,useAppSelector} from '../../hooks';
-import {SortOption,SORT_OPTIONS} from '../../const';
+import {SORT_OPTIONS} from '../../const';
 import {setCurrentSort} from '../../store/action';
 import classNames from 'classnames';
 
 export default function SortOffer(): JSX.Element {
-  const {isOn, off, toggle} = useBoolean(false);
+  const {isOn, toggle} = useBoolean(false);
   const dispatch = useAppDispatch();
   const currentSort = useAppSelector((state) => state.currentSort);
 
@@ -33,11 +33,3 @@ export default function SortOffer(): JSX.Element {
     </form>
   )
 }
-
-// places__options--opened
-/*
-          <li className="places__option" tabIndex={0}>Popular</li>
-          <li className="places__option places__option--active" tabIndex={0}>Price: low to high</li>
-          <li className="places__option" tabIndex={0}>Price: high to low</li>
-          <li className="places__option" tabIndex={0}>Top rated first</li>
-*/
