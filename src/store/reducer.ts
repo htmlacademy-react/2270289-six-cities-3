@@ -1,6 +1,6 @@
 import {mockOffers} from '../mocks/mock-offers-many';
 import {createReducer} from '@reduxjs/toolkit';
-import {setCity,fillOffer,setCardActiveId} from './action';
+import {setCity,fillOffer,setCardActiveId, setCurrentSort} from './action';
 
 const cityNameDefault = 'Paris';
 
@@ -8,6 +8,7 @@ export const initialState = {
   city : cityNameDefault,
   offers : mockOffers.listOffers,
   cardActiveId: '',
+  currentSort: 'Popular'
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -20,6 +21,9 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setCardActiveId,(state,action) => {
       state.cardActiveId = action.payload;
+    })
+    .addCase(setCurrentSort,(state,action) => {
+      state.currentSort = action.payload;
     })
 });
 

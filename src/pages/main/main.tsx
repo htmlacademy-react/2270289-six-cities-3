@@ -31,7 +31,7 @@ export default function Main () : JSX.Element {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{countOffers} places to stay in {cityName}</b>
+              <b className="places__found">{countOffers} place{countOffers > 1 && 's'} to stay in {cityName}</b>
 
               <SortOffer />
 
