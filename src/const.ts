@@ -30,7 +30,8 @@ export const enum ActionType {
   SetCity = 'offers/setCity',
   FillOffer = 'offers/fillOffer',
   SetCardActiveId = 'card/setActiveId',
-  SetCurrentSort = 'sort/setCurrentSort'
+  SetCurrentSort = 'sort/setCurrentSort',
+  SetReviewByOffer = 'review/setReviewByOffer'
 }
 
 export const SORT_OPTIONS = [

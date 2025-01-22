@@ -1,7 +1,7 @@
 import {mockOffers} from '../mocks/mock-offers-many';
 import {MockReviewByOffer} from '../mocks/mock-reviews';
 import {createReducer} from '@reduxjs/toolkit';
-import {setCity,fillOffer,setCardActiveId, setCurrentSort} from './action';
+import {setCity,fillOffer,setCardActiveId,setCurrentSort,setReviewByOffer} from './action';
 
 const cityNameDefault = 'Paris';
 
@@ -26,7 +26,11 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setCurrentSort,(state,action) => {
       state.currentSort = action.payload;
+    })
+    .addCase(setReviewByOffer,(state,action) => {
+      state.reviewsByOffer = action.payload;
     });
 });
+
 
 export {reducer};

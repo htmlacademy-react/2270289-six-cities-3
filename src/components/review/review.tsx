@@ -8,6 +8,8 @@ type CommentProps = {
 
 export default function Review({comment}: CommentProps): JSX.Element {
 
+  const commentDate = new Date (comment.date);
+
   return (
     <li className="reviews__item" >
       <div className="reviews__user user">
@@ -28,7 +30,7 @@ export default function Review({comment}: CommentProps): JSX.Element {
         <p className="reviews__text">
           {comment.comment}
         </p>
-        <time className="reviews__time" dateTime="2019-04-24">{dateToTypeFormat(comment.date, TYPE_FORMAT_DATE.monthStringYYYY)}</time>
+        <time className="reviews__time" dateTime="2019-04-24">{dateToTypeFormat(commentDate, TYPE_FORMAT_DATE.monthStringYYYY)}</time>
       </div>
     </li>
   );

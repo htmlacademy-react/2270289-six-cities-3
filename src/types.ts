@@ -66,7 +66,7 @@ type UserDescription = {
 type CommentProposal = {
   id: string;
   comment: string;
-  date: Date;
+  date: string;
   rating: number;
   user: UserDescription;
 }

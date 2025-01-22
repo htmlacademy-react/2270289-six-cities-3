@@ -8,7 +8,7 @@ import {useRef,useEffect} from 'react';
 import {useAppSelector} from '../../hooks/index.ts';
 
 import {Marker,Icon,layerGroup} from 'leaflet';
-import {URL_MARKER_DEFAULT,URL_MARKER_CURRENT} from '../../const';
+import {URL_MARKER_DEFAULT,URL_MARKER_CURRENT, AppRoute} from '../../const';
 
 const defaultCustomIcon = new Icon({
   iconUrl: URL_MARKER_DEFAULT,
@@ -32,7 +32,7 @@ export default function Offer() : JSX.Element {
   const currentCity = currentOffersByCity[0].city;
   const currentOffer = currentOffersByCity.filter((offer) => offer.id === currentActiveOfferID)[0];
 
-  const currentOfferId = currentOffer.id;
+  //const currentOfferId = currentOffer.id;
   const reviewsByOffer = useAppSelector((state) => state.reviewsByOffer);
 
   const mapRef = useRef(null);
@@ -64,7 +64,7 @@ export default function Offer() : JSX.Element {
         map.removeLayer(markerLayer);
       };
     }
-  }, [map, offersNear]);
+  }, [map]);
 
 
   return (
@@ -88,7 +88,7 @@ export default function Offer() : JSX.Element {
                   </Link>
                 </li>
                 <li className="header__nav-item">
-                  <Link className="header__nav-link" to="/">
+                  <Link className="header__nav-link" to={AppRoute.Login}>
                     <span className="header__signout">Sign out</span>
                   </Link>
                 </li>

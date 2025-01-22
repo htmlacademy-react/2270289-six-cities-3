@@ -8,9 +8,9 @@ type ListOfferProps = {
   variantCard : 'cities'|'favorite'|'near-places';
 }
 
-export default function ListOffer({listOffer,variantCard} : ListOfferProps) : JSX.Element {
-  const currentSort = useAppSelector((state) => state.currentSort);
-  const sortedListOffer = getSortedListOffer(currentSort,listOffer);
+export default function ListOffer({listOffer,variantCard}: ListOfferProps) : JSX.Element {
+    const currentSort = useAppSelector((state) => state.currentSort);
+    const sortedListOffer = getSortedListOffer(currentSort,listOffer);
 
   return (
     <>

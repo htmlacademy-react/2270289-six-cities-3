@@ -17,6 +17,7 @@ export default function CardOffer({ offer, variantCard }: OfferProps): JSX.Eleme
   return (
     <article className={`${variantCard}__card place-card`}
       onMouseEnter={() => {
+        //console.log('offer.id',offer.id);
         dispatch(setCardActiveId(offer.id));
       }}
       onMouseLeave={() => {

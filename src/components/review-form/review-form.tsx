@@ -49,8 +49,10 @@ export default function ReviewForm(): JSX.Element {
           </svg>
         </label>
       </div>
-      <textarea className="reviews__textarea form__textarea" id="review" name="review" placeholder="Tell how was your stay, what you like and what can be improved">
-        {commentForOffer.description}
+      <textarea className="reviews__textarea form__textarea" id="review" name="review"
+        placeholder="Tell how was your stay, what you like and what can be improved"
+        defaultValue={commentForOffer.description}
+      >
       </textarea>
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
