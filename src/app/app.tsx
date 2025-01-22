@@ -20,7 +20,7 @@ export default function App () : JSX.Element {
       <Routes>
         <Route path={AppRoute.Main} element={<Main />}/>
         <Route path={AppRoute.Login} element={<Login />}/>
-        <Route path={AppRoute.Offer} element={<Offer city = {currentCity} offersNear = {offersNear} />}/>
+        <Route path={AppRoute.Offer} element={<Offer />}/>
         <Route path={AppRoute.Favorites}
           element={
             <PrivateRoute
@@ -35,3 +35,5 @@ export default function App () : JSX.Element {
     </BrowserRouter>
   );
 }
+
+//city = {currentCity} offersNear = {offersNear}

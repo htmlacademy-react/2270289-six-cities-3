@@ -1,4 +1,5 @@
 import {mockOffers} from '../mocks/mock-offers-many';
+import {MockReviewByOffer} from '../mocks/mock-reviews';
 import {createReducer} from '@reduxjs/toolkit';
 import {setCity,fillOffer,setCardActiveId, setCurrentSort} from './action';
 
@@ -7,6 +8,7 @@ const cityNameDefault = 'Paris';
 export const initialState = {
   city : cityNameDefault,
   offers : mockOffers.listOffers,
+  reviewsByOffer: MockReviewByOffer,
   cardActiveId: '',
   currentSort: 'Popular'
 };
