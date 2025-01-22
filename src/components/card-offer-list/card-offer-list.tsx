@@ -1,7 +1,7 @@
 import type {OfferPreview} from '../../types.ts';
 import CardOffer from '../card-offer/card-offer.tsx';
-import { useAppSelector } from '../../hooks/index.ts';
-import { getSortedListOffer } from '../../utils.ts';
+import {useAppSelector} from '../../hooks/index.ts';
+import {getSortedListOffer} from '../../utils.ts';
 
 type ListOfferProps = {
   listOffer: OfferPreview[];

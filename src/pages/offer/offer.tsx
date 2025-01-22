@@ -2,10 +2,10 @@ import {Link } from 'react-router-dom';
 import ListOffer from '../../components/card-offer-list/card-offer-list';
 import ReviewForm from '../../components/review-form/review-form';
 import ReviewList from '../../components/review-list/review-list';
+
 import useMap from '../../hooks/use-map';
 import {useRef,useEffect} from 'react';
 import {useAppSelector} from '../../hooks/index.ts';
-
 
 import {Marker,Icon,layerGroup} from 'leaflet';
 import {URL_MARKER_DEFAULT,URL_MARKER_CURRENT} from '../../const';
@@ -219,7 +219,7 @@ export default function Offer() : JSX.Element {
               </div>
               <section className="offer__reviews reviews">
 
-                <ReviewList commentsList={reviewsByOffer.commentsList} offerId={currentOfferId} />
+                <ReviewList commentsList={reviewsByOffer.commentsList} />
                 <ReviewForm />
 
               </section>
