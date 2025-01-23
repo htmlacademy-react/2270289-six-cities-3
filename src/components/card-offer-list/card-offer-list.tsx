@@ -10,9 +10,10 @@ type ListOfferProps = {
 export default function ListOffer({ variantCard }: ListOfferProps): JSX.Element {
 
   let sortedListOffer = useAppSelector(selectorSortedListOffer,shallowEqual);
+  const sortedNearListOffer = useAppSelector(selectorNearListOffer,shallowEqual);
 
   if (variantCard === 'near-places') {
-    sortedListOffer = useAppSelector(selectorNearListOffer,shallowEqual);
+    sortedListOffer = sortedNearListOffer;
   }
 
   return (
