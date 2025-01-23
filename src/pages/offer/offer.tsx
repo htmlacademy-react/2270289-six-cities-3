@@ -10,8 +10,6 @@ import {useAppSelector} from '../../hooks/index.ts';
 import {Marker,Icon,layerGroup} from 'leaflet';
 import {URL_MARKER_DEFAULT,URL_MARKER_CURRENT, AppRoute} from '../../const';
 
-
-
 const defaultCustomIcon = new Icon({
   iconUrl: URL_MARKER_DEFAULT,
   iconSize: [40, 40],
@@ -29,7 +27,7 @@ export default function Offer() : JSX.Element {
   const currentCityName = useAppSelector((state) => state.city);
   const offers = useAppSelector((state) => state.offers);
   const currentActiveOfferID = useAppSelector((state) => state.cardActiveId);
-  const currentOffersByCity = offers.filter((itemOffer) => itemOffer.city.name === currentCityName);
+  const currentOffersByCity = offers.filter((itemOffer) => itemOffer.city.name === currentCityName.name);
   const offersNear = currentOffersByCity.slice(0,3);
   const currentCity = currentOffersByCity[0].city;
   const currentOffer = currentOffersByCity.filter((offer) => offer.id === currentActiveOfferID)[0];
@@ -235,7 +233,7 @@ export default function Offer() : JSX.Element {
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              <ListOffer listOffer={offersNear} variantCard='near-places'/>
+              <ListOffer variantCard='near-places'/>
             </div>
           </section>
 

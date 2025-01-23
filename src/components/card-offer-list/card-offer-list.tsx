@@ -1,6 +1,7 @@
 import CardOffer from '../card-offer/card-offer.tsx';
 import { useAppSelector } from '../../hooks/index.ts';
 import { selectorSortedListOffer,selectorNearListOffer } from '../../store/selectors.ts';
+import { shallowEqual } from 'react-redux';
 
 type ListOfferProps = {
   variantCard: 'cities' | 'favorite' | 'near-places';
@@ -8,9 +9,9 @@ type ListOfferProps = {
 
 export default function ListOffer({ variantCard }: ListOfferProps): JSX.Element {
 
-  let sortedListOffer = useAppSelector(selectorSortedListOffer);
+  let sortedListOffer = useAppSelector(selectorSortedListOffer,shallowEqual);
 
-  if (variantCard === 'near-places') sortedListOffer = useAppSelector(selectorNearListOffer);
+  if (variantCard === 'near-places') sortedListOffer = useAppSelector(selectorNearListOffer,shallowEqual);
 
   return (
     <>

@@ -3,6 +3,8 @@ import {AppRoute,directions} from '../../const.ts';
 import {setCity} from '../../store/action.ts';
 import {useAppDispatch} from '../../hooks/index.ts';
 
+import {citiesList} from '../../const.ts';
+
 export default function ListCity(): JSX.Element {
   const dispatch = useAppDispatch();
   return (
@@ -14,7 +16,8 @@ export default function ListCity(): JSX.Element {
               <li className="locations__item" key={item} >
                 <Link className="locations__item-link tabs__item" to={AppRoute.Main} onClick={(evt) => {
                   evt.preventDefault();
-                  dispatch(setCity(item));
+                  const city = citiesList.find((city) => city.name === item)
+                  dispatch(setCity(city));
                 }}
                 >
                   <span>{item}</span>
