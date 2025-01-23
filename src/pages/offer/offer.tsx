@@ -10,6 +10,8 @@ import {useAppSelector} from '../../hooks/index.ts';
 import {Marker,Icon,layerGroup} from 'leaflet';
 import {URL_MARKER_DEFAULT,URL_MARKER_CURRENT, AppRoute} from '../../const';
 
+
+
 const defaultCustomIcon = new Icon({
   iconUrl: URL_MARKER_DEFAULT,
   iconSize: [40, 40],

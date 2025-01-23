@@ -3,10 +3,32 @@ import {MockReviewByOffer} from '../mocks/mock-reviews';
 import {createReducer} from '@reduxjs/toolkit';
 import {setCity,fillOffer,setCardActiveId,setCurrentSort,setReviewByOffer} from './action';
 
-const cityNameDefault = 'Paris';
+//const cityNameDefault = 'Paris';
+
+/*
+type LocationPlace = {
+  latitude: number;
+  longitude: number;
+  zoom: number;
+};
+
+type CityDestination = {
+  name: string;
+  location: LocationPlace;
+};
+*/
+
+const cityDefault = {
+  name: 'Paris',
+  location: {
+    latitude: 48.85661,
+    longitude: 2.351499,
+    zoom: 13
+  }
+};
 
 export const initialState = {
-  city : cityNameDefault,
+  city : cityDefault,
   offers : mockOffers.listOffers,
   reviewsByOffer: MockReviewByOffer,
   cardActiveId: '',

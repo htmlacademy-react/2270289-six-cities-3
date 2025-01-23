@@ -1,21 +1,21 @@
-import type {OfferPreview} from '../../types.ts';
 import CardOffer from '../card-offer/card-offer.tsx';
-import {useAppSelector} from '../../hooks/index.ts';
-import {getSortedListOffer} from '../../utils.ts';
+import { useAppSelector } from '../../hooks/index.ts';
+import { selectorSortedListOffer,selectorNearListOffer } from '../../store/selectors.ts';
 
 type ListOfferProps = {
-  listOffer: OfferPreview[];
-  variantCard : 'cities'|'favorite'|'near-places';
+  variantCard: 'cities' | 'favorite' | 'near-places';
 }
 
-export default function ListOffer({listOffer,variantCard}: ListOfferProps) : JSX.Element {
-    const currentSort = useAppSelector((state) => state.currentSort);
-    const sortedListOffer = getSortedListOffer(currentSort,listOffer);
+export default function ListOffer({ variantCard }: ListOfferProps): JSX.Element {
+
+  let sortedListOffer = useAppSelector(selectorSortedListOffer);
+
+  if (variantCard === 'near-places') sortedListOffer = useAppSelector(selectorNearListOffer);
 
   return (
     <>
       {sortedListOffer.map((item) => (
-        <CardOffer offer = {item} key = {item.id} variantCard={variantCard} />
+        <CardOffer offer={item} key={item.id} variantCard={variantCard} />
       )
       )}
     </>

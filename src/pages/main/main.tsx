@@ -9,9 +9,10 @@ import ListCity from '../../components/list-city/list-city.tsx';
 export default function Main(): JSX.Element {
 
   const offers = useAppSelector((state) => state.offers);
-  const cityName = useAppSelector((state) => state.city);
+  const currentCity = useAppSelector((state) => state.city);
+  const cityName = currentCity.name;
   const currentOffersByCity = offers.filter((itemCard) => itemCard.city.name === cityName);
-  const currentCity = currentOffersByCity[0].city;
+  //const currentCity = currentOffersByCity[0].city;
   const countOffers = currentOffersByCity.length;
 
   return (
@@ -34,7 +35,7 @@ export default function Main(): JSX.Element {
 
               <div className="cities__places-list places__list tabs__content">
 
-                <ListOffer listOffer={currentOffersByCity} variantCard='cities' />
+                <ListOffer variantCard='cities' />
 
               </div>
             </section>
