@@ -11,7 +11,7 @@ export default function ReviewList({commentsList }: CommentsListProps): JSX.Elem
       <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{commentsList.length}</span></h2>
       <ul className="reviews__list" >
         {commentsList.map((comment) => (
-          <Review comment={comment} key={comment.id}  />
+          <Review comment={comment} key={comment.id}/>
         ))}
       </ul>
     </>

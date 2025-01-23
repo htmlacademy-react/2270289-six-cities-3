@@ -16,7 +16,7 @@ export default function ListCity(): JSX.Element {
               <li className="locations__item" key={item} >
                 <Link className="locations__item-link tabs__item" to={AppRoute.Main} onClick={(evt) => {
                   evt.preventDefault();
-                  const city = citiesList.find((city) => city.name === item)
+                  const city = citiesList.find((cityItem) => cityItem.name === item);
                   dispatch(setCity(city));
                 }}
                 >

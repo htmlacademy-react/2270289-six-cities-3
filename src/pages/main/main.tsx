@@ -11,9 +11,8 @@ export default function Main(): JSX.Element {
   const offers = useAppSelector((state) => state.offers);
 
   const currentCity = useAppSelector((state) => state.city);
-  const cityName = currentCity.name
+  const cityName = currentCity.name;
   const currentOffersByCity = offers.filter((itemCard) => itemCard.city.name === cityName);
-  //const currentCity = currentOffersByCity[0].city;
   const countOffers = currentOffersByCity.length;
 
   return (

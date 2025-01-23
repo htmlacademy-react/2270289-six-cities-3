@@ -11,6 +11,3 @@ export const fillOffer = createAction<OfferPreview[]>(ActionType.FillOffer);
 export const setCardActiveId = createAction<string>(ActionType.SetCardActiveId);
 export const setCurrentSort = createAction<string>(ActionType.SetCurrentSort);
 export const setReviewByOffer = createAction<TypeMockReviewByOffer>(ActionType.SetReviewByOffer);
-
-
-
