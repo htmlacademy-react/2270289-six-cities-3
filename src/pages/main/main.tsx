@@ -6,6 +6,9 @@ import SortOffer from '../../components/sort-offer/sort-offer.tsx';
 import Map from '../../components/map/map.tsx';
 import ListCity from '../../components/list-city/list-city.tsx';
 
+import {selectorSortedListOffer} from '../../store/selectors.ts';
+import {shallowEqual} from 'react-redux';
+
 export default function Main(): JSX.Element {
 
   const offers = useAppSelector((state) => state.offers);
@@ -14,6 +17,9 @@ export default function Main(): JSX.Element {
   const cityName = currentCity.name;
   const currentOffersByCity = offers.filter((itemCard) => itemCard.city.name === cityName);
   const countOffers = currentOffersByCity.length;
+
+  const sortedListOffer = useAppSelector(selectorSortedListOffer,shallowEqual);
+  //const sortedNearListOffer = useAppSelector(selectorNearListOffer,shallowEqual);
 
   return (
     <div className="page page--gray page--main">
@@ -35,7 +41,7 @@ export default function Main(): JSX.Element {
 
               <div className="cities__places-list places__list tabs__content">
 
-                <ListOffer variantCard='cities' />
+                <ListOffer listOffer={sortedListOffer} variantCard='cities' />
 
               </div>
             </section>

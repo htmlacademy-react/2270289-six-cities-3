@@ -1,21 +1,11 @@
 import type { CityDestination } from './types';
 
-export const directions: string[] = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
-
 export const citiesList: CityDestination[] = [
   {
     name: 'Paris',
     location: {
       latitude: 48.85661,
       longitude: 2.351499,
-      zoom: 13
-    }
-  },
-  {
-    name: 'Cologne',
-    location: {
-      latitude: 50.938361,
-      longitude: 6.959974,
       zoom: 13
     }
   },
