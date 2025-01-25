@@ -1,18 +1,17 @@
 import {Link } from 'react-router-dom';
+import ListOffer from '../../components/card-offer-list/card-offer-list';
 import ReviewForm from '../../components/review-form/review-form';
 import ReviewList from '../../components/review-list/review-list';
-import { MockReviewByOffer } from '../../mocks/mock-reviews';
-import { useState,useRef, useEffect } from 'react';
-import {Marker,Icon,layerGroup} from 'leaflet';
-import useMap from '../../hooks/use-map';
-import {URL_MARKER_DEFAULT,URL_MARKER_CURRENT} from '../../const';
-import type { CityDestination,OfferPreview } from '../../types';
-import ListOffer from '../../components/card-offer-list/card-offer-list.tsx';
 
-type offerProps = {
-  city: CityDestination;
-  offersNear: OfferPreview[];
-};
+import useMap from '../../hooks/use-map';
+import {useRef,useEffect} from 'react';
+import {useAppSelector} from '../../hooks/index.ts';
+
+import {Marker,Icon,layerGroup} from 'leaflet';
+import {URL_MARKER_DEFAULT,URL_MARKER_CURRENT, AppRoute} from '../../const';
+
+import {selectorNearListOffer } from '../../store/selectors.ts';
+import {shallowEqual} from 'react-redux';
 
 const defaultCustomIcon = new Icon({
   iconUrl: URL_MARKER_DEFAULT,
@@ -26,35 +25,51 @@ const currentCustomIcon = new Icon({
   iconAnchor: [20, 40]
 });
 
-export default function Offer({city,offersNear} : offerProps) : JSX.Element {
+export default function Offer() : JSX.Element {
 
-  const [offerNearActiveId, setOfferNearActiveId] = useState<string|null>(null);
+  const currentCityName = useAppSelector((state) => state.city);
+  const offers = useAppSelector((state) => state.offers);
+  const currentActiveOfferID = useAppSelector((state) => state.cardActiveId);
+  const currentOffersByCity = offers.filter((itemOffer) => itemOffer.city.name === currentCityName.name);
+  //const offersNear = currentOffersByCity.slice(0,3);
+  const currentCity = currentOffersByCity[0].city;
+  const currentOffer = currentOffersByCity.filter((offer) => offer.id === currentActiveOfferID)[0];
+
+  const sortedNearListOffer = useAppSelector(selectorNearListOffer,shallowEqual);
+
+  //const currentOfferId = currentOffer.id;
+  const reviewsByOffer = useAppSelector((state) => state.reviewsByOffer);
+
   const mapRef = useRef(null);
-  const map = useMap(mapRef,city);
+  const map = useMap(mapRef,currentCity);
 
   useEffect(() => {
     if (map) {
       const markerLayer = layerGroup().addTo(map);
-      offersNear.forEach((offer) => {
+      sortedNearListOffer.forEach((offer) => {
         const marker = new Marker({
           lat: offer.location.latitude,
           lng: offer.location.longitude
         });
-
         marker
-          .setIcon(
-            offerNearActiveId !== undefined && offer.id === offerNearActiveId
-              ? currentCustomIcon
-              : defaultCustomIcon
-          )
+          .setIcon(defaultCustomIcon)
           .addTo(markerLayer);
+
       });
+
+      const marker = new Marker({
+        lat: currentOffer.location.latitude,
+        lng: currentOffer.location.longitude
+      });
+      marker
+        .setIcon(currentCustomIcon)
+        .addTo(markerLayer);
 
       return () => {
         map.removeLayer(markerLayer);
       };
     }
-  }, [map, offersNear, offerNearActiveId]);
+  }, [map]);
 
 
   return (
@@ -70,17 +85,17 @@ export default function Offer({city,offersNear} : offerProps) : JSX.Element {
             <nav className="header__nav">
               <ul className="header__nav-list">
                 <li className="header__nav-item user">
-                  <a className="header__nav-link header__nav-link--profile" href="#">
+                  <Link className="header__nav-link header__nav-link--profile" to="/">
                     <div className="header__avatar-wrapper user__avatar-wrapper">
                     </div>
                     <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
                     <span className="header__favorite-count">3</span>
-                  </a>
+                  </Link>
                 </li>
                 <li className="header__nav-item">
-                  <a className="header__nav-link" href="#">
+                  <Link className="header__nav-link" to={AppRoute.Login}>
                     <span className="header__signout">Sign out</span>
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </nav>
@@ -209,7 +224,7 @@ export default function Offer({city,offersNear} : offerProps) : JSX.Element {
               </div>
               <section className="offer__reviews reviews">
 
-                <ReviewList commentsList={MockReviewByOffer.commentsList} offerId={MockReviewByOffer.offerId} />
+                <ReviewList commentsList={reviewsByOffer.commentsList} />
                 <ReviewForm />
 
               </section>
@@ -223,7 +238,7 @@ export default function Offer({city,offersNear} : offerProps) : JSX.Element {
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              <ListOffer listOffer={offersNear} variantCard='near-places' mouseMove={setOfferNearActiveId} />
+              <ListOffer listOffer={sortedNearListOffer} variantCard='near-places'/>
             </div>
           </section>
 

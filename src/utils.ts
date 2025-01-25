@@ -1,4 +1,6 @@
 import { typeCard } from './const';
+import type { OfferPreview } from './types';
+import { SORT_OPTIONS, SortOption } from './const';
 
 export const TYPE_FORMAT_DATE = {
   monthStringYYYY : 'MonthString_YYYY',
@@ -37,7 +39,6 @@ function dateToTypeFormat(date: Date, type: string) {
   switch (type) {
     case TYPE_FORMAT_DATE.monthStringYYYY : return `${getMonthStringFromDate(date)} ${date.getFullYear()}`;
   }
-
 }
 
 function getClassCardByType (type:string) {
@@ -51,4 +52,20 @@ function getClassCardByType (type:string) {
   }
 }
 
-export {dateToTypeFormat,getClassCardByType};
+const getSortedListOffer = (currentSort: string, listOffer: OfferPreview[]) => {
+  const sortedListOffer = [...listOffer];
+
+  switch (currentSort) {
+    case (SORT_OPTIONS[SortOption.Popular]): return [...listOffer];
+      break;
+    case (SORT_OPTIONS[SortOption.PriceHighToLow]): sortedListOffer.sort((a,b) => b.price - a.price);
+      break;
+    case (SORT_OPTIONS[SortOption.PriceLowToHigh]): sortedListOffer.sort((a,b) => a.price - b.price);
+      break;
+    case (SORT_OPTIONS[SortOption.TopRatedFirst]): sortedListOffer.sort((a,b) => b.rating - a.rating);
+      break;
+  }
+  return sortedListOffer;
+};
+
+export {dateToTypeFormat,getClassCardByType,getSortedListOffer};

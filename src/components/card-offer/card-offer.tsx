@@ -1,24 +1,27 @@
-import type {OfferPreview} from '../../types.ts';
 import {Link} from 'react-router-dom';
+import {useAppDispatch} from '../../hooks/index.ts';
+import {setCardActiveId} from '../../store/action.ts';
+import type {OfferPreview} from '../../types.ts';
 
 type OfferProps = {
   offer: OfferPreview;
-  variantCard : 'cities'|'favorite'|'near-places';
-  mouseMove: (id:string|null) => void | null;
+  variantCard: 'cities' | 'favorite' | 'near-places';
 }
 
-export default function CardOffer ({offer,variantCard,mouseMove} : OfferProps) : JSX.Element {
+export default function CardOffer({ offer, variantCard }: OfferProps): JSX.Element {
 
   const linkTo = `/offer/:${offer.id}`;
   const isShowSpanPremium = variantCard !== 'near-places';
+  const dispatch = useAppDispatch();
 
   return (
     <article className={`${variantCard}__card place-card`}
       onMouseEnter={() => {
-        mouseMove(offer.id);
+        //console.log('offer.id',offer.id);
+        dispatch(setCardActiveId(offer.id));
       }}
       onMouseLeave={() => {
-        mouseMove(null);
+        dispatch(setCardActiveId(''));
       }}
     >
 
@@ -46,7 +49,7 @@ export default function CardOffer ({offer,variantCard,mouseMove} : OfferProps) :
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: '80%'}}></span>
+            <span style={{ width: '80%' }}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
