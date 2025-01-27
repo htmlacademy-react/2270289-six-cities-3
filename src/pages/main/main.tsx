@@ -19,7 +19,6 @@ export default function Main(): JSX.Element {
   const countOffers = currentOffersByCity.length;
 
   const sortedListOffer = useAppSelector(selectorSortedListOffer,shallowEqual);
-  //const sortedNearListOffer = useAppSelector(selectorNearListOffer,shallowEqual);
 
   return (
     <div className="page page--gray page--main">
