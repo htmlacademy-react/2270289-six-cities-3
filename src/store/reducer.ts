@@ -2,21 +2,9 @@ import {mockOffers} from '../mocks/mock-offers-many';
 import {MockReviewByOffer} from '../mocks/mock-reviews';
 import {createReducer} from '@reduxjs/toolkit';
 import {setCity,fillOffer,setCardActiveId,setCurrentSort,setReviewByOffer} from './action';
+import type { OfferPreview } from '../types';
 
-//const cityNameDefault = 'Paris';
-
-/*
-type LocationPlace = {
-  latitude: number;
-  longitude: number;
-  zoom: number;
-};
-
-type CityDestination = {
-  name: string;
-  location: LocationPlace;
-};
-*/
+//import { getData } from '../services/api';
 
 const cityDefault = {
   name: 'Paris',
@@ -26,7 +14,7 @@ const cityDefault = {
     zoom: 13
   }
 };
-
+/*
 export const initialState = {
   city : cityDefault,
   offers : mockOffers.listOffers,
@@ -34,6 +22,20 @@ export const initialState = {
   cardActiveId: '',
   currentSort: 'Popular'
 };
+*/
+
+export const initialState = {
+  city : cityDefault,
+  offers : <OfferPreview[]>[],
+  reviewsByOffer: MockReviewByOffer,
+  cardActiveId: '',
+  currentSort: 'Popular'
+};
+
+/*
+const dataFromServer = getData(URL_API_OFFERS, 5000)
+console.log('dataFromServer',dataFromServer);
+*/
 
 const reducer = createReducer(initialState, (builder) => {
   builder

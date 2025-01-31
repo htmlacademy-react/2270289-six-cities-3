@@ -82,7 +82,8 @@ export const enum ActionType {
   FillOffer = 'offers/fillOffer',
   SetCardActiveId = 'card/setActiveId',
   SetCurrentSort = 'sort/setCurrentSort',
-  SetReviewByOffer = 'review/setReviewByOffer'
+  SetReviewByOffer = 'review/setReviewByOffer',
+  FetchAllOffers = 'fetchOffers/all'
 }
 
 export const SORT_OPTIONS = [
@@ -97,4 +98,12 @@ export enum SortOption {
   PriceLowToHigh = 1,
   PriceHighToLow = 2,
   TopRatedFirst = 3
+}
+
+export const EndPoint = {
+  Comments : '/comments',
+  Favorite : '/favorite',
+  Login : '/login',
+  Logout: '/logout',
+  Offers: '/offers',
 }
