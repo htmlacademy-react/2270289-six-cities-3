@@ -93,7 +93,7 @@ export const RequestStatus = {
   Loading : 'loading',
   Success : 'success',
   Failed : 'failed',
-}
+};
 
 export const SORT_OPTIONS = [
   'Popular',
@@ -115,4 +115,4 @@ export const ApiRoute = {
   Login : '/login',
   Logout: '/logout',
   Offers: '/offers',
-}
+};

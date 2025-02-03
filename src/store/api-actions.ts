@@ -7,9 +7,9 @@ import { fillOffer, setRequestStatus } from './action';
 import { ApiRoute, RequestStatus } from '../const';
 
 export const fetchOffersAction = createAsyncThunk<void,undefined,{
-  dispatch: AppDispatch,
-  state: State,
-  extra: AxiosInstance,
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
 }>(
   'data/fetchOffers',
   async(_arg,{dispatch, extra:api }) => {
@@ -18,10 +18,6 @@ export const fetchOffersAction = createAsyncThunk<void,undefined,{
     const {data} = await api.get<OfferPreview[]>(ApiRoute.Offers);
 
     dispatch(setRequestStatus(RequestStatus.Success));
-    dispatch(fillOffer(data))
+    dispatch(fillOffer(data));
   }
 );
-
-
-
-

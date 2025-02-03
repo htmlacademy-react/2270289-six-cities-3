@@ -30,11 +30,11 @@ export default function Offer() : JSX.Element {
   const currentCityName = useAppSelector((state) => state.city);
   const offers = useAppSelector((state) => state.offers);
   const currentActiveOfferID = useAppSelector((state) => state.cardActiveId);
-  const currentOffersByCity = offers.filter((itemOffer: { city: { name: any; }; }) => itemOffer.city.name === currentCityName.name);
+  const currentOffersByCity = offers.filter((itemOffer: { city: { name: string } }) => itemOffer.city.name === currentCityName.name);
   const currentCity = currentOffersByCity[0].city;
 
   const currentOffer = currentActiveOfferID ?
-    currentOffersByCity.filter((offer: { id: any; }) => offer.id === currentActiveOfferID)[0] :
+    currentOffersByCity.filter((offer: { id: string }) => offer.id === currentActiveOfferID)[0] :
     currentOffersByCity[0];
 
   const sortedNearListOffer = useAppSelector(selectorNearListOffer,shallowEqual);

@@ -24,7 +24,7 @@ export default function FavoriteCardItemGroup({listOffer, variantCard}: ListOffe
           <div className="favorites__places">
             {listOffer.map((itemOffer) =>
               (
-                (itemOffer.city.name === city) && <CardOffer offer = {itemOffer} key = {itemOffer.id} variantCard={variantCard}  />
+                (itemOffer.city.name === city) && <CardOffer offer = {itemOffer} key = {itemOffer.id} variantCard={variantCard} />
               )
             )}
           </div>

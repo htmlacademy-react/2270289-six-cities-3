@@ -47,7 +47,7 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setRequestStatus,(state,action) => {
       state.requestStatus = action.payload;
-    })
+    });
 });
 
 

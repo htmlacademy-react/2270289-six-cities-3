@@ -4,6 +4,5 @@ export default function LoadingScreen () : JSX.Element {
     <p>
       loading...
     </p>
-
-  )
+  );
 }

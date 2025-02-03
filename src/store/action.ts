@@ -13,5 +13,5 @@ export const setCurrentSort = createAction<string>(ActionType.SetCurrentSort);
 
 export const setReviewByOffer = createAction<TypeMockReviewByOffer>(ActionType.SetReviewByOffer);
 
-export const requireAuthorization = createAction<AuthorizationStatus>(ActionType.RequireAuthorization)
-export const setRequestStatus = createAction<string>(ActionType.SetRequestStatus)
+export const requireAuthorization = createAction<AuthorizationStatus>(ActionType.RequireAuthorization);
+export const setRequestStatus = createAction<string>(ActionType.SetRequestStatus);

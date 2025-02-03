@@ -3,16 +3,12 @@ import type {OfferPreview} from '../../types.ts';
 import { useAppSelector } from '../../hooks/index.ts';
 
 type ListOfferProps = {
-  //listOffer: OfferPreview[];
   variantCard : 'cities'|'favorite'|'near-places';
-  //mouseMove: (id:string|null) => void;
 }
 
 export default function Favorites({ variantCard}:ListOfferProps) : JSX.Element {
   const offers = useAppSelector((state) => state.offers);
-  //console.log('offers in favorite',offers);
-  const offersFavorite :  OfferPreview[] = offers.filter((itemCard: {isFavorite: boolean}) => itemCard.isFavorite);
-  //console.log(' offersFavorite', offersFavorite);
+  const offersFavorite : OfferPreview[] = offers.filter((itemCard: {isFavorite: boolean}) => itemCard.isFavorite);
 
   return (
     <div className="page">

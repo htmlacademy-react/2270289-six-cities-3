@@ -5,7 +5,7 @@ import { reducer } from './reducer';
 export const _store = configureStore({reducer});
 */
 
-import {configureStore} from '@reduxjs/toolkit';
+import { configureStore } from '@reduxjs/toolkit';
 //import {combineReducers} from '@reduxjs/toolkit';
 import { createApi } from '../services/api';
 import { reducer } from './reducer';
@@ -19,6 +19,6 @@ export const store = configureStore({
     getDefaultMiddleware({
       thunk: {
         extraArgument: api,
-    },
-  }),
-})
+      },
+    }),
+});
