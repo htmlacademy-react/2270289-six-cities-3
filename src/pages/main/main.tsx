@@ -6,8 +6,8 @@ import SortOffer from '../../components/sort-offer/sort-offer.tsx';
 import Map from '../../components/map/map.tsx';
 import ListCity from '../../components/list-city/list-city.tsx';
 
-import {selectorSortedListOffer} from '../../store/selectors.ts';
-import {shallowEqual} from 'react-redux';
+import { selectorSortedListOffer } from '../../store/selectors.ts';
+import { shallowEqual } from 'react-redux';
 
 export default function Main(): JSX.Element {
 
@@ -15,10 +15,10 @@ export default function Main(): JSX.Element {
 
   const currentCity = useAppSelector((state) => state.city);
   const cityName = currentCity.name;
-  const currentOffersByCity = offers.filter((itemCard) => itemCard.city.name === cityName);
+  const currentOffersByCity = offers.filter((itemCard: { city: { name: string } }) => itemCard.city.name === cityName);
   const countOffers = currentOffersByCity.length;
 
-  const sortedListOffer = useAppSelector(selectorSortedListOffer,shallowEqual);
+  const sortedListOffer = useAppSelector(selectorSortedListOffer, shallowEqual);
 
   return (
     <div className="page page--gray page--main">

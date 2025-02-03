@@ -30,14 +30,14 @@ export default function Offer() : JSX.Element {
   const currentCityName = useAppSelector((state) => state.city);
   const offers = useAppSelector((state) => state.offers);
   const currentActiveOfferID = useAppSelector((state) => state.cardActiveId);
-  const currentOffersByCity = offers.filter((itemOffer) => itemOffer.city.name === currentCityName.name);
-  //const offersNear = currentOffersByCity.slice(0,3);
+  const currentOffersByCity = offers.filter((itemOffer: { city: { name: any; }; }) => itemOffer.city.name === currentCityName.name);
   const currentCity = currentOffersByCity[0].city;
-  const currentOffer = currentOffersByCity.filter((offer) => offer.id === currentActiveOfferID)[0];
+
+  const currentOffer = currentActiveOfferID ?
+    currentOffersByCity.filter((offer: { id: any; }) => offer.id === currentActiveOfferID)[0] :
+    currentOffersByCity[0];
 
   const sortedNearListOffer = useAppSelector(selectorNearListOffer,shallowEqual);
-
-  //const currentOfferId = currentOffer.id;
   const reviewsByOffer = useAppSelector((state) => state.reviewsByOffer);
 
   const mapRef = useRef(null);
@@ -54,7 +54,6 @@ export default function Offer() : JSX.Element {
         marker
           .setIcon(defaultCustomIcon)
           .addTo(markerLayer);
-
       });
 
       const marker = new Marker({

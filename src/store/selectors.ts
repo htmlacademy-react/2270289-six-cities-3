@@ -4,7 +4,7 @@ import type {State} from '../hooks';
 export const selectorCurrentOffersByCity = (state : State) => {
   const currentCityName = state.city.name;
   const offers = state.offers;
-  return offers.filter((itemOffer) => itemOffer.city.name === currentCityName);
+  return offers.filter((itemOffer: { city: { name: any; }; }) => itemOffer.city.name === currentCityName);
 };
 
 export const selectorSortedListOffer = (state: State) => {

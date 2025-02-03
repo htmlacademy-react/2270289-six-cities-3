@@ -85,6 +85,14 @@ export const enum ActionType {
   SetReviewByOffer = 'review/setReviewByOffer',
   FetchAllOffers = 'fetchOffers/all',
   RequireAuthorization = 'user/requireAuthorization',
+  SetRequestStatus = 'data/setRequestStatus',
+}
+
+export const RequestStatus = {
+  Idle : 'idle',
+  Loading : 'loading',
+  Success : 'success',
+  Failed : 'failed',
 }
 
 export const SORT_OPTIONS = [

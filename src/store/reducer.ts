@@ -1,12 +1,10 @@
-import {mockOffers} from '../mocks/mock-offers-many';
+
 import {MockReviewByOffer} from '../mocks/mock-reviews';
 import {createReducer} from '@reduxjs/toolkit';
-import {setCity,fillOffer,setCardActiveId,setCurrentSort,setReviewByOffer, requireAuthorization} from './action';
+import {setCity,fillOffer,setCardActiveId,setCurrentSort,setReviewByOffer, requireAuthorization, setRequestStatus} from './action';
 import type { OfferPreview } from '../types';
-import { fetchAllOffers } from './thunks/offers';
 import { AuthorizationStatus } from '../const';
-
-//import { getData } from '../services/api';
+import { RequestStatus } from '../const';
 
 const cityDefault = {
   name: 'Paris',
@@ -17,16 +15,6 @@ const cityDefault = {
   }
 };
 
-/*
-export const initialState = {
-  city : cityDefault,
-  offers : mockOffers.listOffers,
-  reviewsByOffer: MockReviewByOffer,
-  cardActiveId: '',
-  currentSort: 'Popular'
-};
-*/
-
 export const initialState = {
   city : cityDefault,
   offers : <OfferPreview[]>[],
@@ -34,12 +22,8 @@ export const initialState = {
   cardActiveId: '',
   currentSort: 'Popular',
   authorizationStatus : AuthorizationStatus.Unknown,
+  requestStatus : RequestStatus.Idle,
 };
-
-/*
-const dataFromServer = getData(URL_API_OFFERS, 5000)
-console.log('dataFromServer',dataFromServer);
-*/
 
 const reducer = createReducer(initialState, (builder) => {
   builder
@@ -60,6 +44,9 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(requireAuthorization,(state,action) => {
       state.authorizationStatus = action.payload;
+    })
+    .addCase(setRequestStatus,(state,action) => {
+      state.requestStatus = action.payload;
     })
 });
 
