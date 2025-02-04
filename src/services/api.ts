@@ -1,13 +1,10 @@
 import {AxiosInstance} from 'axios';
 import axios from 'axios';
-import {AxiosRequestConfig,AxiosResponse,AxiosError} from 'axios';
+import {AxiosResponse,AxiosError} from 'axios';
 import { StatusCodes } from 'http-status-codes';
 import {getToken,AUTH_TOKEN_KEY } from './token';
 
 import { processErrorHandle } from './process-error-handle';
-
-//import {AxiosRequestConfig} from 'axios';
-//import type { OfferPreview } from '../types';
 
 const enum DefaultConnect {
   BaseUrl = 'https://15.design.htmlacademy.pro/six-cities',
@@ -55,24 +52,3 @@ export const createApi = () : AxiosInstance => {
 
   return api;
 };
-
-/*
-export function getData (url:string,timeout:number) {
-  const gData : OfferPreview[] = [];
-  axios.get(url,{timeout: timeout, headers: {'X-token': 'T2xpdmVyLmNvbm5lckBnbWFpbC5jb20='},})
-    .then((response) => {
-      console.log('response.data',response.data);
-
-      const gDat : OfferPreview[] = Array.from(response.data)
-
-      console.log('gDat',gDat);
-      gData.push(...gDat);
-
-    })
-    .catch((err) => {
-      console.log(`Error: ${err.message}`);
-    });
-    console.log('gData',gData);
-  return gData;
-}
-*/
