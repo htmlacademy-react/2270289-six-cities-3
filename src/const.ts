@@ -1,6 +1,6 @@
 import type { CityDestination } from './types';
 
-export const TIMEOUT_SHOW_ERROR = 2000;
+export const TIMEOUT_SHOW_ERROR = 20000;
 
 export const citiesList: CityDestination[] = [
   {

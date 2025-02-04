@@ -20,7 +20,7 @@ const StatusCodeMaping : Record<number,boolean> = {
   [StatusCodes.BAD_REQUEST] : true,
   [StatusCodes.UNAUTHORIZED] : true,
   [StatusCodes.NOT_FOUND] : true,
-}
+};
 
 const shouldDisplayError = (response : AxiosResponse) => !!StatusCodeMaping[response.status];
 
