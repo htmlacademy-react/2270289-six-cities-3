@@ -1,7 +1,7 @@
 
 import {MockReviewByOffer} from '../mocks/mock-reviews';
 import {createReducer} from '@reduxjs/toolkit';
-import {setCity,fillOffer,setCardActiveId,setCurrentSort,setReviewByOffer, requireAuthorization, setRequestStatus} from './action';
+import {setCity,fillOffer,setCardActiveId,setCurrentSort,setReviewByOffer, requireAuthorization, setRequestStatus, setError} from './action';
 import type { OfferPreview } from '../types';
 import { AuthorizationStatus } from '../const';
 import { RequestStatus } from '../const';
@@ -23,6 +23,7 @@ export const initialState = {
   currentSort: 'Popular',
   authorizationStatus : AuthorizationStatus.Unknown,
   requestStatus : RequestStatus.Idle,
+  error: '',
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -47,8 +48,10 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setRequestStatus,(state,action) => {
       state.requestStatus = action.payload;
+    })
+    .addCase(setError,(state,action) => {
+      state.error = action.payload;
     });
 });
-
 
 export {reducer};

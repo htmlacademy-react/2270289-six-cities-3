@@ -15,3 +15,5 @@ export const setReviewByOffer = createAction<TypeMockReviewByOffer>(ActionType.S
 
 export const requireAuthorization = createAction<AuthorizationStatus>(ActionType.RequireAuthorization);
 export const setRequestStatus = createAction<string>(ActionType.SetRequestStatus);
+
+export const setError = createAction<string>(ActionType.SetError);

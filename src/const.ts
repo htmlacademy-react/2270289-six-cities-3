@@ -1,5 +1,7 @@
 import type { CityDestination } from './types';
 
+export const TIMEOUT_SHOW_ERROR = 2000;
+
 export const citiesList: CityDestination[] = [
   {
     name: 'Paris',
@@ -86,6 +88,7 @@ export const enum ActionType {
   FetchAllOffers = 'fetchOffers/all',
   RequireAuthorization = 'user/requireAuthorization',
   SetRequestStatus = 'data/setRequestStatus',
+  SetError = 'request/setError',
 }
 
 export const RequestStatus = {
@@ -116,3 +119,4 @@ export const ApiRoute = {
   Logout: '/logout',
   Offers: '/offers',
 };
+
