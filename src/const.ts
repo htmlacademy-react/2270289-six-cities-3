@@ -1,5 +1,7 @@
 import type { CityDestination } from './types';
 
+export const TIMEOUT_SHOW_ERROR = 20000;
+
 export const citiesList: CityDestination[] = [
   {
     name: 'Paris',
@@ -82,8 +84,19 @@ export const enum ActionType {
   FillOffer = 'offers/fillOffer',
   SetCardActiveId = 'card/setActiveId',
   SetCurrentSort = 'sort/setCurrentSort',
-  SetReviewByOffer = 'review/setReviewByOffer'
+  SetReviewByOffer = 'review/setReviewByOffer',
+  FetchAllOffers = 'fetchOffers/all',
+  RequireAuthorization = 'user/requireAuthorization',
+  SetRequestStatus = 'data/setRequestStatus',
+  SetError = 'request/setError',
 }
+
+export const RequestStatus = {
+  Idle : 'idle',
+  Loading : 'loading',
+  Success : 'success',
+  Failed : 'failed',
+};
 
 export const SORT_OPTIONS = [
   'Popular',
@@ -98,3 +111,12 @@ export enum SortOption {
   PriceHighToLow = 2,
   TopRatedFirst = 3
 }
+
+export const ApiRoute = {
+  Comments : '/comments',
+  Favorite : '/favorite',
+  Login : '/login',
+  Logout: '/logout',
+  Offers: '/offers',
+};
+

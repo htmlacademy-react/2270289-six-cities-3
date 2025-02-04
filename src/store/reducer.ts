@@ -1,22 +1,10 @@
-import {mockOffers} from '../mocks/mock-offers-many';
+
 import {MockReviewByOffer} from '../mocks/mock-reviews';
 import {createReducer} from '@reduxjs/toolkit';
-import {setCity,fillOffer,setCardActiveId,setCurrentSort,setReviewByOffer} from './action';
-
-//const cityNameDefault = 'Paris';
-
-/*
-type LocationPlace = {
-  latitude: number;
-  longitude: number;
-  zoom: number;
-};
-
-type CityDestination = {
-  name: string;
-  location: LocationPlace;
-};
-*/
+import {setCity,fillOffer,setCardActiveId,setCurrentSort,setReviewByOffer, requireAuthorization, setRequestStatus, setError} from './action';
+import type { OfferPreview } from '../types';
+import { AuthorizationStatus } from '../const';
+import { RequestStatus } from '../const';
 
 const cityDefault = {
   name: 'Paris',
@@ -29,10 +17,13 @@ const cityDefault = {
 
 export const initialState = {
   city : cityDefault,
-  offers : mockOffers.listOffers,
+  offers : <OfferPreview[]>[],
   reviewsByOffer: MockReviewByOffer,
   cardActiveId: '',
-  currentSort: 'Popular'
+  currentSort: 'Popular',
+  authorizationStatus : AuthorizationStatus.Unknown,
+  requestStatus : RequestStatus.Idle,
+  error: '',
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -51,8 +42,16 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setReviewByOffer,(state,action) => {
       state.reviewsByOffer = action.payload;
+    })
+    .addCase(requireAuthorization,(state,action) => {
+      state.authorizationStatus = action.payload;
+    })
+    .addCase(setRequestStatus,(state,action) => {
+      state.requestStatus = action.payload;
+    })
+    .addCase(setError,(state,action) => {
+      state.error = action.payload;
     });
 });
-
 
 export {reducer};

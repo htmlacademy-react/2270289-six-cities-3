@@ -6,11 +6,25 @@ import Offer from '../pages/offer/offer.tsx';
 import Favorites from '../pages/favorites/favorites.tsx';
 import Page404 from '../pages/404/page-404.tsx';
 import PrivateRoute from '../components/private-route/private-route.tsx';
-import {mockPreviewCard} from '../mocks/mock-card.ts';
+//import {mockPreviewCard} from '../mocks/mock-card.ts';
 
-const favoritesCard = mockPreviewCard.listPreviewCards.filter((itemCard) => itemCard.isFavorite);
+import { useAppSelector } from '../hooks/index.ts';
+
+import LoadingScreen from '../pages/loading-screen/loading-screen.tsx';
+import { RequestStatus } from '../../src/const.ts';
+
+//const favoritesCard = mockPreviewCard.listPreviewCards.filter((itemCard) => itemCard.isFavorite);
 
 export default function App () : JSX.Element {
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const requestStatus = useAppSelector((state) => state.requestStatus);
+
+  if (authorizationStatus === AuthorizationStatus.Unknown && requestStatus === RequestStatus.Loading) {
+    return (
+      <LoadingScreen />
+    );
+  }
+
   return (
     <BrowserRouter>
       <Routes>
@@ -22,7 +36,7 @@ export default function App () : JSX.Element {
             <PrivateRoute
               authorizationStatus={AuthorizationStatus.Auth}
             >
-              <Favorites listOffer={favoritesCard} variantCard='favorite' mouseMove={() => {}}/>
+              <Favorites variantCard='favorite'/>
             </PrivateRoute>
           }
         />

@@ -78,4 +78,17 @@ type RewiewByOffer = {
 
 type Points = LocationPlace[];
 
+export type AuthData = {
+  login: string;
+  password: string;
+};
+
+export type UserData = {
+  id: number;
+  email: string;
+  token: string;
+};
+
 export type {Offer,OfferPreview,CommentForOffer,CommentProposal,CityDestination, LocationPlace, RewiewByOffer,Points};
+
+

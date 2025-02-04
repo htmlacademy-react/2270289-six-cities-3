@@ -1,13 +1,15 @@
 import FavoriteCardItemGroup from '../../components/favorite-card-item-group/favorite-card-item-group.tsx';
 import type {OfferPreview} from '../../types.ts';
+import { useAppSelector } from '../../hooks/index.ts';
 
 type ListOfferProps = {
-  listOffer: OfferPreview[];
   variantCard : 'cities'|'favorite'|'near-places';
-  mouseMove: (id:string|null) => void;
 }
 
-export default function Favorites({listOffer, variantCard, mouseMove}:ListOfferProps) : JSX.Element {
+export default function Favorites({ variantCard}:ListOfferProps) : JSX.Element {
+  const offers = useAppSelector((state) => state.offers);
+  const offersFavorite : OfferPreview[] = offers.filter((itemCard: {isFavorite: boolean}) => itemCard.isFavorite);
+
   return (
     <div className="page">
       <header className="header">
@@ -45,7 +47,7 @@ export default function Favorites({listOffer, variantCard, mouseMove}:ListOfferP
             <h1 className="favorites__title">Saved listing</h1>
             <ul className="favorites__list">
 
-              <FavoriteCardItemGroup listOffer={listOffer} variantCard={variantCard} mouseMove={mouseMove} />
+              <FavoriteCardItemGroup listOffer={offersFavorite} variantCard={variantCard} />
 
             </ul>
           </section>
