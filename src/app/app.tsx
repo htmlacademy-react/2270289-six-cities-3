@@ -6,14 +6,11 @@ import Offer from '../pages/offer/offer.tsx';
 import Favorites from '../pages/favorites/favorites.tsx';
 import Page404 from '../pages/404/page-404.tsx';
 import PrivateRoute from '../components/private-route/private-route.tsx';
-//import {mockPreviewCard} from '../mocks/mock-card.ts';
 
 import { useAppSelector } from '../hooks/index.ts';
 
 import LoadingScreen from '../pages/loading-screen/loading-screen.tsx';
 import { RequestStatus } from '../../src/const.ts';
-
-//const favoritesCard = mockPreviewCard.listPreviewCards.filter((itemCard) => itemCard.isFavorite);
 
 export default function App () : JSX.Element {
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
