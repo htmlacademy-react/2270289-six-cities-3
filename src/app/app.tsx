@@ -12,7 +12,13 @@ import { useAppSelector } from '../hooks/index.ts';
 import LoadingScreen from '../pages/loading-screen/loading-screen.tsx';
 import { RequestStatus } from '../../src/const.ts';
 
+import { store } from '../store/index.ts';
+import { fetchOffersAction } from '../store/api-actions.ts';
+
 export default function App () : JSX.Element {
+
+  store.dispatch(fetchOffersAction());
+
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
   const requestStatus = useAppSelector((state) => state.requestStatus);
 

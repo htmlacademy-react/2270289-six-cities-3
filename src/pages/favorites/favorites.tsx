@@ -9,6 +9,9 @@ type ListOfferProps = {
 }
 
 export default function Favorites({ variantCard}:ListOfferProps) : JSX.Element {
+
+  //store.dispatch(fetchOffersAction());
+
   const offers = useAppSelector((state) => state.offers);
   const offersFavorite : OfferPreview[] = offers.filter((itemCard: {isFavorite: boolean}) => itemCard.isFavorite);
 
