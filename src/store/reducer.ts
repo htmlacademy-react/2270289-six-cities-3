@@ -5,6 +5,7 @@ import {setCity,fillOffer,setCardActiveId,setCurrentSort,setReviewByOffer, requi
 import type { OfferPreview } from '../types';
 import { AuthorizationStatus } from '../const';
 import { RequestStatus } from '../const';
+import { fetchOffersAction } from './api-actions';
 
 const cityDefault = {
   name: 'Paris',
@@ -51,7 +52,12 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setError,(state,action) => {
       state.error = action.payload;
-    });
+    })
+    .addCase(fetchOffersAction,(state) => {
+      state.requestStatus = RequestStatus.Loading;
+    })
 });
+
+
 
 export {reducer};

@@ -11,36 +11,21 @@ import { AUTH_TOKEN_KEY } from '../services/token';
 import { TIMEOUT_SHOW_ERROR } from '../const';
 import { store } from '.';
 
-export const fetchOffersAction = createAsyncThunk<void,undefined,{
-  dispatch: AppDispatch;
-  state: State;
+export const fetchOffersAction = createAsyncThunk<OfferPreview[],undefined,{
   extra: AxiosInstance;
 }>(
   'data/fetchOffers',
-  async(_arg,{dispatch, extra:api }) => {
-
-    console.log('Зашли в fetchOffersAction ');
-    console.log('RequestStatus ', store.getState().requestStatus);
-
-    dispatch(setRequestStatus(RequestStatus.Loading));
-
-    console.log('Задиспатчили RequestStatus.Loading ');
-    console.log('RequestStatus ', store.getState().requestStatus);
-    console.log('Начинаем получать данные');
+  async(_arg,{extra:api }) => {
 
     const {data} = await api.get<OfferPreview[]>(ApiRoute.Offers);
 
-    console.log('Данные получили...');
-    console.log('RequestStatus ', store.getState().requestStatus);
-
-    dispatch(setRequestStatus(RequestStatus.Success));
-
-    console.log('Задиспатчили RequestStatus.Success');
-    console.log('RequestStatus ', store.getState().requestStatus);
-
-    dispatch(fillOffer(data));
+    //dispatch(fillOffer(data));
+    console.log(data);
+    return data;
   }
 );
+
+console.dir(fetchOffersAction);
 
 export const checkAuthAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch;
@@ -93,3 +78,36 @@ export const clearErrorAction = createAsyncThunk(
     );
   },
 );
+
+/*
+export const fetchOffersAction = createAsyncThunk<void,undefined,{
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'data/fetchOffers',
+  async(_arg,{dispatch, extra:api }) => {
+
+    console.log('Зашли в fetchOffersAction ');
+    console.log('RequestStatus ', store.getState().requestStatus);
+
+    dispatch(setRequestStatus(RequestStatus.Loading));
+
+    console.log('Задиспатчили RequestStatus.Loading ');
+    console.log('RequestStatus ', store.getState().requestStatus);
+    console.log('Начинаем получать данные');
+
+    const {data} = await api.get<OfferPreview[]>(ApiRoute.Offers);
+
+    console.log('Данные получили...');
+    console.log('RequestStatus ', store.getState().requestStatus);
+
+    dispatch(setRequestStatus(RequestStatus.Success));
+
+    console.log('Задиспатчили RequestStatus.Success');
+    console.log('RequestStatus ', store.getState().requestStatus);
+
+    dispatch(fillOffer(data));
+  }
+);
+*/

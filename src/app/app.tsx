@@ -12,15 +12,11 @@ import { useAppSelector } from '../hooks/index.ts';
 import LoadingScreen from '../pages/loading-screen/loading-screen.tsx';
 import { RequestStatus } from '../../src/const.ts';
 
-import { store } from '../store/index.ts';
-import { fetchOffersAction } from '../store/api-actions.ts';
+//import { store } from '../store/index.ts';
+//import { fetchOffersAction } from '../store/api-actions.ts';
 // import { checkAuthAction } from '../store/api-actions.ts';
-import { saveToken } from '../services/token.ts';
-import { AUTH_TOKEN,AUTH_TOKEN_KEY } from '../services/token.ts';
-
-
-
-
+//import { saveToken } from '../services/token.ts';
+//import { AUTH_TOKEN,AUTH_TOKEN_KEY } from '../services/token.ts';
 
 export default function App () : JSX.Element {
 

@@ -9,7 +9,21 @@ import ListCity from '../../components/list-city/list-city.tsx';
 import { selectorSortedListOffer } from '../../store/selectors.ts';
 import { shallowEqual } from 'react-redux';
 
+//import { store } from '../../store/index.ts';
+import { fetchOffersAction } from '../../store/api-actions.ts';
+import { useEffect } from 'react';
+import { useAppDispatch } from '../../hooks/index.ts';
+
 export default function Main(): JSX.Element {
+
+
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    //store.dispatch(fetchOffersAction());
+    dispatch(fetchOffersAction());
+
+  },[]);
 
   const offers = useAppSelector((state) => state.offers);
 
