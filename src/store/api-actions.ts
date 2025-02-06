@@ -18,11 +18,26 @@ export const fetchOffersAction = createAsyncThunk<void,undefined,{
 }>(
   'data/fetchOffers',
   async(_arg,{dispatch, extra:api }) => {
+
+    console.log('Зашли в fetchOffersAction ');
+    console.log('RequestStatus ', store.getState().requestStatus);
+
     dispatch(setRequestStatus(RequestStatus.Loading));
+
+    console.log('Задиспатчили RequestStatus.Loading ');
+    console.log('RequestStatus ', store.getState().requestStatus);
+    console.log('Начинаем получать данные');
 
     const {data} = await api.get<OfferPreview[]>(ApiRoute.Offers);
 
+    console.log('Данные получили...');
+    console.log('RequestStatus ', store.getState().requestStatus);
+
     dispatch(setRequestStatus(RequestStatus.Success));
+
+    console.log('Задиспатчили RequestStatus.Success');
+    console.log('RequestStatus ', store.getState().requestStatus);
+
     dispatch(fillOffer(data));
   }
 );
@@ -42,6 +57,7 @@ export const checkAuthAction = createAsyncThunk<void, undefined, {
     }
   },
 );
+
 export const loginAction = createAsyncThunk<void, AuthData, {
   dispatch: AppDispatch;
   state: State;
@@ -54,6 +70,7 @@ export const loginAction = createAsyncThunk<void, AuthData, {
     dispatch(requireAuthorization(AuthorizationStatus.Auth));
   },
 );
+
 export const logoutAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch;
   state: State;

@@ -32,13 +32,14 @@ export const createApi = () : AxiosInstance => {
 
   api.interceptors.request.use((config) => {
     const token = getToken(AUTH_TOKEN_KEY);
+    console.log('token считали',token);
 
     if (token && config.headers) {
       config.headers['X-token'] = token;
     }
     return config;
   });
-
+/*
   api.interceptors.response.use(
     (response) => response,
     (error: AxiosError<DetailMessageType>) => {
@@ -49,6 +50,6 @@ export const createApi = () : AxiosInstance => {
       throw error;
     }
   );
-
+*/
   return api;
 };

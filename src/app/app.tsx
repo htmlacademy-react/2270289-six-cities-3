@@ -14,19 +14,31 @@ import { RequestStatus } from '../../src/const.ts';
 
 import { store } from '../store/index.ts';
 import { fetchOffersAction } from '../store/api-actions.ts';
+// import { checkAuthAction } from '../store/api-actions.ts';
+import { saveToken } from '../services/token.ts';
+import { AUTH_TOKEN,AUTH_TOKEN_KEY } from '../services/token.ts';
+
+
+
+
 
 export default function App () : JSX.Element {
 
-  store.dispatch(fetchOffersAction());
+//  store.dispatch(checkAuthAction());
+//  store.dispatch(fetchOffersAction());
 
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  console.log('authorizationStatus',authorizationStatus);
   const requestStatus = useAppSelector((state) => state.requestStatus);
+  console.log('requestStatus',requestStatus);
 
   if (authorizationStatus === AuthorizationStatus.Unknown && requestStatus === RequestStatus.Loading) {
     return (
       <LoadingScreen />
     );
   }
+
+  console.log('Сюда прошли...');
 
   return (
     <BrowserRouter>
