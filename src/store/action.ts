@@ -7,7 +7,12 @@ import type {CityDestination} from '../types';
 type TypeMockReviewByOffer = typeof MockReviewByOffer;
 
 export const setCity = createAction<CityDestination>(ActionType.SetCity);
+
 export const fillOffer = createAction<OfferPreview[]>(ActionType.FillOffer);
+export const fillOffersNear = createAction<OfferPreview[]>(ActionType.FillOffersNear);
+export const fillFavoriteOffer = createAction<OfferPreview[]>(ActionType.FillFavoriteOffer);
+export const setFavoriteOfferStatus = createAction<boolean>(ActionType.SetFavoriteOfferStatus);
+
 export const setCardActiveId = createAction<string>(ActionType.SetCardActiveId);
 export const setCurrentSort = createAction<string>(ActionType.SetCurrentSort);
 

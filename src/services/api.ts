@@ -32,7 +32,6 @@ export const createApi = () : AxiosInstance => {
 
   api.interceptors.request.use((config) => {
     const token = getToken(AUTH_TOKEN_KEY);
-    console.log('token считали',token);
 
     if (token && config.headers) {
       config.headers['X-token'] = token;

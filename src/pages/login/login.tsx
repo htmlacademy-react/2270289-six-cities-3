@@ -5,6 +5,24 @@ import { useAppDispatch } from '../../hooks';
 import { loginAction } from '../../store/api-actions';
 //import { AppRoute } from '../../const';
 
+/*
+Request
+{
+  "email": "istanik@yandex.ru",
+  "password": "passEdord12d"
+}
+
+RESPONSE
+{
+  "email": "istanik@gmail.com",
+  "token": "aXN0YW5pa0BnbWFpbC5jb20=",
+  "name": "istanik",
+  "avatarUrl": "https://15.design.htmlacademy.pro/static/avatar/9.jpg",
+  "isPro": false
+}
+
+*/
+
 export default function Login() : JSX.Element {
 
   const loginRef = useRef<HTMLInputElement|null>(null);

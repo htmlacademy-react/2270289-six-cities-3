@@ -4,9 +4,6 @@ import {Provider} from 'react-redux';
 import App from './app/app';
 import {store} from './store';
 
-//import ErrorMessage from './components/error-message/error-message';
-//import {fetchOffersAction} from './store/api-actions';
-
 import {saveToken} from './services/token';
 import {AUTH_TOKEN,AUTH_TOKEN_KEY} from './services/token';
 
@@ -24,5 +21,3 @@ root.render(
     </Provider>
   </React.StrictMode>
 );
-
-//<ErrorMessage />

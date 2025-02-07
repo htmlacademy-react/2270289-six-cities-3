@@ -1,31 +1,39 @@
-import { AxiosInstance } from 'axios';
-import { createAsyncThunk } from '@reduxjs/toolkit';
+import {AxiosInstance } from 'axios';
+import {createAsyncThunk } from '@reduxjs/toolkit';
 import type { AppDispatch,State } from '../hooks';
-import { OfferPreview } from '../types';
-import { fillOffer, requireAuthorization, setRequestStatus, setError } from './action';
+import {OfferPreview,UserData,AuthData } from '../types';
+import {fillOffer,fillFavoriteOffer, requireAuthorization, setRequestStatus, setError } from './action';
 
-import { ApiRoute, AuthorizationStatus, RequestStatus } from '../const';
-import type { UserData,AuthData } from '../types';
-import { saveToken,dropToken } from '../services/token';
-import { AUTH_TOKEN_KEY } from '../services/token';
-import { TIMEOUT_SHOW_ERROR } from '../const';
+import {ApiRoute,AuthorizationStatus,RequestStatus,TIMEOUT_SHOW_ERROR} from '../const';
+import {saveToken,dropToken,AUTH_TOKEN_KEY} from '../services/token';
 import { store } from '.';
 
-export const fetchOffersAction = createAsyncThunk<OfferPreview[],undefined,{
+export const fetchOffersAction = createAsyncThunk<void,undefined,{
+  dispatch: AppDispatch;
   extra: AxiosInstance;
 }>(
   'data/fetchOffers',
-  async(_arg,{extra:api }) => {
+  async(_arg,{dispatch, extra:api }) => {
 
+    dispatch(setRequestStatus(RequestStatus.Loading));
     const {data} = await api.get<OfferPreview[]>(ApiRoute.Offers);
-
-    //dispatch(fillOffer(data));
-    console.log(data);
-    return data;
+    dispatch(setRequestStatus(RequestStatus.Success));
+    dispatch(fillOffer(data));
   }
 );
 
-console.dir(fetchOffersAction);
+export const fetchFavoriteOffersAction = createAsyncThunk<void,undefined,{
+  dispatch: AppDispatch;
+  extra: AxiosInstance;
+}>(
+  'data/fetchOffers',
+  async(_arg,{dispatch, extra:api }) => {
+
+    const {data} = await api.get<OfferPreview[]>(ApiRoute.Favorite);
+
+    dispatch(fillFavoriteOffer(data));
+  }
+);
 
 export const checkAuthAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch;

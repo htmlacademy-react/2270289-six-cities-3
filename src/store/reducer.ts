@@ -1,11 +1,10 @@
-
 import {MockReviewByOffer} from '../mocks/mock-reviews';
 import {createReducer} from '@reduxjs/toolkit';
-import {setCity,fillOffer,setCardActiveId,setCurrentSort,setReviewByOffer, requireAuthorization, setRequestStatus, setError} from './action';
+import {setCity,setCardActiveId,setCurrentSort,setReviewByOffer, requireAuthorization, setRequestStatus, setError} from './action';
+import {fillOffer,fillOffersNear,fillFavoriteOffer,setFavoriteOfferStatus} from './action';
 import type { OfferPreview } from '../types';
 import { AuthorizationStatus } from '../const';
 import { RequestStatus } from '../const';
-import { fetchOffersAction } from './api-actions';
 
 const cityDefault = {
   name: 'Paris',
@@ -19,6 +18,9 @@ const cityDefault = {
 export const initialState = {
   city : cityDefault,
   offers : <OfferPreview[]>[],
+  favoriteOffers: <OfferPreview[]>[],
+  isDownloadFavoriteOffers: false,
+  offersNear: <OfferPreview[]>[],
   reviewsByOffer: MockReviewByOffer,
   cardActiveId: '',
   currentSort: 'Popular',
@@ -34,6 +36,15 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(fillOffer,(state,action) => {
       state.offers = action.payload;
+    })
+    .addCase(fillFavoriteOffer,(state,action) => {
+      state.favoriteOffers = action.payload;
+    })
+    .addCase(setFavoriteOfferStatus,(state,action) => {
+      state.isDownloadFavoriteOffers = action.payload;
+    })
+    .addCase(fillOffersNear,(state,action) => {
+      state.offersNear = action.payload;
     })
     .addCase(setCardActiveId,(state,action) => {
       state.cardActiveId = action.payload;
@@ -52,12 +63,7 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setError,(state,action) => {
       state.error = action.payload;
-    })
-    .addCase(fetchOffersAction,(state) => {
-      state.requestStatus = RequestStatus.Loading;
-    })
+    });
 });
-
-
 
 export {reducer};

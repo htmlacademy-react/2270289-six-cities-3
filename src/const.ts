@@ -81,7 +81,12 @@ export const URL_MARKER_CURRENT =
 
 export const enum ActionType {
   SetCity = 'offers/setCity',
+
   FillOffer = 'offers/fillOffer',
+  FillOffersNear = 'offers/fillOffersNear',
+  FillFavoriteOffer = 'offers/fillFavoriteOffer',
+  SetFavoriteOfferStatus = 'offers/setFavoriteOfferStatus',
+
   SetCardActiveId = 'card/setActiveId',
   SetCurrentSort = 'sort/setCurrentSort',
   SetReviewByOffer = 'review/setReviewByOffer',
@@ -120,3 +125,7 @@ export const ApiRoute = {
   Offers: '/offers',
 };
 
+export const Auth_Data = {
+  email : 'istanik@yandex.ru',
+  pasww : 'passEdord12d',
+}
