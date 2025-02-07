@@ -15,6 +15,16 @@ const cityDefault = {
   }
 };
 
+const userDefault = {
+  email: '',
+  password: '',
+};
+
+const dataAuthorization = {
+  authorizationStatus : <string>AuthorizationStatus.Unknown,
+  user: userDefault,
+}
+
 export const initialState = {
   city : cityDefault,
   offers : <OfferPreview[]>[],
@@ -24,9 +34,9 @@ export const initialState = {
   reviewsByOffer: MockReviewByOffer,
   cardActiveId: '',
   currentSort: 'Popular',
-  authorizationStatus : AuthorizationStatus.Unknown,
   requestStatus : RequestStatus.Idle,
   error: '',
+  dataAuthorization: dataAuthorization,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -56,7 +66,10 @@ const reducer = createReducer(initialState, (builder) => {
       state.reviewsByOffer = action.payload;
     })
     .addCase(requireAuthorization,(state,action) => {
-      state.authorizationStatus = action.payload;
+      console.log('устанавливаем статус авторизации, payload = ',action.payload);
+      state.dataAuthorization.authorizationStatus = action.payload.authorizationStatus;
+      state.dataAuthorization.user.email = action.payload.userAuthData.email;
+      state.dataAuthorization.user.password = action.payload.userAuthData.password;
     })
     .addCase(setRequestStatus,(state,action) => {
       state.requestStatus = action.payload;

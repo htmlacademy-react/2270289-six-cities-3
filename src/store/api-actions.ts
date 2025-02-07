@@ -1,7 +1,7 @@
 import {AxiosInstance } from 'axios';
 import {createAsyncThunk } from '@reduxjs/toolkit';
-import type { AppDispatch,State } from '../hooks';
-import {OfferPreview,UserData,AuthData } from '../types';
+import { useAppSelector, type AppDispatch,type State } from '../hooks';
+import {OfferPreview,UserData,AuthData,User,UserAuthData } from '../types';
 import {fillOffer,fillFavoriteOffer, requireAuthorization, setRequestStatus, setError } from './action';
 
 import {ApiRoute,AuthorizationStatus,RequestStatus,TIMEOUT_SHOW_ERROR} from '../const';
@@ -35,6 +35,7 @@ export const fetchFavoriteOffersAction = createAsyncThunk<void,undefined,{
   }
 );
 
+/*
 export const checkAuthAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch;
   state: State;
@@ -50,6 +51,7 @@ export const checkAuthAction = createAsyncThunk<void, undefined, {
     }
   },
 );
+*/
 
 export const loginAction = createAsyncThunk<void, AuthData, {
   dispatch: AppDispatch;
@@ -57,13 +59,27 @@ export const loginAction = createAsyncThunk<void, AuthData, {
   extra: AxiosInstance;
 }>(
   'user/login',
-  async ({login: email, password}, {dispatch, extra: api}) => {
-    const {data: {token}} = await api.post<UserData>(ApiRoute.Login, {email, password});
-    saveToken(AUTH_TOKEN_KEY,token);
-    dispatch(requireAuthorization(AuthorizationStatus.Auth));
+  async ({login: email, password}, {dispatch, getState, extra: api}) => {
+    console.log(`мы в Action'е loginAction`);
+    console.log(`AuthData`,{email, password});
+    const {data} = await api.post<UserData>(ApiRoute.Login, {email, password});
+    console.log('полученный Token => ', data.token);
+
+    const user: User = {
+      authorizationStatus : AuthorizationStatus.Auth,
+      userAuthData : {
+        email : data.email,
+        password: data.password,
+      }
+    }
+    dispatch(requireAuthorization(user));
+    const state = getState();
+    console.log('Статус AuthorizationStatus после авторизации',state.dataAuthorization.authorizationStatus);
+    saveToken(AUTH_TOKEN_KEY,data.token);
   },
 );
 
+/*
 export const logoutAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch;
   state: State;
@@ -76,6 +92,7 @@ export const logoutAction = createAsyncThunk<void, undefined, {
     dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
   },
 );
+*/
 
 export const clearErrorAction = createAsyncThunk(
   'offers/clearError',

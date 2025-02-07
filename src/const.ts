@@ -127,5 +127,5 @@ export const ApiRoute = {
 
 export const Auth_Data = {
   email : 'istanik@yandex.ru',
-  pasww : 'passEdord12d',
+  password : 'passEdord12d',
 }

@@ -1,3 +1,13 @@
+type UserAuthData = {
+  email: string;
+  password: string;
+}
+
+type User = {
+  //authorizationStatus: 'AUTH' | 'NO_AUTH' | 'UNKNOWN';
+  authorizationStatus: string;
+  userAuthData : UserAuthData;
+};
 
 type LocationPlace = {
   latitude: number;
@@ -86,9 +96,8 @@ export type AuthData = {
 export type UserData = {
   id: number;
   email: string;
+  password: string;
   token: string;
 };
 
-export type {Offer,OfferPreview,CommentForOffer,CommentProposal,CityDestination, LocationPlace, RewiewByOffer,Points};
-
-
+export type {Offer,OfferPreview,CommentForOffer,CommentProposal,CityDestination, LocationPlace, RewiewByOffer,Points,User,UserAuthData};
