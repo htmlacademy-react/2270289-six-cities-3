@@ -1,12 +1,12 @@
 import {AxiosInstance } from 'axios';
 import {createAsyncThunk } from '@reduxjs/toolkit';
-import { useAppSelector, type AppDispatch,type State } from '../hooks';
+import {type AppDispatch,type State } from '../hooks';
 import {OfferPreview,UserData,AuthData,User,UserAuthData } from '../types';
 import {fillOffer,fillFavoriteOffer, requireAuthorization, setRequestStatus, setError } from './action';
 
-import {ApiRoute,AuthorizationStatus,RequestStatus,TIMEOUT_SHOW_ERROR} from '../const';
+import {ApiRoute,AppRoute,AuthorizationStatus,RequestStatus,TIMEOUT_SHOW_ERROR} from '../const';
 import {saveToken,dropToken,AUTH_TOKEN_KEY} from '../services/token';
-import { store } from '.';
+import {store} from '.';
 
 export const fetchOffersAction = createAsyncThunk<void,undefined,{
   dispatch: AppDispatch;
@@ -60,6 +60,7 @@ export const loginAction = createAsyncThunk<void, AuthData, {
 }>(
   'user/login',
   async ({login: email, password}, {dispatch, getState, extra: api}) => {
+
     console.log(`мы в Action'е loginAction`);
     console.log(`AuthData`,{email, password});
     const {data} = await api.post<UserData>(ApiRoute.Login, {email, password});
@@ -75,7 +76,9 @@ export const loginAction = createAsyncThunk<void, AuthData, {
     dispatch(requireAuthorization(user));
     const state = getState();
     console.log('Статус AuthorizationStatus после авторизации',state.dataAuthorization.authorizationStatus);
+
     saveToken(AUTH_TOKEN_KEY,data.token);
+
   },
 );
 
