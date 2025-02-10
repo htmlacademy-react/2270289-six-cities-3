@@ -14,22 +14,8 @@ import { useAppDispatch } from '../../hooks/index.ts';
 
 import LoadingScreen from '../loading-screen/loading-screen.tsx';
 import { RequestStatus } from '../../const.ts';
-//import { AuthorizationStatus } from '../../const.ts';
-
-//import ErrorMessage from './components/error-message/error-message';
 
 export default function Main(): JSX.Element {
-
-  // const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
-  // console.log('authorizationStatus',authorizationStatus);
-  //  const requestStatus = useAppSelector((state) => state.requestStatus);
-  //  console.log('requestStatus',requestStatus);
-
-  // if (authorizationStatus === AuthorizationStatus.Unknown && requestStatus === RequestStatus.Loading) {
-  //   return (
-  //     <LoadingScreen />
-  //   );
-  // }
 
   const requestStatus = useAppSelector((state) => state.requestStatus);
 
