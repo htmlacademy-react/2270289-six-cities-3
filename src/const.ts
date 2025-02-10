@@ -121,7 +121,7 @@ export enum SortOption {
 export const ApiRoute = {
   Comments : '/comments',
   Favorite : '/favorite',
-  Login : '/logi',
+  Login : '/login',
   Logout: '/logout',
   Offers: '/offers',
 };

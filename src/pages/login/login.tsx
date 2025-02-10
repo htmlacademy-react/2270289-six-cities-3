@@ -44,7 +44,9 @@ export default function Login(): JSX.Element {
   const user = useAppSelector((state) => state.dataAuthorization);
   console.log('user => ', user);
 
-  const authorizationStatus = useAppSelector((state) => state.dataAuthorization.authorizationStatus)
+  const authorizationStatus = useAppSelector((state) => state.dataAuthorization.authorizationStatus);
+
+  const patternInput = `{{^(?!.*\s).{1,}$}}`;
 
   return (
     authorizationStatus === 'UNKNOWN' || authorizationStatus === 'NO_AUTH'
@@ -76,7 +78,9 @@ export default function Login(): JSX.Element {
                   <div className="login__input-wrapper form__input-wrapper">
                     <label className="visually-hidden">Password</label>
                     <input className="login__input form__input" type="password" name="password" defaultValue={Auth_Data.password}
-                      id="password" placeholder="Password" required ref={passwordRef} />
+                      id="password" placeholder="Password" required ref={passwordRef} autoComplete='off'
+                      pattern={patternInput} title="Любые символы кроме пробелов."
+                      onKeyDown={(event) => {return (event.key === ' ') ? event.preventDefault() : event.key}}/>
                   </div>
                   <button className="login__submit form__submit button" type="submit">Sign in</button>
                 </form>
