@@ -1,8 +1,8 @@
 import {AxiosInstance } from 'axios';
 import {createAsyncThunk } from '@reduxjs/toolkit';
 import {type AppDispatch,type State } from '../hooks';
-import {OfferPreview,UserData,AuthData,User,UserAuthData } from '../types';
-import {fillOffer,fillFavoriteOffer, requireAuthorization, setRequestStatus, setError } from './action';
+import {Offer,OfferPreview,UserData,AuthData,User,UserAuthData } from '../types';
+import {fillOffers,fillActiveOffer,fillFavoriteOffer, requireAuthorization, setRequestStatus, setError } from './action';
 
 import {ApiRoute,AppRoute,AuthorizationStatus,RequestStatus,TIMEOUT_SHOW_ERROR} from '../const';
 import {saveToken,dropToken,AUTH_TOKEN_KEY} from '../services/token';
@@ -14,11 +14,10 @@ export const fetchOffersAction = createAsyncThunk<void,undefined,{
 }>(
   'data/fetchOffers',
   async(_arg,{dispatch, extra:api }) => {
-
     dispatch(setRequestStatus(RequestStatus.Loading));
     const {data} = await api.get<OfferPreview[]>(ApiRoute.Offers);
     dispatch(setRequestStatus(RequestStatus.Success));
-    dispatch(fillOffer(data));
+    dispatch(fillOffers(data));
   }
 );
 
@@ -26,7 +25,7 @@ export const fetchFavoriteOffersAction = createAsyncThunk<void,undefined,{
   dispatch: AppDispatch;
   extra: AxiosInstance;
 }>(
-  'data/fetchOffers',
+  'data/fetchFavoriteOffers',
   async(_arg,{dispatch, extra:api }) => {
 
     const {data} = await api.get<OfferPreview[]>(ApiRoute.Favorite);
@@ -34,6 +33,18 @@ export const fetchFavoriteOffersAction = createAsyncThunk<void,undefined,{
     dispatch(fillFavoriteOffer(data));
   }
 );
+
+export const fetchActiveOfferAction = createAsyncThunk<void,undefined,{
+  dispatch: AppDispatch;
+  extra: AxiosInstance;
+}>(
+  'data/fetchActiveOffer',
+  async(_arg,{dispatch, extra: api}) => {
+    const path = `${ApiRoute.Offers}/`
+    const {data} = await api.get<Offer>(path)
+    dispatch(fillActiveOffer(data));
+  }
+)
 
 /*
 export const checkAuthAction = createAsyncThunk<void, undefined, {

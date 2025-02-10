@@ -1,4 +1,4 @@
-import {Link } from 'react-router-dom';
+//import {Link } from 'react-router-dom';
 import ListOffer from '../../components/card-offer-list/card-offer-list';
 import ReviewForm from '../../components/review-form/review-form';
 import ReviewList from '../../components/review-list/review-list';

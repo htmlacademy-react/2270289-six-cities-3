@@ -1,8 +1,8 @@
 import {MockReviewByOffer} from '../mocks/mock-reviews';
 import {createReducer} from '@reduxjs/toolkit';
-import {setCity,setCardActiveId,setCurrentSort,setReviewByOffer, requireAuthorization, setRequestStatus, setError} from './action';
-import {fillOffer,fillOffersNear,fillFavoriteOffer,setFavoriteOfferStatus} from './action';
-import type { OfferPreview } from '../types';
+import {setCity,setCardActiveId,setCurrentSort,setReviewByOffer, requireAuthorization, setRequestStatus, setError, fillActiveOffer} from './action';
+import {fillOffers,fillOffersNear,fillFavoriteOffer,setFavoriteOfferStatus} from './action';
+import type {Offer,OfferPreview } from '../types';
 import { AuthorizationStatus } from '../const';
 import { RequestStatus } from '../const';
 
@@ -27,10 +27,11 @@ const dataAuthorization = {
 
 export const initialState = {
   city : cityDefault,
+  activeOffer: <Offer>{},
   offers : <OfferPreview[]>[],
+  offersNear: <OfferPreview[]>[],
   favoriteOffers: <OfferPreview[]>[],
   isDownloadFavoriteOffers: false,
-  offersNear: <OfferPreview[]>[],
   reviewsByOffer: MockReviewByOffer,
   cardActiveId: '',
   currentSort: 'Popular',
@@ -44,7 +45,12 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(setCity,(state,action) => {
       state.city = action.payload;
     })
-    .addCase(fillOffer,(state,action) => {
+
+    .addCase(fillActiveOffer,(state,action) => {
+      state.activeOffer = action.payload;
+    })
+
+    .addCase(fillOffers,(state,action) => {
       state.offers = action.payload;
     })
     .addCase(fillFavoriteOffer,(state,action) => {

@@ -82,7 +82,8 @@ export const URL_MARKER_CURRENT =
 export const enum ActionType {
   SetCity = 'offers/setCity',
 
-  FillOffer = 'offers/fillOffer',
+  FillOffers = 'offers/fillOffers',
+  FillActiveOffer = 'offers/fillActiveOffer',
   FillOffersNear = 'offers/fillOffersNear',
   FillFavoriteOffer = 'offers/fillFavoriteOffer',
   SetFavoriteOfferStatus = 'offers/setFavoriteOfferStatus',
