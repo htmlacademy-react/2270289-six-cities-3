@@ -1,6 +1,6 @@
 import type { CityDestination } from './types';
 
-export const TIMEOUT_SHOW_ERROR = 20000;
+export const TIMEOUT_SHOW_ERROR = 6000;
 
 export const citiesList: CityDestination[] = [
   {
@@ -121,7 +121,7 @@ export enum SortOption {
 export const ApiRoute = {
   Comments : '/comments',
   Favorite : '/favorite',
-  Login : '/login',
+  Login : '/logi',
   Logout: '/logout',
   Offers: '/offers',
 };

@@ -3,6 +3,7 @@ import { useRef, FormEvent } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { loginAction } from '../../store/api-actions';
 import { AppRoute, Auth_Data } from '../../const';
+import ErrorMessage from '../../components/error-message/error-message';
 /*
 Request
 {
@@ -49,6 +50,7 @@ export default function Login(): JSX.Element {
     authorizationStatus === 'UNKNOWN' || authorizationStatus === 'NO_AUTH'
       ? (
         <div className="page page--gray page--login">
+          <ErrorMessage />
           <header className="header">
             <div className="container">
               <div className="header__wrapper">
