@@ -4,7 +4,6 @@ type UserAuthData = {
 }
 
 type User = {
-  //authorizationStatus: 'AUTH' | 'NO_AUTH' | 'UNKNOWN';
   authorizationStatus: string;
   userAuthData : UserAuthData;
 };
