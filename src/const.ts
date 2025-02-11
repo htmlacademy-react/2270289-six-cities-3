@@ -126,7 +126,7 @@ export const ApiRoute = {
   Offers: '/offers',
 };
 
-export const Auth_Data = {
+export const AuthData = {
   email : 'istanik@yandex.ru',
   password : 'passEdord12d',
-}
+};

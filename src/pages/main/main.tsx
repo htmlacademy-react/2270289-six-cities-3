@@ -5,7 +5,7 @@ import ListOffer from '../../components/card-offer-list/card-offer-list.tsx';
 import SortOffer from '../../components/sort-offer/sort-offer.tsx';
 import Map from '../../components/map/map.tsx';
 import ListCity from '../../components/list-city/list-city.tsx';
-import ErrorMessage from '../../components/error-message/error-message.tsx';
+//import ErrorMessage from '../../components/error-message/error-message.tsx';
 
 import { selectorSortedListOffer } from '../../store/selectors.ts';
 

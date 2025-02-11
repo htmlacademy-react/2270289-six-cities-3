@@ -73,7 +73,7 @@ export const fetchActiveOfferAction = createAsyncThunk<void,undefined,{
     dispatch(fillActiveOffer(data));
     dispatch(setRequestStatus(RequestStatus.Success));
   }
-)
+);
 
 /*
 export const checkAuthAction = createAsyncThunk<void, undefined, {
@@ -99,12 +99,12 @@ export const loginAction = createAsyncThunk<void, AuthData, {
   extra: AxiosInstance;
 }>(
   'user/login',
-  async ({login: email, password}, {dispatch, getState, extra: api}) => {
+  async ({login: email, password}, {dispatch, extra: api}) => {
 
-    console.log(`мы в Action'е loginAction`);
-    console.log(`AuthData`,{email, password});
+    //console.log(`мы в Action'е loginAction`);
+    //console.log(`AuthData`,{email, password});
     const {data} = await api.post<UserData>(ApiRoute.Login, {email, password});
-    console.log('полученный Token => ', data.token);
+    //console.log('полученный Token => ', data.token);
 
     const user: User = {
       authorizationStatus : AuthorizationStatus.Auth,
@@ -112,10 +112,9 @@ export const loginAction = createAsyncThunk<void, AuthData, {
         email : data.email,
         password: data.password,
       }
-    }
+    };
     dispatch(requireAuthorization(user));
-    const state = getState();
-    console.log('Статус AuthorizationStatus после авторизации',state.dataAuthorization.authorizationStatus);
+    //console.log('Статус AuthorizationStatus после авторизации',state.dataAuthorization.authorizationStatus);
 
     saveToken(AUTH_TOKEN_KEY,data.token);
 

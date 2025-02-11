@@ -5,7 +5,8 @@ import { useAppSelector } from '../../hooks';
 export default function Header(): JSX.Element {
   const user = useAppSelector((state) => state.dataAuthorization);
   const isAuth = user.authorizationStatus;
-  const countFavoriteOffers = (isAuth) ? useAppSelector((state) => state.favoriteOffers.length) : 0;
+  const favoriteOffersLength = useAppSelector((state) => state.favoriteOffers.length);
+  const countFavoriteOffers = (isAuth) ? favoriteOffersLength : 0;
 
   return (
     <header className="header">
@@ -24,9 +25,9 @@ export default function Header(): JSX.Element {
                   </div>
                   <span className="header__user-name user__name">
                     {isAuth === 'AUTH' ?
-                     user.user.email :
-                     'e-mail'
-                     }
+                      user.user.email :
+                      'e-mail'
+                    }
                   </span>
                   <span className="header__favorite-count">{countFavoriteOffers}</span>
                 </Link>
@@ -35,8 +36,8 @@ export default function Header(): JSX.Element {
                 <Link className="header__nav-link" to={AppRoute.Login}>
                   <span className="header__signout">
                     {isAuth === 'AUTH' ?
-                    'Sign out' :
-                    'Sign in'
+                      'Sign out' :
+                      'Sign in'
                     }
                   </span>
                 </Link>

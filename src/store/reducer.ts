@@ -23,7 +23,7 @@ const userDefault = {
 const dataAuthorization = {
   authorizationStatus : <string>AuthorizationStatus.Unknown,
   user: userDefault,
-}
+};
 
 export const initialState = {
   city : cityDefault,
@@ -72,7 +72,7 @@ const reducer = createReducer(initialState, (builder) => {
       state.reviewsByOffer = action.payload;
     })
     .addCase(requireAuthorization,(state,action) => {
-      console.log('устанавливаем статус авторизации, payload = ',action.payload);
+      //console.log('устанавливаем статус авторизации, payload = ',action.payload);
       state.dataAuthorization.authorizationStatus = action.payload.authorizationStatus;
       state.dataAuthorization.user.email = action.payload.userAuthData.email;
       state.dataAuthorization.user.password = action.payload.userAuthData.password;

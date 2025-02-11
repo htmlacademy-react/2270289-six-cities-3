@@ -2,7 +2,7 @@ import { Link, Navigate } from 'react-router-dom';
 import { useRef, FormEvent } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { loginAction } from '../../store/api-actions';
-import { AppRoute, Auth_Data } from '../../const';
+import { AppRoute, AuthData } from '../../const';
 import ErrorMessage from '../../components/error-message/error-message';
 /*
 Request
@@ -31,9 +31,9 @@ export default function Login(): JSX.Element {
     evt.preventDefault();
 
     if (loginRef.current !== null && passwordRef.current !== null) {
-      console.log('начианем логгирование...');
-      console.log('loginRef.current.value', loginRef.current.value);
-      console.log('passwordRef.current.value', passwordRef.current.value);
+      //console.log('начианем логгирование...');
+      //console.log('loginRef.current.value', loginRef.current.value);
+      //console.log('passwordRef.current.value', passwordRef.current.value);
       dispatch(loginAction({
         login: loginRef.current.value,
         password: passwordRef.current.value,
@@ -41,12 +41,12 @@ export default function Login(): JSX.Element {
     }
   };
 
-  const user = useAppSelector((state) => state.dataAuthorization);
-  console.log('user => ', user);
+  //const user = useAppSelector((state) => state.dataAuthorization);
+  //console.log('user => ', user);
 
   const authorizationStatus = useAppSelector((state) => state.dataAuthorization.authorizationStatus);
 
-  const patternInput = `{{^(?!.*\s).{1,}$}}`;
+  //const patternInput = '{{/^(?!.*\s).{1,}$/}}';
 
   return (
     authorizationStatus === 'UNKNOWN' || authorizationStatus === 'NO_AUTH'
@@ -72,15 +72,21 @@ export default function Login(): JSX.Element {
                 <form className="login__form form" action="#" method="post" onSubmit={handleSubmit}>
                   <div className="login__input-wrapper form__input-wrapper">
                     <label className="visually-hidden">E-mail</label>
-                    <input className="login__input form__input" type="email" name="email" defaultValue={Auth_Data.email}
-                      id="email" placeholder="Email" required ref={loginRef} />
+                    <input className="login__input form__input" type="email" name="email" defaultValue={AuthData.email}
+                      id="email" placeholder="Email" required ref={loginRef}
+                    />
                   </div>
                   <div className="login__input-wrapper form__input-wrapper">
                     <label className="visually-hidden">Password</label>
-                    <input className="login__input form__input" type="password" name="password" defaultValue={Auth_Data.password}
+                    <input className="login__input form__input" type="password" name="password" defaultValue={AuthData.password}
                       id="password" placeholder="Password" required ref={passwordRef} autoComplete='off'
-                      pattern={patternInput} title="Любые символы кроме пробелов."
-                      onKeyDown={(event) => {return (event.key === ' ') ? event.preventDefault() : event.key}}/>
+                      title="Любые символы кроме пробелов."
+                      onKeyDown={(event) => {
+                        return (event.key === ' ') ?
+                          event.preventDefault() :
+                          event.key;
+                        }}
+                    />
                   </div>
                   <button className="login__submit form__submit button" type="submit">Sign in</button>
                 </form>

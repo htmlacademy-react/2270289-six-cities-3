@@ -11,7 +11,7 @@ import PrivateRoute from '../components/private-route/private-route.tsx';
 
 export default function App () : JSX.Element {
 
- const authorizationStatus = useAppSelector((state) => state.dataAuthorization.authorizationStatus);
+  const authorizationStatus = useAppSelector((state) => state.dataAuthorization.authorizationStatus);
 
   return (
     <BrowserRouter>

@@ -5,6 +5,6 @@ import {clearErrorAction} from '../store/api-actions';
 
 export const processErrorHandle = (message: string): void => {
   store.dispatch(setError(message));
-  console.log('Задиспатчили ошибку');
+  //console.log('Задиспатчили ошибку');
   store.dispatch(clearErrorAction());
 };

@@ -10,8 +10,8 @@ import {useAppDispatch, useAppSelector} from '../../hooks/index.ts';
 import {Marker,Icon,layerGroup} from 'leaflet';
 import {URL_MARKER_DEFAULT,URL_MARKER_CURRENT, RequestStatus} from '../../const';
 
-import {selectorNearListOffer } from '../../store/selectors.ts';
-import {shallowEqual} from 'react-redux';
+//import {selectorNearListOffer } from '../../store/selectors.ts';
+//import {shallowEqual} from 'react-redux';
 import Header from '../../components/header/header.tsx';
 import { fetchActiveOfferAction, fetchOffersNearAction } from '../../store/api-actions.ts';
 import { setRequestStatus } from '../../store/action.ts';
@@ -54,7 +54,7 @@ export default function Offer() : JSX.Element {
     }
   }, []);
 
-  const currentOffer = useAppSelector((state) => state.activeOffer)
+  const currentOffer = useAppSelector((state) => state.activeOffer);
 
   const sortedNearListOffer = useAppSelector((state) => state.offersNear);
   const reviewsByOffer = useAppSelector((state) => state.reviewsByOffer);

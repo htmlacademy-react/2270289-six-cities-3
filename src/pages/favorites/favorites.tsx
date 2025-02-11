@@ -32,8 +32,6 @@ export default function Favorites({ variantCard }: ListOfferProps): JSX.Element 
 
       <Header />
 
-
-
       <main className="page__main page__main--favorites">
         <div className="page__favorites-container container">
           <section className="favorites">
