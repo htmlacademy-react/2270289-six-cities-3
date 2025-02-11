@@ -2,7 +2,7 @@ import {AxiosInstance } from 'axios';
 import {createAsyncThunk } from '@reduxjs/toolkit';
 import {type AppDispatch,type State } from '../hooks';
 import {Offer,OfferPreview,UserData,AuthData,User} from '../types';
-import {fillOffers,fillActiveOffer,fillFavoriteOffer, requireAuthorization, setRequestStatus, setError } from './action';
+import {fillOffers,fillActiveOffer,fillFavoriteOffer,requireAuthorization,setRequestStatus,setError,fillOffersNear} from './action';
 
 import {ApiRoute,AuthorizationStatus,RequestStatus,TIMEOUT_SHOW_ERROR} from '../const';
 import {saveToken,AUTH_TOKEN_KEY} from '../services/token';
@@ -21,6 +21,28 @@ export const fetchOffersAction = createAsyncThunk<void,undefined,{
   }
 );
 
+export const fetchOffersNearAction = createAsyncThunk<void,undefined,{
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'data/fetchOffers',
+  async(_arg,{dispatch, getState, extra:api }) => {
+
+    const state = getState();
+    const activeOfferId = state.cardActiveId;
+    const path = `${ApiRoute.Offers}/${activeOfferId}/nearby`;
+    //console.log('путь для офферы поблизости....',path);
+    dispatch(setRequestStatus(RequestStatus.Loading));
+    const {data} = await api.get<OfferPreview[]>(path);
+    dispatch(fillOffersNear(data));
+    dispatch(setRequestStatus(RequestStatus.Success));
+    //console.log('офферы поблизости....',data)  ;
+
+  }
+);
+
+
 export const fetchFavoriteOffersAction = createAsyncThunk<void,undefined,{
   dispatch: AppDispatch;
   extra: AxiosInstance;
@@ -28,21 +50,28 @@ export const fetchFavoriteOffersAction = createAsyncThunk<void,undefined,{
   'data/fetchFavoriteOffers',
   async(_arg,{dispatch, extra:api }) => {
 
+    dispatch(setRequestStatus(RequestStatus.Loading));
     const {data} = await api.get<OfferPreview[]>(ApiRoute.Favorite);
-
     dispatch(fillFavoriteOffer(data));
+    dispatch(setRequestStatus(RequestStatus.Success));
   }
 );
 
 export const fetchActiveOfferAction = createAsyncThunk<void,undefined,{
   dispatch: AppDispatch;
+  state: State;
   extra: AxiosInstance;
 }>(
   'data/fetchActiveOffer',
-  async(_arg,{dispatch, extra: api}) => {
-    const path = `${ApiRoute.Offers}/`
-    const {data} = await api.get<Offer>(path)
+  async(_arg,{dispatch, getState, extra: api}) => {
+    const state = getState();
+    const activeOfferId = state.cardActiveId;
+    const path = `${ApiRoute.Offers}/${activeOfferId}`;
+    dispatch(setRequestStatus(RequestStatus.Loading));
+    const {data} = await api.get<Offer>(path);
+    //console.log('данные по текущему офферу...',data);
     dispatch(fillActiveOffer(data));
+    dispatch(setRequestStatus(RequestStatus.Success));
   }
 )
 
