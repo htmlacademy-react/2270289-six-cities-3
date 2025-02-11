@@ -1,8 +1,8 @@
-
 import {MockReviewByOffer} from '../mocks/mock-reviews';
 import {createReducer} from '@reduxjs/toolkit';
-import {setCity,fillOffer,setCardActiveId,setCurrentSort,setReviewByOffer, requireAuthorization, setRequestStatus, setError} from './action';
-import type { OfferPreview } from '../types';
+import {setCity,setCardActiveId,setCurrentSort,setReviewByOffer, requireAuthorization, setRequestStatus, setError, fillActiveOffer} from './action';
+import {fillOffers,fillOffersNear,fillFavoriteOffer,setFavoriteOfferStatus} from './action';
+import type {Offer,OfferPreview } from '../types';
 import { AuthorizationStatus } from '../const';
 import { RequestStatus } from '../const';
 
@@ -15,15 +15,29 @@ const cityDefault = {
   }
 };
 
+const userDefault = {
+  email: '',
+  password: '',
+};
+
+const dataAuthorization = {
+  authorizationStatus : <string>AuthorizationStatus.Unknown,
+  user: userDefault,
+};
+
 export const initialState = {
   city : cityDefault,
+  activeOffer: <Offer>{},
   offers : <OfferPreview[]>[],
+  offersNear: <OfferPreview[]>[],
+  favoriteOffers: <OfferPreview[]>[],
+  isDownloadFavoriteOffers: false,
   reviewsByOffer: MockReviewByOffer,
   cardActiveId: '',
   currentSort: 'Popular',
-  authorizationStatus : AuthorizationStatus.Unknown,
   requestStatus : RequestStatus.Idle,
   error: '',
+  dataAuthorization: dataAuthorization,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -31,8 +45,22 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(setCity,(state,action) => {
       state.city = action.payload;
     })
-    .addCase(fillOffer,(state,action) => {
+
+    .addCase(fillActiveOffer,(state,action) => {
+      state.activeOffer = action.payload;
+    })
+
+    .addCase(fillOffers,(state,action) => {
       state.offers = action.payload;
+    })
+    .addCase(fillFavoriteOffer,(state,action) => {
+      state.favoriteOffers = action.payload;
+    })
+    .addCase(setFavoriteOfferStatus,(state,action) => {
+      state.isDownloadFavoriteOffers = action.payload;
+    })
+    .addCase(fillOffersNear,(state,action) => {
+      state.offersNear = action.payload;
     })
     .addCase(setCardActiveId,(state,action) => {
       state.cardActiveId = action.payload;
@@ -44,7 +72,10 @@ const reducer = createReducer(initialState, (builder) => {
       state.reviewsByOffer = action.payload;
     })
     .addCase(requireAuthorization,(state,action) => {
-      state.authorizationStatus = action.payload;
+      //console.log('устанавливаем статус авторизации, payload = ',action.payload);
+      state.dataAuthorization.authorizationStatus = action.payload.authorizationStatus;
+      state.dataAuthorization.user.email = action.payload.userAuthData.email;
+      state.dataAuthorization.user.password = action.payload.userAuthData.password;
     })
     .addCase(setRequestStatus,(state,action) => {
       state.requestStatus = action.payload;

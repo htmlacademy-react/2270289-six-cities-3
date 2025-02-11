@@ -1,17 +1,20 @@
-import {Link } from 'react-router-dom';
+
 import ListOffer from '../../components/card-offer-list/card-offer-list';
 import ReviewForm from '../../components/review-form/review-form';
 import ReviewList from '../../components/review-list/review-list';
 
 import useMap from '../../hooks/use-map';
 import {useRef,useEffect} from 'react';
-import {useAppSelector} from '../../hooks/index.ts';
+import {useAppDispatch, useAppSelector} from '../../hooks/index.ts';
 
 import {Marker,Icon,layerGroup} from 'leaflet';
-import {URL_MARKER_DEFAULT,URL_MARKER_CURRENT, AppRoute} from '../../const';
+import {URL_MARKER_DEFAULT,URL_MARKER_CURRENT, RequestStatus} from '../../const';
 
-import {selectorNearListOffer } from '../../store/selectors.ts';
-import {shallowEqual} from 'react-redux';
+//import {selectorNearListOffer } from '../../store/selectors.ts';
+//import {shallowEqual} from 'react-redux';
+import Header from '../../components/header/header.tsx';
+import { fetchActiveOfferAction, fetchOffersNearAction } from '../../store/api-actions.ts';
+import { setRequestStatus } from '../../store/action.ts';
 
 const defaultCustomIcon = new Icon({
   iconUrl: URL_MARKER_DEFAULT,
@@ -27,17 +30,33 @@ const currentCustomIcon = new Icon({
 
 export default function Offer() : JSX.Element {
 
-  const currentCityName = useAppSelector((state) => state.city);
-  const offers = useAppSelector((state) => state.offers);
-  const currentActiveOfferID = useAppSelector((state) => state.cardActiveId);
-  const currentOffersByCity = offers.filter((itemOffer: { city: { name: string } }) => itemOffer.city.name === currentCityName.name);
-  const currentCity = currentOffersByCity[0].city;
+  const currentCity = useAppSelector((state) => state.city);
+  //const offers = useAppSelector((state) => state.offers);
+  //const currentActiveOfferID = useAppSelector((state) => state.cardActiveId);
+  //const currentOffersByCity = offers.filter((itemOffer: { city: { name: string } }) => itemOffer.city.name === currentCity.name);
+  //const currentCity = currentOffersByCity[0].city;
 
-  const currentOffer = currentActiveOfferID ?
-    currentOffersByCity.filter((offer: { id: string }) => offer.id === currentActiveOfferID)[0] :
-    currentOffersByCity[0];
+  const dispatch = useAppDispatch();
+  dispatch(setRequestStatus(RequestStatus.Idle));
 
-  const sortedNearListOffer = useAppSelector(selectorNearListOffer,shallowEqual);
+  const requestStatus = useAppSelector((state) => state.requestStatus);
+
+  useEffect(() => {
+    if (requestStatus !== RequestStatus.Success) {
+      dispatch(fetchActiveOfferAction());
+    }
+
+  }, []);
+
+  useEffect(() => {
+    if (requestStatus !== RequestStatus.Success) {
+      dispatch(fetchOffersNearAction());
+    }
+  }, []);
+
+  const currentOffer = useAppSelector((state) => state.activeOffer);
+
+  const sortedNearListOffer = useAppSelector((state) => state.offersNear);
   const reviewsByOffer = useAppSelector((state) => state.reviewsByOffer);
 
   const mapRef = useRef(null);
@@ -73,34 +92,8 @@ export default function Offer() : JSX.Element {
 
   return (
     <div className="page">
-      <header className="header">
-        <div className="container">
-          <div className="header__wrapper">
-            <div className="header__left">
-              <Link className="header__logo-link" to="/">
-                <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41" />
-              </Link>
-            </div>
-            <nav className="header__nav">
-              <ul className="header__nav-list">
-                <li className="header__nav-item user">
-                  <Link className="header__nav-link header__nav-link--profile" to="/">
-                    <div className="header__avatar-wrapper user__avatar-wrapper">
-                    </div>
-                    <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                    <span className="header__favorite-count">3</span>
-                  </Link>
-                </li>
-                <li className="header__nav-item">
-                  <Link className="header__nav-link" to={AppRoute.Login}>
-                    <span className="header__signout">Sign out</span>
-                  </Link>
-                </li>
-              </ul>
-            </nav>
-          </div>
-        </div>
-      </header>
+
+      <Header />
 
       <main className="page__main page__main--offer" >
         <section className="offer">

@@ -1,25 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import {Provider} from 'react-redux';
 import App from './app/app';
-import { Provider } from 'react-redux';
-import { store } from './store';
-import { fetchOffersAction } from './store/api-actions';
-import ErrorMessage from './components/error-message/error-message';
-
-import { checkAuthAction } from './store/api-actions';
-
-store.dispatch(checkAuthAction());
+import {store} from './store';
+//import {saveToken} from './services/token';
+//import {AUTH_TOKEN,AUTH_TOKEN_KEY} from './services/token';
+//saveToken(AUTH_TOKEN_KEY,AUTH_TOKEN);
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 
-store.dispatch(fetchOffersAction());
-
 root.render(
   <React.StrictMode>
     <Provider store = {store}>
-      <ErrorMessage />
       <App />
     </Provider>
   </React.StrictMode>

@@ -1,6 +1,6 @@
 import type { CityDestination } from './types';
 
-export const TIMEOUT_SHOW_ERROR = 20000;
+export const TIMEOUT_SHOW_ERROR = 6000;
 
 export const citiesList: CityDestination[] = [
   {
@@ -81,7 +81,13 @@ export const URL_MARKER_CURRENT =
 
 export const enum ActionType {
   SetCity = 'offers/setCity',
-  FillOffer = 'offers/fillOffer',
+
+  FillOffers = 'offers/fillOffers',
+  FillActiveOffer = 'offers/fillActiveOffer',
+  FillOffersNear = 'offers/fillOffersNear',
+  FillFavoriteOffer = 'offers/fillFavoriteOffer',
+  SetFavoriteOfferStatus = 'offers/setFavoriteOfferStatus',
+
   SetCardActiveId = 'card/setActiveId',
   SetCurrentSort = 'sort/setCurrentSort',
   SetReviewByOffer = 'review/setReviewByOffer',
@@ -120,3 +126,7 @@ export const ApiRoute = {
   Offers: '/offers',
 };
 
+export const AuthData = {
+  email : 'istanik@yandex.ru',
+  password : 'passEdord12d',
+};

@@ -12,6 +12,7 @@ const enum DefaultConnect {
 }
 
 type DetailMessageType = {
+  status: number;
   type: string;
   message: string;
 }
@@ -43,8 +44,11 @@ export const createApi = () : AxiosInstance => {
     (response) => response,
     (error: AxiosError<DetailMessageType>) => {
       if (error.response && shouldDisplayError(error.response)) {
+        //console.log('error.response => ',error.response);
         const detailMessage = (error.response.data);
+
         processErrorHandle(detailMessage.message);
+        //console.log(detailMessage);
       }
       throw error;
     }

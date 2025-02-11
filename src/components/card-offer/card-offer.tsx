@@ -1,7 +1,7 @@
-import {Link} from 'react-router-dom';
-import {useAppDispatch} from '../../hooks/index.ts';
-import {setCardActiveId} from '../../store/action.ts';
-import type {OfferPreview} from '../../types.ts';
+import { Link } from 'react-router-dom';
+import { useAppDispatch } from '../../hooks/index.ts';
+import { setCardActiveId } from '../../store/action.ts';
+import type { OfferPreview } from '../../types.ts';
 
 type OfferProps = {
   offer: OfferPreview;
@@ -17,7 +17,6 @@ export default function CardOffer({ offer, variantCard }: OfferProps): JSX.Eleme
   return (
     <article className={`${variantCard}__card place-card`}
       onMouseEnter={() => {
-        //console.log('offer.id',offer.id);
         dispatch(setCardActiveId(offer.id));
       }}
       onMouseLeave={() => {
@@ -54,7 +53,9 @@ export default function CardOffer({ offer, variantCard }: OfferProps): JSX.Eleme
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">{offer.title}</a>
+          <Link to={linkTo}>
+            {offer.title}
+          </Link>
         </h2>
         <p className="place-card__type">{offer.type}</p>
       </div>
