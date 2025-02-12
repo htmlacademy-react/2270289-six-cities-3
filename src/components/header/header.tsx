@@ -3,7 +3,7 @@ import { AppRoute } from '../../const';
 import { useAppSelector } from '../../hooks';
 
 export default function Header(): JSX.Element {
-  const user = useAppSelector((state) => state.dataAuthorization);
+  const user = useAppSelector((state) => state.user);
   const isAuth = user.authorizationStatus;
   const favoriteOffersLength = useAppSelector((state) => state.favoriteOffers.length);
   const countFavoriteOffers = (isAuth) ? favoriteOffersLength : 0;
@@ -25,7 +25,7 @@ export default function Header(): JSX.Element {
                   </div>
                   <span className="header__user-name user__name">
                     {isAuth === 'AUTH' ?
-                      user.user.email :
+                      user.email :
                       'e-mail'
                     }
                   </span>

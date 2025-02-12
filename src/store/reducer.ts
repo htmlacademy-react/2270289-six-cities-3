@@ -5,6 +5,7 @@ import {fillOffers,fillOffersNear,fillFavoriteOffer,setFavoriteOfferStatus} from
 import type {Offer,OfferPreview } from '../types';
 import { AuthorizationStatus } from '../const';
 import { RequestStatus } from '../const';
+import { isCSSRequest } from 'vite';
 
 const cityDefault = {
   name: 'Paris',
@@ -16,14 +17,18 @@ const cityDefault = {
 };
 
 const userDefault = {
+  name: '',
   email: '',
-  password: '',
+  avatarUrl: '',
+  token :'',
+  isPro: false,
+  authorizationStatus: <string>AuthorizationStatus.Unknown,
 };
 
-const dataAuthorization = {
-  authorizationStatus : <string>AuthorizationStatus.Unknown,
-  user: userDefault,
-};
+// const dataAuthorization = {
+//   authorizationStatus : <string>AuthorizationStatus.Unknown,
+//   user: userDefault,
+// };
 
 export const initialState = {
   city : cityDefault,
@@ -37,7 +42,10 @@ export const initialState = {
   currentSort: 'Popular',
   requestStatus : RequestStatus.Idle,
   error: '',
-  dataAuthorization: dataAuthorization,
+  user: userDefault,
+  isRequestAuth: false,
+  isRequestActiveOffer: false,
+  isRequestOffersNear: false,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -72,10 +80,7 @@ const reducer = createReducer(initialState, (builder) => {
       state.reviewsByOffer = action.payload;
     })
     .addCase(requireAuthorization,(state,action) => {
-      //console.log('устанавливаем статус авторизации, payload = ',action.payload);
-      state.dataAuthorization.authorizationStatus = action.payload.authorizationStatus;
-      state.dataAuthorization.user.email = action.payload.userAuthData.email;
-      state.dataAuthorization.user.password = action.payload.userAuthData.password;
+      state.user = action.payload;
     })
     .addCase(setRequestStatus,(state,action) => {
       state.requestStatus = action.payload;

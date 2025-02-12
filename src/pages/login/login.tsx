@@ -38,7 +38,7 @@ export default function Login(): JSX.Element {
     }
   };
 
-  const authorizationStatus = useAppSelector((state) => state.dataAuthorization.authorizationStatus);
+  const authorizationStatus = useAppSelector((state) => state.user.authorizationStatus);
 
   return (
     authorizationStatus === 'UNKNOWN' || authorizationStatus === 'NO_AUTH'

@@ -75,7 +75,6 @@ export const fetchActiveOfferAction = createAsyncThunk<void,undefined,{
   }
 );
 
-/*
 export const checkAuthAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch;
   state: State;
@@ -84,40 +83,53 @@ export const checkAuthAction = createAsyncThunk<void, undefined, {
   'user/checkAuth',
   async (_arg, {dispatch, extra: api}) => {
     try {
-      await api.get(ApiRoute.Login);
-      dispatch(requireAuthorization(AuthorizationStatus.Auth));
+      const {data} = await api.get(ApiRoute.Login);
+      console.log('проверка данных, авторизован ли пользователь? ',data)
+      const user: User = {
+        name: data.name,
+        email: data.email,
+        avatarUrl: data.avatarUrl,
+        isPro: data.isPro,
+        token: data.token,
+        authorizationStatus : AuthorizationStatus.Auth,
+      };
+      dispatch(requireAuthorization(user));
     } catch {
-      dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
+      const user: User = {
+        name: '',
+        email: '',
+        avatarUrl: '',
+        isPro: false,
+        token: '',
+        authorizationStatus : AuthorizationStatus.NoAuth,
+      };
+      dispatch(requireAuthorization(user));
     }
   },
 );
-*/
 
 export const loginAction = createAsyncThunk<void, AuthData, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
-}>(
-  'user/login',
+}>('user/login',
   async ({login: email, password}, {dispatch, extra: api}) => {
-
     //console.log(`мы в Action'е loginAction`);
     //console.log(`AuthData`,{email, password});
     const {data} = await api.post<UserData>(ApiRoute.Login, {email, password});
+    console.log('полученные data => ', data);
     //console.log('полученный Token => ', data.token);
-
     const user: User = {
+      name: data.name,
+      email: data.email,
+      avatarUrl: data.avatarUrl,
+      isPro: data.isPro,
+      token: data.token,
       authorizationStatus : AuthorizationStatus.Auth,
-      userAuthData : {
-        email : data.email,
-        password: data.password,
-      }
     };
     dispatch(requireAuthorization(user));
     //console.log('Статус AuthorizationStatus после авторизации',state.dataAuthorization.authorizationStatus);
-
     saveToken(AUTH_TOKEN_KEY,data.token);
-
   },
 );
 

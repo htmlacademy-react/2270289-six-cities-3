@@ -1,11 +1,28 @@
 type UserAuthData = {
   email: string;
   password: string;
-}
+};
+
+export type AuthData = {
+  login: string;
+  password: string;
+};
 
 type User = {
+  name: string;
+  email: string;
+  avatarUrl: string;
+  token :string;
+  isPro: boolean;
   authorizationStatus: string;
-  userAuthData : UserAuthData;
+};
+
+export type UserData = {
+  name: string;
+  email: string;
+  avatarUrl: string;
+  token: string;
+  isPro: boolean;
 };
 
 type LocationPlace = {
@@ -86,17 +103,5 @@ type RewiewByOffer = {
 }
 
 type Points = LocationPlace[];
-
-export type AuthData = {
-  login: string;
-  password: string;
-};
-
-export type UserData = {
-  id: number;
-  email: string;
-  password: string;
-  token: string;
-};
 
 export type {Offer,OfferPreview,CommentForOffer,CommentProposal,CityDestination, LocationPlace, RewiewByOffer,Points,User,UserAuthData};
