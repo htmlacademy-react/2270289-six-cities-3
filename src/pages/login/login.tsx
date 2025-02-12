@@ -31,9 +31,6 @@ export default function Login(): JSX.Element {
     evt.preventDefault();
 
     if (loginRef.current !== null && passwordRef.current !== null) {
-      //console.log('начианем логгирование...');
-      //console.log('loginRef.current.value', loginRef.current.value);
-      //console.log('passwordRef.current.value', passwordRef.current.value);
       dispatch(loginAction({
         login: loginRef.current.value,
         password: passwordRef.current.value,
@@ -41,12 +38,7 @@ export default function Login(): JSX.Element {
     }
   };
 
-  //const user = useAppSelector((state) => state.dataAuthorization);
-  //console.log('user => ', user);
-
   const authorizationStatus = useAppSelector((state) => state.dataAuthorization.authorizationStatus);
-
-  //const patternInput = '{{/^(?!.*\s).{1,}$/}}';
 
   return (
     authorizationStatus === 'UNKNOWN' || authorizationStatus === 'NO_AUTH'

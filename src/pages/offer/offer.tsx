@@ -1,4 +1,3 @@
-
 import ListOffer from '../../components/card-offer-list/card-offer-list';
 import ReviewForm from '../../components/review-form/review-form';
 import ReviewList from '../../components/review-list/review-list';
@@ -10,8 +9,6 @@ import {useAppDispatch, useAppSelector} from '../../hooks/index.ts';
 import {Marker,Icon,layerGroup} from 'leaflet';
 import {URL_MARKER_DEFAULT,URL_MARKER_CURRENT, RequestStatus} from '../../const';
 
-//import {selectorNearListOffer } from '../../store/selectors.ts';
-//import {shallowEqual} from 'react-redux';
 import Header from '../../components/header/header.tsx';
 import { fetchActiveOfferAction, fetchOffersNearAction } from '../../store/api-actions.ts';
 import { setRequestStatus } from '../../store/action.ts';
@@ -31,10 +28,6 @@ const currentCustomIcon = new Icon({
 export default function Offer() : JSX.Element {
 
   const currentCity = useAppSelector((state) => state.city);
-  //const offers = useAppSelector((state) => state.offers);
-  //const currentActiveOfferID = useAppSelector((state) => state.cardActiveId);
-  //const currentOffersByCity = offers.filter((itemOffer: { city: { name: string } }) => itemOffer.city.name === currentCity.name);
-  //const currentCity = currentOffersByCity[0].city;
 
   const dispatch = useAppDispatch();
   dispatch(setRequestStatus(RequestStatus.Idle));
