@@ -25,3 +25,5 @@ export const requireAuthorization = createAction<User>(ActionType.RequireAuthori
 export const setRequestStatus = createAction<string>(ActionType.SetRequestStatus);
 
 export const setError = createAction<string>(ActionType.SetError);
+
+export const setRequestAuthStatus = createAction<boolean>(ActionType.SetRequestAuthStatus);

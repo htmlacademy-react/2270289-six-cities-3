@@ -95,6 +95,8 @@ export const enum ActionType {
   RequireAuthorization = 'user/requireAuthorization',
   SetRequestStatus = 'data/setRequestStatus',
   SetError = 'request/setError',
+
+  SetRequestAuthStatus ='data/setRequestAuthStatus',
 }
 
 export const RequestStatus = {

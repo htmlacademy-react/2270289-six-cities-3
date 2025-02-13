@@ -24,12 +24,9 @@ export default function Header(): JSX.Element {
                   <div className="header__avatar-wrapper user__avatar-wrapper">
                   </div>
                   <span className="header__user-name user__name">
-                    {isAuth === 'AUTH' ?
-                      user.email :
-                      'e-mail'
-                    }
+                    {((isAuth === 'AUTH') && user.email )}
                   </span>
-                  <span className="header__favorite-count">{countFavoriteOffers}</span>
+                  {((isAuth === 'AUTH') && <span className="header__favorite-count">{countFavoriteOffers}</span> )}
                 </Link>
               </li>
               <li className="header__nav-item">

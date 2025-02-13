@@ -1,4 +1,3 @@
-export const AUTH_TOKEN = 'aXN0YW5pa0BnbWFpbC5jb20=';
 export const AUTH_TOKEN_KEY = 'six-cities';
 
 export type Token = string;
