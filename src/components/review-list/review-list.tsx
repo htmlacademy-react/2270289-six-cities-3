@@ -1,5 +1,5 @@
 import Review from '../review/review';
-import { useAppSelector } from '../../hooks';
+import {useAppSelector} from '../../hooks';
 
 export default function ReviewList(): JSX.Element {
 

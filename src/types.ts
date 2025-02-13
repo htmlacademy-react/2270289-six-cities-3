@@ -75,15 +75,6 @@ type OfferPreview = {
   rating: number;
 }
 
-
-// type CommentForOffer = {
-//   id : string;
-//   title: string;
-//   rating: number;
-//   description: string;
-// }
-
-
 type CommentForOffer = {
   id : string;
   comment: string;
@@ -96,25 +87,25 @@ type CommentForOffer = {
   }
 }
 
-type UserDescription = {
-  name : string;
-  avatarUrl: string;
-  isPro : boolean;
-}
+// type UserDescription = {
+//   name : string;
+//   avatarUrl: string;
+//   isPro : boolean;
+// }
 
-type CommentProposal = {
-  id: string;
-  comment: string;
-  date: string;
-  rating: number;
-  user: UserDescription;
-}
+// type CommentProposal = {
+//   id: string;
+//   comment: string;
+//   date: string;
+//   rating: number;
+//   user: UserDescription;
+// }
 
-type RewiewByOffer = {
-  offerId:string;
-  listComments: CommentProposal[];
-}
+// type RewiewByOffer = {
+//   offerId:string;
+//   listComments: CommentProposal[];
+// }
 
 type Points = LocationPlace[];
 
-export type {Offer,OfferPreview,CommentForOffer,CommentProposal,CityDestination, LocationPlace, RewiewByOffer,Points,User,UserAuthData};
+export type {Offer,OfferPreview,CommentForOffer,CityDestination, LocationPlace,Points,User,UserAuthData};

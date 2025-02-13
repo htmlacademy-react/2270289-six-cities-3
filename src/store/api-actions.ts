@@ -1,12 +1,13 @@
 import {AxiosInstance } from 'axios';
 import {createAsyncThunk } from '@reduxjs/toolkit';
-import {fillOffers,fillActiveOffer,fillFavoriteOffer,requireAuthorization,setRequestStatus,setError,fillOffersNear, setRequestAuthStatus, setRequestActiveOffer, setRequestOffersNear, setRequestCommentsByOffer, fillCommentsByOffer} from './action';
+import type {AppDispatch,State } from '../hooks';
+import {fillOffers,fillActiveOffer,fillFavoriteOffer,fillOffersNear,fillCommentsByOffer} from './action';
+import {requireAuthorization,setRequestStatus,setError,setRequestAuthStatus,setRequestActiveOffer,setRequestOffersNear,setRequestCommentsByOffer} from './action';
 
 import {ApiRoute,AuthorizationStatus,RequestStatus,TIMEOUT_SHOW_ERROR,userDefault} from '../const';
 import {saveToken,AUTH_TOKEN_KEY,dropToken} from '../services/token';
 import {store} from '.';
 
-import type {AppDispatch,State } from '../hooks';
 import type {Offer,OfferPreview,UserData,AuthData,User,CommentForOffer} from '../types';
 
 export const checkAuthAction = createAsyncThunk<void, undefined, {
@@ -117,15 +118,12 @@ export const fetchListCommentsByOffer = createAsyncThunk<void,undefined,{
   'data/fetchActiveOffer',
   async(id,{dispatch, extra: api}) => {
     const path = `${ApiRoute.Comments}/${id}`;
-    console.log('путь запроса (comments): ',path)
     dispatch(setRequestCommentsByOffer(false));
     const {data} = await api.get<CommentForOffer[]>(path);
-    console.log('получение данных (comments): ',data)
     dispatch(fillCommentsByOffer(data));
     dispatch(setRequestCommentsByOffer(true));
   }
 );
-
 
 export const fetchOffersNearAction = createAsyncThunk<void,undefined,{
   dispatch: AppDispatch;
