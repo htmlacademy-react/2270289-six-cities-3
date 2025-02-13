@@ -4,21 +4,6 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { loginAction } from '../../store/api-actions';
 import { AppRoute, AuthData } from '../../const';
 import ErrorMessage from '../../components/error-message/error-message';
-/*
-Request
-{
-  "email": "istanik@yandex.ru",
-  "password": "passEdord12d"
-}
-RESPONSE
-{
-  "email": "istanik@gmail.com",
-  "token": "aXN0YW5pa0BnbWFpbC5jb20=",
-  "name": "istanik",
-  "avatarUrl": "https://15.design.htmlacademy.pro/static/avatar/9.jpg",
-  "isPro": false
-}
-*/
 
 export default function Login(): JSX.Element {
 
@@ -73,11 +58,10 @@ export default function Login(): JSX.Element {
                     <input className="login__input form__input" type="password" name="password" defaultValue={AuthData.password}
                       id="password" placeholder="Password" required ref={passwordRef} autoComplete='off'
                       title="Любые символы кроме пробелов."
-                      onKeyDown={(event) => {
-                        return (event.key === ' ') ?
+                      onKeyDown={(event) =>
+                        (event.key === ' ') ?
                           event.preventDefault() :
-                          event.key;
-                        }}
+                          event.key}
                     />
                   </div>
                   <button className="login__submit form__submit button" type="submit">Sign in</button>

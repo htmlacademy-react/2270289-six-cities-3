@@ -5,7 +5,6 @@ import {fillOffers,fillOffersNear,fillFavoriteOffer,setFavoriteOfferStatus} from
 import type {Offer,OfferPreview } from '../types';
 import { AuthorizationStatus } from '../const';
 import { RequestStatus } from '../const';
-import { isCSSRequest } from 'vite';
 
 const cityDefault = {
   name: 'Paris',
@@ -24,11 +23,6 @@ const userDefault = {
   isPro: false,
   authorizationStatus: <string>AuthorizationStatus.Unknown,
 };
-
-// const dataAuthorization = {
-//   authorizationStatus : <string>AuthorizationStatus.Unknown,
-//   user: userDefault,
-// };
 
 export const initialState = {
   city : cityDefault,
