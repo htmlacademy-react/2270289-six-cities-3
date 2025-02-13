@@ -1,5 +1,5 @@
 import {createReducer} from '@reduxjs/toolkit';
-import {setCity,setCardActiveId,setCurrentSort,setReviewByOffer,setFavoriteOfferStatus,setError, setRequestCommentsByOffer, fillCommentsByOffer}  from './action';
+import {setCity,setCardActiveId,setCurrentSort,setFavoriteOfferStatus,setError, setRequestCommentsByOffer, fillCommentsByOffer}  from './action';
 import {requireAuthorization,setRequestStatus,setRequestAuthStatus, setRequestOffersNear, setRequestActiveOffer} from './action';
 import {fillOffers,fillActiveOffer,fillOffersNear,fillFavoriteOffer} from './action';
 import {userDefault,RequestStatus} from '../const';
