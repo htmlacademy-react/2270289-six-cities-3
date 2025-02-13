@@ -4,7 +4,7 @@ import {type AppDispatch,type State } from '../hooks';
 import {Offer,OfferPreview,UserData,AuthData,User} from '../types';
 import {fillOffers,fillActiveOffer,fillFavoriteOffer,requireAuthorization,setRequestStatus,setError,fillOffersNear, setRequestAuthStatus} from './action';
 
-import {ApiRoute,AuthorizationStatus,RequestStatus,TIMEOUT_SHOW_ERROR} from '../const';
+import {ApiRoute,AuthorizationStatus,RequestStatus,TIMEOUT_SHOW_ERROR,userDefault} from '../const';
 import {saveToken,AUTH_TOKEN_KEY,dropToken} from '../services/token';
 import {store} from '.';
 
@@ -29,15 +29,7 @@ export const checkAuthAction = createAsyncThunk<void, undefined, {
       dispatch(requireAuthorization(user));
       dispatch(setRequestAuthStatus(true));
     } catch {
-      const user: User = {
-        name: '',
-        email: '',
-        avatarUrl: '',
-        isPro: false,
-        token: '',
-        authorizationStatus : AuthorizationStatus.NoAuth,
-      };
-      dispatch(requireAuthorization(user));
+      dispatch(requireAuthorization(userDefault));
       dispatch(setRequestAuthStatus(false));
     }
   },
@@ -72,15 +64,7 @@ export const logoutAction = createAsyncThunk<void, undefined, {
   async (_arg, {dispatch, extra: api}) => {
     await api.delete(ApiRoute.Logout);
     dropToken(AUTH_TOKEN_KEY);
-    const user: User = {
-      name: '',
-      email: '',
-      avatarUrl: '',
-      isPro: false,
-      token: '',
-      authorizationStatus : AuthorizationStatus.NoAuth,
-    };
-    dispatch(requireAuthorization(user));
+    dispatch(requireAuthorization(userDefault));
     dispatch(setRequestAuthStatus(false));
   },
 );

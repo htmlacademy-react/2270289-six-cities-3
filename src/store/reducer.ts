@@ -1,10 +1,9 @@
 import {MockReviewByOffer} from '../mocks/mock-reviews';
 import {createReducer} from '@reduxjs/toolkit';
-import {setCity,setCardActiveId,setCurrentSort,setReviewByOffer, requireAuthorization, setRequestStatus, setError, fillActiveOffer, setRequestAuthStatus} from './action';
+import {setCity,setCardActiveId,setCurrentSort,setReviewByOffer,requireAuthorization,setRequestStatus,setError,fillActiveOffer,setRequestAuthStatus} from './action';
 import {fillOffers,fillOffersNear,fillFavoriteOffer,setFavoriteOfferStatus} from './action';
+import {userDefault,RequestStatus} from '../const';
 import type {Offer,OfferPreview } from '../types';
-import { AuthorizationStatus } from '../const';
-import { RequestStatus } from '../const';
 
 const cityDefault = {
   name: 'Paris',
@@ -15,6 +14,7 @@ const cityDefault = {
   }
 };
 
+/*
 const userDefault = {
   name: '',
   email: '',
@@ -23,6 +23,7 @@ const userDefault = {
   isPro: false,
   authorizationStatus: <string>AuthorizationStatus.Unknown,
 };
+*/
 
 export const initialState = {
   city : cityDefault,

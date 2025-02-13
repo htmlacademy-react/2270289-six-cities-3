@@ -1,4 +1,4 @@
-import type { CityDestination } from './types';
+import type { CityDestination, User } from './types';
 
 export const TIMEOUT_SHOW_ERROR = 6000;
 
@@ -131,4 +131,13 @@ export const ApiRoute = {
 export const AuthData = {
   email : 'istanik@yandex.ru',
   password : 'passEdord12d',
+};
+
+export const userDefault : User = {
+  name: '',
+  email: '',
+  avatarUrl: '',
+  isPro: false,
+  token: '',
+  authorizationStatus : <string>AuthorizationStatus.NoAuth,
 };
