@@ -32,6 +32,7 @@ export default function Offer() : JSX.Element {
   const dispatch = useAppDispatch();
   dispatch(setRequestStatus(RequestStatus.Idle));
   const requestStatus = useAppSelector((state) => state.requestStatus);
+  const requestStatusAuth = useAppSelector((state) => state.isRequestAuth);
 
   const parameters = useParams();
   const idParameter = parameters.id as string;
@@ -208,7 +209,7 @@ export default function Offer() : JSX.Element {
               <section className="offer__reviews reviews">
 
                 <ReviewList />
-                <ReviewForm />
+                {(requestStatusAuth) && <ReviewForm />}
 
               </section>
             </div>

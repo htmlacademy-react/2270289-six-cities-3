@@ -24,14 +24,7 @@ export default function App(): JSX.Element {
       <Routes>
         <Route path={AppRoute.Main} element={<Main />} />
         <Route path={AppRoute.Login} element={<Login />} />
-
-        <Route path={AppRoute.Offer}
-          element={
-            <PrivateRoute authorizationStatus={authorizationStatus}>
-              <Offer />
-            </PrivateRoute>
-          }
-        />
+        <Route path={AppRoute.Offer} element={<Offer />} />
         <Route path={AppRoute.Favorites}
           element={
             <PrivateRoute authorizationStatus={authorizationStatus}>
@@ -39,11 +32,10 @@ export default function App(): JSX.Element {
             </PrivateRoute>
           }
         />
+        <Route path={AppRoute.Page404} element={<Page404 />} />
         <Route path='*' element={<Page404 />} />
       </Routes>
     </BrowserRouter>
   );
 
 }
-
-//<Route path={AppRoute.Offer} element={<Offer />} />
