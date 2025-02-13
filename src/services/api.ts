@@ -50,12 +50,12 @@ export const createApi = () : AxiosInstance => {
     (response) => response,
     (error: AxiosError<DetailMessageType>) => {
       if (error.response && shouldDisplayError(error.response)) {
-        console.log('error.response => ',error.response);
+        //console.log('error.response => ',error.response);
         const detailMessage = (error.response.data);
         //const errorStatus = error.response.status;
 
         processErrorHandle(detailMessage.message);
-        console.log('detailMessage => ',detailMessage);
+        //console.log('detailMessage => ',detailMessage);
 
         // if (errorStatus === 404) {
         //   navigate(AppRoute.Page404);
