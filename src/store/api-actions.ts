@@ -97,7 +97,7 @@ export const fetchFavoriteOffersAction = createAsyncThunk<void,undefined,{
   }
 );
 
-export const fetchActiveOfferAction  = createAsyncThunk<void,undefined,{
+export const fetchActiveOfferAction = createAsyncThunk<void,undefined,{
   dispatch: AppDispatch;
   extra: AxiosInstance;
 }>(

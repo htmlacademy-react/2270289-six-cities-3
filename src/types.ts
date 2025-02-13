@@ -84,7 +84,7 @@ type CommentForOffer = {
     name: string;
     avatarUrl: string;
     isPro: boolean;
-  }
+  };
 }
 
 // type UserDescription = {

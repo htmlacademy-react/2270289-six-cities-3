@@ -1,9 +1,9 @@
-import type { CommentProposal } from '../../types';
+import type { CommentForOffer } from '../../types';
 import { dateToTypeFormat } from '../../utils';
 import { TYPE_FORMAT_DATE } from '../../utils';
 
 type CommentProps = {
-  comment: CommentProposal;
+  comment: CommentForOffer;
 }
 
 export default function Review({comment}: CommentProps): JSX.Element {

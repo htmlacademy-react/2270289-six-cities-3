@@ -6,8 +6,8 @@ import {getToken,AUTH_TOKEN_KEY } from './token';
 
 import { processErrorHandle } from './process-error-handle';
 
-import { useNavigate } from 'react-router-dom';
-import { AppRoute } from '../const';
+//import { useNavigate } from 'react-router-dom';
+//import { AppRoute } from '../const';
 
 const enum DefaultConnect {
   BaseUrl = 'https://15.design.htmlacademy.pro/six-cities',
