@@ -1,12 +1,16 @@
-import { Link } from 'react-router-dom';
-import { AppRoute } from '../../const';
-import { useAppSelector } from '../../hooks';
+import {Link} from 'react-router-dom';
+import {AppRoute} from '../../const';
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import { logoutAction } from '../../store/api-actions';
 
 export default function Header(): JSX.Element {
   const user = useAppSelector((state) => state.user);
   const isAuth = user.authorizationStatus;
-  const favoriteOffersLength = useAppSelector((state) => state.favoriteOffers.length);
-  const countFavoriteOffers = (isAuth) ? favoriteOffersLength : 0;
+  const countFavoriteOffers = (isAuth) ?
+    useAppSelector((state) => state.favoriteOffers.length) :
+    0;
+
+  const dispatch = useAppDispatch();
 
   return (
     <header className="header">
@@ -30,7 +34,14 @@ export default function Header(): JSX.Element {
                 </Link>
               </li>
               <li className="header__nav-item">
-                <Link className="header__nav-link" to={AppRoute.Login}>
+                <Link className="header__nav-link" to={AppRoute.Login}
+                  onClick={
+                    (evt) => {
+                     if (isAuth === 'AUTH') {
+                      evt.preventDefault();
+                      dispatch(logoutAction());
+                     }
+                    }}>
                   <span className="header__signout">
                     {isAuth === 'AUTH' ?
                       'Sign out' :
