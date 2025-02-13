@@ -1,19 +1,25 @@
 import Review from '../review/review';
-import type { CommentProposal } from '../../types';
+import { useAppSelector } from '../../hooks';
 
-type CommentsListProps = {
-  commentsList: CommentProposal[];
-};
+export default function ReviewList(): JSX.Element {
 
-export default function ReviewList({commentsList }: CommentsListProps): JSX.Element {
-  return (
-    <>
-      <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{commentsList.length}</span></h2>
-      <ul className="reviews__list" >
-        {commentsList.map((comment) => (
-          <Review comment={comment} key={comment.id}/>
-        ))}
-      </ul>
-    </>
-  );
+  const reviewsByOffer = useAppSelector((state) => state.reviewsByOffer);
+  const isRequestCommentsByOffer = useAppSelector((state) => state.isRequestCommentsByOffer);
+
+  if (isRequestCommentsByOffer) {
+    return (
+      <>
+        <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviewsByOffer.length}</span></h2>
+        <ul className="reviews__list" >
+          {reviewsByOffer.map((comment) => (
+            <Review comment={comment} key={comment.id}/>
+          ))}
+        </ul>
+      </>
+    );
+  } else {
+    return <></>
+  }
+
+
 }

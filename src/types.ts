@@ -76,11 +76,24 @@ type OfferPreview = {
 }
 
 
+// type CommentForOffer = {
+//   id : string;
+//   title: string;
+//   rating: number;
+//   description: string;
+// }
+
+
 type CommentForOffer = {
   id : string;
-  title: string;
+  comment: string;
+  date: string;
   rating: number;
-  description: string;
+  user: {
+    name: string;
+    avatarUrl: string;
+    isPro: boolean;
+  }
 }
 
 type UserDescription = {

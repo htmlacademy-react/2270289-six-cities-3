@@ -84,6 +84,7 @@ export const enum ActionType {
 
   FillOffers = 'offers/fillOffers',
   FillActiveOffer = 'offers/fillActiveOffer',
+  FillCommentsByOffer = 'offers/fillCommentsByOffer',
   FillOffersNear = 'offers/fillOffersNear',
   FillFavoriteOffer = 'offers/fillFavoriteOffer',
   SetFavoriteOfferStatus = 'offers/setFavoriteOfferStatus',
@@ -96,7 +97,10 @@ export const enum ActionType {
   SetRequestStatus = 'data/setRequestStatus',
   SetError = 'request/setError',
 
-  SetRequestAuthStatus ='data/setRequestAuthStatus',
+  SetRequestAuthStatus = 'data/setRequestAuthStatus',
+  SetRequestActiveOffer = 'data/SetRequestActiveOffer',
+  SetRequestOffersNear = 'data/setRequestOffersNear',
+  SetRequestCommentsByOffer = 'data/setRequestCommentsByOffer',
 }
 
 export const RequestStatus = {

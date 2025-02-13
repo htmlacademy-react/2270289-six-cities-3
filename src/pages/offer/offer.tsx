@@ -4,14 +4,15 @@ import ReviewList from '../../components/review-list/review-list';
 
 import useMap from '../../hooks/use-map';
 import {useRef,useEffect} from 'react';
-import {useAppDispatch, useAppSelector} from '../../hooks/index.ts';
+import {useParams } from 'react-router-dom';
+import {useAppDispatch,useAppSelector} from '../../hooks/index.ts';
 
 import {Marker,Icon,layerGroup} from 'leaflet';
-import {URL_MARKER_DEFAULT,URL_MARKER_CURRENT, RequestStatus} from '../../const';
+import {URL_MARKER_DEFAULT,URL_MARKER_CURRENT,RequestStatus} from '../../const';
 
 import Header from '../../components/header/header.tsx';
-import { fetchActiveOfferAction, fetchOffersNearAction } from '../../store/api-actions.ts';
-import { setRequestStatus } from '../../store/action.ts';
+import {fetchActiveOfferAction,fetchListCommentsByOffer,fetchOffersNearAction} from '../../store/api-actions.ts';
+import {setRequestStatus} from '../../store/action.ts';
 
 const defaultCustomIcon = new Icon({
   iconUrl: URL_MARKER_DEFAULT,
@@ -28,35 +29,33 @@ const currentCustomIcon = new Icon({
 export default function Offer() : JSX.Element {
 
   const currentCity = useAppSelector((state) => state.city);
-
   const dispatch = useAppDispatch();
   dispatch(setRequestStatus(RequestStatus.Idle));
-
   const requestStatus = useAppSelector((state) => state.requestStatus);
 
-  useEffect(() => {
-    if (requestStatus !== RequestStatus.Success) {
-      dispatch(fetchActiveOfferAction());
-    }
-
-  }, []);
+  const parameters = useParams();
+  const idParameter = parameters.id as string;
+  const id = idParameter.replace(/:/, '');
 
   useEffect(() => {
     if (requestStatus !== RequestStatus.Success) {
-      dispatch(fetchOffersNearAction());
+      dispatch(fetchActiveOfferAction(id));
+      dispatch(fetchListCommentsByOffer(id));
+      dispatch(fetchOffersNearAction(id));
     }
-  }, []);
+  },[]);
+
+  const requestActiveOfferStatus = useAppSelector((state) => state.isRequestActiveOffer);
+  const requestOffersNearStatus = useAppSelector((state) => state.isRequestOffersNear);
 
   const currentOffer = useAppSelector((state) => state.activeOffer);
-
   const sortedNearListOffer = useAppSelector((state) => state.offersNear);
-  const reviewsByOffer = useAppSelector((state) => state.reviewsByOffer);
 
   const mapRef = useRef(null);
   const map = useMap(mapRef,currentCity);
 
   useEffect(() => {
-    if (map) {
+    if ((map) && (requestActiveOfferStatus) && (requestOffersNearStatus)) {
       const markerLayer = layerGroup().addTo(map);
       sortedNearListOffer.forEach((offer) => {
         const marker = new Marker({
@@ -80,8 +79,7 @@ export default function Offer() : JSX.Element {
         map.removeLayer(markerLayer);
       };
     }
-  }, [map]);
-
+  }, [map,currentOffer]);
 
   return (
     <div className="page">
@@ -209,7 +207,7 @@ export default function Offer() : JSX.Element {
               </div>
               <section className="offer__reviews reviews">
 
-                <ReviewList commentsList={reviewsByOffer.commentsList} />
+                <ReviewList />
                 <ReviewForm />
 
               </section>

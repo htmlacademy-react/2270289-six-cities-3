@@ -1,6 +1,6 @@
 import {createAction} from '@reduxjs/toolkit';
 import {ActionType} from '../const';
-import type {Offer,OfferPreview} from '../types';
+import type {CommentForOffer, Offer,OfferPreview} from '../types';
 import { MockReviewByOffer } from '../mocks/mock-reviews';
 import type {CityDestination,User} from '../types';
 
@@ -11,6 +11,7 @@ export const setCity = createAction<CityDestination>(ActionType.SetCity);
 export const fillOffers = createAction<OfferPreview[]>(ActionType.FillOffers);
 
 export const fillActiveOffer = createAction<Offer>(ActionType.FillActiveOffer);
+export const fillCommentsByOffer = createAction<CommentForOffer[]>(ActionType.FillCommentsByOffer);
 
 export const fillOffersNear = createAction<OfferPreview[]>(ActionType.FillOffersNear);
 export const fillFavoriteOffer = createAction<OfferPreview[]>(ActionType.FillFavoriteOffer);
@@ -27,3 +28,8 @@ export const setRequestStatus = createAction<string>(ActionType.SetRequestStatus
 export const setError = createAction<string>(ActionType.SetError);
 
 export const setRequestAuthStatus = createAction<boolean>(ActionType.SetRequestAuthStatus);
+export const setRequestActiveOffer = createAction<boolean>(ActionType.SetRequestActiveOffer);
+export const setRequestOffersNear = createAction<boolean>(ActionType.SetRequestOffersNear);
+export const setRequestCommentsByOffer = createAction<boolean>(ActionType.SetRequestCommentsByOffer);
+
+
