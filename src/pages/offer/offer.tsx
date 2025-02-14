@@ -3,15 +3,15 @@ import ReviewForm from '../../components/review-form/review-form';
 import ReviewList from '../../components/review-list/review-list';
 
 import useMap from '../../hooks/use-map';
-import {useRef,useEffect} from 'react';
-import {useParams } from 'react-router-dom';
-import {useAppDispatch,useAppSelector} from '../../hooks/index.ts';
+import { useRef, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../hooks/index.ts';
 
-import {Marker,Icon,layerGroup} from 'leaflet';
-import {URL_MARKER_DEFAULT,URL_MARKER_CURRENT} from '../../const';
+import { Marker, Icon, layerGroup } from 'leaflet';
+import { URL_MARKER_DEFAULT, URL_MARKER_CURRENT } from '../../const';
 
 import Header from '../../components/header/header.tsx';
-import {fetchActiveOfferAction,fetchListCommentsByOffer,fetchOffersNearAction} from '../../store/api-actions.ts';
+import { fetchActiveOfferAction, fetchListCommentsByOffer, fetchOffersNearAction } from '../../store/api-actions.ts';
 
 const defaultCustomIcon = new Icon({
   iconUrl: URL_MARKER_DEFAULT,
@@ -25,12 +25,12 @@ const currentCustomIcon = new Icon({
   iconAnchor: [20, 40]
 });
 
-export default function Offer() : JSX.Element {
+export default function Offer(): JSX.Element {
 
   const currentCity = useAppSelector((state) => state.city);
   const dispatch = useAppDispatch();
   const requestStatusAuth = useAppSelector((state) => state.isRequestAuth);
-  const {id} = useParams();
+  const { id } = useParams();
 
   useEffect(() => {
     if (id) {
@@ -38,7 +38,7 @@ export default function Offer() : JSX.Element {
       dispatch(fetchListCommentsByOffer(id));
       dispatch(fetchOffersNearAction(id));
     }
-  },[]);
+  }, []);
 
   const requestActiveOfferStatus = useAppSelector((state) => state.isRequestActiveOffer);
   const requestOffersNearStatus = useAppSelector((state) => state.isRequestOffersNear);
@@ -49,10 +49,10 @@ export default function Offer() : JSX.Element {
   const ratingToPercent = (requestActiveOfferStatus) ? (currentOffer.rating * 100 / 5).toFixed(2) : 80;
   const styleRating = {
     width: `${ratingToPercent}%`,
-  }
+  };
 
   const mapRef = useRef(null);
-  const map = useMap(mapRef,currentCity);
+  const map = useMap(mapRef, currentCity);
 
   useEffect(() => {
     if ((map) && (requestActiveOfferStatus) && (requestOffersNearStatus)) {
@@ -77,7 +77,7 @@ export default function Offer() : JSX.Element {
         map.removeLayer(markerLayer);
       };
     }
-  }, [map,currentOffer]);
+  }, [map, currentOffer]);
 
 
   return (
@@ -94,7 +94,7 @@ export default function Offer() : JSX.Element {
                   <div className="offer__image-wrapper" key={urlImage}>
                     <img className="offer__image" src={urlImage} alt="Photo studio" />
                   </div>
-                  )
+                )
                 ))
               }
             </div>
@@ -122,7 +122,7 @@ export default function Offer() : JSX.Element {
               <div className="offer__rating rating">
                 <div className="offer__stars rating__stars">
 
-                  <span style = {styleRating}>
+                  <span style={styleRating}>
 
                   </span>
                   <span className="visually-hidden">Rating</span>
@@ -154,7 +154,7 @@ export default function Offer() : JSX.Element {
                       <li className="offer__inside-item" key={itemGood}>
                         {itemGood}
                       </li>
-                      )
+                    )
                     ))
                   }
                 </ul>
@@ -164,15 +164,15 @@ export default function Offer() : JSX.Element {
                 <div className="offer__host-user user">
                   <div className="offer__avatar-wrapper offer__avatar-wrapper--pro user__avatar-wrapper">
                     <img className="offer__avatar user__avatar"
-                      src = {(requestActiveOfferStatus) ? (currentOffer.host.avatarUrl) : ""}
+                      src={(requestActiveOfferStatus) ? (currentOffer.host.avatarUrl) : ''}
                       width="74" height="74" alt="Host avatar"
                     />
                   </div>
                   <span className="offer__user-name">
-                  {(requestActiveOfferStatus) ? (currentOffer.host.name) : ''}
+                    {(requestActiveOfferStatus) ? (currentOffer.host.name) : ''}
                   </span>
                   <span className="offer__user-status">
-                  {(requestActiveOfferStatus && currentOffer.host.isPro) ? 'Pro' : ''}
+                    {(requestActiveOfferStatus && currentOffer.host.isPro) ? 'Pro' : ''}
                   </span>
                 </div>
                 <div className="offer__description">
@@ -190,14 +190,14 @@ export default function Offer() : JSX.Element {
             </div>
           </div>
 
-          <section className="offer__map map" ref = {mapRef} ></section>
+          <section className="offer__map map" ref={mapRef} ></section>
 
         </section>
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              <ListOffer listOffer={sortedNearListOffer} variantCard='near-places'/>
+              <ListOffer listOffer={sortedNearListOffer} variantCard='near-places' />
             </div>
           </section>
 

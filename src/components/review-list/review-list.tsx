@@ -18,8 +18,10 @@ export default function ReviewList(): JSX.Element {
       </>
     );
   } else {
-    return <></>;
+    return (
+      <>
+      </>
+    );
   }
-
 
 }
