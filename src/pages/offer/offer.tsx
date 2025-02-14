@@ -12,8 +12,6 @@ import {URL_MARKER_DEFAULT,URL_MARKER_CURRENT} from '../../const';
 
 import Header from '../../components/header/header.tsx';
 import {fetchActiveOfferAction,fetchListCommentsByOffer,fetchOffersNearAction} from '../../store/api-actions.ts';
-import { isAction } from '@reduxjs/toolkit';
-
 
 const defaultCustomIcon = new Icon({
   iconUrl: URL_MARKER_DEFAULT,
@@ -48,6 +46,11 @@ export default function Offer() : JSX.Element {
   const currentOffer = useAppSelector((state) => state.activeOffer);
   const sortedNearListOffer = useAppSelector((state) => state.offersNear);
 
+  const ratingToPercent = (requestActiveOfferStatus) ? (currentOffer.rating * 100 / 5).toFixed(2) : 80;
+  const styleRating = {
+    width: `${ratingToPercent}%`,
+  }
+
   const mapRef = useRef(null);
   const map = useMap(mapRef,currentCity);
 
@@ -63,7 +66,6 @@ export default function Offer() : JSX.Element {
           .setIcon(defaultCustomIcon)
           .addTo(markerLayer);
       });
-
       const marker = new Marker({
         lat: currentOffer.location.latitude,
         lng: currentOffer.location.longitude
@@ -71,14 +73,12 @@ export default function Offer() : JSX.Element {
       marker
         .setIcon(currentCustomIcon)
         .addTo(markerLayer);
-
       return () => {
         map.removeLayer(markerLayer);
       };
     }
   }, [map,currentOffer]);
 
-  console.log('currentOffer',currentOffer);
 
   return (
     <div className="page">
@@ -102,11 +102,15 @@ export default function Offer() : JSX.Element {
           <div className="offer__container container">
             <div className="offer__wrapper">
               <div className="offer__mark">
-                <span>Premium</span>
+
+                {(requestActiveOfferStatus) && (currentOffer.isPremium) ? <span>Premium</span> : ''}
+
               </div>
               <div className="offer__name-wrapper">
                 <h1 className="offer__name">
-                  Beautiful &amp; luxurious studio at great location
+
+                  {(requestActiveOfferStatus) && (currentOffer.title)}
+
                 </h1>
                 <button className="offer__bookmark-button button" type="button">
                   <svg className="offer__bookmark-icon" width="31" height="33">
@@ -117,24 +121,29 @@ export default function Offer() : JSX.Element {
               </div>
               <div className="offer__rating rating">
                 <div className="offer__stars rating__stars">
-                  <span style={{width: '80%'}}></span>
+
+                  <span style = {styleRating}>
+
+                  </span>
                   <span className="visually-hidden">Rating</span>
                 </div>
-                <span className="offer__rating-value rating__value">4.8</span>
+                <span className="offer__rating-value rating__value">
+                  {(requestActiveOfferStatus) && (currentOffer.rating)}
+                </span>
               </div>
               <ul className="offer__features">
                 <li className="offer__feature offer__feature--entire">
-                  Apartment
+                  {(requestActiveOfferStatus) && (currentOffer.type)}
                 </li>
                 <li className="offer__feature offer__feature--bedrooms">
-                  3 Bedrooms
+                  {(requestActiveOfferStatus) && (`${currentOffer.bedrooms} Bedrooms`)}
                 </li>
                 <li className="offer__feature offer__feature--adults">
-                  Max 4 adults
+                  {(requestActiveOfferStatus) && (`Max ${currentOffer.maxAdults} adults`)}
                 </li>
               </ul>
               <div className="offer__price">
-                <b className="offer__price-value">&euro;120</b>
+                <b className="offer__price-value">&euro;{(requestActiveOfferStatus) && (currentOffer.price)}</b>
                 <span className="offer__price-text">&nbsp;night</span>
               </div>
               <div className="offer__inside">
@@ -142,7 +151,7 @@ export default function Offer() : JSX.Element {
                 <ul className="offer__inside-list">
                   {
                     (requestActiveOfferStatus) && (currentOffer.goods.map((itemGood) => (
-                      <li className="offer__inside-item">
+                      <li className="offer__inside-item" key={itemGood}>
                         {itemGood}
                       </li>
                       )
@@ -154,21 +163,21 @@ export default function Offer() : JSX.Element {
                 <h2 className="offer__host-title">Meet the host</h2>
                 <div className="offer__host-user user">
                   <div className="offer__avatar-wrapper offer__avatar-wrapper--pro user__avatar-wrapper">
-                    <img className="offer__avatar user__avatar" src="img/avatar-angelina.jpg" width="74" height="74" alt="Host avatar" />
+                    <img className="offer__avatar user__avatar"
+                      src = {(requestActiveOfferStatus) ? (currentOffer.host.avatarUrl) : ""}
+                      width="74" height="74" alt="Host avatar"
+                    />
                   </div>
                   <span className="offer__user-name">
-                    Angelina
+                  {(requestActiveOfferStatus) ? (currentOffer.host.name) : ''}
                   </span>
                   <span className="offer__user-status">
-                    Pro
+                  {(requestActiveOfferStatus && currentOffer.host.isPro) ? 'Pro' : ''}
                   </span>
                 </div>
                 <div className="offer__description">
                   <p className="offer__text">
-                    A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.
-                  </p>
-                  <p className="offer__text">
-                    An independent House, strategically located between Rembrand Square and National Opera, but where the bustle of the city comes to rest in this alley flowery and colorful.
+                    {(requestActiveOfferStatus) ? (currentOffer.description) : ''}
                   </p>
                 </div>
               </div>
@@ -197,55 +206,3 @@ export default function Offer() : JSX.Element {
     </div>
   );
 }
-/*
-<div className="offer__image-wrapper">
-                <img className="offer__image" src="img/room.jpg" alt="Photo studio" />
-              </div>
-              <div className="offer__image-wrapper">
-                <img className="offer__image" src="img/apartment-01.jpg" alt="Photo studio" />
-              </div>
-              <div className="offer__image-wrapper">
-                <img className="offer__image" src="img/apartment-02.jpg" alt="Photo studio" />
-              </div>
-              <div className="offer__image-wrapper">
-                <img className="offer__image" src="img/apartment-03.jpg" alt="Photo studio" />
-              </div>
-              <div className="offer__image-wrapper">
-                <img className="offer__image" src="img/studio-01.jpg" alt="Photo studio" />
-              </div>
-              <div className="offer__image-wrapper">
-                <img className="offer__image" src="img/apartment-01.jpg" alt="Photo studio" />
-              </div>
-*/
-/*
-<li className="offer__inside-item">
-                    Wi-Fi
-                  </li>
-                  <li className="offer__inside-item">
-                    Washing machine
-                  </li>
-                  <li className="offer__inside-item">
-                    Towels
-                  </li>
-                  <li className="offer__inside-item">
-                    Heating
-                  </li>
-                  <li className="offer__inside-item">
-                    Coffee machine
-                  </li>
-                  <li className="offer__inside-item">
-                    Baby seat
-                  </li>
-                  <li className="offer__inside-item">
-                    Kitchen
-                  </li>
-                  <li className="offer__inside-item">
-                    Dishwasher
-                  </li>
-                  <li className="offer__inside-item">
-                    Cabel TV
-                  </li>
-                  <li className="offer__inside-item">
-                    Fridge
-                  </li>
-*/
