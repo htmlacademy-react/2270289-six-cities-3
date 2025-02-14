@@ -97,7 +97,7 @@ export const fetchFavoriteOffersAction = createAsyncThunk<void,undefined,{
   }
 );
 
-export const fetchActiveOfferAction = createAsyncThunk<void,undefined,{
+export const fetchActiveOfferAction = createAsyncThunk<void,string,{
   dispatch: AppDispatch;
   extra: AxiosInstance;
 }>(
@@ -111,7 +111,7 @@ export const fetchActiveOfferAction = createAsyncThunk<void,undefined,{
   }
 );
 
-export const fetchListCommentsByOffer = createAsyncThunk<void,undefined,{
+export const fetchListCommentsByOffer = createAsyncThunk<void,string,{
   dispatch: AppDispatch;
   extra: AxiosInstance;
 }>(
@@ -125,7 +125,7 @@ export const fetchListCommentsByOffer = createAsyncThunk<void,undefined,{
   }
 );
 
-export const fetchOffersNearAction = createAsyncThunk<void,undefined,{
+export const fetchOffersNearAction = createAsyncThunk<void,string,{
   dispatch: AppDispatch;
   extra: AxiosInstance;
 }>(

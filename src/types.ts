@@ -87,25 +87,6 @@ type CommentForOffer = {
   };
 }
 
-// type UserDescription = {
-//   name : string;
-//   avatarUrl: string;
-//   isPro : boolean;
-// }
-
-// type CommentProposal = {
-//   id: string;
-//   comment: string;
-//   date: string;
-//   rating: number;
-//   user: UserDescription;
-// }
-
-// type RewiewByOffer = {
-//   offerId:string;
-//   listComments: CommentProposal[];
-// }
-
 type Points = LocationPlace[];
 
 export type {Offer,OfferPreview,CommentForOffer,CityDestination, LocationPlace,Points,User,UserAuthData};

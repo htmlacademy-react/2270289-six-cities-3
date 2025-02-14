@@ -8,11 +8,12 @@ import {useParams } from 'react-router-dom';
 import {useAppDispatch,useAppSelector} from '../../hooks/index.ts';
 
 import {Marker,Icon,layerGroup} from 'leaflet';
-import {URL_MARKER_DEFAULT,URL_MARKER_CURRENT,RequestStatus} from '../../const';
+import {URL_MARKER_DEFAULT,URL_MARKER_CURRENT} from '../../const';
 
 import Header from '../../components/header/header.tsx';
 import {fetchActiveOfferAction,fetchListCommentsByOffer,fetchOffersNearAction} from '../../store/api-actions.ts';
-import {setRequestStatus} from '../../store/action.ts';
+import { isAction } from '@reduxjs/toolkit';
+
 
 const defaultCustomIcon = new Icon({
   iconUrl: URL_MARKER_DEFAULT,
@@ -30,16 +31,11 @@ export default function Offer() : JSX.Element {
 
   const currentCity = useAppSelector((state) => state.city);
   const dispatch = useAppDispatch();
-  dispatch(setRequestStatus(RequestStatus.Idle));
-  const requestStatus = useAppSelector((state) => state.requestStatus);
   const requestStatusAuth = useAppSelector((state) => state.isRequestAuth);
-
-  const parameters = useParams();
-  const idParameter = parameters.id as string;
-  const id = idParameter.replace(/:/, '');
+  const {id} = useParams();
 
   useEffect(() => {
-    if (requestStatus !== RequestStatus.Success) {
+    if (id) {
       dispatch(fetchActiveOfferAction(id));
       dispatch(fetchListCommentsByOffer(id));
       dispatch(fetchOffersNearAction(id));
@@ -82,6 +78,8 @@ export default function Offer() : JSX.Element {
     }
   }, [map,currentOffer]);
 
+  console.log('currentOffer',currentOffer);
+
   return (
     <div className="page">
 
@@ -91,24 +89,14 @@ export default function Offer() : JSX.Element {
         <section className="offer">
           <div className="offer__gallery-container container">
             <div className="offer__gallery">
-              <div className="offer__image-wrapper">
-                <img className="offer__image" src="img/room.jpg" alt="Photo studio" />
-              </div>
-              <div className="offer__image-wrapper">
-                <img className="offer__image" src="img/apartment-01.jpg" alt="Photo studio" />
-              </div>
-              <div className="offer__image-wrapper">
-                <img className="offer__image" src="img/apartment-02.jpg" alt="Photo studio" />
-              </div>
-              <div className="offer__image-wrapper">
-                <img className="offer__image" src="img/apartment-03.jpg" alt="Photo studio" />
-              </div>
-              <div className="offer__image-wrapper">
-                <img className="offer__image" src="img/studio-01.jpg" alt="Photo studio" />
-              </div>
-              <div className="offer__image-wrapper">
-                <img className="offer__image" src="img/apartment-01.jpg" alt="Photo studio" />
-              </div>
+              {
+                (requestActiveOfferStatus) && (currentOffer.images.map((urlImage) => (
+                  <div className="offer__image-wrapper" key={urlImage}>
+                    <img className="offer__image" src={urlImage} alt="Photo studio" />
+                  </div>
+                  )
+                ))
+              }
             </div>
           </div>
           <div className="offer__container container">
@@ -152,36 +140,14 @@ export default function Offer() : JSX.Element {
               <div className="offer__inside">
                 <h2 className="offer__inside-title">What&apos;s inside</h2>
                 <ul className="offer__inside-list">
-                  <li className="offer__inside-item">
-                    Wi-Fi
-                  </li>
-                  <li className="offer__inside-item">
-                    Washing machine
-                  </li>
-                  <li className="offer__inside-item">
-                    Towels
-                  </li>
-                  <li className="offer__inside-item">
-                    Heating
-                  </li>
-                  <li className="offer__inside-item">
-                    Coffee machine
-                  </li>
-                  <li className="offer__inside-item">
-                    Baby seat
-                  </li>
-                  <li className="offer__inside-item">
-                    Kitchen
-                  </li>
-                  <li className="offer__inside-item">
-                    Dishwasher
-                  </li>
-                  <li className="offer__inside-item">
-                    Cabel TV
-                  </li>
-                  <li className="offer__inside-item">
-                    Fridge
-                  </li>
+                  {
+                    (requestActiveOfferStatus) && (currentOffer.goods.map((itemGood) => (
+                      <li className="offer__inside-item">
+                        {itemGood}
+                      </li>
+                      )
+                    ))
+                  }
                 </ul>
               </div>
               <div className="offer__host">
@@ -231,3 +197,55 @@ export default function Offer() : JSX.Element {
     </div>
   );
 }
+/*
+<div className="offer__image-wrapper">
+                <img className="offer__image" src="img/room.jpg" alt="Photo studio" />
+              </div>
+              <div className="offer__image-wrapper">
+                <img className="offer__image" src="img/apartment-01.jpg" alt="Photo studio" />
+              </div>
+              <div className="offer__image-wrapper">
+                <img className="offer__image" src="img/apartment-02.jpg" alt="Photo studio" />
+              </div>
+              <div className="offer__image-wrapper">
+                <img className="offer__image" src="img/apartment-03.jpg" alt="Photo studio" />
+              </div>
+              <div className="offer__image-wrapper">
+                <img className="offer__image" src="img/studio-01.jpg" alt="Photo studio" />
+              </div>
+              <div className="offer__image-wrapper">
+                <img className="offer__image" src="img/apartment-01.jpg" alt="Photo studio" />
+              </div>
+*/
+/*
+<li className="offer__inside-item">
+                    Wi-Fi
+                  </li>
+                  <li className="offer__inside-item">
+                    Washing machine
+                  </li>
+                  <li className="offer__inside-item">
+                    Towels
+                  </li>
+                  <li className="offer__inside-item">
+                    Heating
+                  </li>
+                  <li className="offer__inside-item">
+                    Coffee machine
+                  </li>
+                  <li className="offer__inside-item">
+                    Baby seat
+                  </li>
+                  <li className="offer__inside-item">
+                    Kitchen
+                  </li>
+                  <li className="offer__inside-item">
+                    Dishwasher
+                  </li>
+                  <li className="offer__inside-item">
+                    Cabel TV
+                  </li>
+                  <li className="offer__inside-item">
+                    Fridge
+                  </li>
+*/

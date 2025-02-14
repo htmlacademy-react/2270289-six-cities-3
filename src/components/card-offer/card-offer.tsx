@@ -10,7 +10,7 @@ type OfferProps = {
 
 export default function CardOffer({ offer, variantCard }: OfferProps): JSX.Element {
 
-  const linkTo = `/offer/:${offer.id}`;
+  const linkTo = `/offer/${offer.id}`;
   const isShowSpanPremium = variantCard !== 'near-places';
   const dispatch = useAppDispatch();
 
