@@ -4,7 +4,7 @@ import type {AppDispatch,State } from '../hooks';
 import {fillOffers,fillActiveOffer,fillFavoriteOffer,fillOffersNear,fillCommentsByOffer} from './action';
 import {requireAuthorization,setRequestStatus,setError,setRequestAuthStatus,setRequestActiveOffer,setRequestOffersNear,setRequestCommentsByOffer} from './action';
 
-import {ApiRoute,AuthorizationStatus,RequestStatus,TIMEOUT_SHOW_ERROR,userDefault} from '../const';
+import {ApiRoute,AuthorizationStatus,RequestStatus,TIMEOUT_SHOW_ERROR,errorEmpty,userDefault} from '../const';
 import {saveToken,AUTH_TOKEN_KEY,dropToken} from '../services/token';
 import {store} from '.';
 
@@ -143,7 +143,7 @@ export const clearErrorAction = createAsyncThunk(
   'offers/clearError',
   () => {
     setTimeout(
-      () => store.dispatch(setError('')),
+      () => store.dispatch(setError(errorEmpty)),
       TIMEOUT_SHOW_ERROR,
     );
   },

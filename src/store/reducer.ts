@@ -2,8 +2,8 @@ import {createReducer} from '@reduxjs/toolkit';
 import {setCity,setCardActiveId,setCurrentSort,setFavoriteOfferStatus,setError, setRequestCommentsByOffer, fillCommentsByOffer} from './action';
 import {requireAuthorization,setRequestStatus,setRequestAuthStatus, setRequestOffersNear, setRequestActiveOffer} from './action';
 import {fillOffers,fillActiveOffer,fillOffersNear,fillFavoriteOffer} from './action';
-import {userDefault,RequestStatus} from '../const';
-import type {CommentForOffer, Offer,OfferPreview } from '../types';
+import {userDefault,RequestStatus, errorEmpty} from '../const';
+import type {CommentForOffer, Offer,OfferPreview, errorRequest } from '../types';
 
 const cityDefault = {
   name: 'Paris',
@@ -25,7 +25,7 @@ export const initialState = {
   cardActiveId: '',
   currentSort: 'Popular',
   requestStatus : RequestStatus.Idle,
-  error: '',
+  error: <errorRequest>errorEmpty,
   user: userDefault,
   isRequestAuth: false,
   isRequestActiveOffer: false,
@@ -38,14 +38,12 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(setCity,(state,action) => {
       state.city = action.payload;
     })
-
     .addCase(fillActiveOffer,(state,action) => {
       state.activeOffer = action.payload;
     })
     .addCase(fillCommentsByOffer,(state,action) => {
       state.reviewsByOffer = action.payload;
     })
-
     .addCase(fillOffers,(state,action) => {
       state.offers = action.payload;
     })
@@ -64,9 +62,6 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(setCurrentSort,(state,action) => {
       state.currentSort = action.payload;
     })
-    // .addCase(setReviewByOffer,(state,action) => {
-    //   state.reviewsByOffer = action.payload;
-    // })
     .addCase(requireAuthorization,(state,action) => {
       state.user = action.payload;
     })
@@ -76,7 +71,6 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(setError,(state,action) => {
       state.error = action.payload;
     })
-
     .addCase(setRequestAuthStatus,(state,action) => {
       state.isRequestAuth = action.payload;
     })

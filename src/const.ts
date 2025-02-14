@@ -1,6 +1,6 @@
-import type { CityDestination, User } from './types';
+import type { CityDestination, User, errorRequest } from './types';
 
-export const TIMEOUT_SHOW_ERROR = 6000;
+export const TIMEOUT_SHOW_ERROR = 5000;
 
 export const citiesList: CityDestination[] = [
   {
@@ -145,4 +145,9 @@ export const userDefault : User = {
   isPro: false,
   token: '',
   authorizationStatus : <string>AuthorizationStatus.NoAuth,
+};
+
+export const errorEmpty : errorRequest = {
+  status : 0,
+  message: ''
 };

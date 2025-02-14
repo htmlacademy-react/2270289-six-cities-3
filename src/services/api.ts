@@ -4,6 +4,7 @@ import {StatusCodes} from 'http-status-codes';
 import {getToken,AUTH_TOKEN_KEY} from './token';
 
 import { processErrorHandle } from './process-error-handle';
+import { errorRequest } from '../types';
 
 const enum DefaultConnect {
   BaseUrl = 'https://15.design.htmlacademy.pro/six-cities',
@@ -42,9 +43,15 @@ export const createApi = () : AxiosInstance => {
   api.interceptors.response.use(
     (response) => response,
     (error: AxiosError<DetailMessageType>) => {
+      // if (error.response && shouldDisplayError(error.response)) {
       if (error.response && shouldDisplayError(error.response)) {
-        const detailMessage = (error.response.data);
-        processErrorHandle(detailMessage.message);
+        console.log(error.response);
+        //const detailMessage = (error.response.data);
+        const errorRequest : errorRequest = {
+          status : error.response.status,
+          message: error.response.data.message,
+        }
+        processErrorHandle(errorRequest);
       }
       throw error;
     }

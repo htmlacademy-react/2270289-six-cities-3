@@ -89,4 +89,9 @@ type CommentForOffer = {
 
 type Points = LocationPlace[];
 
-export type {Offer,OfferPreview,CommentForOffer,CityDestination, LocationPlace,Points,User,UserAuthData};
+type errorRequest = {
+  status: number;
+  message: string;
+}
+
+export type {Offer,OfferPreview,CommentForOffer,CityDestination, LocationPlace,Points,User,UserAuthData,errorRequest};

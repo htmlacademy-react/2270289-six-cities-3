@@ -1,6 +1,6 @@
 import {createAction} from '@reduxjs/toolkit';
 import {ActionType} from '../const';
-import type {CommentForOffer, Offer,OfferPreview,CityDestination,User} from '../types';
+import type {CommentForOffer, Offer,OfferPreview,CityDestination,User, errorRequest} from '../types';
 
 export const setCity = createAction<CityDestination>(ActionType.SetCity);
 
@@ -15,7 +15,7 @@ export const setCardActiveId = createAction<string>(ActionType.SetCardActiveId);
 export const setCurrentSort = createAction<string>(ActionType.SetCurrentSort);
 
 export const requireAuthorization = createAction<User>(ActionType.RequireAuthorization);
-export const setError = createAction<string>(ActionType.SetError);
+export const setError = createAction<errorRequest>(ActionType.SetError);
 
 export const setRequestStatus = createAction<string>(ActionType.SetRequestStatus);
 export const setRequestAuthStatus = createAction<boolean>(ActionType.SetRequestAuthStatus);
