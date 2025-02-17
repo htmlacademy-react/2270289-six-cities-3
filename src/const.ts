@@ -1,4 +1,4 @@
-import type { CityDestination, User, errorRequest } from './types';
+import type { CityDestination, User, errorRequestType } from './types';
 
 export const TIMEOUT_SHOW_ERROR = 5000;
 
@@ -147,7 +147,7 @@ export const userDefault : User = {
   authorizationStatus : <string>AuthorizationStatus.NoAuth,
 };
 
-export const errorEmpty : errorRequest = {
+export const errorEmpty : errorRequestType = {
   status : 0,
-  message: ''
+  message: '',
 };

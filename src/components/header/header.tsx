@@ -36,6 +36,7 @@ export default function Header(): JSX.Element {
                     (evt) => {
                       if (isAuth === 'AUTH') {
                         evt.preventDefault();
+                        console.log('Здеся');
                         dispatch(logoutAction());
                       }
                     }
