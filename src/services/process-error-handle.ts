@@ -5,7 +5,9 @@ import {clearErrorAction} from '../store/api-actions';
 import type { errorRequestType } from '../types';
 
 export const processErrorHandle = (errorRequest: errorRequestType): void => {
+  console.log(errorRequest);
   store.dispatch(setError(errorRequest));
-  //console.log('Задиспатчили ошибку');
-  store.dispatch(clearErrorAction());
+  if (errorRequest.status !== 404) {
+    store.dispatch(clearErrorAction());
+  }
 };

@@ -45,6 +45,5 @@ export const createApi = () : AxiosInstance => {
       throw error;
     }
   );
-
   return api;
 };
