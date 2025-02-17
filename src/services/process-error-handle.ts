@@ -6,6 +6,6 @@ import type { errorRequestType } from '../types';
 
 export const processErrorHandle = (errorRequest: errorRequestType): void => {
   store.dispatch(setError(errorRequest));
-  console.log('Задиспатчили ошибку');
+  //console.log('Задиспатчили ошибку');
   store.dispatch(clearErrorAction());
 };

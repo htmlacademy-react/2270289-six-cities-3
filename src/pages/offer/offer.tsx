@@ -13,6 +13,7 @@ import { URL_MARKER_DEFAULT, URL_MARKER_CURRENT } from '../../const';
 import Header from '../../components/header/header.tsx';
 import { fetchActiveOfferAction, fetchListCommentsByOffer, fetchOffersNearAction } from '../../store/api-actions.ts';
 import LoadingScreen from '../loading-screen/loading-screen.tsx';
+import Page404 from '../404/page-404.tsx';
 
 const defaultCustomIcon = new Icon({
   iconUrl: URL_MARKER_DEFAULT,
@@ -31,6 +32,7 @@ export default function Offer(): JSX.Element {
   const currentCity = useAppSelector((state) => state.city);
   const dispatch = useAppDispatch();
   const requestStatusAuth = useAppSelector((state) => state.isRequestAuth);
+  const errorStatus = useAppSelector((state) => state.error.status);
   const { id } = useParams();
 
   useEffect(() => {
@@ -57,9 +59,9 @@ export default function Offer(): JSX.Element {
   const map = useMap(mapRef, currentCity);
 
   useEffect(() => {
-    console.log('(map)', map);
+
     if (map) {
-      console.log('(map)', map);
+
       const markerLayer = layerGroup().addTo(map);
       if (requestOffersNearStatus) {
         sortedNearListOffer.forEach((offer) => {
@@ -89,121 +91,136 @@ export default function Offer(): JSX.Element {
     }
   }, [map, currentOffer]);
 
+
+
   return (
+
     <div className="page">
-      <Header />
+      {
+        (errorStatus === 404) ?
+          (<Page404 />) :
+          (
+            <>
+              <Header />
 
-      {(!requestActiveOfferStatus && !requestOffersNearStatus && !requestCommentsByOffer) && (<LoadingScreen />)}
+              {(!requestActiveOfferStatus && !requestOffersNearStatus && !requestCommentsByOffer) && (<LoadingScreen />)}
 
-      <main className="page__main page__main--offer" >
-        <section className="offer">
-          <div className="offer__gallery-container container">
-            <div className="offer__gallery">
-              { (requestActiveOfferStatus) &&
-                (currentOffer.images.map((urlImage) => (
-                  <div className="offer__image-wrapper" key={urlImage}>
-                    <img className="offer__image" src={urlImage} alt="Photo studio" />
+              <main className="page__main page__main--offer" >
+                <section className="offer">
+                  <div className="offer__gallery-container container">
+                    <div className="offer__gallery">
+                      {(requestActiveOfferStatus) &&
+                        (currentOffer.images.map((urlImage) => (
+                          <div className="offer__image-wrapper" key={urlImage}>
+                            <img className="offer__image" src={urlImage} alt="Photo studio" />
+                          </div>
+                        )
+                        ))
+                      }
+                    </div>
                   </div>
-                )
-                ))
-              }
-            </div>
-          </div>
-          <div className="offer__container container">
-            <div className="offer__wrapper">
-              <div className="offer__mark">
-                {(requestActiveOfferStatus) && ((currentOffer.isPremium) ? <span>Premium</span> : '')}
-              </div>
-              <div className="offer__name-wrapper">
-                <h1 className="offer__name">
-                  {(requestActiveOfferStatus) && currentOffer.title}
-                </h1>
-                <button className="offer__bookmark-button button" type="button">
-                  <svg className="offer__bookmark-icon" width="31" height="33">
-                    <use xlinkHref="#icon-bookmark"></use>
-                  </svg>
-                  <span className="visually-hidden">To bookmarks</span>
-                </button>
-              </div>
-              <div className="offer__rating rating">
-                <div className="offer__stars rating__stars">
-                  <span style={styleRating}>
-                  </span>
-                  <span className="visually-hidden">Rating</span>
-                </div>
-                <span className="offer__rating-value rating__value">
-                  {(requestActiveOfferStatus) && currentOffer.rating}
-                </span>
-              </div>
-              <ul className="offer__features">
-                <li className="offer__feature offer__feature--entire">
-                  {(requestActiveOfferStatus) && currentOffer.type}
-                </li>
-                <li className="offer__feature offer__feature--bedrooms">
-                  {(requestActiveOfferStatus) && `${currentOffer.bedrooms} Bedrooms`}
-                </li>
-                <li className="offer__feature offer__feature--adults">
-                  {(requestActiveOfferStatus) && `Max ${currentOffer.maxAdults} adults`}
-                </li>
-              </ul>
-              <div className="offer__price">
-                <b className="offer__price-value">&euro;{currentOffer.price}</b>
-                <span className="offer__price-text">&nbsp;night</span>
-              </div>
-              <div className="offer__inside">
-                <h2 className="offer__inside-title">What&apos;s inside</h2>
-                <ul className="offer__inside-list">
-                  { (requestActiveOfferStatus) &&
-                    currentOffer.goods.map((itemGood) => (
-                      <li className="offer__inside-item" key={itemGood}>
-                        {itemGood}
-                      </li>
-                    ))
-                  }
-                </ul>
-              </div>
-              <div className="offer__host">
-                <h2 className="offer__host-title">Meet the host</h2>
-                <div className="offer__host-user user">
-                  <div className="offer__avatar-wrapper offer__avatar-wrapper--pro user__avatar-wrapper">
-                    <img className="offer__avatar user__avatar"
-                      src={(requestActiveOfferStatus) ? (currentOffer.host.avatarUrl) : ''}
-                      width="74" height="74" alt="Host avatar"
-                    />
+                  <div className="offer__container container">
+                    <div className="offer__wrapper">
+                      <div className="offer__mark">
+                        {(requestActiveOfferStatus) && ((currentOffer.isPremium) ? <span>Premium</span> : '')}
+                      </div>
+                      <div className="offer__name-wrapper">
+                        <h1 className="offer__name">
+                          {(requestActiveOfferStatus) && currentOffer.title}
+                        </h1>
+                        <button className="offer__bookmark-button button" type="button">
+                          <svg className="offer__bookmark-icon" width="31" height="33">
+                            <use xlinkHref="#icon-bookmark"></use>
+                          </svg>
+                          <span className="visually-hidden">To bookmarks</span>
+                        </button>
+                      </div>
+                      <div className="offer__rating rating">
+                        <div className="offer__stars rating__stars">
+                          <span style={styleRating}>
+                          </span>
+                          <span className="visually-hidden">Rating</span>
+                        </div>
+                        <span className="offer__rating-value rating__value">
+                          {(requestActiveOfferStatus) && currentOffer.rating}
+                        </span>
+                      </div>
+                      <ul className="offer__features">
+                        <li className="offer__feature offer__feature--entire">
+                          {(requestActiveOfferStatus) && currentOffer.type}
+                        </li>
+                        <li className="offer__feature offer__feature--bedrooms">
+                          {(requestActiveOfferStatus) && `${currentOffer.bedrooms} Bedrooms`}
+                        </li>
+                        <li className="offer__feature offer__feature--adults">
+                          {(requestActiveOfferStatus) && `Max ${currentOffer.maxAdults} adults`}
+                        </li>
+                      </ul>
+                      <div className="offer__price">
+                        <b className="offer__price-value">&euro;{currentOffer.price}</b>
+                        <span className="offer__price-text">&nbsp;night</span>
+                      </div>
+                      <div className="offer__inside">
+                        <h2 className="offer__inside-title">What&apos;s inside</h2>
+                        <ul className="offer__inside-list">
+                          {(requestActiveOfferStatus) &&
+                            currentOffer.goods.map((itemGood) => (
+                              <li className="offer__inside-item" key={itemGood}>
+                                {itemGood}
+                              </li>
+                            ))
+                          }
+                        </ul>
+                      </div>
+                      <div className="offer__host">
+                        <h2 className="offer__host-title">Meet the host</h2>
+                        <div className="offer__host-user user">
+                          <div className="offer__avatar-wrapper offer__avatar-wrapper--pro user__avatar-wrapper">
+                            <img className="offer__avatar user__avatar"
+                              src={(requestActiveOfferStatus) ? (currentOffer.host.avatarUrl) : ''}
+                              width="74" height="74" alt="Host avatar"
+                            />
+                          </div>
+                          <span className="offer__user-name">
+                            {(requestActiveOfferStatus) && currentOffer.host.name}
+                          </span>
+                          <span className="offer__user-status">
+                            {(requestActiveOfferStatus) && ((currentOffer.host.isPro) ? 'Pro' : '')}
+                          </span>
+                        </div>
+                        <div className="offer__description">
+                          <p className="offer__text">
+                            {(requestActiveOfferStatus) && currentOffer.description}
+                          </p>
+                        </div>
+                      </div>
+                      <section className="offer__reviews reviews">
+                        <ReviewList />
+                        {(requestActiveOfferStatus) && ((requestStatusAuth) && <ReviewForm />)}
+                      </section>
+                    </div>
                   </div>
-                  <span className="offer__user-name">
-                    {(requestActiveOfferStatus) && currentOffer.host.name}
-                  </span>
-                  <span className="offer__user-status">
-                    {(requestActiveOfferStatus) && ((currentOffer.host.isPro) ? 'Pro' : '')}
-                  </span>
+                </section>
+
+                <section className="offer__map map" ref={mapRef} ></section>
+
+                <div className="container">
+                  <section className="near-places places">
+                    <h2 className="near-places__title">Other places in the neighbourhood</h2>
+                    <div className="near-places__list places__list">
+                      <ListOffer listOffer={sortedNearListOffer} variantCard='near-places' />
+                    </div>
+                  </section>
                 </div>
-                <div className="offer__description">
-                  <p className="offer__text">
-                    {(requestActiveOfferStatus) && currentOffer.description}
-                  </p>
-                </div>
-              </div>
-              <section className="offer__reviews reviews">
-                <ReviewList />
-                {(requestActiveOfferStatus) && ((requestStatusAuth) && <ReviewForm />)}
-              </section>
-            </div>
-          </div>
-        </section>
 
-        <section className="offer__map map" ref={mapRef} ></section>
+              </main>
+            </>
 
-        <div className="container">
-          <section className="near-places places">
-            <h2 className="near-places__title">Other places in the neighbourhood</h2>
-            <div className="near-places__list places__list">
-              <ListOffer listOffer={sortedNearListOffer} variantCard='near-places' />
-            </div>
-          </section>
-        </div>
 
-      </main>
+          )
+      }
+
+
     </div>
   );
 }
