@@ -68,4 +68,12 @@ const getSortedListOffer = (currentSort: string, listOffer: OfferPreview[]) => {
   return sortedListOffer;
 };
 
-export {dateToTypeFormat,getClassCardByType,getSortedListOffer};
+function generateUUID() {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+      const r = Math.random() * 16 | 0; // Генерация случайного числа от 0 до 15
+      const v = c === 'x' ? r : (r & 0x3 | 0x8); // Применение маски для получения значений
+      return v.toString(16); // Конвертация в шестнадцатеричную строку
+  });
+}
+
+export {dateToTypeFormat,getClassCardByType,getSortedListOffer,generateUUID};

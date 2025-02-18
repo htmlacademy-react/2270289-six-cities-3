@@ -3,7 +3,7 @@ import ReviewForm from '../../components/review-form/review-form';
 import ReviewList from '../../components/review-list/review-list';
 
 import useMap from '../../hooks/use-map';
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/index.ts';
 
@@ -90,6 +90,10 @@ export default function Offer(): JSX.Element {
       };
     }
   }, [map, currentOffer]);
+
+  const reviewsByOffer = useAppSelector((state) => state.reviewsByOffer);
+  const [commentsByOffer,setCommentsByOffer] = useState(reviewsByOffer);
+  //const isRequestCommentsByOffer = useAppSelector((state) => state.isRequestCommentsByOffer);
 
   if (errorStatus === 404) {
     return (
@@ -191,8 +195,8 @@ export default function Offer(): JSX.Element {
                 </div>
               </div>
               <section className="offer__reviews reviews">
-                <ReviewList />
-                {(requestActiveOfferStatus) && ((requestStatusAuth) && <ReviewForm />)}
+                <ReviewList commentsByOffer = {commentsByOffer} />
+                {(requestActiveOfferStatus) && ((requestStatusAuth) && <ReviewForm addComment = {setCommentsByOffer()} />)}
               </section>
             </div>
           </div>

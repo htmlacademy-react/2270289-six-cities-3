@@ -37,6 +37,25 @@ export const checkAuthAction = createAsyncThunk<void, undefined, {
   },
 );
 
+export const sendCommentAction = createAsyncThunk<void,{id:string, rating:number, comment:string},{
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>('comment/sendComment',
+  async ({id,rating,comment},{ extra:api}) => {
+    const path = `${ApiRoute.Comments}/${id}`;
+    const sentComment = {
+      rating: rating,
+      comment: comment,
+    }
+    const {data} = await api.post<CommentForOffer>(path,sentComment);
+
+    if (data.comment) {
+      //
+    }
+  }
+)
+
 export const loginAction = createAsyncThunk<void, AuthData, {
   dispatch: AppDispatch;
   state: State;
@@ -44,10 +63,6 @@ export const loginAction = createAsyncThunk<void, AuthData, {
 }>('user/login',
   async ({login: email, password}, {dispatch, extra: api}) => {
     const {data} = await api.post<UserData>(ApiRoute.Login, {email, password});
-
-    console.log(data);
-
-
     const user: User = {
       name: data.name,
       email: data.email,
