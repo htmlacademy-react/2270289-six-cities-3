@@ -8,7 +8,7 @@ import {ApiRoute,AuthorizationStatus,RequestStatus,TIMEOUT_SHOW_ERROR,errorEmpty
 import {saveToken,AUTH_TOKEN_KEY,dropToken} from '../services/token';
 import {store} from '.';
 
-import type {Offer,OfferPreview,UserData,AuthData,User,CommentForOffer} from '../types';
+import type {Offer,OfferPreview,UserData,AuthData,User,CommentForOffer, UserComment} from '../types';
 
 export const checkAuthAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch;
@@ -52,10 +52,10 @@ export const sendCommentAction = createAsyncThunk<void,{
       rating: rating,
       comment: comment,
     };
-    const {data} = await api.post<CommentForOffer>(path,sentComment);
+    const {data} = await api.post<UserComment>(path,sentComment);
 
-    if (data.comment) {
-      //
+    if (data) {
+      console.log(data);
     }
   }
 );
