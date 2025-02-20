@@ -55,7 +55,7 @@ export const sendCommentAction = createAsyncThunk<void,{
     const {data} = await api.post<UserComment>(path,sentComment);
 
     if (data) {
-      console.log(data);
+      //console.log(data);
     }
   }
 );

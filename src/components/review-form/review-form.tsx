@@ -1,4 +1,3 @@
-// import type { CommentForOffer } from '../../types.ts';
 import { sendCommentAction } from '../../store/api-actions.ts';
 import { useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/index.ts';
@@ -9,33 +8,20 @@ export default function ReviewForm(): JSX.Element {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.user);
   const isRequestAuth = useAppSelector((state) => state.isRequestAuth);
-//  const currentDate = new Date();
 
   const textareaRef = useRef(null);
 
-  // const commentForOffer: CommentForOffer = {
-  //   id: '',
-  //   comment: '',
-  //   date: currentDate.toISOString(),
-  //   rating: 0,
-  //   user: {
-  //     name: user.name,
-  //     avatarUrl: user.avatarUrl,
-  //     isPro: user.isPro,
-  //   }
-  // };
-
   const [rating, setRating] = useState(0);
-  const [comment, setComment] = useState('')
+  const [comment, setComment] = useState('');
 
   const handleClickRating = (evt: React.MouseEvent<HTMLInputElement>) => {
     setRating(Number(evt.currentTarget.value));
-    console.log(rating);
-  }
+    //console.log(rating);
+  };
 
   const handleChangeCommen = (evt: ChangeEvent<HTMLTextAreaElement>) => {
     setComment(evt.currentTarget.value);
-  }
+  };
 
   const RATINGS = [
     {
@@ -77,7 +63,8 @@ export default function ReviewForm(): JSX.Element {
                 />
                 <label htmlFor={`${item.value}-stars`}
                   className="reviews__rating-label form__rating-label"
-                  title={item.title}>
+                  title={item.title}
+                >
                   <svg className="form__star-image" width="37" height="33">
                     <use xlinkHref="#icon-star"></use>
                   </svg>
@@ -127,51 +114,3 @@ export default function ReviewForm(): JSX.Element {
     );
   }
 }
-/*
-const nullCommentForOffer: CommentForOffer = {
-  id: '',
-  comment: '',
-  date: '',
-  rating: 0,
-  user: {
-    name: '',
-    avatarUrl: '',
-    isPro: false,
-  }
-};
-
-type reviewsProps = {
-  addComment: () =>{};
-}
-*/
-
-/*
-<input className="form__rating-input visually-hidden" name="rating" value="4" id="4-stars" type="radio" onClick={handleClickRating} />
-          <label htmlFor="4-stars" className="reviews__rating-label form__rating-label" title="good">
-            <svg className="form__star-image" width="37" height="33">
-              <use xlinkHref="#icon-star"></use>
-            </svg>
-          </label>
-
-          <input className="form__rating-input visually-hidden" name="rating" value="3" id="3-stars" type="radio" onClick={handleClickRating} />
-          <label htmlFor="3-stars" className="reviews__rating-label form__rating-label" title="not bad">
-            <svg className="form__star-image" width="37" height="33">
-              <use xlinkHref="#icon-star"></use>
-            </svg>
-          </label>
-
-          <input className="form__rating-input visually-hidden" name="rating" value="2" id="2-stars" type="radio" onClick={handleClickRating} />
-          <label htmlFor="2-stars" className="reviews__rating-label form__rating-label" title="badly">
-            <svg className="form__star-image" width="37" height="33">
-              <use xlinkHref="#icon-star"></use>
-            </svg>
-          </label>
-
-          <input className="form__rating-input visually-hidden" name="rating" value="1" id="1-star" type="radio" onClick={handleClickRating} />
-          <label htmlFor="1-star" className="reviews__rating-label form__rating-label" title="terribly">
-            <svg className="form__star-image" width="37" height="33">
-              <use xlinkHref="#icon-star"></use>
-            </svg>
-          </label>
-
-*/
