@@ -18,7 +18,11 @@ const nullCommentForOffer: CommentForOffer = {
   }
 };
 
-export default function ReviewForm( addComment: () =>{}): JSX.Element {
+type reviewsProps = {
+  addComment: () =>{};
+}
+
+export default function ReviewForm( {addComment} : reviewsProps): JSX.Element {
   const { id } = useParams();
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.user);

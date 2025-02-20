@@ -49,6 +49,7 @@ export default function Offer(): JSX.Element {
 
   const currentOffer = useAppSelector((state) => state.activeOffer);
   const sortedNearListOffer = useAppSelector((state) => state.offersNear);
+  const reviewsByOffer = useAppSelector((state) => state.reviewsByOffer);
 
   const ratingToPercent = (requestActiveOfferStatus) ? (currentOffer.rating * 100 / 5).toFixed(2) : 80;
   const styleRating = {
@@ -57,6 +58,11 @@ export default function Offer(): JSX.Element {
 
   const mapRef = useRef(null);
   const map = useMap(mapRef, currentCity);
+
+
+
+
+  const [commentsByOffer,setCommentsByOffer] = useState(reviewsByOffer);
 
   useEffect(() => {
 
@@ -89,11 +95,7 @@ export default function Offer(): JSX.Element {
         map.removeLayer(markerLayer);
       };
     }
-  }, [map, currentOffer]);
-
-  const reviewsByOffer = useAppSelector((state) => state.reviewsByOffer);
-  const [commentsByOffer,setCommentsByOffer] = useState(reviewsByOffer);
-  //const isRequestCommentsByOffer = useAppSelector((state) => state.isRequestCommentsByOffer);
+  }, [map,currentOffer,sortedNearListOffer,reviewsByOffer]);
 
   if (errorStatus === 404) {
     return (
@@ -101,10 +103,27 @@ export default function Offer(): JSX.Element {
     )
   }
 
+  const [isVisibleLoadingScreen,setIsVisibleLoadingScreen] = useState(false);
+
+  useEffect(() => {
+    if (!requestActiveOfferStatus || !requestOffersNearStatus || !requestCommentsByOffer) {
+      setIsVisibleLoadingScreen(true);
+      setTimeout(() => {
+        setIsVisibleLoadingScreen(false);
+      },2700);
+    }
+  },[]);
+
+  if (isVisibleLoadingScreen) {
+    return (
+      <LoadingScreen />
+    );
+  }
+
   return (
     <div className="page">
       <Header />
-      {(!requestActiveOfferStatus && !requestOffersNearStatus && !requestCommentsByOffer) && (<LoadingScreen />)}
+
       <main className="page__main page__main--offer" >
         <section className="offer">
           <div className="offer__gallery-container container">
@@ -196,7 +215,7 @@ export default function Offer(): JSX.Element {
               </div>
               <section className="offer__reviews reviews">
                 <ReviewList commentsByOffer = {commentsByOffer} />
-                {(requestActiveOfferStatus) && ((requestStatusAuth) && <ReviewForm addComment = {setCommentsByOffer()} />)}
+                {(requestActiveOfferStatus) && ((requestStatusAuth) && <ReviewForm addComment = {setCommentsByOffer} />)}
               </section>
             </div>
           </div>
