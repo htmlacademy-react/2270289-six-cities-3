@@ -151,3 +151,8 @@ export const errorEmpty : errorRequestType = {
   status : 0,
   message: '',
 };
+
+export const typeMap = {
+  cities : 'cities__map',
+  offer : 'offer__map',
+}

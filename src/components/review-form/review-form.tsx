@@ -6,23 +6,23 @@ import { useAppDispatch, useAppSelector } from '../../hooks/index.ts';
 import { generateUUID } from '../../utils.ts';
 import { useRef } from 'react';
 
-const nullCommentForOffer: CommentForOffer = {
-  id: '',
-  comment: '',
-  date: '',
-  rating: 0,
-  user: {
-    name: '',
-    avatarUrl: '',
-    isPro: false,
-  }
-};
+// const nullCommentForOffer: CommentForOffer = {
+//   id: '',
+//   comment: '',
+//   date: '',
+//   rating: 0,
+//   user: {
+//     name: '',
+//     avatarUrl: '',
+//     isPro: false,
+//   }
+// };
 
-type reviewsProps = {
-  addComment: () =>{};
-}
+// type reviewsProps = {
+//   addComment: () =>{};
+// }
 
-export default function ReviewForm( {addComment} : reviewsProps): JSX.Element {
+export default function ReviewForm( ): JSX.Element {
   const { id } = useParams();
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.user);
@@ -123,7 +123,7 @@ export default function ReviewForm( {addComment} : reviewsProps): JSX.Element {
             console.log('sentComment',sentComment);
 
             dispatch(sendCommentAction(sentComment));
-            addComment();
+            // addComment();
           }}
             className="reviews__submit form__submit button" type="submit"
           >Submit
