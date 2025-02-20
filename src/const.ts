@@ -155,4 +155,4 @@ export const errorEmpty : errorRequestType = {
 export const typeMap = {
   cities : 'cities__map',
   offer : 'offer__map',
-}
+};

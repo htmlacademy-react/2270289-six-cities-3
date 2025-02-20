@@ -32,7 +32,7 @@ export default function Map({currentCity, currentOffers, typeMap} : MapProps) : 
   const map = useMap(mapRef, currentCity);
   const geolocation: [number,number] = [currentCity.location.latitude,currentCity.location.longitude];
   const cardActiveId = useAppSelector((state) => state.cardActiveId);
-  const classNameByTypeMap = `${typeMap} map`
+  const classNameByTypeMap = `${typeMap} map`;
 
   useEffect(() => {
     if (map) {

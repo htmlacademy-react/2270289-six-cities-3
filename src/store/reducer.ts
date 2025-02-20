@@ -3,7 +3,7 @@ import {setCity,setCardActiveId,setCurrentSort,setFavoriteOfferStatus,setError, 
 import {requireAuthorization,setRequestStatus,setRequestAuthStatus, setRequestOffersNear, setRequestActiveOffer} from './action';
 import {fillOffers,fillActiveOffer,fillOffersNear,fillFavoriteOffer} from './action';
 import {userDefault,RequestStatus, errorEmpty} from '../const';
-import type {CommentForOffer, Offer,OfferPreview, errorRequestType } from '../types';
+import type {CommentForOffer, Offer,OfferPreview} from '../types';
 
 const cityDefault = {
   name: 'Paris',
@@ -25,7 +25,7 @@ export const initialState = {
   cardActiveId: '',
   currentSort: 'Popular',
   requestStatus : RequestStatus.Idle,
-  error: <errorRequestType>errorEmpty,
+  error: errorEmpty,
   user: userDefault,
   isRequestAuth: false,
   isRequestActiveOffer: false,

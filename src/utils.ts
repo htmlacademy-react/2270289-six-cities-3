@@ -3,7 +3,7 @@ import type { OfferPreview } from './types';
 import { SORT_OPTIONS, SortOption } from './const';
 
 export const TYPE_FORMAT_DATE = {
-  monthStringYYYY : 'MonthString_YYYY',
+  monthStringYYYY: 'MonthString_YYYY',
 };
 
 function getMonthStringFromDate(date: Date) {
@@ -37,15 +37,15 @@ function getMonthStringFromDate(date: Date) {
 
 function dateToTypeFormat(date: Date, type: string) {
   switch (type) {
-    case TYPE_FORMAT_DATE.monthStringYYYY : return `${getMonthStringFromDate(date)} ${date.getFullYear()}`;
+    case TYPE_FORMAT_DATE.monthStringYYYY: return `${getMonthStringFromDate(date)} ${date.getFullYear()}`;
   }
 }
 
-function getClassCardByType (type:string) {
+function getClassCardByType(type: string) {
   switch (type) {
-    case typeCard.favorite : return 'favorites__card place-card';
+    case typeCard.favorite: return 'favorites__card place-card';
       break;
-    case typeCard.near : return 'near-places__card place-card';
+    case typeCard.near: return 'near-places__card place-card';
       break;
     default: return 'cities__card place-card';
       break;
@@ -58,22 +58,14 @@ const getSortedListOffer = (currentSort: string, listOffer: OfferPreview[]) => {
   switch (currentSort) {
     case (SORT_OPTIONS[SortOption.Popular]): return [...listOffer];
       break;
-    case (SORT_OPTIONS[SortOption.PriceHighToLow]): sortedListOffer.sort((a,b) => b.price - a.price);
+    case (SORT_OPTIONS[SortOption.PriceHighToLow]): sortedListOffer.sort((a, b) => b.price - a.price);
       break;
-    case (SORT_OPTIONS[SortOption.PriceLowToHigh]): sortedListOffer.sort((a,b) => a.price - b.price);
+    case (SORT_OPTIONS[SortOption.PriceLowToHigh]): sortedListOffer.sort((a, b) => a.price - b.price);
       break;
-    case (SORT_OPTIONS[SortOption.TopRatedFirst]): sortedListOffer.sort((a,b) => b.rating - a.rating);
+    case (SORT_OPTIONS[SortOption.TopRatedFirst]): sortedListOffer.sort((a, b) => b.rating - a.rating);
       break;
   }
   return sortedListOffer;
 };
 
-function generateUUID() {
-  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-      const r = Math.random() * 16 | 0; // Генерация случайного числа от 0 до 15
-      const v = c === 'x' ? r : (r & 0x3 | 0x8); // Применение маски для получения значений
-      return v.toString(16); // Конвертация в шестнадцатеричную строку
-  });
-}
-
-export {dateToTypeFormat,getClassCardByType,getSortedListOffer,generateUUID};
+export { dateToTypeFormat, getClassCardByType, getSortedListOffer};

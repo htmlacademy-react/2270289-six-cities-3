@@ -12,7 +12,6 @@ import Page404 from '../404/page-404.tsx';
 
 import { fetchActiveOfferAction, fetchListCommentsByOffer, fetchOffersNearAction } from '../../store/api-actions.ts';
 import { typeMap } from '../../const';
-import { CommentForOffer } from '../../types.ts';
 
 export default function Offer(): JSX.Element {
 
@@ -46,13 +45,12 @@ export default function Offer(): JSX.Element {
   const [isVisibleLoadingScreen, setIsVisibleLoadingScreen] = useState(false);
 
   useEffect(() => {
-
-      if ((!requestActiveOfferStatus || !requestOffersNearStatus || !requestCommentsByOffer)) {
-        setIsVisibleLoadingScreen(true);
-        setTimeout(() => {
-          setIsVisibleLoadingScreen(false);
-        }, 2200);
-      }
+    if ((!requestActiveOfferStatus || !requestOffersNearStatus || !requestCommentsByOffer)) {
+      setIsVisibleLoadingScreen(true);
+      setTimeout(() => {
+        setIsVisibleLoadingScreen(false);
+      }, 2200);
+    }
   }, []);
 
   if ((isVisibleLoadingScreen) && (errorStatus !== 404)) {
@@ -64,11 +62,8 @@ export default function Offer(): JSX.Element {
   if (errorStatus === 404) {
     return (
       <Page404 />
-    )
+    );
   }
-
-  // const emptyComment : CommentForOffer[] = []
-  // const [commentsByOffer, setCommentsByOffer] = useState(emptyComment);
 
   return (
     <div className="page">
@@ -84,8 +79,7 @@ export default function Offer(): JSX.Element {
                     <img className="offer__image" src={urlImage} alt="Photo studio" />
                   </div>
                 )
-                ))
-              }
+                ))}
             </div>
           </div>
           <div className="offer__container container">
@@ -132,13 +126,11 @@ export default function Offer(): JSX.Element {
               <div className="offer__inside">
                 <h2 className="offer__inside-title">What&apos;s inside</h2>
                 <ul className="offer__inside-list">
-                  {(requestActiveOfferStatus) &&
-                    currentOffer.goods.map((itemGood) => (
-                      <li className="offer__inside-item" key={itemGood}>
-                        {itemGood}
-                      </li>
-                    ))
-                  }
+                  {(requestActiveOfferStatus) && currentOffer.goods.map((itemGood) => (
+                    <li className="offer__inside-item" key={itemGood}>
+                      {itemGood}
+                    </li>)
+                  )}
                 </ul>
               </div>
               <div className="offer__host">
@@ -187,54 +179,3 @@ export default function Offer(): JSX.Element {
     </div>
   );
 }
-
-//<section className="offer__map map" ref={mapRef} ></section>
-/*
-const defaultCustomIcon = new Icon({
-  iconUrl: URL_MARKER_DEFAULT,
-  iconSize: [40, 40],
-  iconAnchor: [20, 40]
-});
-
-const currentCustomIcon = new Icon({
-  iconUrl: URL_MARKER_CURRENT,
-  iconSize: [40, 40],
-  iconAnchor: [20, 40]
-});
-
-  const mapRef = useRef(null);
-  const map = useMap(mapRef, currentCity);
-
-  useEffect(() => {
-
-    if (map) {
-
-      const markerLayer = layerGroup().addTo(map);
-      if (requestOffersNearStatus) {
-        sortedNearListOffer.forEach((offer) => {
-          const marker = new Marker({
-            lat: offer.location.latitude,
-            lng: offer.location.longitude
-          });
-          marker
-            .setIcon(defaultCustomIcon)
-            .addTo(markerLayer);
-        });
-      }
-
-      if (requestActiveOfferStatus) {
-        const marker = new Marker({
-          lat: currentOffer.location.latitude,
-          lng: currentOffer.location.longitude
-        });
-        marker
-          .setIcon(currentCustomIcon)
-          .addTo(markerLayer);
-      }
-
-      return () => {
-        map.removeLayer(markerLayer);
-      };
-    }
-  }, [map,currentOffer,sortedNearListOffer,reviewsByOffer]);
-*/

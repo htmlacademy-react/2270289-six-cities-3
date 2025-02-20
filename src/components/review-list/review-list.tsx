@@ -2,7 +2,7 @@ import Review from '../review/review';
 import { CommentForOffer } from '../../types';
 
 type CommentListProps = {
-  commentsByOffer : CommentForOffer[]
+  commentsByOffer : CommentForOffer[];
 }
 
 export default function ReviewList({ commentsByOffer }: CommentListProps): JSX.Element {

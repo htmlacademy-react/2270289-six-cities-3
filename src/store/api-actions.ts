@@ -37,7 +37,11 @@ export const checkAuthAction = createAsyncThunk<void, undefined, {
   },
 );
 
-export const sendCommentAction = createAsyncThunk<void,{id:string, rating:number, comment:string},{
+export const sendCommentAction = createAsyncThunk<void,{
+  id:string;
+  rating:number;
+  comment:string;
+},{
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
@@ -47,14 +51,14 @@ export const sendCommentAction = createAsyncThunk<void,{id:string, rating:number
     const sentComment = {
       rating: rating,
       comment: comment,
-    }
+    };
     const {data} = await api.post<CommentForOffer>(path,sentComment);
 
     if (data.comment) {
       //
     }
   }
-)
+);
 
 export const loginAction = createAsyncThunk<void, AuthData, {
   dispatch: AppDispatch;
