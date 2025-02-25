@@ -1,10 +1,9 @@
-import {MockReviewByOffer} from '../mocks/mock-reviews';
 import {createReducer} from '@reduxjs/toolkit';
-import {setCity,setCardActiveId,setCurrentSort,setReviewByOffer, requireAuthorization, setRequestStatus, setError, fillActiveOffer} from './action';
-import {fillOffers,fillOffersNear,fillFavoriteOffer,setFavoriteOfferStatus} from './action';
-import type {Offer,OfferPreview } from '../types';
-import { AuthorizationStatus } from '../const';
-import { RequestStatus } from '../const';
+import {setCity,setCardActiveId,setCurrentSort,setFavoriteOfferStatus,setError, setRequestCommentsByOffer, fillCommentsByOffer} from './action';
+import {requireAuthorization,setRequestStatus,setRequestAuthStatus, setRequestOffersNear, setRequestActiveOffer} from './action';
+import {fillOffers,fillActiveOffer,fillOffersNear,fillFavoriteOffer} from './action';
+import {userDefault,RequestStatus, errorEmpty} from '../const';
+import type {CommentForOffer, Offer,OfferPreview} from '../types';
 
 const cityDefault = {
   name: 'Paris',
@@ -15,16 +14,6 @@ const cityDefault = {
   }
 };
 
-const userDefault = {
-  email: '',
-  password: '',
-};
-
-const dataAuthorization = {
-  authorizationStatus : <string>AuthorizationStatus.Unknown,
-  user: userDefault,
-};
-
 export const initialState = {
   city : cityDefault,
   activeOffer: <Offer>{},
@@ -32,12 +21,16 @@ export const initialState = {
   offersNear: <OfferPreview[]>[],
   favoriteOffers: <OfferPreview[]>[],
   isDownloadFavoriteOffers: false,
-  reviewsByOffer: MockReviewByOffer,
+  reviewsByOffer: <CommentForOffer[]>[],
   cardActiveId: '',
   currentSort: 'Popular',
   requestStatus : RequestStatus.Idle,
-  error: '',
-  dataAuthorization: dataAuthorization,
+  error: errorEmpty,
+  user: userDefault,
+  isRequestAuth: false,
+  isRequestActiveOffer: false,
+  isRequestOffersNear: false,
+  isRequestCommentsByOffer: false,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -45,11 +38,12 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(setCity,(state,action) => {
       state.city = action.payload;
     })
-
     .addCase(fillActiveOffer,(state,action) => {
       state.activeOffer = action.payload;
     })
-
+    .addCase(fillCommentsByOffer,(state,action) => {
+      state.reviewsByOffer = action.payload;
+    })
     .addCase(fillOffers,(state,action) => {
       state.offers = action.payload;
     })
@@ -68,20 +62,26 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(setCurrentSort,(state,action) => {
       state.currentSort = action.payload;
     })
-    .addCase(setReviewByOffer,(state,action) => {
-      state.reviewsByOffer = action.payload;
-    })
     .addCase(requireAuthorization,(state,action) => {
-      //console.log('устанавливаем статус авторизации, payload = ',action.payload);
-      state.dataAuthorization.authorizationStatus = action.payload.authorizationStatus;
-      state.dataAuthorization.user.email = action.payload.userAuthData.email;
-      state.dataAuthorization.user.password = action.payload.userAuthData.password;
+      state.user = action.payload;
     })
     .addCase(setRequestStatus,(state,action) => {
       state.requestStatus = action.payload;
     })
     .addCase(setError,(state,action) => {
       state.error = action.payload;
+    })
+    .addCase(setRequestAuthStatus,(state,action) => {
+      state.isRequestAuth = action.payload;
+    })
+    .addCase(setRequestActiveOffer,(state,action) => {
+      state.isRequestActiveOffer = action.payload;
+    })
+    .addCase(setRequestOffersNear ,(state,action) => {
+      state.isRequestOffersNear = action.payload;
+    })
+    .addCase(setRequestCommentsByOffer ,(state,action) => {
+      state.isRequestCommentsByOffer = action.payload;
     });
 });
 

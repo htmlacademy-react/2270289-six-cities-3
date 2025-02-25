@@ -1,6 +1,6 @@
-import type { CityDestination } from './types';
+import { type CityDestination, type CommentForOffer, type User, type errorRequestType } from './types';
 
-export const TIMEOUT_SHOW_ERROR = 6000;
+export const TIMEOUT_SHOW_ERROR = 5000;
 
 export const citiesList: CityDestination[] = [
   {
@@ -58,7 +58,8 @@ export enum AppRoute {
   Login = '/login',
   Favorites = '/favorites',
   Offer = '/offer/:id',
-  Page404 = '/*'
+  Page404 = '/Page404',
+  Another = '/*',
 }
 
 export enum AuthorizationStatus {
@@ -84,6 +85,7 @@ export const enum ActionType {
 
   FillOffers = 'offers/fillOffers',
   FillActiveOffer = 'offers/fillActiveOffer',
+  FillCommentsByOffer = 'offers/fillCommentsByOffer',
   FillOffersNear = 'offers/fillOffersNear',
   FillFavoriteOffer = 'offers/fillFavoriteOffer',
   SetFavoriteOfferStatus = 'offers/setFavoriteOfferStatus',
@@ -95,13 +97,18 @@ export const enum ActionType {
   RequireAuthorization = 'user/requireAuthorization',
   SetRequestStatus = 'data/setRequestStatus',
   SetError = 'request/setError',
+
+  SetRequestAuthStatus = 'data/setRequestAuthStatus',
+  SetRequestActiveOffer = 'data/SetRequestActiveOffer',
+  SetRequestOffersNear = 'data/setRequestOffersNear',
+  SetRequestCommentsByOffer = 'data/setRequestCommentsByOffer',
 }
 
 export const RequestStatus = {
-  Idle : 'idle',
-  Loading : 'loading',
-  Success : 'success',
-  Failed : 'failed',
+  Idle: 'idle',
+  Loading: 'loading',
+  Success: 'success',
+  Failed: 'failed',
 };
 
 export const SORT_OPTIONS = [
@@ -119,14 +126,57 @@ export enum SortOption {
 }
 
 export const ApiRoute = {
-  Comments : '/comments',
-  Favorite : '/favorite',
-  Login : '/login',
+  Comments: '/comments',
+  Favorite: '/favorite',
+  Login: '/login',
   Logout: '/logout',
   Offers: '/offers',
 };
 
 export const AuthData = {
-  email : 'istanik@yandex.ru',
-  password : 'passEdord12d',
+  email: 'istanik@yandex.ru',
+  password: 'passEdord12d',
 };
+
+export const userDefault: User = {
+  name: '',
+  email: '',
+  avatarUrl: '',
+  isPro: false,
+  token: '',
+  authorizationStatus: <string>AuthorizationStatus.NoAuth,
+};
+
+export const errorEmpty: errorRequestType = {
+  status: 0,
+  message: '',
+};
+
+export const typeMap = {
+  cities: 'cities__map',
+  offer: 'offer__map',
+};
+
+export const emptyComment: CommentForOffer = {
+  id: '',
+  comment: '',
+  date: '',
+  rating: 0,
+  user: {
+    name: '',
+    avatarUrl: '',
+    isPro: false,
+  }
+};
+
+export const emptyComments: CommentForOffer[] = [{
+  id: '',
+  comment: '',
+  date: '',
+  rating: 0,
+  user: {
+    name: '',
+    avatarUrl: '',
+    isPro: false,
+  }
+}];

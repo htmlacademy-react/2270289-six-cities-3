@@ -1,19 +1,21 @@
 import Review from '../review/review';
-import type { CommentProposal } from '../../types';
+import { CommentForOffer} from '../../types';
 
-type CommentsListProps = {
-  commentsList: CommentProposal[];
-};
+type CommentListProps = {
+  commentsByOffer : CommentForOffer[];
+}
 
-export default function ReviewList({commentsList }: CommentsListProps): JSX.Element {
+export default function ReviewList({ commentsByOffer}: CommentListProps): JSX.Element {
+
   return (
     <>
-      <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{commentsList.length}</span></h2>
+      <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{commentsByOffer.length}</span></h2>
       <ul className="reviews__list" >
-        {commentsList.map((comment) => (
-          <Review comment={comment} key={comment.id}/>
+        {commentsByOffer.map((comment) => (
+          <Review comment={comment} key={comment.id} />
         ))}
       </ul>
     </>
   );
+
 }

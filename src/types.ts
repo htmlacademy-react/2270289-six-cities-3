@@ -1,11 +1,28 @@
 type UserAuthData = {
   email: string;
   password: string;
-}
+};
+
+export type AuthData = {
+  login: string;
+  password: string;
+};
 
 type User = {
+  name: string;
+  email: string;
+  avatarUrl: string;
+  token :string;
+  isPro: boolean;
   authorizationStatus: string;
-  userAuthData : UserAuthData;
+};
+
+export type UserData = {
+  name: string;
+  email: string;
+  avatarUrl: string;
+  token: string;
+  isPro: boolean;
 };
 
 type LocationPlace = {
@@ -58,45 +75,34 @@ type OfferPreview = {
   rating: number;
 }
 
-
 type CommentForOffer = {
   id : string;
-  title: string;
-  rating: number;
-  description: string;
-}
-
-type UserDescription = {
-  name : string;
-  avatarUrl: string;
-  isPro : boolean;
-}
-
-type CommentProposal = {
-  id: string;
   comment: string;
   date: string;
   rating: number;
-  user: UserDescription;
+  user: {
+    name: string;
+    avatarUrl: string;
+    isPro: boolean;
+  };
 }
 
-type RewiewByOffer = {
-  offerId:string;
-  listComments: CommentProposal[];
-}
+type UserComment = {
+  rating: number;
+  comment: string;
+};
+
+type UserCommentWithID = {
+  id: string;
+  rating: number;
+  comment: string;
+};
 
 type Points = LocationPlace[];
 
-export type AuthData = {
-  login: string;
-  password: string;
-};
+type errorRequestType = {
+  status: number;
+  message: string;
+}
 
-export type UserData = {
-  id: number;
-  email: string;
-  password: string;
-  token: string;
-};
-
-export type {Offer,OfferPreview,CommentForOffer,CommentProposal,CityDestination, LocationPlace, RewiewByOffer,Points,User,UserAuthData};
+export type {Offer,OfferPreview,CommentForOffer,CityDestination, LocationPlace,Points,User,UserAuthData,errorRequestType,UserComment,UserCommentWithID};

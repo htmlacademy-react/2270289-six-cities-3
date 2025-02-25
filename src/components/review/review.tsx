@@ -1,9 +1,9 @@
-import type { CommentProposal } from '../../types';
-import { dateToTypeFormat } from '../../utils';
+import type { CommentForOffer } from '../../types';
+import { convertRatingToStyleWidthPercent, dateToTypeFormat } from '../../utils';
 import { TYPE_FORMAT_DATE } from '../../utils';
 
 type CommentProps = {
-  comment: CommentProposal;
+  comment: CommentForOffer;
 }
 
 export default function Review({comment}: CommentProps): JSX.Element {
@@ -23,7 +23,7 @@ export default function Review({comment}: CommentProps): JSX.Element {
       <div className="reviews__info">
         <div className="reviews__rating rating">
           <div className="reviews__stars rating__stars">
-            <span style={{ width: '80%' }}></span>
+            <span style={convertRatingToStyleWidthPercent(comment.rating)}></span>
             <span className="visually-hidden">Rating {comment.rating}</span>
           </div>
         </div>

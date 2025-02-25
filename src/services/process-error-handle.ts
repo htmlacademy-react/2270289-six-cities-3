@@ -2,9 +2,11 @@
 import {store} from '../store';
 import {setError} from '../store/action';
 import {clearErrorAction} from '../store/api-actions';
+import type { errorRequestType } from '../types';
 
-export const processErrorHandle = (message: string): void => {
-  store.dispatch(setError(message));
-  //console.log('Задиспатчили ошибку');
-  store.dispatch(clearErrorAction());
+export const processErrorHandle = (errorRequest: errorRequestType): void => {
+  store.dispatch(setError(errorRequest));
+  if (errorRequest.status !== 404) {
+    store.dispatch(clearErrorAction());
+  }
 };

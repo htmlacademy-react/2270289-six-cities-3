@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks/index.ts';
 import { setCardActiveId } from '../../store/action.ts';
 import type { OfferPreview } from '../../types.ts';
+import { convertRatingToStyleWidthPercent } from '../../utils.ts';
 
 type OfferProps = {
   offer: OfferPreview;
@@ -10,7 +11,7 @@ type OfferProps = {
 
 export default function CardOffer({ offer, variantCard }: OfferProps): JSX.Element {
 
-  const linkTo = `/offer/:${offer.id}`;
+  const linkTo = `/offer/${offer.id}`;
   const isShowSpanPremium = variantCard !== 'near-places';
   const dispatch = useAppDispatch();
 
@@ -48,7 +49,7 @@ export default function CardOffer({ offer, variantCard }: OfferProps): JSX.Eleme
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{ width: '80%' }}></span>
+            <span style={convertRatingToStyleWidthPercent(offer.rating)}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

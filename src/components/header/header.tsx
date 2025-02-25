@@ -1,12 +1,13 @@
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
-import { useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { logoutAction } from '../../store/api-actions';
 
 export default function Header(): JSX.Element {
-  const user = useAppSelector((state) => state.dataAuthorization);
+  const user = useAppSelector((state) => state.user);
   const isAuth = user.authorizationStatus;
-  const favoriteOffersLength = useAppSelector((state) => state.favoriteOffers.length);
-  const countFavoriteOffers = (isAuth) ? favoriteOffersLength : 0;
+  const countFavoriteOffers = useAppSelector((state) => state.favoriteOffers.length);
+  const dispatch = useAppDispatch();
 
   return (
     <header className="header">
@@ -24,21 +25,26 @@ export default function Header(): JSX.Element {
                   <div className="header__avatar-wrapper user__avatar-wrapper">
                   </div>
                   <span className="header__user-name user__name">
-                    {isAuth === 'AUTH' ?
-                      user.user.email :
-                      'e-mail'
-                    }
+                    {((isAuth === 'AUTH') && user.email)}
                   </span>
-                  <span className="header__favorite-count">{countFavoriteOffers}</span>
+                  {((isAuth === 'AUTH') && <span className="header__favorite-count">{countFavoriteOffers}</span>)}
                 </Link>
               </li>
               <li className="header__nav-item">
-                <Link className="header__nav-link" to={AppRoute.Login}>
+                <Link className="header__nav-link" to={AppRoute.Login}
+                  onClick={
+                    (evt) => {
+                      if (isAuth === 'AUTH') {
+                        evt.preventDefault();
+                        dispatch(logoutAction());
+                      }
+                    }
+                  }
+                >
                   <span className="header__signout">
                     {isAuth === 'AUTH' ?
                       'Sign out' :
-                      'Sign in'
-                    }
+                      'Sign in'}
                   </span>
                 </Link>
               </li>

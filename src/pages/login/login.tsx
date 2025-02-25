@@ -4,36 +4,16 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { loginAction } from '../../store/api-actions';
 import { AppRoute, AuthData } from '../../const';
 import ErrorMessage from '../../components/error-message/error-message';
-/*
-Request
-{
-  "email": "istanik@yandex.ru",
-  "password": "passEdord12d"
-}
-RESPONSE
-{
-  "email": "istanik@gmail.com",
-  "token": "aXN0YW5pa0BnbWFpbC5jb20=",
-  "name": "istanik",
-  "avatarUrl": "https://15.design.htmlacademy.pro/static/avatar/9.jpg",
-  "isPro": false
-}
-*/
 
 export default function Login(): JSX.Element {
 
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
-
   const dispatch = useAppDispatch();
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-
     if (loginRef.current !== null && passwordRef.current !== null) {
-      //console.log('начианем логгирование...');
-      //console.log('loginRef.current.value', loginRef.current.value);
-      //console.log('passwordRef.current.value', passwordRef.current.value);
       dispatch(loginAction({
         login: loginRef.current.value,
         password: passwordRef.current.value,
@@ -41,12 +21,7 @@ export default function Login(): JSX.Element {
     }
   };
 
-  //const user = useAppSelector((state) => state.dataAuthorization);
-  //console.log('user => ', user);
-
-  const authorizationStatus = useAppSelector((state) => state.dataAuthorization.authorizationStatus);
-
-  //const patternInput = '{{/^(?!.*\s).{1,}$/}}';
+  const authorizationStatus = useAppSelector((state) => state.user.authorizationStatus);
 
   return (
     authorizationStatus === 'UNKNOWN' || authorizationStatus === 'NO_AUTH'
@@ -81,11 +56,10 @@ export default function Login(): JSX.Element {
                     <input className="login__input form__input" type="password" name="password" defaultValue={AuthData.password}
                       id="password" placeholder="Password" required ref={passwordRef} autoComplete='off'
                       title="Любые символы кроме пробелов."
-                      onKeyDown={(event) => {
-                        return (event.key === ' ') ?
+                      onKeyDown={(event) =>
+                        (event.key === ' ') ?
                           event.preventDefault() :
-                          event.key;
-                        }}
+                          event.key}
                     />
                   </div>
                   <button className="login__submit form__submit button" type="submit">Sign in</button>

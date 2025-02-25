@@ -11,6 +11,7 @@ import { useAppSelector } from '../../hooks';
 type MapProps = {
   currentCity: CityDestination;
   currentOffers: OfferPreview[];
+  typeMap : string;
 }
 
 const defaultCustomIcon = new Icon({
@@ -25,12 +26,13 @@ const currentCustomIcon = new Icon({
   iconAnchor: [20, 40]
 });
 
-export default function Map({currentCity, currentOffers} : MapProps) : JSX.Element {
+export default function Map({currentCity, currentOffers, typeMap} : MapProps) : JSX.Element {
 
   const mapRef = useRef(null);
   const map = useMap(mapRef, currentCity);
   const geolocation: [number,number] = [currentCity.location.latitude,currentCity.location.longitude];
   const cardActiveId = useAppSelector((state) => state.cardActiveId);
+  const classNameByTypeMap = `${typeMap} map`;
 
   useEffect(() => {
     if (map) {
@@ -58,7 +60,9 @@ export default function Map({currentCity, currentOffers} : MapProps) : JSX.Eleme
   }, [map, currentCity, cardActiveId]);
 
   return(
-    <section className="cities__map map" ref={mapRef} id={currentCity.name}>
+    <section className={classNameByTypeMap} ref={mapRef} id={currentCity.name}>
     </section>
   );
 }
+
+// <section className="offer__map map" ref={mapRef} ></section>
