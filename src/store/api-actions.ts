@@ -53,7 +53,6 @@ export const sendCommentAction = createAsyncThunk<UserComment,{
       comment: comment,
     };
     const {data} = await api.post<UserComment>(path,sentComment);
-
     return data;
   }
 );

@@ -44,16 +44,17 @@ export default function Offer(): JSX.Element {
     if (requestCommentsByOffer) {
       setComments(reviewsByOffer);
     }
-  },[requestCommentsByOffer])
+  }, [requestCommentsByOffer]);
 
-  const addComment = (comment : UserCommentWithID):void => {
+
+  const addComment = (comment: UserCommentWithID): void => {
     dispatch(sendCommentAction(comment))
-    .then((response) => {
-      setComments([...comments, response.payload as CommentForOffer])
-    })
-  }
+      .then((response) => {
+        setComments([...comments, response.payload as CommentForOffer]);
+      });
+  };
 
-  const ratingToPercent = (requestActiveOfferStatus) ? (currentOffer.rating * 100 / 5).toFixed(2) : 80;
+  const ratingToPercent = (currentOffer.rating) ? (currentOffer.rating * 100 / 5).toFixed(0) : 80;
   const styleRating = {
     width: `${ratingToPercent}%`,
   };
@@ -65,7 +66,7 @@ export default function Offer(): JSX.Element {
       setIsVisibleLoadingScreen(true);
       setTimeout(() => {
         setIsVisibleLoadingScreen(false);
-      }, 2200);
+      }, 1800);
     }
   }, []);
 
@@ -175,7 +176,7 @@ export default function Offer(): JSX.Element {
 
                 <ReviewList commentsByOffer={comments} />
 
-                {(requestActiveOfferStatus) && ((requestStatusAuth) && <ReviewForm change = {addComment}/>)}
+                {(requestActiveOfferStatus) && ((requestStatusAuth) && <ReviewForm addComment={addComment} />)}
               </section>
             </div>
           </div>
@@ -195,5 +196,3 @@ export default function Offer(): JSX.Element {
     </div>
   );
 }
-
-// <ReviewList commentsByOffer={reviewsByOffer} />

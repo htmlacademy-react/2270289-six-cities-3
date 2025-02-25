@@ -1,18 +1,20 @@
 //import { sendCommentAction } from '../../store/api-actions.ts';
 import { useParams } from 'react-router-dom';
 import { useAppSelector } from '../../hooks/index.ts';
-import { ChangeEvent, Fragment, useRef, useState } from 'react';
+import { ChangeEvent, Fragment, MouseEvent, useEffect, useRef, useState } from 'react';
 import { UserCommentWithID } from '../../types.ts';
 
 type ReviewFormProps = {
-  change : (comment: UserCommentWithID) => void;
+  addComment : (comment: UserCommentWithID) => void;
 }
 
-export default function ReviewForm({change} : ReviewFormProps): JSX.Element {
+export default function ReviewForm({addComment} : ReviewFormProps): JSX.Element {
 
   const { id } = useParams();
-
-  //const dispatch = useAppDispatch();
+  const formData = {
+    rating: 0,
+    comment: ''
+  };
 
   const user = useAppSelector((state) => state.user);
   const isRequestAuth = useAppSelector((state) => state.isRequestAuth);
@@ -22,12 +24,16 @@ export default function ReviewForm({change} : ReviewFormProps): JSX.Element {
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState('');
 
-  const handleClickRating = (evt: React.MouseEvent<HTMLInputElement>) => {
+  const handleClickRating = (evt: MouseEvent<HTMLInputElement>) => {
     setRating(Number(evt.currentTarget.value));
-    //console.log(rating);
   };
 
-  const handleChangeCommen = (evt: ChangeEvent<HTMLTextAreaElement>) => {
+  useEffect(() => {
+    formData.rating = rating;
+    formData.comment = comment;
+  },[rating,comment]);
+
+  const handleChangeComment = (evt: ChangeEvent<HTMLTextAreaElement>) => {
     setComment(evt.currentTarget.value);
   };
 
@@ -58,12 +64,12 @@ export default function ReviewForm({change} : ReviewFormProps): JSX.Element {
     if ((id) && (rating) && (comment)) {
       const sentComment = {
         id: id,
-        rating: rating,
-        comment: comment,
+        rating: formData.rating,
+        comment: formData.comment,
       };
-      change(sentComment);
+      addComment(sentComment);
     }
-  }
+  };
 
   if ((isRequestAuth) && (id)) {
     return (
@@ -72,6 +78,7 @@ export default function ReviewForm({change} : ReviewFormProps): JSX.Element {
         <div className="reviews__rating-form form__rating">
           {
             RATINGS.map((item) => (
+
               <Fragment key={item.title}>
                 <input className="form__rating-input visually-hidden"
                   name="rating"
@@ -98,7 +105,7 @@ export default function ReviewForm({change} : ReviewFormProps): JSX.Element {
           placeholder="Tell how was your stay, what you like and what can be improved"
           defaultValue={comment}
           ref={textareaRef}
-          onChange={handleChangeCommen}
+          onChange={handleChangeComment}
         >
         </textarea>
         <div className="reviews__button-wrapper">

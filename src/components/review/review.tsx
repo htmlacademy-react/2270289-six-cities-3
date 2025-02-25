@@ -10,6 +10,11 @@ export default function Review({comment}: CommentProps): JSX.Element {
 
   const commentDate = new Date (comment.date);
 
+  const ratingToPercent = (comment.rating) ? (comment.rating * 100 / 5).toFixed(0) : 80;
+  const styleRating = {
+    width: `${ratingToPercent}%`,
+  };
+
   return (
     <li className="reviews__item" >
       <div className="reviews__user user">
@@ -23,7 +28,7 @@ export default function Review({comment}: CommentProps): JSX.Element {
       <div className="reviews__info">
         <div className="reviews__rating rating">
           <div className="reviews__stars rating__stars">
-            <span style={{ width: '80%' }}></span>
+            <span style={styleRating}></span>
             <span className="visually-hidden">Rating {comment.rating}</span>
           </div>
         </div>
