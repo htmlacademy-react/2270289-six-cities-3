@@ -37,7 +37,7 @@ export const checkAuthAction = createAsyncThunk<void, undefined, {
   },
 );
 
-export const sendCommentAction = createAsyncThunk<void,{
+export const sendCommentAction = createAsyncThunk<UserComment,{
   id:string;
   rating:number;
   comment:string;
@@ -54,9 +54,7 @@ export const sendCommentAction = createAsyncThunk<void,{
     };
     const {data} = await api.post<UserComment>(path,sentComment);
 
-    if (data) {
-      //console.log(data);
-    }
+    return data;
   }
 );
 
@@ -134,7 +132,7 @@ export const fetchActiveOfferAction = createAsyncThunk<void,string,{
   }
 );
 
-export const fetchListCommentsByOffer = createAsyncThunk<void,string,{
+export const fetchListCommentsByOffer = createAsyncThunk<CommentForOffer[],string,{
   dispatch: AppDispatch;
   extra: AxiosInstance;
 }>(
@@ -145,6 +143,7 @@ export const fetchListCommentsByOffer = createAsyncThunk<void,string,{
     const {data} = await api.get<CommentForOffer[]>(path);
     dispatch(fillCommentsByOffer(data));
     dispatch(setRequestCommentsByOffer(true));
+    return data;
   }
 );
 

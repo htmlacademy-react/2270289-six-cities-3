@@ -10,10 +10,13 @@ import Map from '../../components/map/map.tsx';
 import LoadingScreen from '../loading-screen/loading-screen.tsx';
 import Page404 from '../404/page-404.tsx';
 
-import { fetchActiveOfferAction, fetchListCommentsByOffer, fetchOffersNearAction } from '../../store/api-actions.ts';
-import { typeMap } from '../../const';
+import { fetchActiveOfferAction, fetchListCommentsByOffer, fetchOffersNearAction, sendCommentAction } from '../../store/api-actions.ts';
+import { emptyComments, typeMap } from '../../const';
+import { CommentForOffer, UserCommentWithID } from '../../types.ts';
 
 export default function Offer(): JSX.Element {
+
+  const [comments, setComments] = useState(emptyComments);
 
   const currentCity = useAppSelector((state) => state.city);
   const dispatch = useAppDispatch();
@@ -36,6 +39,19 @@ export default function Offer(): JSX.Element {
   const currentOffer = useAppSelector((state) => state.activeOffer);
   const sortedNearListOffer = useAppSelector((state) => state.offersNear);
   const reviewsByOffer = useAppSelector((state) => state.reviewsByOffer);
+
+  useEffect(() => {
+    if (requestCommentsByOffer) {
+      setComments(reviewsByOffer);
+    }
+  },[requestCommentsByOffer])
+
+  const addComment = (comment : UserCommentWithID):void => {
+    dispatch(sendCommentAction(comment))
+    .then((response) => {
+      setComments([...comments, response.payload as CommentForOffer])
+    })
+  }
 
   const ratingToPercent = (requestActiveOfferStatus) ? (currentOffer.rating * 100 / 5).toFixed(2) : 80;
   const styleRating = {
@@ -157,9 +173,9 @@ export default function Offer(): JSX.Element {
               </div>
               <section className="offer__reviews reviews">
 
-                <ReviewList commentsByOffer={reviewsByOffer} />
+                <ReviewList commentsByOffer={comments} />
 
-                {(requestActiveOfferStatus) && ((requestStatusAuth) && <ReviewForm />)}
+                {(requestActiveOfferStatus) && ((requestStatusAuth) && <ReviewForm change = {addComment}/>)}
               </section>
             </div>
           </div>
@@ -179,3 +195,5 @@ export default function Offer(): JSX.Element {
     </div>
   );
 }
+
+// <ReviewList commentsByOffer={reviewsByOffer} />

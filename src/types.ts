@@ -92,6 +92,12 @@ type UserComment = {
   comment: string;
 };
 
+type UserCommentWithID = {
+  id: string;
+  rating: number;
+  comment: string;
+};
+
 type Points = LocationPlace[];
 
 type errorRequestType = {
@@ -99,4 +105,4 @@ type errorRequestType = {
   message: string;
 }
 
-export type {Offer,OfferPreview,CommentForOffer,CityDestination, LocationPlace,Points,User,UserAuthData,errorRequestType,UserComment};
+export type {Offer,OfferPreview,CommentForOffer,CityDestination, LocationPlace,Points,User,UserAuthData,errorRequestType,UserComment,UserCommentWithID};

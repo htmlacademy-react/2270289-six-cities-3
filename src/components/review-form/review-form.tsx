@@ -1,11 +1,19 @@
-import { sendCommentAction } from '../../store/api-actions.ts';
+//import { sendCommentAction } from '../../store/api-actions.ts';
 import { useParams } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../../hooks/index.ts';
+import { useAppSelector } from '../../hooks/index.ts';
 import { ChangeEvent, Fragment, useRef, useState } from 'react';
+import { UserCommentWithID } from '../../types.ts';
 
-export default function ReviewForm(): JSX.Element {
+type ReviewFormProps = {
+  change : (comment: UserCommentWithID) => void;
+}
+
+export default function ReviewForm({change} : ReviewFormProps): JSX.Element {
+
   const { id } = useParams();
-  const dispatch = useAppDispatch();
+
+  //const dispatch = useAppDispatch();
+
   const user = useAppSelector((state) => state.user);
   const isRequestAuth = useAppSelector((state) => state.isRequestAuth);
 
@@ -45,6 +53,17 @@ export default function ReviewForm(): JSX.Element {
       title: 'terribly',
     },
   ];
+
+  const sendComment = () => {
+    if ((id) && (rating) && (comment)) {
+      const sentComment = {
+        id: id,
+        rating: rating,
+        comment: comment,
+      };
+      change(sentComment);
+    }
+  }
 
   if ((isRequestAuth) && (id)) {
     return (
@@ -92,13 +111,7 @@ export default function ReviewForm(): JSX.Element {
           <button disabled={false}
             onClick={(evt) => {
               evt.preventDefault();
-
-              const sentComment = {
-                id: id,
-                rating: rating,
-                comment: comment,
-              };
-              dispatch(sendCommentAction(sentComment));
+              sendComment();
             }}
             className="reviews__submit form__submit button"
             type="submit"
