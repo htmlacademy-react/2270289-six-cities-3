@@ -1,5 +1,5 @@
 import type { CommentForOffer } from '../../types';
-import { dateToTypeFormat } from '../../utils';
+import { convertRatingToStyleWidthPercent, dateToTypeFormat } from '../../utils';
 import { TYPE_FORMAT_DATE } from '../../utils';
 
 type CommentProps = {
@@ -9,11 +9,6 @@ type CommentProps = {
 export default function Review({comment}: CommentProps): JSX.Element {
 
   const commentDate = new Date (comment.date);
-
-  const ratingToPercent = (comment.rating) ? (comment.rating * 100 / 5).toFixed(0) : 80;
-  const styleRating = {
-    width: `${ratingToPercent}%`,
-  };
 
   return (
     <li className="reviews__item" >
@@ -28,7 +23,7 @@ export default function Review({comment}: CommentProps): JSX.Element {
       <div className="reviews__info">
         <div className="reviews__rating rating">
           <div className="reviews__stars rating__stars">
-            <span style={styleRating}></span>
+            <span style={convertRatingToStyleWidthPercent(comment.rating)}></span>
             <span className="visually-hidden">Rating {comment.rating}</span>
           </div>
         </div>

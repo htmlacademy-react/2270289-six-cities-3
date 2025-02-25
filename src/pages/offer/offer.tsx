@@ -13,6 +13,7 @@ import Page404 from '../404/page-404.tsx';
 import { fetchActiveOfferAction, fetchListCommentsByOffer, fetchOffersNearAction, sendCommentAction } from '../../store/api-actions.ts';
 import { emptyComments, typeMap } from '../../const';
 import { CommentForOffer, UserCommentWithID } from '../../types.ts';
+import { convertRatingToStyleWidthPercent } from '../../utils.ts';
 
 export default function Offer(): JSX.Element {
 
@@ -52,11 +53,6 @@ export default function Offer(): JSX.Element {
       .then((response) => {
         setComments([...comments, response.payload as CommentForOffer]);
       });
-  };
-
-  const ratingToPercent = (currentOffer.rating) ? (currentOffer.rating * 100 / 5).toFixed(0) : 80;
-  const styleRating = {
-    width: `${ratingToPercent}%`,
   };
 
   const [isVisibleLoadingScreen, setIsVisibleLoadingScreen] = useState(false);
@@ -117,7 +113,7 @@ export default function Offer(): JSX.Element {
               </div>
               <div className="offer__rating rating">
                 <div className="offer__stars rating__stars">
-                  <span style={styleRating}>
+                  <span style={convertRatingToStyleWidthPercent(currentOffer.rating)}>
                   </span>
                   <span className="visually-hidden">Rating</span>
                 </div>

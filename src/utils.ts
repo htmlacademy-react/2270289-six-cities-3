@@ -69,3 +69,10 @@ const getSortedListOffer = (currentSort: string, listOffer: OfferPreview[]) => {
 };
 
 export { dateToTypeFormat, getClassCardByType, getSortedListOffer};
+
+export const convertRatingToStyleWidthPercent = (rating : number) => {
+  const ratingToPercent = (rating) ? (rating * 100 / 5).toFixed(0) : 80;
+  return {
+    width: `${ratingToPercent}%`,
+  };
+}
