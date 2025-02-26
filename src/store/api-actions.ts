@@ -75,6 +75,7 @@ export const loginAction = createAsyncThunk<void, AuthData, {
     // };
     dispatch(requireAuthorization(data));
     saveToken(AUTH_TOKEN_KEY,data.token);
+    dispatch(setAuthStatus(true));
   },
 );
 
