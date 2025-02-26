@@ -72,7 +72,7 @@ export default function Main(): JSX.Element {
             </section>
             <div className="cities__right-section">
 
-              <Map currentCity={currentCity} currentOffers={currentOffersByCity} typeMap={typeMap.cities} />
+              <Map currentCity={currentCity} offers={currentOffersByCity} currentOffer={null} typeMap={typeMap.cities} />
 
             </div>
           </div>

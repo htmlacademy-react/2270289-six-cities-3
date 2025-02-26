@@ -21,8 +21,8 @@ export default function Offer(): JSX.Element {
 
   const currentCity = useAppSelector((state) => state.city);
   const dispatch = useAppDispatch();
-  const requestStatusAuth = useAppSelector((state) => state.isRequestAuth);
-  const errorStatus = useAppSelector((state) => state.error.status);
+  const isAuth = useAppSelector((state) => state.isAuth);
+  //const errorStatus = useAppSelector((state) => state.error ? state.error.status : null);
   const { id } = useParams();
 
   useEffect(() => {
@@ -38,8 +38,8 @@ export default function Offer(): JSX.Element {
   const requestCommentsByOffer = useAppSelector((state) => state.isRequestCommentsByOffer);
 
   const currentOffer = useAppSelector((state) => state.activeOffer);
-  const sortedNearListOffer = useAppSelector((state) => state.offersNear);
-  const reviewsByOffer = useAppSelector((state) => state.reviewsByOffer);
+  const nearOffers = useAppSelector((state) => state.offersNear ? state.offersNear : []).slice(0,3);
+  const reviewsByOffer = useAppSelector((state) => state.reviewsByOffer ? state.reviewsByOffer : []);
 
   useEffect(() => {
     if (requestCommentsByOffer) {
@@ -62,17 +62,17 @@ export default function Offer(): JSX.Element {
       setIsVisibleLoadingScreen(true);
       setTimeout(() => {
         setIsVisibleLoadingScreen(false);
-      }, 1800);
+      }, 200);
     }
   }, []);
 
-  if ((isVisibleLoadingScreen) && (errorStatus !== 404)) {
+  if (isVisibleLoadingScreen) {
     return (
       <LoadingScreen />
     );
   }
 
-  if (errorStatus === 404) {
+  if (!currentOffer) {
     return (
       <Page404 />
     );
@@ -172,18 +172,18 @@ export default function Offer(): JSX.Element {
 
                 <ReviewList commentsByOffer={comments} />
 
-                {(requestActiveOfferStatus) && ((requestStatusAuth) && <ReviewForm addComment={addComment} />)}
+                {(requestActiveOfferStatus) && ((isAuth) && <ReviewForm addComment={addComment} />)}
               </section>
             </div>
           </div>
-          <Map currentCity={currentCity} currentOffers={sortedNearListOffer} typeMap={typeMap.offer} />
+          <Map currentCity={currentCity} offers={nearOffers} currentOffer={currentOffer} typeMap={typeMap.offer} />
         </section>
 
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              <ListOffer listOffer={sortedNearListOffer} variantCard='near-places' />
+              <ListOffer listOffer={nearOffers} variantCard='near-places' />
             </div>
           </section>
         </div>

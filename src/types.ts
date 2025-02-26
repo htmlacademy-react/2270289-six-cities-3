@@ -101,7 +101,7 @@ type UserCommentWithID = {
 type Points = TLocation[];
 
 type TErrorRequest = {
-  status: number;
+  status: number | null;
   message: string;
 }
 

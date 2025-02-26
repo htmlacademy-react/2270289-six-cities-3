@@ -1,16 +1,17 @@
 import {useRef, useEffect} from 'react';
 import useMap from '../../hooks/use-map';
 
-import {Marker,Icon,layerGroup} from 'leaflet';
+import {Marker,Icon,layerGroup, marker} from 'leaflet';
 import {URL_MARKER_DEFAULT, URL_MARKER_CURRENT } from '../../const';
 import 'leaflet/dist/leaflet.css';
 
-import type {CityDestination,OfferPreview } from '../../types';
+import type {TCity,OfferPreview, Offer } from '../../types';
 import { useAppSelector } from '../../hooks';
 
 type MapProps = {
-  currentCity: CityDestination;
-  currentOffers: OfferPreview[];
+  currentCity: TCity;
+  offers: OfferPreview[];
+  currentOffer: Offer | null;
   typeMap : string;
 }
 
@@ -26,7 +27,7 @@ const currentCustomIcon = new Icon({
   iconAnchor: [20, 40]
 });
 
-export default function Map({currentCity, currentOffers, typeMap} : MapProps) : JSX.Element {
+export default function Map({currentCity, offers, currentOffer, typeMap} : MapProps) : JSX.Element {
 
   const mapRef = useRef(null);
   const map = useMap(mapRef, currentCity);
@@ -38,7 +39,7 @@ export default function Map({currentCity, currentOffers, typeMap} : MapProps) : 
     if (map) {
       map.setView(geolocation);
       const markerLayer = layerGroup().addTo(map);
-      currentOffers.forEach((offer) => {
+      offers.forEach((offer) => {
         const marker = new Marker({
           lat: offer.location.latitude,
           lng: offer.location.longitude
@@ -46,12 +47,23 @@ export default function Map({currentCity, currentOffers, typeMap} : MapProps) : 
 
         marker
           .setIcon(
-            cardActiveId !== undefined && offer.id === cardActiveId
+            cardActiveId !== undefined && offer.id === cardActiveId && !currentOffer
               ? currentCustomIcon
               : defaultCustomIcon
           )
           .addTo(markerLayer);
       });
+
+      if (currentOffer) {
+        const markerCurrentOffer = new Marker({
+          lat: currentOffer.location.latitude,
+          lng: currentOffer.location.longitude
+        });
+
+        markerCurrentOffer
+          .setIcon(currentCustomIcon)
+          .addTo(markerLayer);
+      }
 
       return () => {
         map.removeLayer(markerLayer);
