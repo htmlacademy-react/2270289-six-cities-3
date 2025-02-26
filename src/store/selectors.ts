@@ -1,15 +1,15 @@
 import {getSortedListOffer} from '../utils';
-import type {State} from '../hooks';
+import type { TInitialState } from '../types';
 
-export const selectorCurrentOffersByCity = (state : State) => {
+export const selectorCurrentOffersByCity = (state : TInitialState) => {
   const currentCityName = state.city.name;
-  const offers = state.offers;
-  return offers.filter((itemOffer: { city: { name: string } }) => itemOffer.city.name === currentCityName);
+  const offers = (state.offers) ? state.offers : [];
+  return offers.filter((itemOffer) => itemOffer.city.name === currentCityName);
 };
 
-export const selectorSortedListOffer = (state: State) => {
-  const currentSort = state.currentSort;
+export const selectorSortedListOffer = (state: TInitialState) => {
+  const currentSort = (state.currentSort) ? state.currentSort : '';
   return getSortedListOffer(currentSort,selectorCurrentOffersByCity(state));
 };
 
-export const selectorNearListOffer = (state: State) => selectorSortedListOffer(state).slice(0,3);
+export const selectorNearListOffer = (state: TInitialState) => selectorSortedListOffer(state).slice(0,3);

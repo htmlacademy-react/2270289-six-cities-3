@@ -14,7 +14,7 @@ type TUser = {
   avatarUrl: string;
   token :string;
   isPro: boolean;
-  authorizationStatus: string;
+  //authorizationStatus: string;
 };
 
 export type UserData = {
@@ -117,7 +117,8 @@ type TInitialState = {
   requestStatus : string | null,
   error: TErrorRequest | null,
   user: TUser | null,
-  isRequestAuth: boolean,
+  //isRequestAuth: boolean,
+  isAuth: boolean,
   isDownloadFavoriteOffers: boolean,
   isRequestActiveOffer: boolean,
   isRequestOffersNear: boolean,

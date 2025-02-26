@@ -98,7 +98,7 @@ export const enum ActionType {
   SetRequestStatus = 'data/setRequestStatus',
   SetError = 'request/setError',
 
-  SetRequestAuthStatus = 'data/setRequestAuthStatus',
+  SetAuthStatus = 'data/setAuthStatus',
   SetRequestActiveOffer = 'data/SetRequestActiveOffer',
   SetRequestOffersNear = 'data/setRequestOffersNear',
   SetRequestCommentsByOffer = 'data/setRequestCommentsByOffer',
@@ -144,7 +144,7 @@ export const userDefault: TUser = {
   avatarUrl: '',
   isPro: false,
   token: '',
-  authorizationStatus: <string>AuthorizationStatus.NoAuth,
+//  authorizationStatus: <string>AuthorizationStatus.NoAuth,
 };
 
 export const errorEmpty: TErrorRequest = {

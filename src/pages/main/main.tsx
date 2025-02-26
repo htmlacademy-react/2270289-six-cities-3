@@ -14,9 +14,8 @@ import { RequestStatus, typeMap } from '../../const.ts';
 
 export default function Main(): JSX.Element {
 
-  const requestStatus = useAppSelector((state) => state.requestStatus);
-
   const dispatch = useAppDispatch();
+  const requestStatus = useAppSelector((state) => state.requestStatus);
 
   useEffect(() => {
     if (requestStatus !== RequestStatus.Success) {
@@ -27,7 +26,7 @@ export default function Main(): JSX.Element {
   const offers = useAppSelector((state) => state.offers);
   const currentCity = useAppSelector((state) => state.city);
   const cityName = currentCity.name;
-  const currentOffersByCity = offers.filter((itemCard: { city: { name: string } }) => itemCard.city.name === cityName);
+  const currentOffersByCity = (offers) ? offers.filter((itemCard) => itemCard.city.name === cityName) : [];
   const countOffers = currentOffersByCity.length;
 
   const sortedListOffer = useAppSelector(selectorSortedListOffer);
@@ -39,7 +38,7 @@ export default function Main(): JSX.Element {
       setIsVisibleLoadingScreen(true);
       setTimeout(() => {
         setIsVisibleLoadingScreen(false);
-      }, 2000);
+      }, 1200);
     }
   }, []);
 

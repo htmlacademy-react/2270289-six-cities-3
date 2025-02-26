@@ -17,7 +17,7 @@ export default function App(): JSX.Element {
   useEffect(() => {
     dispatch(checkAuthAction());
   }, []);
-  const authorizationStatus = useAppSelector((state) => state.user.authorizationStatus);
+  const isAuth = useAppSelector((state) => state.isAuth);
 
   return (
     <BrowserRouter>
@@ -27,7 +27,7 @@ export default function App(): JSX.Element {
         <Route path={AppRoute.Offer} element={<Offer />} />
         <Route path={AppRoute.Favorites}
           element={
-            <PrivateRoute authorizationStatus={authorizationStatus}>
+            <PrivateRoute isAuth={isAuth}>
               <Favorites variantCard='favorite' />
             </PrivateRoute>
           }

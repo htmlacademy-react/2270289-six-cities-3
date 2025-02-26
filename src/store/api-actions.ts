@@ -2,13 +2,14 @@ import {AxiosInstance } from 'axios';
 import {createAsyncThunk } from '@reduxjs/toolkit';
 import type {AppDispatch,State } from '../hooks';
 import {fillOffers,fillActiveOffer,fillFavoriteOffer,fillOffersNear,fillCommentsByOffer} from './action';
-import {requireAuthorization,setRequestStatus,setError,setRequestAuthStatus,setRequestActiveOffer,setRequestOffersNear,setRequestCommentsByOffer} from './action';
+import {requireAuthorization,setRequestStatus,setError,setAuthStatus,setRequestActiveOffer,setRequestOffersNear,setRequestCommentsByOffer} from './action';
 
-import {ApiRoute,AuthorizationStatus,RequestStatus,TIMEOUT_SHOW_ERROR,errorEmpty,userDefault} from '../const';
+import {ApiRoute,RequestStatus,TIMEOUT_SHOW_ERROR,errorEmpty,userDefault} from '../const';
+//import {AuthorizationStatus} from '../const';
 import {saveToken,AUTH_TOKEN_KEY,dropToken} from '../services/token';
 import {store} from '.';
 
-import type {Offer,OfferPreview,UserData,AuthData,User,CommentForOffer, UserComment} from '../types';
+import type {Offer,OfferPreview,UserData,AuthData,TUser,CommentForOffer, UserComment} from '../types';
 
 export const checkAuthAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch;
@@ -18,21 +19,21 @@ export const checkAuthAction = createAsyncThunk<void, undefined, {
   'user/checkAuth',
   async (_arg, {dispatch, extra: api}) => {
     try {
-      const {data} = await api.get<User>(ApiRoute.Login);
-      const user: User = {
-        name: data.name,
-        email: data.email,
-        avatarUrl: data.avatarUrl,
-        isPro: data.isPro,
-        token: data.token,
-        authorizationStatus : AuthorizationStatus.Auth,
-      };
-      dispatch(setRequestAuthStatus(false));
-      dispatch(requireAuthorization(user));
-      dispatch(setRequestAuthStatus(true));
+      const {data} = await api.get<TUser>(ApiRoute.Login);
+      // const user: TUser = {
+      //   name: data.name,
+      //   email: data.email,
+      //   avatarUrl: data.avatarUrl,
+      //   isPro: data.isPro,
+      //   token: data.token,
+      //   authorizationStatus : AuthorizationStatus.Auth,
+      // };
+      dispatch(setAuthStatus(false));
+      dispatch(requireAuthorization(data));
+      dispatch(setAuthStatus(true));
     } catch {
       dispatch(requireAuthorization(userDefault));
-      dispatch(setRequestAuthStatus(false));
+      dispatch(setAuthStatus(false));
     }
   },
 );
@@ -64,15 +65,15 @@ export const loginAction = createAsyncThunk<void, AuthData, {
 }>('user/login',
   async ({login: email, password}, {dispatch, extra: api}) => {
     const {data} = await api.post<UserData>(ApiRoute.Login, {email, password});
-    const user: User = {
-      name: data.name,
-      email: data.email,
-      avatarUrl: data.avatarUrl,
-      isPro: data.isPro,
-      token: data.token,
-      authorizationStatus : AuthorizationStatus.Auth,
-    };
-    dispatch(requireAuthorization(user));
+    // const user: TUser = {
+    //   name: data.name,
+    //   email: data.email,
+    //   avatarUrl: data.avatarUrl,
+    //   isPro: data.isPro,
+    //   token: data.token,
+    //   authorizationStatus : AuthorizationStatus.Auth,
+    // };
+    dispatch(requireAuthorization(data));
     saveToken(AUTH_TOKEN_KEY,data.token);
   },
 );
@@ -87,7 +88,7 @@ export const logoutAction = createAsyncThunk<void, undefined, {
     await api.delete(ApiRoute.Logout);
     dropToken(AUTH_TOKEN_KEY);
     dispatch(requireAuthorization(userDefault));
-    dispatch(setRequestAuthStatus(false));
+    dispatch(setAuthStatus(false));
   },
 );
 

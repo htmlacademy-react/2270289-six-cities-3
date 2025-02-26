@@ -1,6 +1,6 @@
 import {createReducer} from '@reduxjs/toolkit';
 import {setCity,setCardActiveId,setCurrentSort,setFavoriteOfferStatus,setError, setRequestCommentsByOffer, fillCommentsByOffer} from './action';
-import {requireAuthorization,setRequestStatus,setRequestAuthStatus, setRequestOffersNear, setRequestActiveOffer} from './action';
+import {requireAuthorization,setRequestStatus,setAuthStatus, setRequestOffersNear, setRequestActiveOffer} from './action';
 import {fillOffers,fillActiveOffer,fillOffersNear,fillFavoriteOffer} from './action';
 import {userDefault,RequestStatus, errorEmpty} from '../const';
 import type {TInitialState} from '../types';
@@ -67,7 +67,8 @@ export const initialState : TInitialState = {
   requestStatus : RequestStatus.Idle,
   error: errorEmpty,
   user: userDefault,
-  isRequestAuth: false,
+//  isRequestAuth: false,
+  isAuth: false,
   isDownloadFavoriteOffers: false,
   isRequestActiveOffer: false,
   isRequestOffersNear: false,
@@ -112,8 +113,8 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(setError,(state,action) => {
       state.error = action.payload;
     })
-    .addCase(setRequestAuthStatus,(state,action) => {
-      state.isRequestAuth = action.payload;
+    .addCase(setAuthStatus,(state,action) => {
+      state.isAuth = action.payload;
     })
     .addCase(setRequestActiveOffer,(state,action) => {
       state.isRequestActiveOffer = action.payload;

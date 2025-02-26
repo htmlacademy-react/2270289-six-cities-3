@@ -1,12 +1,15 @@
 import { Link } from 'react-router-dom';
-import { AppRoute } from '../../const';
+import { AppRoute, userDefault } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { logoutAction } from '../../store/api-actions';
 
 export default function Header(): JSX.Element {
-  const user = useAppSelector((state) => state.user);
-  const isAuth = user.authorizationStatus;
-  const countFavoriteOffers = useAppSelector((state) => state.favoriteOffers.length);
+  const user = useAppSelector((state) => state.user ? state.user : userDefault);
+  //const isAuth = user.authorizationStatus;
+  const isAuth = useAppSelector((state) => state.isAuth);
+  const urlDefaultAvatar = 'img/logo.svg';
+
+  const countFavoriteOffers = useAppSelector((state) => state.favoriteOffers ? state.favoriteOffers.length : 0);
   const dispatch = useAppDispatch();
 
   return (
@@ -15,7 +18,7 @@ export default function Header(): JSX.Element {
         <div className="header__wrapper">
           <div className="header__left">
             <Link className="header__logo-link header__logo-link--active" to='/'>
-              <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41" />
+              <img className="header__logo" src={ isAuth ? user.avatarUrl : urlDefaultAvatar} alt="6 cities logo" width="81" height="41" />
             </Link>
           </div>
           <nav className="header__nav">
@@ -25,16 +28,16 @@ export default function Header(): JSX.Element {
                   <div className="header__avatar-wrapper user__avatar-wrapper">
                   </div>
                   <span className="header__user-name user__name">
-                    {((isAuth === 'AUTH') && user.email)}
+                    {((isAuth) && user.email)}
                   </span>
-                  {((isAuth === 'AUTH') && <span className="header__favorite-count">{countFavoriteOffers}</span>)}
+                  {((isAuth) && <span className="header__favorite-count">{countFavoriteOffers}</span>)}
                 </Link>
               </li>
               <li className="header__nav-item">
                 <Link className="header__nav-link" to={AppRoute.Login}
                   onClick={
                     (evt) => {
-                      if (isAuth === 'AUTH') {
+                      if (isAuth) {
                         evt.preventDefault();
                         dispatch(logoutAction());
                       }
@@ -42,9 +45,7 @@ export default function Header(): JSX.Element {
                   }
                 >
                   <span className="header__signout">
-                    {isAuth === 'AUTH' ?
-                      'Sign out' :
-                      'Sign in'}
+                    {isAuth ? 'Sign out' : 'Sign in'}
                   </span>
                 </Link>
               </li>
