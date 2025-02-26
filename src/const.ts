@@ -1,8 +1,8 @@
-import { type CityDestination, type CommentForOffer, type User, type errorRequestType } from './types';
+import type { TCity, CommentForOffer, TUser, TErrorRequest } from './types';
 
 export const TIMEOUT_SHOW_ERROR = 5000;
 
-export const citiesList: CityDestination[] = [
+export const citiesList: TCity[] = [
   {
     name: 'Paris',
     location: {
@@ -138,7 +138,7 @@ export const AuthData = {
   password: 'passEdord12d',
 };
 
-export const userDefault: User = {
+export const userDefault: TUser = {
   name: '',
   email: '',
   avatarUrl: '',
@@ -147,7 +147,7 @@ export const userDefault: User = {
   authorizationStatus: <string>AuthorizationStatus.NoAuth,
 };
 
-export const errorEmpty: errorRequestType = {
+export const errorEmpty: TErrorRequest = {
   status: 0,
   message: '',
 };
@@ -180,3 +180,26 @@ export const emptyComments: CommentForOffer[] = [{
     isPro: false,
   }
 }];
+
+export const RATINGS = [
+  {
+    value: 5,
+    title: 'perfect',
+  },
+  {
+    value: 4,
+    title: 'good',
+  },
+  {
+    value: 3,
+    title: 'not bad',
+  },
+  {
+    value: 2,
+    title: 'badly',
+  },
+  {
+    value: 1,
+    title: 'terribly',
+  },
+];

@@ -3,7 +3,7 @@ import {setCity,setCardActiveId,setCurrentSort,setFavoriteOfferStatus,setError, 
 import {requireAuthorization,setRequestStatus,setRequestAuthStatus, setRequestOffersNear, setRequestActiveOffer} from './action';
 import {fillOffers,fillActiveOffer,fillOffersNear,fillFavoriteOffer} from './action';
 import {userDefault,RequestStatus, errorEmpty} from '../const';
-import type {CommentForOffer, Offer,OfferPreview} from '../types';
+import type {TInitialState} from '../types';
 
 const cityDefault = {
   name: 'Paris',
@@ -14,6 +14,7 @@ const cityDefault = {
   }
 };
 
+/*
 export const initialState = {
   city : cityDefault,
   activeOffer: <Offer>{},
@@ -28,6 +29,46 @@ export const initialState = {
   error: errorEmpty,
   user: userDefault,
   isRequestAuth: false,
+  isRequestActiveOffer: false,
+  isRequestOffersNear: false,
+  isRequestCommentsByOffer: false,
+};
+*/
+/*
+type TInitialState = {
+  city : TCity,
+  activeOffer: Offer | null,
+  offers : OfferPreview[] | null,
+  offersNear: OfferPreview[] | null,
+  favoriteOffers: OfferPreview | null,
+  reviewsByOffer: CommentForOffer[] | null,
+  cardActiveId: string | null,
+  currentSort: 'Popular',
+  requestStatus : 'idle' | 'loading' | 'success' | 'failed',
+  error: TErrorRequest | null,
+  user: TUser | null,
+  isRequestAuth: false,
+  isDownloadFavoriteOffers: false,
+  isRequestActiveOffer: false,
+  isRequestOffersNear: false,
+  isRequestCommentsByOffer: false,
+};
+*/
+
+export const initialState : TInitialState = {
+  city : cityDefault,
+  activeOffer: null,
+  offers : null,
+  offersNear: null,
+  favoriteOffers: null,
+  reviewsByOffer: null,
+  cardActiveId: null,
+  currentSort: 'Popular',
+  requestStatus : RequestStatus.Idle,
+  error: errorEmpty,
+  user: userDefault,
+  isRequestAuth: false,
+  isDownloadFavoriteOffers: false,
   isRequestActiveOffer: false,
   isRequestOffersNear: false,
   isRequestCommentsByOffer: false,

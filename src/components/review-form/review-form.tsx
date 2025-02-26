@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useAppSelector } from '../../hooks/index.ts';
 import { ChangeEvent, Fragment, MouseEvent, useEffect, useRef, useState } from 'react';
 import { UserCommentWithID } from '../../types.ts';
+import { RATINGS } from '../../const.ts';
 
 type ReviewFormProps = {
   addComment : (comment: UserCommentWithID) => void;
@@ -16,7 +17,7 @@ export default function ReviewForm({addComment} : ReviewFormProps): JSX.Element 
     comment: ''
   };
 
-  const user = useAppSelector((state) => state.user);
+  //const user = useAppSelector((state) => state.user);
   const isRequestAuth = useAppSelector((state) => state.isRequestAuth);
 
   const textareaRef = useRef(null);
@@ -37,28 +38,7 @@ export default function ReviewForm({addComment} : ReviewFormProps): JSX.Element 
     setComment(evt.currentTarget.value);
   };
 
-  const RATINGS = [
-    {
-      value: 5,
-      title: 'perfect',
-    },
-    {
-      value: 4,
-      title: 'good',
-    },
-    {
-      value: 3,
-      title: 'not bad',
-    },
-    {
-      value: 2,
-      title: 'badly',
-    },
-    {
-      value: 1,
-      title: 'terribly',
-    },
-  ];
+
 
   const sendComment = () => {
     if ((id) && (rating) && (comment)) {
@@ -74,7 +54,7 @@ export default function ReviewForm({addComment} : ReviewFormProps): JSX.Element 
   if ((isRequestAuth) && (id)) {
     return (
       <form className="reviews__form form" action="#" method="post">
-        <label className="reviews__label form__label" htmlFor="review">{user.name}</label>
+        <label className="reviews__label form__label" htmlFor="review">Your reviews</label>
         <div className="reviews__rating-form form__rating">
           {
             RATINGS.map((item) => (

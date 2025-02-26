@@ -8,7 +8,7 @@ export type AuthData = {
   password: string;
 };
 
-type User = {
+type TUser = {
   name: string;
   email: string;
   avatarUrl: string;
@@ -25,15 +25,15 @@ export type UserData = {
   isPro: boolean;
 };
 
-type LocationPlace = {
+type TLocation = {
   latitude: number;
   longitude: number;
   zoom: number;
 };
 
-type CityDestination = {
+type TCity = {
   name: string;
-  location: LocationPlace;
+  location: TLocation;
 };
 
 type Hostel = {
@@ -49,8 +49,8 @@ type Offer = {
   title: string;
   type: string;
   price: number;
-  city: CityDestination;
-  location: LocationPlace;
+  city: TCity;
+  location: TLocation;
   isFavorite: boolean;
   isPremium: boolean;
   rating: number;
@@ -68,8 +68,8 @@ type OfferPreview = {
   type: string;
   price: number;
   previewImage: string;
-  city: CityDestination;
-  location: LocationPlace;
+  city: TCity;
+  location: TLocation;
   isFavorite: boolean;
   isPremium: boolean;
   rating: number;
@@ -98,11 +98,30 @@ type UserCommentWithID = {
   comment: string;
 };
 
-type Points = LocationPlace[];
+type Points = TLocation[];
 
-type errorRequestType = {
+type TErrorRequest = {
   status: number;
   message: string;
 }
 
-export type {Offer,OfferPreview,CommentForOffer,CityDestination, LocationPlace,Points,User,UserAuthData,errorRequestType,UserComment,UserCommentWithID};
+type TInitialState = {
+  city : TCity,
+  activeOffer: Offer | null,
+  offers : OfferPreview[] | null,
+  offersNear: OfferPreview[] | null,
+  favoriteOffers: OfferPreview [] | null,
+  reviewsByOffer: CommentForOffer[] | null,
+  cardActiveId: string | null,
+  currentSort: string | null,
+  requestStatus : string | null,
+  error: TErrorRequest | null,
+  user: TUser | null,
+  isRequestAuth: boolean,
+  isDownloadFavoriteOffers: boolean,
+  isRequestActiveOffer: boolean,
+  isRequestOffersNear: boolean,
+  isRequestCommentsByOffer: boolean,
+};
+
+export type {Offer,OfferPreview,CommentForOffer,TCity, TLocation,Points,TUser,UserAuthData,TErrorRequest,UserComment,UserCommentWithID,TInitialState};
