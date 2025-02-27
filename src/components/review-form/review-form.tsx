@@ -19,46 +19,83 @@ export const Rating = {
   InitState: 0,
 }
 
-const formData = {
-  rating: Rating.InitState,
-  comment: Comment.InitState,
-};
-
 export default function ReviewForm({ idOffer, addComment }: ReviewFormProps): JSX.Element {
 
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const inputsRef = useRef<HTMLInputElement[]>([]);
+  const buttonRef = useRef<HTMLButtonElement>(null)
 
-  const [rating, setRating] = useState(0);
-  const [comment, setComment] = useState('');
-  const [isFormSending, setIsFormSending] = useState(false)
-  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+  const formData = {
+    rating: Rating.InitState,
+    comment: Comment.InitState,
+    isValidateForm: false,
+    isFromSending: false,
+  }
+
+  const [rating, setRating] = useState(Rating.InitState);
+  const [comment, setComment] = useState(Comment.InitState);
+
+  useEffect(() => {
+    formData.rating = rating;
+    formData.comment = comment;
+    changeStatusButton();
+    console.log('formData',formData);
+  }, [rating,comment]);
+
+  useEffect(() => {
+    if (formData.isFromSending) {
+      if (buttonRef.current) {
+        buttonRef.current.disabled = true;
+      }
+    } else {
+      if (buttonRef.current) {
+        buttonRef.current.disabled = false;
+      }
+    }
+  },[formData.isFromSending])
 
   const changeStatusButton = () => {
-    if ((rating > Rating.InitState)
-      && (comment.length >= Comment.MinLength)
-      && (comment.length <= Comment.MaxLength)
+    console.log('formData.comment.length ',formData.comment.length);
+    if ((formData.rating > Rating.InitState)
+      && (formData.comment.length >= Comment.MinLength)
+      && (formData.comment.length <= Comment.MaxLength)
     ) {
-      setIsButtonDisabled(false);
+      if (buttonRef.current) {
+        buttonRef.current.disabled = false;
+        formData.isValidateForm = true;
+      }
     } else {
-      setIsButtonDisabled(true);
+      if (buttonRef.current) {
+        buttonRef.current.disabled = true;
+        formData.isValidateForm = false;
+      }
+    }
+  }
+
+  const changeToDefaultValues = () => {
+    setRating(Rating.InitState);
+    setComment(Comment.InitState);
+    formData.rating = Rating.InitState;
+    formData.comment = Comment.InitState;
+    formData.isValidateForm = false;
+    if (textareaRef.current) {
+      textareaRef.current.value = ''
+    }
+    for (let i=0; i< inputsRef.current.length; i++) {
+      inputsRef.current[i].checked = false;
+    }
+    if (buttonRef.current) {
+      buttonRef.current.disabled = true;
     }
   }
 
   const handleClickRating = (evt: MouseEvent<HTMLInputElement>) => {
     setRating(Number(evt.currentTarget.value));
-    changeStatusButton();
   };
 
   const handleChangeComment = (evt: ChangeEvent<HTMLTextAreaElement>) => {
     setComment(evt.currentTarget.value);
-    changeStatusButton();
   };
-
-  useEffect(() => {
-    formData.rating = rating;
-    formData.comment = comment;
-  }, [rating, comment, isButtonDisabled]);
 
   const sendComment = () => {
     if ((idOffer) && (formData.rating) && (formData.comment)) {
@@ -67,20 +104,10 @@ export default function ReviewForm({ idOffer, addComment }: ReviewFormProps): JS
         rating: formData.rating,
         comment: formData.comment,
       };
-      if (textareaRef.current) {
-        textareaRef.current.value = ''
-      }
-      for (let i=0; i< inputsRef.current.length; i++) {
-        inputsRef.current[i].checked = false;
-      }
-      formData.rating = 0;
-      formData.comment = '';
-      setRating(0);
-      setComment('');
-      setIsButtonDisabled(true);
-      setIsFormSending(true);
+      changeToDefaultValues();
+      formData.isFromSending = true;
       addComment(sentComment);
-      setIsFormSending(false);
+      formData.isFromSending = false;
     }
   };
 
@@ -115,7 +142,7 @@ export default function ReviewForm({ idOffer, addComment }: ReviewFormProps): JS
         id="review"
         name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
-        defaultValue={comment}
+        defaultValue = {formData.comment}
         ref={textareaRef}
         onChange={handleChangeComment}
       >
@@ -134,7 +161,8 @@ export default function ReviewForm({ idOffer, addComment }: ReviewFormProps): JS
           }}
           className="reviews__submit form__submit button"
           type="submit"
-          disabled={isButtonDisabled || isFormSending }
+          disabled={false}
+          ref = {buttonRef}
         >Submit
         </button>
       </div>
