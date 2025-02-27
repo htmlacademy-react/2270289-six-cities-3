@@ -1,8 +1,8 @@
-import type {OfferPreview} from '../../types.ts';
+import type {TOfferPreview} from '../../types.ts';
 import CardOffer from '../card-offer/card-offer.tsx';
 
 type ListOfferProps = {
-  listOffer: OfferPreview[];
+  listOffer: TOfferPreview[];
   variantCard : 'cities'|'favorite'|'near-places';
   //mouseMove: (id:string|null) => void;
 }

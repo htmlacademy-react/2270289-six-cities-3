@@ -1,9 +1,9 @@
 import Review from '../review/review';
-import { CommentForOffer} from '../../types';
+import { TCommentForOffer} from '../../types';
 
 type CommentListProps = {
   countAllComments : number;
-  commentsByOfferSorted : CommentForOffer[];
+  commentsByOfferSorted : TCommentForOffer[];
 }
 
 export default function ReviewList({countAllComments,commentsByOfferSorted}: CommentListProps): JSX.Element {

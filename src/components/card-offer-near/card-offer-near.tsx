@@ -1,7 +1,7 @@
-import type { OfferPreview } from '../../types';
+import type { TOfferPreview } from '../../types';
 
 type CardOfferNearProps = {
-  offer: OfferPreview;
+  offer: TOfferPreview;
 }
 
 export default function CardOfferNear({ offer }: CardOfferNearProps): JSX.Element {

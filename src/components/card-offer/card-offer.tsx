@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks/index.ts';
 import { setCardActiveId } from '../../store/action.ts';
-import type { OfferPreview } from '../../types.ts';
+import type { TOfferPreview } from '../../types.ts';
 import { convertRatingToStyleWidthPercent } from '../../utils.ts';
 
 type OfferProps = {
-  offer: OfferPreview;
+  offer: TOfferPreview;
   variantCard: 'cities' | 'favorite' | 'near-places';
 }
 

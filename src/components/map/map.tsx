@@ -5,13 +5,13 @@ import {Marker,Icon,layerGroup} from 'leaflet';
 import {URL_MARKER_DEFAULT, URL_MARKER_CURRENT } from '../../const';
 import 'leaflet/dist/leaflet.css';
 
-import type {TCity,OfferPreview, Offer } from '../../types';
+import type {TCity,TOfferPreview, TOffer } from '../../types';
 import { useAppSelector } from '../../hooks';
 
 type MapProps = {
   currentCity: TCity;
-  offers: OfferPreview[];
-  currentOffer: Offer | null;
+  offers: TOfferPreview[];
+  currentOffer: TOffer | null;
   typeMap : string;
 }
 

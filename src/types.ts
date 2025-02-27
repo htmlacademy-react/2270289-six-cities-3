@@ -1,9 +1,9 @@
-type UserAuthData = {
+type TUserAuthData = {
   email: string;
   password: string;
 };
 
-export type AuthData = {
+export type TAuthData = {
   login: string;
   password: string;
 };
@@ -17,7 +17,7 @@ type TUser = {
   //authorizationStatus: string;
 };
 
-export type UserData = {
+export type TUserData = {
   name: string;
   email: string;
   avatarUrl: string;
@@ -36,15 +36,15 @@ type TCity = {
   location: TLocation;
 };
 
-type Hostel = {
+type THostel = {
   name: string;
   avatarUrl: string;
   isPro: boolean;
 };
 
-type Images = string[];
+type TImages = string[];
 
-type Offer = {
+type TOffer = {
   id : string;
   title: string;
   type: string;
@@ -57,12 +57,12 @@ type Offer = {
   description: string;
   bedrooms: number;
   goods: string[];
-  host: Hostel;
-  images: Images;
+  host: THostel;
+  images: TImages;
   maxAdults: number;
 }
 
-type OfferPreview = {
+type TOfferPreview = {
   id : string;
   title: string;
   type: string;
@@ -75,7 +75,7 @@ type OfferPreview = {
   rating: number;
 }
 
-type CommentForOffer = {
+type TCommentForOffer = {
   id : string;
   comment: string;
   date: string;
@@ -87,18 +87,18 @@ type CommentForOffer = {
   };
 }
 
-type UserComment = {
+type TUserComment = {
   rating: number;
   comment: string;
 };
 
-type UserCommentWithID = {
+type TUserCommentWithID = {
   id: string;
   rating: number;
   comment: string;
 };
 
-type Points = TLocation[];
+type TPoints = TLocation[];
 
 type TErrorRequest = {
   status: number | null;
@@ -107,11 +107,11 @@ type TErrorRequest = {
 
 type TInitialState = {
   city : TCity;
-  activeOffer: Offer | null;
-  offers : OfferPreview[] | null;
-  offersNear: OfferPreview[] | null;
-  favoriteOffers: OfferPreview [] | null;
-  reviewsByOffer: CommentForOffer[] | null;
+  activeOffer: TOffer | null;
+  offers : TOfferPreview[] | null;
+  offersNear: TOfferPreview[] | null;
+  favoriteOffers: TOfferPreview [] | null;
+  reviewsByOffer: TCommentForOffer[] | null;
   cardActiveId: string | null;
   currentSort: string | null;
   requestStatus : string | null;
@@ -124,4 +124,4 @@ type TInitialState = {
   isRequestCommentsByOffer: boolean;
 };
 
-export type {Offer,OfferPreview,CommentForOffer,TCity, TLocation,Points,TUser,UserAuthData,TErrorRequest,UserComment,UserCommentWithID,TInitialState};
+export type {TOffer,TOfferPreview,TCommentForOffer,TCity, TLocation,TPoints,TUser,TUserAuthData,TErrorRequest,TUserComment,TUserCommentWithID,TInitialState};

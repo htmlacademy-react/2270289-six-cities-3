@@ -1,10 +1,10 @@
 import { ChangeEvent, Fragment, MouseEvent, useEffect, useRef, useState } from 'react';
-import { UserCommentWithID } from '../../types.ts';
+import { TUserCommentWithID } from '../../types.ts';
 import { RATINGS, Rating, Comment } from '../../const.ts';
 
 type ReviewFormProps = {
   idOffer: string | null;
-  addComment: (comment: UserCommentWithID) => void;
+  addComment: (comment: TUserCommentWithID) => void;
 }
 
 export default function ReviewForm({ idOffer, addComment }: ReviewFormProps): JSX.Element {

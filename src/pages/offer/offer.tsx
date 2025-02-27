@@ -12,7 +12,7 @@ import Page404 from '../404/page-404.tsx';
 
 import { fetchActiveOfferAction, fetchListCommentsByOffer, fetchOffersNearAction, sendCommentAction } from '../../store/api-actions.ts';
 import { typeMap, Comment } from '../../const';
-import { CommentForOffer, UserCommentWithID } from '../../types.ts';
+import { TCommentForOffer, TUserCommentWithID } from '../../types.ts';
 import { convertRatingToStyleWidthPercent } from '../../utils.ts';
 import { fillCommentsByOffer } from '../../store/action.ts';
 import { Helmet } from 'react-helmet-async';
@@ -45,10 +45,10 @@ export default function Offer(): JSX.Element {
     .slice(Comment.MinCount,Comment.MaxCount);
   const countAllComments = reviewsByOffer.length;
 
-  const addComment = (comment: UserCommentWithID): void => {
+  const addComment = (comment: TUserCommentWithID): void => {
     dispatch(sendCommentAction(comment))
       .then((response) => {
-        dispatch(fillCommentsByOffer([response.payload as CommentForOffer,...reviewsByOffer]));
+        dispatch(fillCommentsByOffer([response.payload as TCommentForOffer,...reviewsByOffer]));
       });
   };
 

@@ -1,9 +1,9 @@
-import type { CommentForOffer } from '../../types';
+import type { TCommentForOffer } from '../../types';
 import { convertRatingToStyleWidthPercent, dateToTypeFormat } from '../../utils';
 import { TYPE_FORMAT_DATE } from '../../utils';
 
 type CommentProps = {
-  comment: CommentForOffer;
+  comment: TCommentForOffer;
 }
 
 export default function Review({comment}: CommentProps): JSX.Element {
