@@ -1,6 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
-import {BrowserRouter} from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
+import HistoryRouter from '../routes/history-router.tsx';
+import browserHistory from '../browser-history.ts';
 
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../hooks/index.ts';
@@ -13,8 +14,6 @@ import Page404 from '../pages/404/page-404.tsx';
 import PrivateRoute from '../components/private-route/private-route.tsx';
 import { checkAuthAction } from '../store/api-actions.ts';
 
-//import HistoryRouter from '../routes/history-router.tsx';
-//import browserHistory from '../browser-history.ts';
 
 export default function App(): JSX.Element {
 
@@ -27,7 +26,7 @@ export default function App(): JSX.Element {
 
   return (
     <HelmetProvider>
-      <BrowserRouter>
+      <HistoryRouter history={browserHistory}>
 
         <Routes>
           <Route path={AppRoute.Main} element={<Main />} />
@@ -44,14 +43,8 @@ export default function App(): JSX.Element {
           <Route path='*' element={<Page404 />} />
         </Routes>
 
-      </BrowserRouter>
+      </HistoryRouter>
     </HelmetProvider>
   );
 
 }
-
-//<HistoryRouter history={browserHistory}>
-//</HistoryRouter>
-
-//
-//
