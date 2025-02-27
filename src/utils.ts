@@ -75,4 +75,4 @@ export const convertRatingToStyleWidthPercent = (rating : number) => {
   return {
     width: `${ratingToPercent}%`,
   };
-}
+};

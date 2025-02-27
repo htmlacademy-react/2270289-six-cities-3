@@ -11,39 +11,19 @@ export default function ReviewForm({ idOffer, addComment }: ReviewFormProps): JS
 
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const inputsRef = useRef<HTMLInputElement[]>([]);
-  const buttonRef = useRef<HTMLButtonElement>(null)
+  const buttonRef = useRef<HTMLButtonElement>(null);
 
   const formData = {
     rating: Rating.InitState,
     comment: Comment.InitState,
     isValidateForm: false,
     isFromSending: false,
-  }
+  };
 
   const [rating, setRating] = useState(Rating.InitState);
   const [comment, setComment] = useState(Comment.InitState);
 
-  useEffect(() => {
-    formData.rating = rating;
-    formData.comment = comment;
-    changeStatusButton();
-    console.log('formData',formData);
-  }, [rating,comment]);
-
-  useEffect(() => {
-    if (formData.isFromSending) {
-      if (buttonRef.current) {
-        buttonRef.current.disabled = true;
-      }
-    } else {
-      if (buttonRef.current) {
-        buttonRef.current.disabled = false;
-      }
-    }
-  },[formData.isFromSending])
-
   const changeStatusButton = () => {
-    console.log('formData.comment.length ',formData.comment.length);
     if ((formData.rating > Rating.InitState)
       && (formData.comment.length >= Comment.MinLength)
       && (formData.comment.length <= Comment.MaxLength)
@@ -58,7 +38,25 @@ export default function ReviewForm({ idOffer, addComment }: ReviewFormProps): JS
         formData.isValidateForm = false;
       }
     }
-  }
+  };
+
+  useEffect(() => {
+    formData.rating = rating;
+    formData.comment = comment;
+    changeStatusButton();
+  }, [rating, comment]);
+
+  useEffect(() => {
+    if (formData.isFromSending) {
+      if (buttonRef.current) {
+        buttonRef.current.disabled = true;
+      }
+    } else {
+      if (buttonRef.current) {
+        buttonRef.current.disabled = false;
+      }
+    }
+  }, [formData.isFromSending]);
 
   const changeToDefaultValues = () => {
     setRating(Rating.InitState);
@@ -67,15 +65,15 @@ export default function ReviewForm({ idOffer, addComment }: ReviewFormProps): JS
     formData.comment = Comment.InitState;
     formData.isValidateForm = false;
     if (textareaRef.current) {
-      textareaRef.current.value = ''
+      textareaRef.current.value = '';
     }
-    for (let i=0; i< inputsRef.current.length; i++) {
+    for (let i = 0; i < inputsRef.current.length; i++) {
       inputsRef.current[i].checked = false;
     }
     if (buttonRef.current) {
       buttonRef.current.disabled = true;
     }
-  }
+  };
 
   const handleClickRating = (evt: MouseEvent<HTMLInputElement>) => {
     setRating(Number(evt.currentTarget.value));
@@ -103,7 +101,7 @@ export default function ReviewForm({ idOffer, addComment }: ReviewFormProps): JS
     <form className="reviews__form form" action="#" method="post">
       <label className="reviews__label form__label" htmlFor="review">Your reviews</label>
       <div className="reviews__rating-form form__rating">
-        {RATINGS.map((item,index) => (
+        {RATINGS.map((item, index) => (
           <Fragment key={item.title}>
             <input className="form__rating-input visually-hidden"
               name="rating"
@@ -111,8 +109,10 @@ export default function ReviewForm({ idOffer, addComment }: ReviewFormProps): JS
               id={`${item.value}-stars`}
               type="radio"
               onClick={handleClickRating}
-              ref = {(element: HTMLInputElement) => inputsRef.current[index] = element }
-
+              ref={(element: HTMLInputElement) => {
+                inputsRef.current[index] = element;
+                return undefined;
+              }}
             />
             <label htmlFor={`${item.value}-stars`}
               className="reviews__rating-label form__rating-label"
@@ -123,14 +123,14 @@ export default function ReviewForm({ idOffer, addComment }: ReviewFormProps): JS
               </svg>
             </label>
           </Fragment>
-        ))
-        }
+        ))}
+
       </div>
       <textarea className="reviews__textarea form__textarea"
         id="review"
         name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
-        defaultValue = {formData.comment}
+        defaultValue={formData.comment}
         ref={textareaRef}
         onChange={handleChangeComment}
       >
@@ -150,7 +150,7 @@ export default function ReviewForm({ idOffer, addComment }: ReviewFormProps): JS
           className="reviews__submit form__submit button"
           type="submit"
           disabled={false}
-          ref = {buttonRef}
+          ref={buttonRef}
         >Submit
         </button>
       </div>

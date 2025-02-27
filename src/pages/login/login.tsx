@@ -24,11 +24,11 @@ export default function Login(): JSX.Element {
     }
   };
 
-   if (isAuth) {
-     return (
-       <Navigate to={AppRoute.Main} />
-     )
-   }
+  if (isAuth) {
+    return (
+      <Navigate to={AppRoute.Main} />
+    );
+  }
 
   return (
     <div className="page page--gray page--login">
@@ -80,5 +80,5 @@ export default function Login(): JSX.Element {
         </div>
       </main>
     </div>
-  )
+  );
 }

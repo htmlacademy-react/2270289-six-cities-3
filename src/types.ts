@@ -106,23 +106,22 @@ type TErrorRequest = {
 }
 
 type TInitialState = {
-  city : TCity,
-  activeOffer: Offer | null,
-  offers : OfferPreview[] | null,
-  offersNear: OfferPreview[] | null,
-  favoriteOffers: OfferPreview [] | null,
-  reviewsByOffer: CommentForOffer[] | null,
-  cardActiveId: string | null,
-  currentSort: string | null,
-  requestStatus : string | null,
-  error: TErrorRequest | null,
-  user: TUser | null,
-  //isRequestAuth: boolean,
-  isAuth: boolean,
-  isDownloadFavoriteOffers: boolean,
-  isRequestActiveOffer: boolean,
-  isRequestOffersNear: boolean,
-  isRequestCommentsByOffer: boolean,
+  city : TCity;
+  activeOffer: Offer | null;
+  offers : OfferPreview[] | null;
+  offersNear: OfferPreview[] | null;
+  favoriteOffers: OfferPreview [] | null;
+  reviewsByOffer: CommentForOffer[] | null;
+  cardActiveId: string | null;
+  currentSort: string | null;
+  requestStatus : string | null;
+  error: TErrorRequest | null;
+  user: TUser | null;
+  isAuth: boolean;
+  isDownloadFavoriteOffers: boolean;
+  isRequestActiveOffer: boolean;
+  isRequestOffersNear: boolean;
+  isRequestCommentsByOffer: boolean;
 };
 
 export type {Offer,OfferPreview,CommentForOffer,TCity, TLocation,Points,TUser,UserAuthData,TErrorRequest,UserComment,UserCommentWithID,TInitialState};

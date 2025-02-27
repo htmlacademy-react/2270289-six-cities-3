@@ -3,7 +3,7 @@ import {AxiosInstance,AxiosError} from 'axios';
 import {getToken,AUTH_TOKEN_KEY} from './token';
 
 import { processErrorHandle } from './process-error-handle';
-import { errorRequestType } from '../types';
+import { TErrorRequest } from '../types';
 
 const enum DefaultConnect {
   BaseUrl = 'https://15.design.htmlacademy.pro/six-cities',
@@ -36,7 +36,7 @@ export const createApi = () : AxiosInstance => {
     (response) => response,
     (error: AxiosError<DetailMessageType>) => {
       if (error.response) {
-        const errorRequest : errorRequestType = {
+        const errorRequest : TErrorRequest = {
           status : error.response.status,
           message: error.response.data.message,
         };

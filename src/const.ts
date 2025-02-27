@@ -210,8 +210,8 @@ export const Comment = {
   MaxLength: 300,
   MinCount: 0,
   MaxCount: 10,
-}
+};
 
 export const Rating = {
   InitState: 0,
-}
+};
