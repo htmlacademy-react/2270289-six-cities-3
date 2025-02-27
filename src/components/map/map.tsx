@@ -69,7 +69,7 @@ export default function Map({currentCity, offers, currentOffer, typeMap} : MapPr
         map.removeLayer(markerLayer);
       };
     }
-  }, [map, currentCity, cardActiveId]);
+  }, [map, currentCity, cardActiveId, currentOffer]);
 
   return(
     <section className={classNameByTypeMap} ref={mapRef} id={currentCity.name}>

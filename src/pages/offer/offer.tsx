@@ -12,14 +12,11 @@ import Page404 from '../404/page-404.tsx';
 
 import { fetchActiveOfferAction, fetchListCommentsByOffer, fetchOffersNearAction, sendCommentAction } from '../../store/api-actions.ts';
 import { typeMap, Comment } from '../../const';
-//import { emptyComments } from '../../const';
 import { CommentForOffer, UserCommentWithID } from '../../types.ts';
 import { convertRatingToStyleWidthPercent } from '../../utils.ts';
 import { fillCommentsByOffer } from '../../store/action.ts';
 
 export default function Offer(): JSX.Element {
-
-  //const [comments, setComments] = useState(emptyComments);
 
   const currentCity = useAppSelector((state) => state.city);
   const dispatch = useAppDispatch();
@@ -47,18 +44,9 @@ export default function Offer(): JSX.Element {
     .slice(Comment.MinCount,Comment.MaxCount);
   const countAllComments = reviewsByOffer.length;
 
-
-  // useEffect(() => {
-  //   if (requestCommentsByOffer) {
-  //     setComments(reviewsByOffer);
-  //   }
-  // }, [requestCommentsByOffer]);
-
-
   const addComment = (comment: UserCommentWithID): void => {
     dispatch(sendCommentAction(comment))
       .then((response) => {
-        //setComments([...comments, response.payload as CommentForOffer]);
         dispatch(fillCommentsByOffer([response.payload as CommentForOffer,...reviewsByOffer]));
       });
   };
