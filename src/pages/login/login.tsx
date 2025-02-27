@@ -6,6 +6,7 @@ import { loginAction } from '../../store/api-actions';
 import { AuthData } from '../../const';
 import { AppRoute } from '../../const';
 import ErrorMessage from '../../components/error-message/error-message';
+import { Helmet } from 'react-helmet-async';
 
 export default function Login(): JSX.Element {
 
@@ -32,6 +33,9 @@ export default function Login(): JSX.Element {
 
   return (
     <div className="page page--gray page--login">
+      <Helmet>
+        <title>6 cities - Login Page</title>
+      </Helmet>
       <ErrorMessage />
       <header className="header">
         <div className="container">

@@ -15,6 +15,7 @@ import { typeMap, Comment } from '../../const';
 import { CommentForOffer, UserCommentWithID } from '../../types.ts';
 import { convertRatingToStyleWidthPercent } from '../../utils.ts';
 import { fillCommentsByOffer } from '../../store/action.ts';
+import { Helmet } from 'react-helmet-async';
 
 export default function Offer(): JSX.Element {
 
@@ -76,6 +77,9 @@ export default function Offer(): JSX.Element {
 
   return (
     <div className="page">
+      <Helmet>
+        <title>6 cities - Offer Page</title>
+      </Helmet>
       <Header />
 
       <main className="page__main page__main--offer" >

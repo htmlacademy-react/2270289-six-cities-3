@@ -76,5 +76,3 @@ export default function Map({currentCity, offers, currentOffer, typeMap} : MapPr
     </section>
   );
 }
-
-// <section className="offer__map map" ref={mapRef} ></section>

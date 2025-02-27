@@ -11,6 +11,7 @@ import { selectorSortedListOffer } from '../../store/selectors.ts';
 import { fetchOffersAction } from '../../store/api-actions.ts';
 
 import { RequestStatus, typeMap } from '../../const.ts';
+import { Helmet } from 'react-helmet-async';
 
 export default function Main(): JSX.Element {
 
@@ -50,6 +51,9 @@ export default function Main(): JSX.Element {
 
   return (
     <div className="page page--gray page--main">
+      <Helmet>
+        <title>6 cities</title>
+      </Helmet>
       <Header />
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
