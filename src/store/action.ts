@@ -1,14 +1,14 @@
 import {createAction} from '@reduxjs/toolkit';
 import {ActionType} from '../const';
-import type {CommentForOffer, Offer,OfferPreview,TCity,TUser, TErrorRequest} from '../types';
+import type {TCommentForOffer, TOffer,TOfferPreview,TCity,TUser, TErrorRequest} from '../types';
 
 export const setCity = createAction<TCity>(ActionType.SetCity);
 
-export const fillOffers = createAction<OfferPreview[]>(ActionType.FillOffers);
-export const fillActiveOffer = createAction<Offer>(ActionType.FillActiveOffer);
-export const fillCommentsByOffer = createAction<CommentForOffer[]>(ActionType.FillCommentsByOffer);
-export const fillOffersNear = createAction<OfferPreview[]>(ActionType.FillOffersNear);
-export const fillFavoriteOffer = createAction<OfferPreview[]>(ActionType.FillFavoriteOffer);
+export const fillOffers = createAction<TOfferPreview[]>(ActionType.FillOffers);
+export const fillActiveOffer = createAction<TOffer>(ActionType.FillActiveOffer);
+export const fillCommentsByOffer = createAction<TCommentForOffer[]>(ActionType.FillCommentsByOffer);
+export const fillOffersNear = createAction<TOfferPreview[]>(ActionType.FillOffersNear);
+export const fillFavoriteOffer = createAction<TOfferPreview[]>(ActionType.FillFavoriteOffer);
 
 export const setFavoriteOfferStatus = createAction<boolean>(ActionType.SetFavoriteOfferStatus);
 export const setCardActiveId = createAction<string>(ActionType.SetCardActiveId);

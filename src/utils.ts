@@ -1,5 +1,5 @@
 import { typeCard } from './const';
-import type { OfferPreview } from './types';
+import type { TOfferPreview } from './types';
 import { SORT_OPTIONS, SortOption } from './const';
 
 export const TYPE_FORMAT_DATE = {
@@ -52,7 +52,7 @@ function getClassCardByType(type: string) {
   }
 }
 
-const getSortedListOffer = (currentSort: string, listOffer: OfferPreview[]) => {
+const getSortedListOffer = (currentSort: string, listOffer: TOfferPreview[]) => {
   const sortedListOffer = [...listOffer];
 
   switch (currentSort) {
