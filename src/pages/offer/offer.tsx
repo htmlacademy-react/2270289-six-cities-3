@@ -86,8 +86,7 @@ export default function Offer(): JSX.Element {
         <section className="offer">
           <div className="offer__gallery-container container">
             <div className="offer__gallery">
-              {(requestActiveOfferStatus) &&
-                (currentOffer.images.map((urlImage) => (
+              {(currentOffer.images.map((urlImage) => (
                   <div className="offer__image-wrapper" key={urlImage}>
                     <img className="offer__image" src={urlImage} alt="Photo studio" />
                   </div>
@@ -98,11 +97,11 @@ export default function Offer(): JSX.Element {
           <div className="offer__container container">
             <div className="offer__wrapper">
               <div className="offer__mark">
-                {(requestActiveOfferStatus) && ((currentOffer.isPremium) ? <span>Premium</span> : '')}
+                {(currentOffer.isPremium) && (<span>Premium</span>)}
               </div>
               <div className="offer__name-wrapper">
                 <h1 className="offer__name">
-                  {(requestActiveOfferStatus) && currentOffer.title}
+                  {currentOffer.title}
                 </h1>
                 <button className="offer__bookmark-button button" type="button">
                   <svg className="offer__bookmark-icon" width="31" height="33">
@@ -118,18 +117,18 @@ export default function Offer(): JSX.Element {
                   <span className="visually-hidden">Rating</span>
                 </div>
                 <span className="offer__rating-value rating__value">
-                  {(requestActiveOfferStatus) && currentOffer.rating}
+                  {currentOffer.rating}
                 </span>
               </div>
               <ul className="offer__features">
                 <li className="offer__feature offer__feature--entire">
-                  {(requestActiveOfferStatus) && currentOffer.type}
+                  {currentOffer.type}
                 </li>
                 <li className="offer__feature offer__feature--bedrooms">
-                  {(requestActiveOfferStatus) && `${currentOffer.bedrooms} Bedrooms`}
+                  {`${currentOffer.bedrooms} Bedrooms`}
                 </li>
                 <li className="offer__feature offer__feature--adults">
-                  {(requestActiveOfferStatus) && `Max ${currentOffer.maxAdults} adults`}
+                  {`Max ${currentOffer.maxAdults} adults`}
                 </li>
               </ul>
               <div className="offer__price">
@@ -139,7 +138,7 @@ export default function Offer(): JSX.Element {
               <div className="offer__inside">
                 <h2 className="offer__inside-title">What&apos;s inside</h2>
                 <ul className="offer__inside-list">
-                  {(requestActiveOfferStatus) && currentOffer.goods.map((itemGood) => (
+                  {currentOffer.goods.map((itemGood) => (
                     <li className="offer__inside-item" key={itemGood}>
                       {itemGood}
                     </li>)
@@ -151,20 +150,20 @@ export default function Offer(): JSX.Element {
                 <div className="offer__host-user user">
                   <div className="offer__avatar-wrapper offer__avatar-wrapper--pro user__avatar-wrapper">
                     <img className="offer__avatar user__avatar"
-                      src={(requestActiveOfferStatus) ? (currentOffer.host.avatarUrl) : ''}
+                      src={currentOffer.host.avatarUrl}
                       width="74" height="74" alt="Host avatar"
                     />
                   </div>
                   <span className="offer__user-name">
-                    {(requestActiveOfferStatus) && currentOffer.host.name}
+                    {currentOffer.host.name}
                   </span>
                   <span className="offer__user-status">
-                    {(requestActiveOfferStatus) && ((currentOffer.host.isPro) ? 'Pro' : '')}
+                    {(currentOffer.host.isPro) && ('Pro')}
                   </span>
                 </div>
                 <div className="offer__description">
                   <p className="offer__text">
-                    {(requestActiveOfferStatus) && currentOffer.description}
+                    {currentOffer.description}
                   </p>
                 </div>
               </div>
@@ -172,7 +171,7 @@ export default function Offer(): JSX.Element {
 
                 <ReviewList commentsByOffer={comments} />
 
-                {(requestActiveOfferStatus) && ((isAuth) && <ReviewForm addComment={addComment} />)}
+                {(isAuth) && (<ReviewForm addComment={addComment} idOffer = {(id) ? id : null} />)}
               </section>
             </div>
           </div>
