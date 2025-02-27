@@ -124,4 +124,10 @@ type TInitialState = {
   isRequestCommentsByOffer: boolean;
 };
 
-export type {TOffer,TOfferPreview,TCommentForOffer,TCity, TLocation,TPoints,TUser,TUserAuthData,TErrorRequest,TUserComment,TUserCommentWithID,TInitialState};
+type TOfferFavoriteStatus = {
+  idOffer: string;
+  status : 1 | 0 ;
+}
+
+export type {TOffer,TOfferPreview,TCommentForOffer,TCity, TLocation,TPoints,TUser,TUserAuthData,TErrorRequest,};
+export type {TUserComment,TUserCommentWithID,TInitialState,TOfferFavoriteStatus};

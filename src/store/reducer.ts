@@ -1,5 +1,5 @@
 import {createReducer} from '@reduxjs/toolkit';
-import {setCity,setCardActiveId,setCurrentSort,setFavoriteOfferStatus,setError, setRequestCommentsByOffer, fillCommentsByOffer} from './action';
+import {setCity,setCardActiveId,setCurrentSort,setFavoriteOfferStatus,setError, setRequestCommentsByOffer, fillCommentsByOffer, changeStatusFavorite} from './action';
 import {requireAuthorization,setRequestStatus,setAuthStatus, setRequestOffersNear, setRequestActiveOffer} from './action';
 import {fillOffers,fillActiveOffer,fillOffersNear,fillFavoriteOffer} from './action';
 import {userDefault,RequestStatus, errorEmpty} from '../const';
@@ -82,7 +82,14 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setRequestCommentsByOffer ,(state,action) => {
       state.isRequestCommentsByOffer = action.payload;
+    })
+
+    .addCase(changeStatusFavorite ,(state,action) => {
+
+      //state.isRequestCommentsByOffer = action.payload.;
     });
+
+
 });
 
 export {reducer};

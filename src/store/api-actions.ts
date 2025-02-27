@@ -20,14 +20,6 @@ export const checkAuthAction = createAsyncThunk<void, undefined, {
   async (_arg, {dispatch, extra: api}) => {
     try {
       const {data} = await api.get<TUser>(ApiRoute.Login);
-      // const user: TUser = {
-      //   name: data.name,
-      //   email: data.email,
-      //   avatarUrl: data.avatarUrl,
-      //   isPro: data.isPro,
-      //   token: data.token,
-      //   authorizationStatus : AuthorizationStatus.Auth,
-      // };
       dispatch(setAuthStatus(false));
       dispatch(requireAuthorization(data));
       dispatch(setAuthStatus(true));
@@ -54,6 +46,21 @@ export const sendCommentAction = createAsyncThunk<TUserComment,{
       comment: comment,
     };
     const {data} = await api.post<TUserComment>(path,sentComment);
+    return data;
+  }
+);
+
+export const sendChangedStatusFavoriteAction = createAsyncThunk<TOffer,{
+  id:string;
+  status:number;
+},{
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>('comment/sendComment',
+  async ({id,status},{ extra:api}) => {
+    const path = `${ApiRoute.Favorite}/${id}/status`;
+    const {data} = await api.post<TOffer>(path,status);
     return data;
   }
 );

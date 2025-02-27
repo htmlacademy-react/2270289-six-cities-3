@@ -1,6 +1,6 @@
 import {createAction} from '@reduxjs/toolkit';
 import {ActionType} from '../const';
-import type {TCommentForOffer, TOffer,TOfferPreview,TCity,TUser, TErrorRequest} from '../types';
+import type {TCommentForOffer, TOffer,TOfferPreview,TCity,TUser, TErrorRequest, TOfferFavoriteStatus} from '../types';
 
 export const setCity = createAction<TCity>(ActionType.SetCity);
 
@@ -24,3 +24,5 @@ export const setAuthStatus = createAction<boolean>(ActionType.SetAuthStatus);
 export const setRequestActiveOffer = createAction<boolean>(ActionType.SetRequestActiveOffer);
 export const setRequestOffersNear = createAction<boolean>(ActionType.SetRequestOffersNear);
 export const setRequestCommentsByOffer = createAction<boolean>(ActionType.SetRequestCommentsByOffer);
+
+export const changeStatusFavorite = createAction<TOfferFavoriteStatus>(ActionType.ChangeStatusFavorite);

@@ -1,4 +1,4 @@
-import type { TCity, CommentForOffer, TUser, TErrorRequest } from './types';
+import type { TCity, TCommentForOffer, TUser, TErrorRequest } from './types';
 
 export const TIMEOUT_SHOW_ERROR = 5000;
 
@@ -102,6 +102,8 @@ export const enum ActionType {
   SetRequestActiveOffer = 'data/SetRequestActiveOffer',
   SetRequestOffersNear = 'data/setRequestOffersNear',
   SetRequestCommentsByOffer = 'data/setRequestCommentsByOffer',
+
+  ChangeStatusFavorite = 'data/changeStatusFavorite',
 }
 
 export const RequestStatus = {
@@ -157,7 +159,7 @@ export const typeMap = {
   offer: 'offer__map',
 };
 
-export const emptyComment: CommentForOffer = {
+export const emptyComment: TCommentForOffer = {
   id: '',
   comment: '',
   date: '',
@@ -169,7 +171,7 @@ export const emptyComment: CommentForOffer = {
   }
 };
 
-export const emptyComments: CommentForOffer[] = [{
+export const emptyComments: TCommentForOffer[] = [{
   id: '',
   comment: '',
   date: '',
