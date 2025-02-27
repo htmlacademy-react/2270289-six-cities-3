@@ -1,22 +1,10 @@
 import { ChangeEvent, Fragment, MouseEvent, useEffect, useRef, useState } from 'react';
 import { UserCommentWithID } from '../../types.ts';
-import { RATINGS } from '../../const.ts';
+import { RATINGS, Rating, Comment } from '../../const.ts';
 
 type ReviewFormProps = {
   idOffer: string | null;
   addComment: (comment: UserCommentWithID) => void;
-}
-
-const Comment = {
-  InitState: '',
-  MinLength: 50,
-  MaxLength: 300,
-  MinCount: 0,
-  MaxCount: 10,
-}
-
-export const Rating = {
-  InitState: 0,
 }
 
 export default function ReviewForm({ idOffer, addComment }: ReviewFormProps): JSX.Element {

@@ -203,3 +203,15 @@ export const RATINGS = [
     title: 'terribly',
   },
 ];
+
+export const Comment = {
+  InitState: '',
+  MinLength: 50,
+  MaxLength: 300,
+  MinCount: 0,
+  MaxCount: 10,
+}
+
+export const Rating = {
+  InitState: 0,
+}

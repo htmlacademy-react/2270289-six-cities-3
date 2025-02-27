@@ -11,7 +11,7 @@ import LoadingScreen from '../loading-screen/loading-screen.tsx';
 import Page404 from '../404/page-404.tsx';
 
 import { fetchActiveOfferAction, fetchListCommentsByOffer, fetchOffersNearAction, sendCommentAction } from '../../store/api-actions.ts';
-import { emptyComments, typeMap } from '../../const';
+import { emptyComments, typeMap, Comment } from '../../const';
 import { CommentForOffer, UserCommentWithID } from '../../types.ts';
 import { convertRatingToStyleWidthPercent } from '../../utils.ts';
 
@@ -38,8 +38,12 @@ export default function Offer(): JSX.Element {
   const requestCommentsByOffer = useAppSelector((state) => state.isRequestCommentsByOffer);
 
   const currentOffer = useAppSelector((state) => state.activeOffer);
-  const nearOffers = useAppSelector((state) => state.offersNear ? state.offersNear : []).slice(0,3);
+  const nearOffers = useAppSelector((state) => state.offersNear ? state.offersNear : []).slice(0, 3);
   const reviewsByOffer = useAppSelector((state) => state.reviewsByOffer ? state.reviewsByOffer : []);
+  const reviewsByOfferSorted = reviewsByOffer
+    .toSorted((a, b) => Date.parse(b.date) - Date.parse(a.date))
+    .slice(Comment.MinCount,Comment.MaxCount);
+
 
   useEffect(() => {
     if (requestCommentsByOffer) {
@@ -87,11 +91,11 @@ export default function Offer(): JSX.Element {
           <div className="offer__gallery-container container">
             <div className="offer__gallery">
               {(currentOffer.images.map((urlImage) => (
-                  <div className="offer__image-wrapper" key={urlImage}>
-                    <img className="offer__image" src={urlImage} alt="Photo studio" />
-                  </div>
-                )
-                ))}
+                <div className="offer__image-wrapper" key={urlImage}>
+                  <img className="offer__image" src={urlImage} alt="Photo studio" />
+                </div>
+              )
+              ))}
             </div>
           </div>
           <div className="offer__container container">
@@ -169,9 +173,9 @@ export default function Offer(): JSX.Element {
               </div>
               <section className="offer__reviews reviews">
 
-                <ReviewList commentsByOffer={comments} />
+                <ReviewList commentsByOfferSorted = {comments} countAllComments = {0} />
 
-                {(isAuth) && (<ReviewForm addComment={addComment} idOffer = {(id) ? id : null} />)}
+                {(isAuth) && (<ReviewForm addComment={addComment} idOffer={(id) ? id : null} />)}
               </section>
             </div>
           </div>
