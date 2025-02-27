@@ -14,47 +14,6 @@ const cityDefault = {
   }
 };
 
-/*
-export const initialState = {
-  city : cityDefault,
-  activeOffer: <Offer>{},
-  offers : <OfferPreview[]>[],
-  offersNear: <OfferPreview[]>[],
-  favoriteOffers: <OfferPreview[]>[],
-  isDownloadFavoriteOffers: false,
-  reviewsByOffer: <CommentForOffer[]>[],
-  cardActiveId: '',
-  currentSort: 'Popular',
-  requestStatus : RequestStatus.Idle,
-  error: errorEmpty,
-  user: userDefault,
-  isRequestAuth: false,
-  isRequestActiveOffer: false,
-  isRequestOffersNear: false,
-  isRequestCommentsByOffer: false,
-};
-*/
-/*
-type TInitialState = {
-  city : TCity,
-  activeOffer: Offer | null,
-  offers : OfferPreview[] | null,
-  offersNear: OfferPreview[] | null,
-  favoriteOffers: OfferPreview | null,
-  reviewsByOffer: CommentForOffer[] | null,
-  cardActiveId: string | null,
-  currentSort: 'Popular',
-  requestStatus : 'idle' | 'loading' | 'success' | 'failed',
-  error: TErrorRequest | null,
-  user: TUser | null,
-  isRequestAuth: false,
-  isDownloadFavoriteOffers: false,
-  isRequestActiveOffer: false,
-  isRequestOffersNear: false,
-  isRequestCommentsByOffer: false,
-};
-*/
-
 export const initialState : TInitialState = {
   city : cityDefault,
   activeOffer: null,
@@ -67,7 +26,6 @@ export const initialState : TInitialState = {
   requestStatus : RequestStatus.Idle,
   error: errorEmpty,
   user: userDefault,
-//  isRequestAuth: false,
   isAuth: false,
   isDownloadFavoriteOffers: false,
   isRequestActiveOffer: false,
@@ -125,11 +83,6 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(setRequestCommentsByOffer ,(state,action) => {
       state.isRequestCommentsByOffer = action.payload;
     });
-
-    // .addCase(addNewComment,(state,action) => {
-    //   console.log(action.payload);
-    //   state.reviewsByOffer = action.payload;
-    // });
 });
 
 export {reducer};

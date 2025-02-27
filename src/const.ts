@@ -102,8 +102,6 @@ export const enum ActionType {
   SetRequestActiveOffer = 'data/SetRequestActiveOffer',
   SetRequestOffersNear = 'data/setRequestOffersNear',
   SetRequestCommentsByOffer = 'data/setRequestCommentsByOffer',
-
-  AddNewComment = 'data/addNewComment',
 }
 
 export const RequestStatus = {

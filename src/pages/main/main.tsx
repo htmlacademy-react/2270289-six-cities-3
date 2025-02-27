@@ -82,8 +82,3 @@ export default function Main(): JSX.Element {
     </div>
   );
 }
-
-/*
-(requestStatus === RequestStatus.Loading) ?
-          <LoadingScreen /> :
-*/
