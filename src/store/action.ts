@@ -24,3 +24,7 @@ export const setAuthStatus = createAction<boolean>(ActionType.SetAuthStatus);
 export const setRequestActiveOffer = createAction<boolean>(ActionType.SetRequestActiveOffer);
 export const setRequestOffersNear = createAction<boolean>(ActionType.SetRequestOffersNear);
 export const setRequestCommentsByOffer = createAction<boolean>(ActionType.SetRequestCommentsByOffer);
+
+//export const addNewComment = createAction<CommentForOffer[]>(ActionType.SetRequestCommentsByOffer);
+
+

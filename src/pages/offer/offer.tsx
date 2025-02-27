@@ -11,13 +11,15 @@ import LoadingScreen from '../loading-screen/loading-screen.tsx';
 import Page404 from '../404/page-404.tsx';
 
 import { fetchActiveOfferAction, fetchListCommentsByOffer, fetchOffersNearAction, sendCommentAction } from '../../store/api-actions.ts';
-import { emptyComments, typeMap, Comment } from '../../const';
+import { typeMap, Comment } from '../../const';
+//import { emptyComments } from '../../const';
 import { CommentForOffer, UserCommentWithID } from '../../types.ts';
 import { convertRatingToStyleWidthPercent } from '../../utils.ts';
+import { fillCommentsByOffer } from '../../store/action.ts';
 
 export default function Offer(): JSX.Element {
 
-  const [comments, setComments] = useState(emptyComments);
+  //const [comments, setComments] = useState(emptyComments);
 
   const currentCity = useAppSelector((state) => state.city);
   const dispatch = useAppDispatch();
@@ -43,19 +45,21 @@ export default function Offer(): JSX.Element {
   const reviewsByOfferSorted = reviewsByOffer
     .toSorted((a, b) => Date.parse(b.date) - Date.parse(a.date))
     .slice(Comment.MinCount,Comment.MaxCount);
+  const countAllComments = reviewsByOffer.length;
 
 
-  useEffect(() => {
-    if (requestCommentsByOffer) {
-      setComments(reviewsByOffer);
-    }
-  }, [requestCommentsByOffer]);
+  // useEffect(() => {
+  //   if (requestCommentsByOffer) {
+  //     setComments(reviewsByOffer);
+  //   }
+  // }, [requestCommentsByOffer]);
 
 
   const addComment = (comment: UserCommentWithID): void => {
     dispatch(sendCommentAction(comment))
       .then((response) => {
-        setComments([...comments, response.payload as CommentForOffer]);
+        //setComments([...comments, response.payload as CommentForOffer]);
+        dispatch(fillCommentsByOffer([response.payload as CommentForOffer,...reviewsByOffer]));
       });
   };
 
@@ -173,7 +177,7 @@ export default function Offer(): JSX.Element {
               </div>
               <section className="offer__reviews reviews">
 
-                <ReviewList commentsByOfferSorted = {comments} countAllComments = {0} />
+                <ReviewList commentsByOfferSorted = {reviewsByOfferSorted} countAllComments = {countAllComments} />
 
                 {(isAuth) && (<ReviewForm addComment={addComment} idOffer={(id) ? id : null} />)}
               </section>

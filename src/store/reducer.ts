@@ -125,6 +125,11 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(setRequestCommentsByOffer ,(state,action) => {
       state.isRequestCommentsByOffer = action.payload;
     });
+
+    // .addCase(addNewComment,(state,action) => {
+    //   console.log(action.payload);
+    //   state.reviewsByOffer = action.payload;
+    // });
 });
 
 export {reducer};
