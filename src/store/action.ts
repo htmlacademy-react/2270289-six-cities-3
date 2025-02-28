@@ -25,4 +25,11 @@ export const setRequestActiveOffer = createAction<boolean>(ActionType.SetRequest
 export const setRequestOffersNear = createAction<boolean>(ActionType.SetRequestOffersNear);
 export const setRequestCommentsByOffer = createAction<boolean>(ActionType.SetRequestCommentsByOffer);
 
-export const changeStatusFavorite = createAction<TOfferFavoriteStatus>(ActionType.ChangeStatusFavorite);
+export const changeStatusFavoriteInOffers = createAction<TOfferFavoriteStatus>(ActionType.ChangeStatusFavoriteInOffers);
+export const changeStatusFavoriteInOffersNear = createAction<TOfferFavoriteStatus>(ActionType.ChangeStatusFavoriteInOffersNear);
+export const changeStatusFavoriteInCurrentOffer = createAction<TOfferFavoriteStatus>(ActionType.ChangeStatusFavoriteInCurrentOffer);
+export const changeStatusFavoriteInFavoriteOffers = createAction<TOfferPreview>(ActionType.ChangeStatusFavoriteInFavoriteOffers);
+
+
+
+

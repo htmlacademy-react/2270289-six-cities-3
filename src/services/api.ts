@@ -40,6 +40,7 @@ export const createApi = () : AxiosInstance => {
           status : error.response.status,
           message: error.response.data.message,
         };
+        console.log(errorRequest);
         processErrorHandle(errorRequest);
       }
       throw error;

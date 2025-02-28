@@ -103,7 +103,11 @@ export const enum ActionType {
   SetRequestOffersNear = 'data/setRequestOffersNear',
   SetRequestCommentsByOffer = 'data/setRequestCommentsByOffer',
 
-  ChangeStatusFavorite = 'data/changeStatusFavorite',
+  ChangeStatusFavoriteInOffers = 'data/changeStatusFavoriteInOffers',
+  ChangeStatusFavoriteInOffersNear = 'data/changeStatusFavoriteInOffersNear',
+  ChangeStatusFavoriteInCurrentOffer = 'data/changeStatusFavoriteInCurrentOffer',
+  ChangeStatusFavoriteInFavoriteOffers = 'data/changeStatusFavoriteInFavoriteOffers',
+
 }
 
 export const RequestStatus = {

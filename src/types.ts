@@ -125,8 +125,8 @@ type TInitialState = {
 };
 
 type TOfferFavoriteStatus = {
-  idOffer: string;
-  status : 1 | 0 ;
+  id: string;
+  status : number;
 }
 
 export type {TOffer,TOfferPreview,TCommentForOffer,TCity, TLocation,TPoints,TUser,TUserAuthData,TErrorRequest,};

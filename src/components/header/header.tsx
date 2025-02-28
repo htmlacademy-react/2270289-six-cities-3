@@ -5,10 +5,9 @@ import { logoutAction } from '../../store/api-actions';
 
 export default function Header(): JSX.Element {
   const user = useAppSelector((state) => state.user ? state.user : userDefault);
-  //const isAuth = user.authorizationStatus;
   const isAuth = useAppSelector((state) => state.isAuth);
 
-  const countFavoriteOffers = useAppSelector((state) => state.favoriteOffers ? state.favoriteOffers.length : 0);
+  const favoriteOffers = useAppSelector((state) => state.favoriteOffers ? state.favoriteOffers : []);
   const dispatch = useAppDispatch();
 
   return (
@@ -30,7 +29,7 @@ export default function Header(): JSX.Element {
                   <span className="header__user-name user__name">
                     {((isAuth) && user.email)}
                   </span>
-                  {((isAuth) && <span className="header__favorite-count">{countFavoriteOffers}</span>)}
+                  {((isAuth) && <span className="header__favorite-count">{favoriteOffers.length}</span>)}
                 </Link>
               </li>
               <li className="header__nav-item">

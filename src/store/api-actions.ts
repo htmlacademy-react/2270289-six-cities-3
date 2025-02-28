@@ -1,7 +1,7 @@
 import {AxiosInstance } from 'axios';
 import {createAsyncThunk } from '@reduxjs/toolkit';
 import type {AppDispatch,State } from '../hooks';
-import {fillOffers,fillActiveOffer,fillFavoriteOffer,fillOffersNear,fillCommentsByOffer} from './action';
+import {fillOffers,fillActiveOffer,fillFavoriteOffer,fillOffersNear,fillCommentsByOffer, changeStatusFavoriteInFavoriteOffers} from './action';
 import {requireAuthorization,setRequestStatus,setError,setAuthStatus,setRequestActiveOffer,setRequestOffersNear,setRequestCommentsByOffer} from './action';
 
 import {ApiRoute,RequestStatus,TIMEOUT_SHOW_ERROR,errorEmpty,userDefault} from '../const';
@@ -50,7 +50,7 @@ export const sendCommentAction = createAsyncThunk<TUserComment,{
   }
 );
 
-export const sendChangedStatusFavoriteAction = createAsyncThunk<TOffer,{
+export const sendChangedStatusFavoriteAction = createAsyncThunk<TOfferPreview,{
   id:string;
   status:number;
 },{
@@ -59,8 +59,8 @@ export const sendChangedStatusFavoriteAction = createAsyncThunk<TOffer,{
   extra: AxiosInstance;
 }>('comment/sendComment',
   async ({id,status},{ extra:api}) => {
-    const path = `${ApiRoute.Favorite}/${id}/status`;
-    const {data} = await api.post<TOffer>(path,status);
+    const path = `${ApiRoute.Favorite}/${id}/${status}`;
+    const {data} = await api.post<TOfferPreview>(path);
     return data;
   }
 );

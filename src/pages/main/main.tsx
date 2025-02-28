@@ -8,7 +8,7 @@ import ListCity from '../../components/list-city/list-city.tsx';
 import LoadingScreen from '../loading-screen/loading-screen.tsx';
 
 import { selectorSortedListOffer } from '../../store/selectors.ts';
-import { fetchOffersAction } from '../../store/api-actions.ts';
+import { fetchFavoriteOffersAction, fetchOffersAction } from '../../store/api-actions.ts';
 
 import { RequestStatus, typeMap } from '../../const.ts';
 import { Helmet } from 'react-helmet-async';
@@ -21,6 +21,7 @@ export default function Main(): JSX.Element {
   useEffect(() => {
     if (requestStatus !== RequestStatus.Success) {
       dispatch(fetchOffersAction());
+      dispatch(fetchFavoriteOffersAction());
     }
   }, []);
 

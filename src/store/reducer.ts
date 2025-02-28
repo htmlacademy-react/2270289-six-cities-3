@@ -1,6 +1,7 @@
 import {createReducer} from '@reduxjs/toolkit';
-import {setCity,setCardActiveId,setCurrentSort,setFavoriteOfferStatus,setError, setRequestCommentsByOffer, fillCommentsByOffer, changeStatusFavorite} from './action';
+import {setCity,setCardActiveId,setCurrentSort,setFavoriteOfferStatus,setError, setRequestCommentsByOffer, fillCommentsByOffer, changeStatusFavoriteInFavoriteOffers} from './action';
 import {requireAuthorization,setRequestStatus,setAuthStatus, setRequestOffersNear, setRequestActiveOffer} from './action';
+import {changeStatusFavoriteInOffers, changeStatusFavoriteInOffersNear, changeStatusFavoriteInCurrentOffer} from './action';
 import {fillOffers,fillActiveOffer,fillOffersNear,fillFavoriteOffer} from './action';
 import {userDefault,RequestStatus, errorEmpty} from '../const';
 import type {TInitialState} from '../types';
@@ -84,12 +85,43 @@ const reducer = createReducer(initialState, (builder) => {
       state.isRequestCommentsByOffer = action.payload;
     })
 
-    .addCase(changeStatusFavorite ,(state,action) => {
-
-      //state.isRequestCommentsByOffer = action.payload.;
+    .addCase(changeStatusFavoriteInOffers ,(state,action) => {
+      if (state.offers) {
+        const index = state.offers.findIndex((item) => item.id === action.payload.id)
+        const status = Boolean(action.payload.status);
+        if (index !== -1) {
+          state.offers[index].isFavorite = status;
+        }
+      }
+    })
+    .addCase(changeStatusFavoriteInOffersNear ,(state,action) => {
+      if (state.offersNear) {
+        const index = state.offersNear.findIndex((item) => item.id === action.payload.id)
+        const status = Boolean(action.payload.status);
+        if (index !== -1) {
+          state.offersNear[index].isFavorite = status;
+        }
+      }
+    })
+    .addCase(changeStatusFavoriteInCurrentOffer ,(state,action) => {
+      if (state.activeOffer) {
+        const idOffer = state.activeOffer.id;
+        const status = Boolean(action.payload.status);
+        if (idOffer === action.payload.id) {
+          state.activeOffer.isFavorite = status;
+        }
+      }
+    })
+    .addCase(changeStatusFavoriteInFavoriteOffers ,(state,action) => {
+      if (state.favoriteOffers) {
+        const index = state.favoriteOffers.findIndex((item) => item.id === action.payload.id);
+        if (index !== -1) {
+          state.favoriteOffers = [...state.favoriteOffers.filter((item) => item.id !== action.payload.id)];
+        } else {
+          state.favoriteOffers = [...state.favoriteOffers,action.payload];
+        }
+      }
     });
-
-
 });
 
 export {reducer};
