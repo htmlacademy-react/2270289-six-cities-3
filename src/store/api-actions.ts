@@ -1,11 +1,10 @@
 import {AxiosInstance } from 'axios';
 import {createAsyncThunk } from '@reduxjs/toolkit';
 import type {AppDispatch,State } from '../hooks';
-import {fillOffers,fillActiveOffer,fillFavoriteOffer,fillOffersNear,fillCommentsByOffer, changeStatusFavoriteInFavoriteOffers} from './action';
+import {fillOffers,fillActiveOffer,fillFavoriteOffer,fillOffersNear,fillCommentsByOffer} from './action';
 import {requireAuthorization,setRequestStatus,setError,setAuthStatus,setRequestActiveOffer,setRequestOffersNear,setRequestCommentsByOffer} from './action';
 
 import {ApiRoute,RequestStatus,TIMEOUT_SHOW_ERROR,errorEmpty,userDefault} from '../const';
-//import {AuthorizationStatus} from '../const';
 import {saveToken,AUTH_TOKEN_KEY,dropToken} from '../services/token';
 import {store} from '.';
 
@@ -38,7 +37,8 @@ export const sendCommentAction = createAsyncThunk<TUserComment,{
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
-}>('comment/sendComment',
+}>(
+  'comment/sendComment',
   async ({id,rating,comment},{ extra:api}) => {
     const path = `${ApiRoute.Comments}/${id}`;
     const sentComment = {
@@ -57,7 +57,8 @@ export const sendChangedStatusFavoriteAction = createAsyncThunk<TOfferPreview,{
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
-}>('comment/sendComment',
+}>(
+  'comment/sendChangedStatusFavorite',
   async ({id,status},{ extra:api}) => {
     const path = `${ApiRoute.Favorite}/${id}/${status}`;
     const {data} = await api.post<TOfferPreview>(path);
@@ -69,17 +70,10 @@ export const loginAction = createAsyncThunk<void, TAuthData, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
-}>('user/login',
+}>(
+  'user/login',
   async ({login: email, password}, {dispatch, extra: api}) => {
     const {data} = await api.post<TUserData>(ApiRoute.Login, {email, password});
-    // const user: TUser = {
-    //   name: data.name,
-    //   email: data.email,
-    //   avatarUrl: data.avatarUrl,
-    //   isPro: data.isPro,
-    //   token: data.token,
-    //   authorizationStatus : AuthorizationStatus.Auth,
-    // };
     dispatch(requireAuthorization(data));
     saveToken(AUTH_TOKEN_KEY,data.token);
     dispatch(setAuthStatus(true));
@@ -144,7 +138,7 @@ export const fetchListCommentsByOffer = createAsyncThunk<TCommentForOffer[],stri
   dispatch: AppDispatch;
   extra: AxiosInstance;
 }>(
-  'data/fetchActiveOffer',
+  'data/fetchListCommentsByOffer',
   async(id,{dispatch, extra: api}) => {
     const path = `${ApiRoute.Comments}/${id}`;
     dispatch(setRequestCommentsByOffer(false));
@@ -159,7 +153,7 @@ export const fetchOffersNearAction = createAsyncThunk<void,string,{
   dispatch: AppDispatch;
   extra: AxiosInstance;
 }>(
-  'data/fetchOffers',
+  'data/fetchOffersNearAction',
   async(id,{dispatch, extra:api }) => {
     const path = `${ApiRoute.Offers}/${id}/nearby`;
     dispatch(setRequestOffersNear(false));
