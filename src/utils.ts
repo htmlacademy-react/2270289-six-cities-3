@@ -2,6 +2,9 @@ import { typeCard } from './const';
 import type { TOfferPreview } from './types';
 import { SORT_OPTIONS, SortOption } from './const';
 
+
+
+
 export const TYPE_FORMAT_DATE = {
   monthStringYYYY: 'MonthString_YYYY',
 };

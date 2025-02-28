@@ -10,11 +10,11 @@ import Map from '../../components/map/map.tsx';
 import LoadingScreen from '../loading-screen/loading-screen.tsx';
 import Page404 from '../404/page-404.tsx';
 
-import { fetchActiveOfferAction, fetchListCommentsByOffer, fetchOffersNearAction, sendCommentAction } from '../../store/api-actions.ts';
-import { typeMap, Comment } from '../../const';
-import { TCommentForOffer, TUserCommentWithID } from '../../types.ts';
+import { fetchActiveOfferAction, fetchListCommentsByOffer, fetchOffersNearAction, sendChangedStatusFavoriteAction, sendCommentAction } from '../../store/api-actions.ts';
+import { typeMap, Comment, classButtonFaforiteType } from '../../const';
+import { TCommentForOffer, TOfferFavoriteStatus, TOfferPreview, TUserCommentWithID } from '../../types.ts';
 import { convertRatingToStyleWidthPercent } from '../../utils.ts';
-import { fillCommentsByOffer } from '../../store/action.ts';
+import { changeStatusFavoriteInCurrentOffer, changeStatusFavoriteInFavoriteOffers, changeStatusFavoriteInOffers, changeStatusFavoriteInOffersNear, fillCommentsByOffer } from '../../store/action.ts';
 import { Helmet } from 'react-helmet-async';
 
 export default function Offer(): JSX.Element {
@@ -42,13 +42,13 @@ export default function Offer(): JSX.Element {
   const reviewsByOffer = useAppSelector((state) => state.reviewsByOffer ? state.reviewsByOffer : []);
   const reviewsByOfferSorted = reviewsByOffer
     .toSorted((a, b) => Date.parse(b.date) - Date.parse(a.date))
-    .slice(Comment.MinCount,Comment.MaxCount);
+    .slice(Comment.MinCount, Comment.MaxCount);
   const countAllComments = reviewsByOffer.length;
 
   const addComment = (comment: TUserCommentWithID): void => {
     dispatch(sendCommentAction(comment))
       .then((response) => {
-        dispatch(fillCommentsByOffer([response.payload as TCommentForOffer,...reviewsByOffer]));
+        dispatch(fillCommentsByOffer([response.payload as TCommentForOffer, ...reviewsByOffer]));
       });
   };
 
@@ -62,6 +62,24 @@ export default function Offer(): JSX.Element {
       }, 200);
     }
   }, []);
+
+  const changeStatusFavorite = () => {
+    if (currentOffer) {
+      const status = currentOffer.isFavorite;
+      const statusNumber = status ? 0 : 1;
+      const changeStatus: TOfferFavoriteStatus = {
+        id: currentOffer.id,
+        status: statusNumber,
+      }
+      dispatch(sendChangedStatusFavoriteAction(changeStatus))
+        .then((response) => {
+          dispatch(changeStatusFavoriteInFavoriteOffers(response.payload as TOfferPreview));
+        })
+      dispatch(changeStatusFavoriteInOffers(changeStatus));
+      dispatch(changeStatusFavoriteInOffersNear(changeStatus));
+      dispatch(changeStatusFavoriteInCurrentOffer(changeStatus));
+    }
+  }
 
   if (isVisibleLoadingScreen) {
     return (
@@ -103,7 +121,15 @@ export default function Offer(): JSX.Element {
                 <h1 className="offer__name">
                   {currentOffer.title}
                 </h1>
-                <button className="offer__bookmark-button button" type="button">
+                <button
+                  className={
+                    (currentOffer.isFavorite) ?
+                      `offer__${classButtonFaforiteType.favorite} button` :
+                      `offer__${classButtonFaforiteType.default} button`
+                  }
+                  type="button"
+                  onClick={changeStatusFavorite}
+                >
                   <svg className="offer__bookmark-icon" width="31" height="33">
                     <use xlinkHref="#icon-bookmark"></use>
                   </svg>
@@ -169,7 +195,7 @@ export default function Offer(): JSX.Element {
               </div>
               <section className="offer__reviews reviews">
 
-                <ReviewList commentsByOfferSorted = {reviewsByOfferSorted} countAllComments = {countAllComments} />
+                <ReviewList commentsByOfferSorted={reviewsByOfferSorted} countAllComments={countAllComments} />
 
                 {(isAuth) && (<ReviewForm addComment={addComment} idOffer={(id) ? id : null} />)}
               </section>

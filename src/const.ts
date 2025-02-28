@@ -221,3 +221,8 @@ export const Comment = {
 export const Rating = {
   InitState: 0,
 };
+
+export const classButtonFaforiteType = {
+  default : 'bookmark-button',
+  favorite : 'bookmark-button--active',
+};

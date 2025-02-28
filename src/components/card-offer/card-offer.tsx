@@ -4,6 +4,7 @@ import { changeStatusFavoriteInCurrentOffer, changeStatusFavoriteInFavoriteOffer
 import type { TOfferFavoriteStatus, TOfferPreview } from '../../types.ts';
 import { convertRatingToStyleWidthPercent } from '../../utils.ts';
 import { sendChangedStatusFavoriteAction } from '../../store/api-actions.ts';
+import { classButtonFaforiteType } from '../../const.ts';
 
 type OfferProps = {
   offer: TOfferPreview;
@@ -17,11 +18,6 @@ export default function CardOffer({ offer, variantCard }: OfferProps): JSX.Eleme
   const dispatch = useAppDispatch();
   const cardActiveId = useAppSelector((state) => state.cardActiveId);
   const offers = useAppSelector((state) => state.offers);
-
-  const classButtonFaforiteType = {
-    default : 'bookmark-button',
-    favorite : 'bookmark-button--active',
-  };
 
   const changeStatusFavorite = () => {
     if (offers) {
