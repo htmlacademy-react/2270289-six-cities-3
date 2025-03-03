@@ -1,4 +1,4 @@
-import { ChangeEvent, Fragment, MouseEvent, useState } from 'react';
+import { ChangeEvent, Fragment, useState } from 'react';
 import { TUserCommentWithID } from '../../types.ts';
 import { RATINGS, Rating, Comment } from '../../const.ts';
 import { useAppDispatch, useAppSelector } from '../../hooks/index.ts';
@@ -17,6 +17,7 @@ export default function ReviewForm({ idOffer, addComment }: ReviewFormProps): JS
 
   const [rating, setRating] = useState(Rating.InitState);
   const [comment, setComment] = useState(Comment.InitState);
+  const [checkedRating, setCheckedRating] = useState({isChecked: ''});
 
   const isValidateForm = rating > Rating.InitState
     && comment.length >= Comment.MinLength
@@ -25,9 +26,10 @@ export default function ReviewForm({ idOffer, addComment }: ReviewFormProps): JS
   const changeToDefaultValues = () => {
     setRating(Rating.InitState);
     setComment(Comment.InitState);
+    setCheckedRating({isChecked: ''});
   };
 
-  const handleClickRating = (evt: MouseEvent<HTMLInputElement>) => {
+  const handleClickRating = (evt: ChangeEvent<HTMLInputElement>) => {
     setRating(Number(evt.currentTarget.value));
   };
 
@@ -60,7 +62,9 @@ export default function ReviewForm({ idOffer, addComment }: ReviewFormProps): JS
               value={item.value}
               id={`${item.value}-stars`}
               type="radio"
-              onClick={handleClickRating}
+              onChange = {handleClickRating}
+              onClick={() => setCheckedRating({isChecked: item.title})}
+              checked = {checkedRating.isChecked === item.title}
             />
             <label htmlFor={`${item.value}-stars`}
               className="reviews__rating-label form__rating-label"
