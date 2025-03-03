@@ -67,7 +67,7 @@ export default function CardOffer({ offer, variantCard }: OfferProps): JSX.Eleme
           </div>
           <button
             className={(offer.isFavorite) ?
-              `place-card__${classButtonFaforiteType.favorite} button` :
+              `place-card__${classButtonFaforiteType.default} place-card__${classButtonFaforiteType.favorite} button` :
               `place-card__${classButtonFaforiteType.default} button`}
             type="button"
             onClick = {changeStatusFavorite}

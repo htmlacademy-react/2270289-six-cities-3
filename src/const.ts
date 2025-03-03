@@ -108,6 +108,8 @@ export const enum ActionType {
   ChangeStatusFavoriteInCurrentOffer = 'data/changeStatusFavoriteInCurrentOffer',
   ChangeStatusFavoriteInFavoriteOffers = 'data/changeStatusFavoriteInFavoriteOffers',
 
+  SetStatusFormSending = 'data/setStatusFormSending',
+
 }
 
 export const RequestStatus = {

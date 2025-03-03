@@ -122,6 +122,7 @@ type TInitialState = {
   isRequestActiveOffer: boolean;
   isRequestOffersNear: boolean;
   isRequestCommentsByOffer: boolean;
+  isFormCommentSending: boolean;
 };
 
 type TOfferFavoriteStatus = {

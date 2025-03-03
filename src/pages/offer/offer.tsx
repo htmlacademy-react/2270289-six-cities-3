@@ -22,7 +22,6 @@ export default function Offer(): JSX.Element {
   const currentCity = useAppSelector((state) => state.city);
   const dispatch = useAppDispatch();
   const isAuth = useAppSelector((state) => state.isAuth);
-  //const errorStatus = useAppSelector((state) => state.error ? state.error.status : null);
   const { id } = useParams();
 
   useEffect(() => {
@@ -124,7 +123,7 @@ export default function Offer(): JSX.Element {
                 <button
                   className={
                     (currentOffer.isFavorite) ?
-                      `offer__${classButtonFaforiteType.favorite} button` :
+                      `offer__${classButtonFaforiteType.default} offer__${classButtonFaforiteType.favorite} button` :
                       `offer__${classButtonFaforiteType.default} button`
                   }
                   type="button"

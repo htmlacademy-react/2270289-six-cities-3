@@ -1,6 +1,8 @@
-import { ChangeEvent, Fragment, MouseEvent, useEffect, useRef, useState } from 'react';
+import { ChangeEvent, Fragment, MouseEvent, useState } from 'react';
 import { TUserCommentWithID } from '../../types.ts';
 import { RATINGS, Rating, Comment } from '../../const.ts';
+import { useAppDispatch, useAppSelector } from '../../hooks/index.ts';
+import { setStatusFormSending } from '../../store/action.ts';
 
 type ReviewFormProps = {
   idOffer: string | null;
@@ -9,70 +11,20 @@ type ReviewFormProps = {
 
 export default function ReviewForm({ idOffer, addComment }: ReviewFormProps): JSX.Element {
 
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
-  const inputsRef = useRef<HTMLInputElement[]>([]);
-  const buttonRef = useRef<HTMLButtonElement>(null);
+  const dispatch = useAppDispatch();
 
-  const formData = {
-    rating: Rating.InitState,
-    comment: Comment.InitState,
-    isValidateForm: false,
-    isFromSending: false,
-  };
+  const isFormCommentSending = useAppSelector((state) => state.isFormCommentSending);
 
   const [rating, setRating] = useState(Rating.InitState);
   const [comment, setComment] = useState(Comment.InitState);
 
-  const changeStatusButton = () => {
-    if ((formData.rating > Rating.InitState)
-      && (formData.comment.length >= Comment.MinLength)
-      && (formData.comment.length <= Comment.MaxLength)
-    ) {
-      if (buttonRef.current) {
-        buttonRef.current.disabled = false;
-        formData.isValidateForm = true;
-      }
-    } else {
-      if (buttonRef.current) {
-        buttonRef.current.disabled = true;
-        formData.isValidateForm = false;
-      }
-    }
-  };
-
-  useEffect(() => {
-    formData.rating = rating;
-    formData.comment = comment;
-    changeStatusButton();
-  }, [rating, comment]);
-
-  useEffect(() => {
-    if (formData.isFromSending) {
-      if (buttonRef.current) {
-        buttonRef.current.disabled = true;
-      }
-    } else {
-      if (buttonRef.current) {
-        buttonRef.current.disabled = false;
-      }
-    }
-  }, [formData.isFromSending]);
+  const isValidateForm = rating > Rating.InitState
+    && comment.length >= Comment.MinLength
+    && comment.length <= Comment.MaxLength;
 
   const changeToDefaultValues = () => {
     setRating(Rating.InitState);
     setComment(Comment.InitState);
-    formData.rating = Rating.InitState;
-    formData.comment = Comment.InitState;
-    formData.isValidateForm = false;
-    if (textareaRef.current) {
-      textareaRef.current.value = '';
-    }
-    for (let i = 0; i < inputsRef.current.length; i++) {
-      inputsRef.current[i].checked = false;
-    }
-    if (buttonRef.current) {
-      buttonRef.current.disabled = true;
-    }
   };
 
   const handleClickRating = (evt: MouseEvent<HTMLInputElement>) => {
@@ -84,16 +36,16 @@ export default function ReviewForm({ idOffer, addComment }: ReviewFormProps): JS
   };
 
   const sendComment = () => {
-    if ((idOffer) && (formData.rating) && (formData.comment)) {
+    if ((idOffer) && (rating) && (comment)) {
       const sentComment = {
         id: idOffer,
-        rating: formData.rating,
-        comment: formData.comment,
+        rating: rating,
+        comment: comment,
       };
-      changeToDefaultValues();
-      formData.isFromSending = true;
+      dispatch(setStatusFormSending(true));
       addComment(sentComment);
-      formData.isFromSending = false;
+      dispatch(setStatusFormSending(false));
+      changeToDefaultValues();
     }
   };
 
@@ -101,7 +53,7 @@ export default function ReviewForm({ idOffer, addComment }: ReviewFormProps): JS
     <form className="reviews__form form" action="#" method="post">
       <label className="reviews__label form__label" htmlFor="review">Your reviews</label>
       <div className="reviews__rating-form form__rating">
-        {RATINGS.map((item, index) => (
+        {RATINGS.map((item) => (
           <Fragment key={item.title}>
             <input className="form__rating-input visually-hidden"
               name="rating"
@@ -109,10 +61,6 @@ export default function ReviewForm({ idOffer, addComment }: ReviewFormProps): JS
               id={`${item.value}-stars`}
               type="radio"
               onClick={handleClickRating}
-              ref={(element: HTMLInputElement) => {
-                inputsRef.current[index] = element;
-                return undefined;
-              }}
             />
             <label htmlFor={`${item.value}-stars`}
               className="reviews__rating-label form__rating-label"
@@ -130,8 +78,7 @@ export default function ReviewForm({ idOffer, addComment }: ReviewFormProps): JS
         id="review"
         name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
-        defaultValue={formData.comment}
-        ref={textareaRef}
+        value={comment}
         onChange={handleChangeComment}
       >
       </textarea>
@@ -149,8 +96,7 @@ export default function ReviewForm({ idOffer, addComment }: ReviewFormProps): JS
           }}
           className="reviews__submit form__submit button"
           type="submit"
-          disabled={false}
-          ref={buttonRef}
+          disabled={!isValidateForm || isFormCommentSending}
         >Submit
         </button>
       </div>

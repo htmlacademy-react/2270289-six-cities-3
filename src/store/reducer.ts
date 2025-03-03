@@ -1,5 +1,5 @@
 import {createReducer} from '@reduxjs/toolkit';
-import {setCity,setCardActiveId,setCurrentSort,setFavoriteOfferStatus,setError, setRequestCommentsByOffer, fillCommentsByOffer, changeStatusFavoriteInFavoriteOffers} from './action';
+import {setCity,setCardActiveId,setCurrentSort,setFavoriteOfferStatus,setError, setRequestCommentsByOffer, fillCommentsByOffer, changeStatusFavoriteInFavoriteOffers, setStatusFormSending} from './action';
 import {requireAuthorization,setRequestStatus,setAuthStatus, setRequestOffersNear, setRequestActiveOffer} from './action';
 import {changeStatusFavoriteInOffers, changeStatusFavoriteInOffersNear, changeStatusFavoriteInCurrentOffer} from './action';
 import {fillOffers,fillActiveOffer,fillOffersNear,fillFavoriteOffer} from './action';
@@ -32,6 +32,7 @@ export const initialState : TInitialState = {
   isRequestActiveOffer: false,
   isRequestOffersNear: false,
   isRequestCommentsByOffer: false,
+  isFormCommentSending: false,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -121,7 +122,12 @@ const reducer = createReducer(initialState, (builder) => {
           state.favoriteOffers = [...state.favoriteOffers,action.payload];
         }
       }
+    })
+
+    .addCase(setStatusFormSending ,(state,action) => {
+      state.isFormCommentSending = action.payload;
     });
+
 });
 
 export {reducer};

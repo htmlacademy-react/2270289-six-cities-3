@@ -30,6 +30,4 @@ export const changeStatusFavoriteInOffersNear = createAction<TOfferFavoriteStatu
 export const changeStatusFavoriteInCurrentOffer = createAction<TOfferFavoriteStatus>(ActionType.ChangeStatusFavoriteInCurrentOffer);
 export const changeStatusFavoriteInFavoriteOffers = createAction<TOfferPreview>(ActionType.ChangeStatusFavoriteInFavoriteOffers);
 
-
-
-
+export const setStatusFormSending = createAction<boolean>(ActionType.SetStatusFormSending);
