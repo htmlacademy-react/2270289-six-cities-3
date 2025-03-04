@@ -1,17 +1,19 @@
 import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/index.ts';
-import { changeStatusFavoriteInCurrentOffer, changeStatusFavoriteInFavoriteOffers, changeStatusFavoriteInOffers, changeStatusFavoriteInOffersNear, setCardActiveId } from '../../store/action.ts';
-import type { TOfferFavoriteStatus, TOfferPreview } from '../../types.ts';
-import { convertRatingToStyleWidthPercent } from '../../utils.ts';
+import { changeStatusFavoriteInCurrentOffer, changeStatusFavoriteInFavoriteOffers, changeStatusFavoriteInOffers}from '../../store/action.ts';
+import { changeStatusFavoriteInOffersNear, setCardActiveId } from '../../store/action.ts';
 import { sendChangedStatusFavoriteAction } from '../../store/api-actions.ts';
-import { classButtonFaforiteType } from '../../const.ts';
+import { convertRatingToStyleWidthPercent } from '../../utils.ts';
+import { FavoriteStatus, ImageSizeByCard, SvgSizeByPlace, classButtonFaforiteType } from '../../const.ts';
+import type { TOfferFavoriteStatus, TOfferPreview, TVariantCard, TVariantPlace } from '../../types.ts';
 
 type OfferProps = {
   offer: TOfferPreview;
-  variantCard: 'cities' | 'favorite' | 'near-places';
+  variantCard: TVariantCard;
+  variantPlace : TVariantPlace;
 }
 
-export default function CardOffer({ offer, variantCard }: OfferProps): JSX.Element {
+export default function CardOffer({ offer, variantCard, variantPlace }: OfferProps): JSX.Element {
 
   const linkTo = `/offer/${offer.id}`;
   const isShowSpanPremium = variantCard !== 'near-places';
@@ -24,7 +26,7 @@ export default function CardOffer({ offer, variantCard }: OfferProps): JSX.Eleme
       const currentOffer = offers.find((item) => item.id === cardActiveId);
       if (currentOffer) {
         const status = currentOffer.isFavorite;
-        const statusNumber = status ? 0 : 1;
+        const statusNumber = status ? FavoriteStatus.Remove : FavoriteStatus.Add;
         const changeStatus : TOfferFavoriteStatus = {
           id : cardActiveId as string,
           status: statusNumber,
@@ -55,7 +57,12 @@ export default function CardOffer({ offer, variantCard }: OfferProps): JSX.Eleme
       <div className={`${variantCard}__image-wrapper place-card__image-wrapper`}>
 
         <Link to={linkTo}>
-          <img className="place-card__image" src={offer.previewImage} width="260" height="200" alt="Place image" />
+          <img className="place-card__image"
+            src={offer.previewImage}
+            width={ImageSizeByCard[variantCard].width}
+            height={ImageSizeByCard[variantCard].height}
+            alt="Place image"
+          />
         </Link>
 
       </div>
@@ -72,7 +79,11 @@ export default function CardOffer({ offer, variantCard }: OfferProps): JSX.Eleme
             type="button"
             onClick = {changeStatusFavorite}
           >
-            <svg className="place-card__bookmark-icon" width="18" height="19">
+            <svg
+              className="place-card__bookmark-icon"
+              width={SvgSizeByPlace[variantPlace].width}
+              height={SvgSizeByPlace[variantPlace].height}
+            >
               <use xlinkHref="#icon-bookmark"></use>
             </svg>
             <span className="visually-hidden">To bookmarks</span>

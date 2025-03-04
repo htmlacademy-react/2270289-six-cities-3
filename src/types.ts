@@ -1,3 +1,7 @@
+
+type TVariantCard =  'cities' | 'favorite' | 'near-places';
+type TVariantPlace =  'place-card' | 'offer';
+
 type TUserAuthData = {
   email: string;
   password: string;
@@ -131,4 +135,5 @@ type TOfferFavoriteStatus = {
 }
 
 export type {TOffer,TOfferPreview,TCommentForOffer,TCity, TLocation,TPoints,TUser,TUserAuthData,TErrorRequest,};
-export type {TUserComment,TUserCommentWithID,TInitialState,TOfferFavoriteStatus};
+export type {TUserComment,TUserCommentWithID,TInitialState,TOfferFavoriteStatus,TVariantCard,TVariantPlace};
+

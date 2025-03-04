@@ -71,7 +71,7 @@ export default function Main(): JSX.Element {
 
               <div className="cities__places-list places__list tabs__content">
 
-                <ListOffer listOffer={sortedListOffer} variantCard='cities' />
+                <ListOffer listOffer={sortedListOffer} variantCard='cities' variantPlace='place-card' />
 
               </div>
             </section>

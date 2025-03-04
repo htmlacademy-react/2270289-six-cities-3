@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import { useAppDispatch, useAppSelector } from '../../hooks/index.ts';
 
 import ListOffer from '../../components/card-offer-list/card-offer-list';
@@ -11,13 +12,19 @@ import LoadingScreen from '../loading-screen/loading-screen.tsx';
 import Page404 from '../404/page-404.tsx';
 
 import { fetchActiveOfferAction, fetchListCommentsByOffer, fetchOffersNearAction, sendChangedStatusFavoriteAction, sendCommentAction } from '../../store/api-actions.ts';
-import { typeMap, Comment, classButtonFaforiteType } from '../../const';
-import { TCommentForOffer, TOfferFavoriteStatus, TOfferPreview, TUserCommentWithID } from '../../types.ts';
-import { convertRatingToStyleWidthPercent } from '../../utils.ts';
-import { changeStatusFavoriteInCurrentOffer, changeStatusFavoriteInFavoriteOffers, changeStatusFavoriteInOffers, changeStatusFavoriteInOffersNear, fillCommentsByOffer } from '../../store/action.ts';
-import { Helmet } from 'react-helmet-async';
+import { changeStatusFavoriteInCurrentOffer, changeStatusFavoriteInFavoriteOffers, changeStatusFavoriteInOffers } from '../../store/action.ts';
+import { changeStatusFavoriteInOffersNear, fillCommentsByOffer } from '../../store/action.ts';
 
-export default function Offer(): JSX.Element {
+import { typeMap, Comment, classButtonFaforiteType, SvgSizeByPlace } from '../../const';
+import { convertRatingToStyleWidthPercent } from '../../utils.ts';
+
+import type { TCommentForOffer, TOfferFavoriteStatus, TOfferPreview, TUserCommentWithID, TVariantPlace } from '../../types.ts';
+
+type OfferProps = {
+  variantPlace : TVariantPlace;
+}
+
+export default function Offer({variantPlace} : OfferProps): JSX.Element {
 
   const currentCity = useAppSelector((state) => state.city);
   const dispatch = useAppDispatch();
@@ -129,7 +136,11 @@ export default function Offer(): JSX.Element {
                   type="button"
                   onClick={changeStatusFavorite}
                 >
-                  <svg className="offer__bookmark-icon" width="31" height="33">
+                  <svg
+                    className="offer__bookmark-icon"
+                    width = {SvgSizeByPlace[variantPlace].width}
+                    height = {SvgSizeByPlace[variantPlace].height}
+                  >
                     <use xlinkHref="#icon-bookmark"></use>
                   </svg>
                   <span className="visually-hidden">To bookmarks</span>
@@ -207,7 +218,7 @@ export default function Offer(): JSX.Element {
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              <ListOffer listOffer={nearOffers} variantCard='near-places' />
+              <ListOffer listOffer={nearOffers} variantCard='near-places' variantPlace='place-card' />
             </div>
           </section>
         </div>

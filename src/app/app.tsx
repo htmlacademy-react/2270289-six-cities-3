@@ -31,7 +31,7 @@ export default function App(): JSX.Element {
         <Routes>
           <Route path={AppRoute.Main} element={<Main />} />
           <Route path={AppRoute.Login} element={<Login />} />
-          <Route path={AppRoute.Offer} element={<Offer />} />
+          <Route path={AppRoute.Offer} element={<Offer variantPlace='offer'/>} />
           <Route path={AppRoute.Favorites}
             element={
               <PrivateRoute isAuth={isAuth}>

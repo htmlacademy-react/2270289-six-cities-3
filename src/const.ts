@@ -71,8 +71,54 @@ export enum AuthorizationStatus {
 export const typeCard = {
   cities: 'cities',
   favorite: 'favorite',
-  near: 'near',
+  near: 'near-places',
 };
+
+interface  ICardStyle {
+  width: number;
+  height: number;
+  class: string;
+}
+
+interface  ISizeImage {
+  width: number;
+  height: number;
+}
+
+export const  ImageSizeByCard : {[key: string] : ICardStyle} = {
+  'cities' : {
+    width : 260,
+    height: 200,
+    class : 'cities'
+  },
+  'favorite' : {
+    width : 150,
+    height: 110,
+    class : 'favorites',
+  },
+  'near-places': {
+    width : 260,
+    height: 200,
+    class : 'near-places',
+  },
+};
+
+export const  SvgSizeByPlace : {[key: string] : ISizeImage} = {
+  'place-card' : {
+    width : 18,
+    height: 19,
+  },
+  'offer' : {
+    width : 31,
+    height: 33,
+  },
+};
+
+
+export const FavoriteStatus = {
+  Add: 1,
+  Remove: 0,
+}
 
 export const URL_MARKER_DEFAULT =
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/pin.svg';
