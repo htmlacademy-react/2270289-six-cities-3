@@ -12,6 +12,7 @@ import { fetchFavoriteOffersAction, fetchOffersAction } from '../../store/api-ac
 
 import { RequestStatus, typeMap } from '../../const.ts';
 import { Helmet } from 'react-helmet-async';
+import MainEmpty from '../../components/main-empty/main-empty.tsx';
 
 export default function Main(): JSX.Element {
 
@@ -47,6 +48,12 @@ export default function Main(): JSX.Element {
   if (isVisibleLoadingScreen) {
     return (
       <LoadingScreen />
+    );
+  }
+
+  if (!countOffers) {
+    return (
+      <MainEmpty cityName = {cityName} />
     );
   }
 

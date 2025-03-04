@@ -1,10 +1,12 @@
-import {createReducer} from '@reduxjs/toolkit';
-import {setCity,setCardActiveId,setCurrentSort,setFavoriteOfferStatus,setError, setRequestCommentsByOffer, fillCommentsByOffer, changeStatusFavoriteInFavoriteOffers, setStatusFormSending} from './action';
-import {requireAuthorization,setRequestStatus,setAuthStatus, setRequestOffersNear, setRequestActiveOffer} from './action';
-import {changeStatusFavoriteInOffers, changeStatusFavoriteInOffersNear, changeStatusFavoriteInCurrentOffer} from './action';
-import {fillOffers,fillActiveOffer,fillOffersNear,fillFavoriteOffer} from './action';
-import {userDefault,RequestStatus, errorEmpty} from '../const';
-import type {TInitialState} from '../types';
+import { createReducer } from '@reduxjs/toolkit';
+//import {setCity,setCardActiveId,setCurrentSort,setFavoriteOfferStatus,setError, setRequestCommentsByOffer} from './action';
+import { setCity, setCardActiveId, setCurrentSort, setFavoriteOfferStatus, setRequestCommentsByOffer } from './action';
+import { fillCommentsByOffer, changeStatusFavoriteInFavoriteOffers, setStatusFormSending } from './action';
+import { requireAuthorization, setRequestStatus, setAuthStatus, setRequestOffersNear, setRequestActiveOffer } from './action';
+import { changeStatusFavoriteInOffers, changeStatusFavoriteInOffersNear, changeStatusFavoriteInCurrentOffer } from './action';
+import { fillOffers, fillActiveOffer, fillOffersNear, fillFavoriteOffer } from './action';
+import { userDefault, RequestStatus, errorEmpty } from '../const';
+import type { TInitialState } from '../types';
 
 const cityDefault = {
   name: 'Paris',
@@ -15,16 +17,16 @@ const cityDefault = {
   }
 };
 
-export const initialState : TInitialState = {
-  city : cityDefault,
+export const initialState: TInitialState = {
+  city: cityDefault,
   activeOffer: null,
-  offers : null,
+  offers: null,
   offersNear: null,
   favoriteOffers: null,
   reviewsByOffer: null,
   cardActiveId: null,
   currentSort: 'Popular',
-  requestStatus : RequestStatus.Idle,
+  requestStatus: RequestStatus.Idle,
   error: errorEmpty,
   user: userDefault,
   isAuth: false,
@@ -37,56 +39,56 @@ export const initialState : TInitialState = {
 
 const reducer = createReducer(initialState, (builder) => {
   builder
-    .addCase(setCity,(state,action) => {
+    .addCase(setCity, (state, action) => {
       state.city = action.payload;
     })
-    .addCase(fillActiveOffer,(state,action) => {
+    .addCase(fillActiveOffer, (state, action) => {
       state.activeOffer = action.payload;
     })
-    .addCase(fillCommentsByOffer,(state,action) => {
+    .addCase(fillCommentsByOffer, (state, action) => {
       state.reviewsByOffer = action.payload;
     })
-    .addCase(fillOffers,(state,action) => {
+    .addCase(fillOffers, (state, action) => {
       state.offers = action.payload;
     })
-    .addCase(fillFavoriteOffer,(state,action) => {
+    .addCase(fillFavoriteOffer, (state, action) => {
       state.favoriteOffers = action.payload;
     })
-    .addCase(setFavoriteOfferStatus,(state,action) => {
+    .addCase(setFavoriteOfferStatus, (state, action) => {
       state.isDownloadFavoriteOffers = action.payload;
     })
-    .addCase(fillOffersNear,(state,action) => {
+    .addCase(fillOffersNear, (state, action) => {
       state.offersNear = action.payload;
     })
-    .addCase(setCardActiveId,(state,action) => {
+    .addCase(setCardActiveId, (state, action) => {
       state.cardActiveId = action.payload;
     })
-    .addCase(setCurrentSort,(state,action) => {
+    .addCase(setCurrentSort, (state, action) => {
       state.currentSort = action.payload;
     })
-    .addCase(requireAuthorization,(state,action) => {
+    .addCase(requireAuthorization, (state, action) => {
       state.user = action.payload;
     })
-    .addCase(setRequestStatus,(state,action) => {
+    .addCase(setRequestStatus, (state, action) => {
       state.requestStatus = action.payload;
     })
-    .addCase(setError,(state,action) => {
-      state.error = action.payload;
-    })
-    .addCase(setAuthStatus,(state,action) => {
+    // .addCase(setError, (state, action) => {
+    //   state.error = action.payload;
+    // })
+    .addCase(setAuthStatus, (state, action) => {
       state.isAuth = action.payload;
     })
-    .addCase(setRequestActiveOffer,(state,action) => {
+    .addCase(setRequestActiveOffer, (state, action) => {
       state.isRequestActiveOffer = action.payload;
     })
-    .addCase(setRequestOffersNear ,(state,action) => {
+    .addCase(setRequestOffersNear, (state, action) => {
       state.isRequestOffersNear = action.payload;
     })
-    .addCase(setRequestCommentsByOffer ,(state,action) => {
+    .addCase(setRequestCommentsByOffer, (state, action) => {
       state.isRequestCommentsByOffer = action.payload;
     })
 
-    .addCase(changeStatusFavoriteInOffers ,(state,action) => {
+    .addCase(changeStatusFavoriteInOffers, (state, action) => {
       if (state.offers) {
         const index = state.offers.findIndex((item) => item.id === action.payload.id)
         const status = Boolean(action.payload.status);
@@ -95,7 +97,7 @@ const reducer = createReducer(initialState, (builder) => {
         }
       }
     })
-    .addCase(changeStatusFavoriteInOffersNear ,(state,action) => {
+    .addCase(changeStatusFavoriteInOffersNear, (state, action) => {
       if (state.offersNear) {
         const index = state.offersNear.findIndex((item) => item.id === action.payload.id)
         const status = Boolean(action.payload.status);
@@ -104,7 +106,7 @@ const reducer = createReducer(initialState, (builder) => {
         }
       }
     })
-    .addCase(changeStatusFavoriteInCurrentOffer ,(state,action) => {
+    .addCase(changeStatusFavoriteInCurrentOffer, (state, action) => {
       if (state.activeOffer) {
         const idOffer = state.activeOffer.id;
         const status = Boolean(action.payload.status);
@@ -113,21 +115,21 @@ const reducer = createReducer(initialState, (builder) => {
         }
       }
     })
-    .addCase(changeStatusFavoriteInFavoriteOffers ,(state,action) => {
+    .addCase(changeStatusFavoriteInFavoriteOffers, (state, action) => {
       if (state.favoriteOffers) {
         const index = state.favoriteOffers.findIndex((item) => item.id === action.payload.id);
         if (index !== -1) {
           state.favoriteOffers = [...state.favoriteOffers.filter((item) => item.id !== action.payload.id)];
         } else {
-          state.favoriteOffers = [...state.favoriteOffers,action.payload];
+          state.favoriteOffers = [...state.favoriteOffers, action.payload];
         }
       }
     })
 
-    .addCase(setStatusFormSending ,(state,action) => {
+    .addCase(setStatusFormSending, (state, action) => {
       state.isFormCommentSending = action.payload;
     });
 
 });
 
-export {reducer};
+export { reducer };

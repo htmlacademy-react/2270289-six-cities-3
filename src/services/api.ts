@@ -2,8 +2,10 @@ import axios from 'axios';
 import {AxiosInstance,AxiosError} from 'axios';
 import {getToken,AUTH_TOKEN_KEY} from './token';
 
-import { processErrorHandle } from './process-error-handle';
+//import { processErrorHandle } from './process-error-handle';
+
 import { TErrorRequest } from '../types';
+import {toast} from 'react-toastify';
 
 const enum DefaultConnect {
   BaseUrl = 'https://15.design.htmlacademy.pro/six-cities',
@@ -40,8 +42,9 @@ export const createApi = () : AxiosInstance => {
           status : error.response.status,
           message: error.response.data.message,
         };
-        console.log(errorRequest);
-        processErrorHandle(errorRequest);
+        //console.log(errorRequest);
+        //processErrorHandle(errorRequest);
+        toast.warn(errorRequest.message);
       }
       throw error;
     }

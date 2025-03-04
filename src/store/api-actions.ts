@@ -2,11 +2,16 @@ import {AxiosInstance } from 'axios';
 import {createAsyncThunk } from '@reduxjs/toolkit';
 import type {AppDispatch,State } from '../hooks';
 import {fillOffers,fillActiveOffer,fillFavoriteOffer,fillOffersNear,fillCommentsByOffer} from './action';
-import {requireAuthorization,setRequestStatus,setError,setAuthStatus,setRequestActiveOffer,setRequestOffersNear,setRequestCommentsByOffer} from './action';
 
-import {ApiRoute,RequestStatus,TIMEOUT_SHOW_ERROR,errorEmpty,userDefault} from '../const';
+//import {requireAuthorization,setRequestStatus,setError,setAuthStatus,setRequestActiveOffer,setRequestOffersNear,setRequestCommentsByOffer} from './action';
+import {requireAuthorization,setRequestStatus,setAuthStatus,setRequestActiveOffer,setRequestOffersNear,setRequestCommentsByOffer} from './action';
+
+//import {ApiRoute,RequestStatus,TIMEOUT_SHOW_ERROR,errorEmpty,userDefault} from '../const';
+import {ApiRoute,RequestStatus,userDefault} from '../const';
+
 import {saveToken,AUTH_TOKEN_KEY,dropToken} from '../services/token';
-import {store} from '.';
+
+//import {store} from '.';
 
 import type {TOffer,TOfferPreview,TUserData,TAuthData,TUser,TCommentForOffer,TUserComment} from '../types';
 
@@ -163,12 +168,12 @@ export const fetchOffersNearAction = createAsyncThunk<void,string,{
   }
 );
 
-export const clearErrorAction = createAsyncThunk(
-  'offers/clearError',
-  () => {
-    setTimeout(
-      () => store.dispatch(setError(errorEmpty)),
-      TIMEOUT_SHOW_ERROR,
-    );
-  },
-);
+// export const clearErrorAction = createAsyncThunk(
+//   'offers/clearError',
+//   () => {
+//     setTimeout(
+//       () => store.dispatch(setError(errorEmpty)),
+//       TIMEOUT_SHOW_ERROR,
+//     );
+//   },
+// );
