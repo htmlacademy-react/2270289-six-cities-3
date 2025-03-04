@@ -8,6 +8,7 @@ import { AppRoute } from '../../const.ts';
 import { fetchFavoriteOffersAction } from '../../store/api-actions.ts';
 import { setFavoriteOfferStatus } from '../../store/action.ts';
 import { Helmet } from 'react-helmet-async';
+import FavoritesEmpty from '../../components/favorites-empty/favorites-empty.tsx';
 
 
 type ListOfferProps = {
@@ -27,6 +28,13 @@ export default function Favorites({ variantCard }: ListOfferProps): JSX.Element 
   },[]);
 
   const offersFavorite = useAppSelector((state) => state.favoriteOffers ? state.favoriteOffers : []);
+  const countOffersFavorite = offersFavorite.length;
+
+  if (!countOffersFavorite) {
+    return (
+      <FavoritesEmpty />
+    )
+  }
 
   return (
     <div className="page">

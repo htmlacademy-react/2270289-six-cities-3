@@ -4,7 +4,6 @@ import CardOffer from '../card-offer/card-offer.tsx';
 type ListOfferProps = {
   listOffer: TOfferPreview[];
   variantCard : 'cities'|'favorite'|'near-places';
-  //mouseMove: (id:string|null) => void;
 }
 
 export default function FavoriteCardItemGroup({listOffer, variantCard}: ListOfferProps): JSX.Element {
@@ -24,7 +23,7 @@ export default function FavoriteCardItemGroup({listOffer, variantCard}: ListOffe
           <div className="favorites__places">
             {listOffer.map((itemOffer) =>
               (
-                (itemOffer.city.name === city) && <CardOffer offer = {itemOffer} key = {itemOffer.id} variantCard={variantCard} />
+                (itemOffer.city.name === city) && <CardOffer offer = {itemOffer} key = {itemOffer.id} variantCard={variantCard} variantPlace='place-card' />
               )
             )}
           </div>
