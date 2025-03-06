@@ -99,34 +99,34 @@ const reducer = createReducer(initialState, (builder) => {
     //     }
     //   }
     // })
-    .addCase(changeStatusFavoriteInOffersNear, (state, action) => {
-      if (state.offersNear) {
-        const index = state.offersNear.findIndex((item) => item.id === action.payload.id)
-        const status = Boolean(action.payload.status);
-        if (index !== -1) {
-          state.offersNear[index].isFavorite = status;
-        }
-      }
-    })
-    .addCase(changeStatusFavoriteInCurrentOffer, (state, action) => {
-      if (state.activeOffer) {
-        const idOffer = state.activeOffer.id;
-        const status = Boolean(action.payload.status);
-        if (idOffer === action.payload.id) {
-          state.activeOffer.isFavorite = status;
-        }
-      }
-    })
-    .addCase(changeStatusFavoriteInFavoriteOffers, (state, action) => {
-      if (state.favoriteOffers) {
-        const index = state.favoriteOffers.findIndex((item) => item.id === action.payload.id);
-        if (index !== -1) {
-          state.favoriteOffers = [...state.favoriteOffers.filter((item) => item.id !== action.payload.id)];
-        } else {
-          state.favoriteOffers = [...state.favoriteOffers, action.payload];
-        }
-      }
-    })
+    // .addCase(changeStatusFavoriteInOffersNear, (state, action) => {
+    //   if (state.offersNear) {
+    //     const index = state.offersNear.findIndex((item) => item.id === action.payload.id)
+    //     const status = Boolean(action.payload.status);
+    //     if (index !== -1) {
+    //       state.offersNear[index].isFavorite = status;
+    //     }
+    //   }
+    // })
+    // .addCase(changeStatusFavoriteInCurrentOffer, (state, action) => {
+    //   if (state.activeOffer) {
+    //     const idOffer = state.activeOffer.id;
+    //     const status = Boolean(action.payload.status);
+    //     if (idOffer === action.payload.id) {
+    //       state.activeOffer.isFavorite = status;
+    //     }
+    //   }
+    // })
+    // .addCase(changeStatusFavoriteInFavoriteOffers, (state, action) => {
+    //   if (state.favoriteOffers) {
+    //     const index = state.favoriteOffers.findIndex((item) => item.id === action.payload.id);
+    //     if (index !== -1) {
+    //       state.favoriteOffers = [...state.favoriteOffers.filter((item) => item.id !== action.payload.id)];
+    //     } else {
+    //       state.favoriteOffers = [...state.favoriteOffers, action.payload];
+    //     }
+    //   }
+    // })
 
     .addCase(setStatusFormSending, (state, action) => {
       state.isFormCommentSending = action.payload;

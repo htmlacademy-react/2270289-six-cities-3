@@ -4,7 +4,7 @@ import type {AppDispatch,State } from '../hooks';
 import {fillActiveOffer,fillFavoriteOffer,fillOffersNear,fillCommentsByOffer} from './action';
 
 // fillOffers,
-//import {requireAuthorization,setRequestStatus,setError,setAuthStatus,setRequestActiveOffer,setRequestOffersNear,setRequestCommentsByOffer} from './action';
+// import {requireAuthorization,setRequestStatus,setError,setAuthStatus,setRequestActiveOffer,setRequestOffersNear,setRequestCommentsByOffer} from './action';
 import {requireAuthorization,setRequestStatus,setAuthStatus,setRequestActiveOffer,setRequestOffersNear,setRequestCommentsByOffer} from './action';
 
 //import {ApiRoute,RequestStatus,TIMEOUT_SHOW_ERROR,errorEmpty,userDefault} from '../const';
@@ -100,6 +100,8 @@ export const logoutAction = createAsyncThunk<void, undefined, {
   },
 );
 
+
+/* --------------------------------------------------------------------------- */
 export const fetchOffersAction = createAsyncThunk<TOfferPreview[],undefined,{
   dispatch: AppDispatch;
   extra: AxiosInstance;
@@ -113,6 +115,8 @@ export const fetchOffersAction = createAsyncThunk<TOfferPreview[],undefined,{
     //dispatch(fillOffers(data));
   }
 );
+/* --------------------------------------------------------------------------- */
+
 
 export const fetchFavoriteOffersAction = createAsyncThunk<void,undefined,{
   dispatch: AppDispatch;
@@ -156,19 +160,23 @@ export const fetchListCommentsByOffer = createAsyncThunk<TCommentForOffer[],stri
   }
 );
 
-export const fetchOffersNearAction = createAsyncThunk<void,string,{
+
+/* --------------------------------------------------------------------------- */
+export const fetchOffersNearAction = createAsyncThunk<TOfferPreview[],string,{
   dispatch: AppDispatch;
   extra: AxiosInstance;
 }>(
   'data/fetchOffersNearAction',
-  async(id,{dispatch, extra:api }) => {
+  async(id,{ extra:api }) => {
     const path = `${ApiRoute.Offers}/${id}/nearby`;
-    dispatch(setRequestOffersNear(false));
+    //dispatch(setRequestOffersNear(false));
     const {data} = await api.get<TOfferPreview[]>(path);
-    dispatch(fillOffersNear(data));
-    dispatch(setRequestOffersNear(true));
+    return data;
+    //dispatch(fillOffersNear(data));
+    //dispatch(setRequestOffersNear(true));
   }
 );
+/* --------------------------------------------------------------------------- */
 
 // export const clearErrorAction = createAsyncThunk(
 //   'offers/clearError',

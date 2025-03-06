@@ -27,7 +27,7 @@ export const allOffersSlice = createSlice({
     setActiveOfferId: (state, action) => {
       state.activeOfferId = action.payload;
     },
-    changeOfferStatusFavorite: (state, action) => {
+    changeStatusFavoriteInOffers: (state, action) => {
       if (state.offers) {
         const index = state.offers.findIndex((item) => item.id === action.payload.id)
         const status = Boolean(action.payload.status);
@@ -55,4 +55,4 @@ export const allOffersSlice = createSlice({
   }
 })
 
-export const { setCurrentCity, setCurrentSort, setActiveOfferId, changeOfferStatusFavorite } = allOffersSlice.actions;
+export const { setCurrentCity, setCurrentSort, setActiveOfferId, changeStatusFavoriteInOffers } = allOffersSlice.actions;

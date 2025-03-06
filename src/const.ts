@@ -286,10 +286,10 @@ export const cityDefault = {
 
 export const NameSpaces = {
   AllOffers: 'ALLOFFERS',
+  OffersNear: 'OFFERSNEAR',
   Offer: 'OFFER',
   Favorites: 'FAVORITES',
   Reviews: 'REVIEWS',
-  Nearby: 'NEARBY',
   User: 'USER',
 };
 

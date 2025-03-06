@@ -132,7 +132,7 @@ type TInitialState = {
 /*
 const initialState : TInitialStateAllOffers = {
   activeOffer: TOffer | null;
-  offersNear: TOfferPreview[] | null;
+
   favoriteOffers: TOfferPreview [] | null;
   reviewsByOffer: TCommentForOffer[] | null;
   requestStatus : string | null;
@@ -157,6 +157,12 @@ type TInitialStateAllOffers = {
   hasError: boolean,
 };
 
+type TInitialStateOffersNear = {
+  offersNear: TOfferPreview[] | null;
+  isLoading: boolean,
+  hasError: boolean,
+};
+
 type TOfferFavoriteStatus = {
   id: string;
   status : number;
@@ -164,5 +170,5 @@ type TOfferFavoriteStatus = {
 
 export type {TOffer,TOfferPreview,TCommentForOffer,TCity, TLocation,TPoints,TUser,TUserAuthData,TErrorRequest,};
 export type {TUserComment,TUserCommentWithID,TInitialState,TOfferFavoriteStatus,TVariantCard,TVariantPlace};
-export type {TInitialStateAllOffers}
+export type {TInitialStateAllOffers,TInitialStateOffersNear}
 
