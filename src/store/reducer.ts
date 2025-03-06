@@ -2,8 +2,10 @@ import { createReducer } from '@reduxjs/toolkit';
 //import {setCity,setCardActiveId,setCurrentSort,setFavoriteOfferStatus,setError, setRequestCommentsByOffer} from './action';
 import { setFavoriteOfferStatus, setRequestCommentsByOffer } from './action';
 import { fillCommentsByOffer, changeStatusFavoriteInFavoriteOffers, setStatusFormSending } from './action';
+// changeStatusFavoriteInFavoriteOffers,
 import { requireAuthorization, setRequestStatus, setAuthStatus, setRequestOffersNear, setRequestActiveOffer } from './action';
 import { changeStatusFavoriteInOffersNear, changeStatusFavoriteInCurrentOffer } from './action';
+//changeStatusFavoriteInOffersNear,
 import { fillOffers, fillActiveOffer, fillOffersNear, fillFavoriteOffer } from './action';
 import { userDefault, RequestStatus, errorEmpty } from '../const';
 import type { TInitialState } from '../types';

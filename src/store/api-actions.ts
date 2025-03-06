@@ -1,20 +1,22 @@
-import {AxiosInstance } from 'axios';
-import {createAsyncThunk } from '@reduxjs/toolkit';
-import type {AppDispatch,State } from '../hooks';
-import {fillActiveOffer,fillFavoriteOffer,fillOffersNear,fillCommentsByOffer} from './action';
+import { AxiosInstance } from 'axios';
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import type { AppDispatch, State } from '../hooks';
+import { fillCommentsByOffer } from './action';
 
-// fillOffers,
+// fillOffers, fillActiveOffer, fillFavoriteOffer, fillOffersNear,
 // import {requireAuthorization,setRequestStatus,setError,setAuthStatus,setRequestActiveOffer,setRequestOffersNear,setRequestCommentsByOffer} from './action';
-import {requireAuthorization,setRequestStatus,setAuthStatus,setRequestActiveOffer,setRequestOffersNear,setRequestCommentsByOffer} from './action';
+import { requireAuthorization, setAuthStatus, setRequestCommentsByOffer } from './action';
+//setRequestStatus, setRequestActiveOffer, setRequestOffersNear,
 
 //import {ApiRoute,RequestStatus,TIMEOUT_SHOW_ERROR,errorEmpty,userDefault} from '../const';
-import {ApiRoute,RequestStatus,userDefault} from '../const';
+import { ApiRoute, userDefault } from '../const';
+//RequestStatus,
 
-import {saveToken,AUTH_TOKEN_KEY,dropToken} from '../services/token';
+import { saveToken, AUTH_TOKEN_KEY, dropToken } from '../services/token';
 
 //import {store} from '.';
 
-import type {TOffer,TOfferPreview,TUserData,TAuthData,TUser,TCommentForOffer,TUserComment} from '../types';
+import type { TOffer, TOfferPreview, TUserData, TAuthData, TUser, TCommentForOffer, TUserComment } from '../types';
 
 export const checkAuthAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch;
@@ -22,9 +24,9 @@ export const checkAuthAction = createAsyncThunk<void, undefined, {
   extra: AxiosInstance;
 }>(
   'user/checkAuth',
-  async (_arg, {dispatch, extra: api}) => {
+  async (_arg, { dispatch, extra: api }) => {
     try {
-      const {data} = await api.get<TUser>(ApiRoute.Login);
+      const { data } = await api.get<TUser>(ApiRoute.Login);
       dispatch(setAuthStatus(false));
       dispatch(requireAuthorization(data));
       dispatch(setAuthStatus(true));
@@ -35,42 +37,48 @@ export const checkAuthAction = createAsyncThunk<void, undefined, {
   },
 );
 
-export const sendCommentAction = createAsyncThunk<TUserComment,{
-  id:string;
-  rating:number;
-  comment:string;
-},{
+export const sendCommentAction = createAsyncThunk<TUserComment, {
+  id: string;
+  rating: number;
+  comment: string;
+}, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
   'comment/sendComment',
-  async ({id,rating,comment},{ extra:api}) => {
+  async ({ id, rating, comment }, { extra: api }) => {
     const path = `${ApiRoute.Comments}/${id}`;
     const sentComment = {
       rating: rating,
       comment: comment,
     };
-    const {data} = await api.post<TUserComment>(path,sentComment);
+    const { data } = await api.post<TUserComment>(path, sentComment);
     return data;
   }
 );
 
-export const sendChangedStatusFavoriteAction = createAsyncThunk<{offer: TOfferPreview, status: number },{
-  id:string;
-  status:number;
-},{
+/* --------------------------------------------------------------------------- */
+/* --------------------------------------------------------------------------- */
+export const sendChangedStatusFavoriteAction = createAsyncThunk<{ offer: TOfferPreview, status: number }, {
+  id: string;
+  status: number;
+}, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
   'comment/sendChangedStatusFavorite',
-  async ({id,status},{ extra:api}) => {
+  async ({ id, status }, { extra: api }) => {
     const path = `${ApiRoute.Favorite}/${id}/${status}`;
-    const {data} = await api.post<TOfferPreview>(path);
-    return {offer : data, status};
+    const { data } = await api.post<TOfferPreview>(path);
+    return { offer: data, status };
   }
 );
+/* --------------------------------------------------------------------------- */
+/* --------------------------------------------------------------------------- */
+
+
 
 export const loginAction = createAsyncThunk<void, TAuthData, {
   dispatch: AppDispatch;
@@ -78,10 +86,10 @@ export const loginAction = createAsyncThunk<void, TAuthData, {
   extra: AxiosInstance;
 }>(
   'user/login',
-  async ({login: email, password}, {dispatch, extra: api}) => {
-    const {data} = await api.post<TUserData>(ApiRoute.Login, {email, password});
+  async ({ login: email, password }, { dispatch, extra: api }) => {
+    const { data } = await api.post<TUserData>(ApiRoute.Login, { email, password });
     dispatch(requireAuthorization(data));
-    saveToken(AUTH_TOKEN_KEY,data.token);
+    saveToken(AUTH_TOKEN_KEY, data.token);
     dispatch(setAuthStatus(true));
   },
 );
@@ -92,7 +100,7 @@ export const logoutAction = createAsyncThunk<void, undefined, {
   extra: AxiosInstance;
 }>(
   'user/logout',
-  async (_arg, {dispatch, extra: api}) => {
+  async (_arg, { dispatch, extra: api }) => {
     await api.delete(ApiRoute.Logout);
     dropToken(AUTH_TOKEN_KEY);
     dispatch(requireAuthorization(userDefault));
@@ -102,60 +110,60 @@ export const logoutAction = createAsyncThunk<void, undefined, {
 
 /* --------------------------------------------------------------------------- */
 /* --------------------------------------------------------------------------- */
-export const fetchOffersAction = createAsyncThunk<TOfferPreview[],undefined,{
+export const fetchOffersAction = createAsyncThunk<TOfferPreview[], undefined, {
   dispatch: AppDispatch;
   extra: AxiosInstance;
 }>(
   'data/fetchOffers',
-  async(_arg,{ extra:api }) => {
+  async (_arg, { extra: api }) => {
     //dispatch(setRequestStatus(RequestStatus.Loading));
-    const {data} = await api.get<TOfferPreview[]>(ApiRoute.Offers);
+    const { data } = await api.get<TOfferPreview[]>(ApiRoute.Offers);
     return data
     //dispatch(setRequestStatus(RequestStatus.Success));
     //dispatch(fillOffers(data));
   }
 );
 /* --------------------------------------------------------------------------- */
-export const fetchFavoriteOffersAction = createAsyncThunk<TOfferPreview[],undefined,{
+export const fetchFavoriteOffersAction = createAsyncThunk<TOfferPreview[], undefined, {
   dispatch: AppDispatch;
   extra: AxiosInstance;
 }>(
   'data/fetchFavoriteOffers',
-  async(_arg,{ extra:api }) => {
+  async (_arg, { extra: api }) => {
     //dispatch(setRequestStatus(RequestStatus.Loading));
-    const {data} = await api.get<TOfferPreview[]>(ApiRoute.Favorite);
+    const { data } = await api.get<TOfferPreview[]>(ApiRoute.Favorite);
     return data;
     //dispatch(fillFavoriteOffer(data));
     //dispatch(setRequestStatus(RequestStatus.Success));
   }
 );
 /* --------------------------------------------------------------------------- */
-/* --------------------------------------------------------------------------- */
-
-
-export const fetchActiveOfferAction = createAsyncThunk<void,string,{
+export const fetchCurrentOfferAction = createAsyncThunk<TOffer, string, {
   dispatch: AppDispatch;
   extra: AxiosInstance;
 }>(
   'data/fetchActiveOffer',
-  async(id,{dispatch, extra: api}) => {
+  async (id, { extra: api }) => {
     const path = `${ApiRoute.Offers}/${id}`;
-    dispatch(setRequestActiveOffer(false));
-    const {data} = await api.get<TOffer>(path);
-    dispatch(fillActiveOffer(data));
-    dispatch(setRequestActiveOffer(true));
+    //dispatch(setRequestActiveOffer(false));
+    const { data } = await api.get<TOffer>(path);
+    return data;
+    //dispatch(fillActiveOffer(data));
+    //dispatch(setRequestActiveOffer(true));
   }
 );
+/* --------------------------------------------------------------------------- */
+/* --------------------------------------------------------------------------- */
 
-export const fetchListCommentsByOffer = createAsyncThunk<TCommentForOffer[],string,{
+export const fetchListCommentsByOffer = createAsyncThunk<TCommentForOffer[], string, {
   dispatch: AppDispatch;
   extra: AxiosInstance;
 }>(
   'data/fetchListCommentsByOffer',
-  async(id,{dispatch, extra: api}) => {
+  async (id, { dispatch, extra: api }) => {
     const path = `${ApiRoute.Comments}/${id}`;
     dispatch(setRequestCommentsByOffer(false));
-    const {data} = await api.get<TCommentForOffer[]>(path);
+    const { data } = await api.get<TCommentForOffer[]>(path);
     dispatch(fillCommentsByOffer(data));
     dispatch(setRequestCommentsByOffer(true));
     return data;
@@ -164,15 +172,15 @@ export const fetchListCommentsByOffer = createAsyncThunk<TCommentForOffer[],stri
 
 
 /* --------------------------------------------------------------------------- */
-export const fetchOffersNearAction = createAsyncThunk<TOfferPreview[],string,{
+export const fetchOffersNearAction = createAsyncThunk<TOfferPreview[], string, {
   dispatch: AppDispatch;
   extra: AxiosInstance;
 }>(
   'data/fetchOffersNearAction',
-  async(id,{ extra:api }) => {
+  async (id, { extra: api }) => {
     const path = `${ApiRoute.Offers}/${id}/nearby`;
     //dispatch(setRequestOffersNear(false));
-    const {data} = await api.get<TOfferPreview[]>(path);
+    const { data } = await api.get<TOfferPreview[]>(path);
     return data;
     //dispatch(fillOffersNear(data));
     //dispatch(setRequestOffersNear(true));
