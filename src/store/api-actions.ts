@@ -1,12 +1,12 @@
 import { AxiosInstance } from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import type { AppDispatch, State } from '../hooks';
-import { fillCommentsByOffer } from './action';
+//import { fillCommentsByOffer } from './action';
 
 // fillOffers, fillActiveOffer, fillFavoriteOffer, fillOffersNear,
 // import {requireAuthorization,setRequestStatus,setError,setAuthStatus,setRequestActiveOffer,setRequestOffersNear,setRequestCommentsByOffer} from './action';
-import { requireAuthorization, setAuthStatus, setRequestCommentsByOffer } from './action';
-//setRequestStatus, setRequestActiveOffer, setRequestOffersNear,
+import { requireAuthorization, setAuthStatus} from './action';
+//setRequestStatus, setRequestActiveOffer, setRequestOffersNear, setRequestCommentsByOffer
 
 //import {ApiRoute,RequestStatus,TIMEOUT_SHOW_ERROR,errorEmpty,userDefault} from '../const';
 import { ApiRoute, userDefault } from '../const';
@@ -58,8 +58,6 @@ export const sendCommentAction = createAsyncThunk<TUserComment, {
   }
 );
 
-/* --------------------------------------------------------------------------- */
-/* --------------------------------------------------------------------------- */
 export const sendChangedStatusFavoriteAction = createAsyncThunk<{ offer: TOfferPreview, status: number }, {
   id: string;
   status: number;
@@ -75,10 +73,6 @@ export const sendChangedStatusFavoriteAction = createAsyncThunk<{ offer: TOfferP
     return { offer: data, status };
   }
 );
-/* --------------------------------------------------------------------------- */
-/* --------------------------------------------------------------------------- */
-
-
 
 export const loginAction = createAsyncThunk<void, TAuthData, {
   dispatch: AppDispatch;
@@ -123,7 +117,7 @@ export const fetchOffersAction = createAsyncThunk<TOfferPreview[], undefined, {
     //dispatch(fillOffers(data));
   }
 );
-/* --------------------------------------------------------------------------- */
+
 export const fetchFavoriteOffersAction = createAsyncThunk<TOfferPreview[], undefined, {
   dispatch: AppDispatch;
   extra: AxiosInstance;
@@ -137,7 +131,7 @@ export const fetchFavoriteOffersAction = createAsyncThunk<TOfferPreview[], undef
     //dispatch(setRequestStatus(RequestStatus.Success));
   }
 );
-/* --------------------------------------------------------------------------- */
+
 export const fetchCurrentOfferAction = createAsyncThunk<TOffer, string, {
   dispatch: AppDispatch;
   extra: AxiosInstance;
@@ -152,26 +146,37 @@ export const fetchCurrentOfferAction = createAsyncThunk<TOffer, string, {
     //dispatch(setRequestActiveOffer(true));
   }
 );
-/* --------------------------------------------------------------------------- */
-/* --------------------------------------------------------------------------- */
 
-export const fetchListCommentsByOffer = createAsyncThunk<TCommentForOffer[], string, {
+// export const fetchListCommentsByOffer = createAsyncThunk<TCommentForOffer[], string, {
+//   dispatch: AppDispatch;
+//   extra: AxiosInstance;
+// }>(
+//   'data/fetchListCommentsByOffer',
+//   async (id, { dispatch, extra: api }) => {
+//     const path = `${ApiRoute.Comments}/${id}`;
+//     dispatch(setRequestCommentsByOffer(false));
+//     const { data } = await api.get<TCommentForOffer[]>(path);
+//     dispatch(fillCommentsByOffer(data));
+//     dispatch(setRequestCommentsByOffer(true));
+//     return data;
+//   }
+// );
+
+export const fetchReviewsByOffer = createAsyncThunk<TCommentForOffer[], string, {
   dispatch: AppDispatch;
   extra: AxiosInstance;
 }>(
   'data/fetchListCommentsByOffer',
-  async (id, { dispatch, extra: api }) => {
+  async (id, { extra: api }) => {
     const path = `${ApiRoute.Comments}/${id}`;
-    dispatch(setRequestCommentsByOffer(false));
+    //dispatch(setRequestCommentsByOffer(false));
     const { data } = await api.get<TCommentForOffer[]>(path);
-    dispatch(fillCommentsByOffer(data));
-    dispatch(setRequestCommentsByOffer(true));
+    //dispatch(fillCommentsByOffer(data));
+    //dispatch(setRequestCommentsByOffer(true));
     return data;
   }
 );
 
-
-/* --------------------------------------------------------------------------- */
 export const fetchOffersNearAction = createAsyncThunk<TOfferPreview[], string, {
   dispatch: AppDispatch;
   extra: AxiosInstance;
@@ -186,7 +191,6 @@ export const fetchOffersNearAction = createAsyncThunk<TOfferPreview[], string, {
     //dispatch(setRequestOffersNear(true));
   }
 );
-/* --------------------------------------------------------------------------- */
 
 // export const clearErrorAction = createAsyncThunk(
 //   'offers/clearError',

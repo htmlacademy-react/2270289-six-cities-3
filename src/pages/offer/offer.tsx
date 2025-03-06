@@ -11,7 +11,7 @@ import Map from '../../components/map/map.tsx';
 import LoadingScreen from '../loading-screen/loading-screen.tsx';
 import Page404 from '../404/page-404.tsx';
 
-import { fetchActiveOfferAction, fetchListCommentsByOffer, fetchOffersNearAction, sendChangedStatusFavoriteAction, sendCommentAction } from '../../store/api-actions.ts';
+import { fetchCurrentOfferAction, fetchReviewsByOffer, fetchOffersNearAction, sendChangedStatusFavoriteAction, sendCommentAction } from '../../store/api-actions.ts';
 import { changeStatusFavoriteInCurrentOffer, changeStatusFavoriteInFavoriteOffers, changeStatusFavoriteInOffers } from '../../store/action.ts';
 import { changeStatusFavoriteInOffersNear, fillCommentsByOffer } from '../../store/action.ts';
 
@@ -33,8 +33,8 @@ export default function Offer({variantPlace} : OfferProps): JSX.Element {
 
   useEffect(() => {
     if (id) {
-      dispatch(fetchActiveOfferAction(id));
-      dispatch(fetchListCommentsByOffer(id));
+      dispatch(fetchCurrentOfferAction(id));
+      dispatch(fetchReviewsByOffer(id));
       dispatch(fetchOffersNearAction(id));
     }
   }, []);

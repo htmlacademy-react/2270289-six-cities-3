@@ -131,20 +131,14 @@ type TInitialState = {
 
 /*
 const initialState : TInitialStateAllOffers = {
-  reviewsByOffer: TCommentForOffer[] | null;
   requestStatus : string | null;
   error: TErrorRequest | null;
   user: TUser | null;
   isAuth: boolean;
-  isDownloadFavoriteOffers: boolean;
-  isRequestActiveOffer: boolean;
-  isRequestOffersNear: boolean;
-  isRequestCommentsByOffer: boolean;
-  isFormCommentSending: boolean;
+
 };
 };
 */
-
 type TInitialStateAllOffers = {
   currentCity : TCity;
   currentSort: string | null;
@@ -174,6 +168,14 @@ type TInitialStateOffer = {
   hasError: boolean,
 };
 
+type TInitialStateReview = {
+  reviewsByOffer: TCommentForOffer[] | null;
+  isLoading: boolean,
+  hasError: boolean,
+  isFormCommentSending: boolean;
+  hasErrorFormCommentSending: boolean;
+}
+
 
 type TOfferFavoriteStatus = {
   id: string;
@@ -182,5 +184,5 @@ type TOfferFavoriteStatus = {
 
 export type {TOffer,TOfferPreview,TCommentForOffer,TCity, TLocation,TPoints,TUser,TUserAuthData,TErrorRequest,};
 export type {TUserComment,TUserCommentWithID,TInitialState,TOfferFavoriteStatus,TVariantCard,TVariantPlace};
-export type {TInitialStateAllOffers,TInitialStateOffersNear,TInitialStateFavorites,TInitialStateOffer}
+export type {TInitialStateAllOffers,TInitialStateOffersNear,TInitialStateFavorites,TInitialStateOffer,TInitialStateReview}
 
