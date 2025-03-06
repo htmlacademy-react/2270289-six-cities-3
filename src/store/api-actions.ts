@@ -56,7 +56,7 @@ export const sendCommentAction = createAsyncThunk<TUserComment,{
   }
 );
 
-export const sendChangedStatusFavoriteAction = createAsyncThunk<TOfferPreview,{
+export const sendChangedStatusFavoriteAction = createAsyncThunk<{offer: TOfferPreview, status: number },{
   id:string;
   status:number;
 },{
@@ -68,7 +68,7 @@ export const sendChangedStatusFavoriteAction = createAsyncThunk<TOfferPreview,{
   async ({id,status},{ extra:api}) => {
     const path = `${ApiRoute.Favorite}/${id}/${status}`;
     const {data} = await api.post<TOfferPreview>(path);
-    return data;
+    return {offer : data, status};
   }
 );
 
@@ -100,7 +100,7 @@ export const logoutAction = createAsyncThunk<void, undefined, {
   },
 );
 
-
+/* --------------------------------------------------------------------------- */
 /* --------------------------------------------------------------------------- */
 export const fetchOffersAction = createAsyncThunk<TOfferPreview[],undefined,{
   dispatch: AppDispatch;
@@ -116,20 +116,22 @@ export const fetchOffersAction = createAsyncThunk<TOfferPreview[],undefined,{
   }
 );
 /* --------------------------------------------------------------------------- */
-
-
-export const fetchFavoriteOffersAction = createAsyncThunk<void,undefined,{
+export const fetchFavoriteOffersAction = createAsyncThunk<TOfferPreview[],undefined,{
   dispatch: AppDispatch;
   extra: AxiosInstance;
 }>(
   'data/fetchFavoriteOffers',
-  async(_arg,{dispatch, extra:api }) => {
-    dispatch(setRequestStatus(RequestStatus.Loading));
+  async(_arg,{ extra:api }) => {
+    //dispatch(setRequestStatus(RequestStatus.Loading));
     const {data} = await api.get<TOfferPreview[]>(ApiRoute.Favorite);
-    dispatch(fillFavoriteOffer(data));
-    dispatch(setRequestStatus(RequestStatus.Success));
+    return data;
+    //dispatch(fillFavoriteOffer(data));
+    //dispatch(setRequestStatus(RequestStatus.Success));
   }
 );
+/* --------------------------------------------------------------------------- */
+/* --------------------------------------------------------------------------- */
+
 
 export const fetchActiveOfferAction = createAsyncThunk<void,string,{
   dispatch: AppDispatch;

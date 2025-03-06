@@ -163,6 +163,15 @@ type TInitialStateOffersNear = {
   hasError: boolean,
 };
 
+type TInitialStateFavorites = {
+  favoriteOffers: TOfferPreview [] | null;
+  isLoading: boolean,
+  hasError: boolean,
+  isLoadingStatusChange : boolean,
+  hasErrorStatusChange: boolean,
+};
+
+
 type TOfferFavoriteStatus = {
   id: string;
   status : number;
@@ -170,5 +179,5 @@ type TOfferFavoriteStatus = {
 
 export type {TOffer,TOfferPreview,TCommentForOffer,TCity, TLocation,TPoints,TUser,TUserAuthData,TErrorRequest,};
 export type {TUserComment,TUserCommentWithID,TInitialState,TOfferFavoriteStatus,TVariantCard,TVariantPlace};
-export type {TInitialStateAllOffers,TInitialStateOffersNear}
+export type {TInitialStateAllOffers,TInitialStateOffersNear,TInitialStateFavorites}
 
