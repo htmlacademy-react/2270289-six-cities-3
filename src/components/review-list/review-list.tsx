@@ -1,5 +1,5 @@
 import Review from '../review/review';
-import { TCommentForOffer} from '../../types';
+import { TCommentForOffer} from '../../types/types';
 
 type CommentListProps = {
   countAllComments : number;

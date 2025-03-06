@@ -1,6 +1,7 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { NameSpaces } from "../../const";
-import { TInitialStateOffersNear } from "../../types";
+import type { TInitialStateOffersNear } from "../../types/state";
+import type { TOfferFavoriteStatus } from "../../types/types";
 import { fetchOffersNearAction } from "../api-actions";
 import { toast } from "react-toastify";
 
@@ -14,7 +15,7 @@ export const offersNearSlice = createSlice({
   name: NameSpaces.OffersNear,
   initialState,
   reducers: {
-    changeStatusFavoriteInOffersNear: (state, action) => {
+    changeStatusFavoriteInOffersNear: (state, action: PayloadAction<TOfferFavoriteStatus>) => {
       if (state.offersNear) {
         const index = state.offersNear.findIndex((item) => item.id === action.payload.id)
         const status = Boolean(action.payload.status);

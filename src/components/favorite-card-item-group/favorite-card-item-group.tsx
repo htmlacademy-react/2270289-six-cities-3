@@ -1,4 +1,4 @@
-import type {TOfferPreview} from '../../types.ts';
+import type {TOfferPreview} from '../../types/types.ts';
 import CardOffer from '../card-offer/card-offer.tsx';
 
 type ListOfferProps = {

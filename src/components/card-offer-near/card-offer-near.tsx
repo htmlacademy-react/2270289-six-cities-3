@@ -1,4 +1,4 @@
-import type { TOfferPreview } from '../../types';
+import type { TOfferPreview } from '../../types/types';
 
 type CardOfferNearProps = {
   offer: TOfferPreview;

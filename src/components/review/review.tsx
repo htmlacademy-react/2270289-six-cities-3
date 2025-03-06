@@ -1,4 +1,4 @@
-import type { TCommentForOffer } from '../../types';
+import type { TCommentForOffer } from '../../types/types';
 import { convertRatingToStyleWidthPercent, dateToTypeFormat } from '../../utils';
 import { TYPE_FORMAT_DATE } from '../../utils';
 

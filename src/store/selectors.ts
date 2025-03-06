@@ -1,5 +1,5 @@
 import {getSortedListOffer} from '../utils';
-import type { TInitialState } from '../types';
+import type { TInitialState } from '../types/types';
 
 export const selectorCurrentOffersByCity = (state : TInitialState) => {
   const currentCityName = state.city.name;

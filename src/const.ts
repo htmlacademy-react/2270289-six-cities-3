@@ -1,4 +1,4 @@
-import type { TCity, TCommentForOffer, TUser, TErrorRequest } from './types';
+import type { TCity, TCommentForOffer, TUser, TErrorRequest } from './types/types';
 
 export const TIMEOUT_SHOW_ERROR = 5000;
 

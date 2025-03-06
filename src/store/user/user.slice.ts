@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { AuthorizationStatus, NameSpaces } from "../../const";
-import type { TInitialStateUser } from "../../types";
+import type { TInitialStateUser } from "../../types/state";
 import { checkAuthAction, loginAction, logoutAction } from "../api-actions";
 import { toast } from "react-toastify";
 

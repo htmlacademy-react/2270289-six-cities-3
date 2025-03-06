@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { TCommentForOffer, TInitialStateReview } from "../../types";
+import { TCommentForOffer } from "../../types/types";
+import { TInitialStateReview } from "../../types/state";
 import { NameSpaces } from "../../const";
 import { fetchReviewsByOffer, sendCommentAction } from "../api-actions";
 import { toast } from "react-toastify";
@@ -47,7 +48,7 @@ export const reviewSlice = createSlice({
       .addCase(sendCommentAction.rejected, (state) => {
         state.isFormCommentSending = false;
         state.hasErrorFormCommentSending = true;
-        toast('Something went error when trying to submit your review');
+        toast.error('Something went error when trying to submit your review');
       })
 
 

@@ -5,7 +5,7 @@ import { changeStatusFavoriteInOffersNear, setCardActiveId } from '../../store/a
 import { sendChangedStatusFavoriteAction } from '../../store/api-actions.ts';
 import { convertRatingToStyleWidthPercent } from '../../utils.ts';
 import { FavoriteStatus, ImageSizeByCard, SvgSizeByPlace, classButtonFaforiteType } from '../../const.ts';
-import type { TOfferFavoriteStatus, TOfferPreview, TVariantCard, TVariantPlace } from '../../types.ts';
+import type { TOfferFavoriteStatus, TOfferPreview, TVariantCard, TVariantPlace } from '../../types/types.ts';
 
 type OfferProps = {
   offer: TOfferPreview;

@@ -1,5 +1,5 @@
 import { ChangeEvent, Fragment, useState } from 'react';
-import { TUserCommentWithID } from '../../types.ts';
+import { TUserCommentWithID } from '../../types/types.ts';
 import { RATINGS, Rating, Comment } from '../../const.ts';
 import { useAppDispatch, useAppSelector } from '../../hooks/index.ts';
 import { setStatusFormSending } from '../../store/action.ts';

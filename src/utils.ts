@@ -1,5 +1,5 @@
 import { typeCard } from './const';
-import type { TOfferPreview } from './types';
+import type { TOfferPreview } from './types/types';
 import { SORT_OPTIONS, SortOption } from './const';
 
 

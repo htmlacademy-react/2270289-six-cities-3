@@ -1,5 +1,5 @@
 
-import type { TOfferPreview } from '../../types';
+import type { TOfferPreview } from '../../types/types';
 import CardOfferNear from '../card-offer-near/card-offer-near';
 
 type CardOfferNearProps = {

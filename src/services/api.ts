@@ -4,7 +4,7 @@ import {getToken,AUTH_TOKEN_KEY} from './token';
 
 //import { processErrorHandle } from './process-error-handle';
 
-import { TErrorRequest } from '../types';
+import { TErrorRequest } from '../types/types';
 import {toast} from 'react-toastify';
 
 const enum DefaultConnect {

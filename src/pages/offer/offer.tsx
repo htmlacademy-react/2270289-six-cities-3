@@ -18,7 +18,7 @@ import { changeStatusFavoriteInOffersNear, fillCommentsByOffer } from '../../sto
 import { typeMap, Comment, classButtonFaforiteType, SvgSizeByPlace } from '../../const';
 import { convertRatingToStyleWidthPercent } from '../../utils.ts';
 
-import type { TCommentForOffer, TOfferFavoriteStatus, TOfferPreview, TUserCommentWithID, TVariantPlace } from '../../types.ts';
+import type { TCommentForOffer, TOfferFavoriteStatus, TOfferPreview, TUserCommentWithID, TVariantPlace } from '../../types/types.ts';
 
 type OfferProps = {
   variantPlace : TVariantPlace;

@@ -1,8 +1,9 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { NameSpaces, SortOptions, cityDefault } from "../../const";
 import { fetchOffersAction } from "../api-actions";
 import { toast } from "react-toastify";
-import type { TInitialStateAllOffers } from "../../types";
+import type { TInitialStateAllOffers } from "../../types/state";
+import { TCity, TOfferFavoriteStatus } from "../../types/types";
 
 const initialState: TInitialStateAllOffers = {
   currentCity: cityDefault,
@@ -13,21 +14,20 @@ const initialState: TInitialStateAllOffers = {
   hasError: false,
 };
 
-
 export const allOffersSlice = createSlice({
   name: NameSpaces.AllOffers,
   initialState,
   reducers: {
-    setCurrentCity: (state, action) => {
+    setCurrentCity: (state, action: PayloadAction<TCity>) => {
       state.currentCity = action.payload;
     },
-    setCurrentSort: (state, action) => {
+    setCurrentSort: (state, action: PayloadAction<string>) => {
       state.currentSort = action.payload;
     },
-    setActiveOfferId: (state, action) => {
+    setActiveOfferId: (state, action:PayloadAction<string>) => {
       state.activeOfferId = action.payload;
     },
-    changeStatusFavoriteInOffers: (state, action) => {
+    changeStatusFavoriteInOffers: (state, action: PayloadAction<TOfferFavoriteStatus>) => {
       if (state.offers) {
         const index = state.offers.findIndex((item) => item.id === action.payload.id)
         const status = Boolean(action.payload.status);

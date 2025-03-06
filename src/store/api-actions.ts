@@ -16,7 +16,7 @@ import { saveToken, AUTH_TOKEN_KEY, dropToken } from '../services/token';
 
 //import {store} from '.';
 
-import type { TOffer, TOfferPreview, TUserData, TAuthData, TUser, TCommentForOffer, TUserComment } from '../types';
+import type { TOffer, TOfferPreview, TUserData, TAuthData, TUser, TCommentForOffer, TUserComment } from '../types/types';
 
 export const checkAuthAction = createAsyncThunk<TUser, undefined, {
   dispatch: AppDispatch;

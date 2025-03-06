@@ -1,8 +1,9 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { NameSpaces } from "../../const";
-import { TInitialStateFavorites } from "../../types";
+import { TInitialStateFavorites } from "../../types/state";
 import { fetchFavoriteOffersAction, sendChangedStatusFavoriteAction } from "../api-actions";
 import { toast } from "react-toastify";
+import { TOfferPreview } from "../../types/types";
 
 const initialState: TInitialStateFavorites = {
   favoriteOffers: null,
@@ -16,13 +17,13 @@ export const favoritesSlice = createSlice({
   name: NameSpaces.Favorites,
   initialState,
   reducers: {
-    changeStatusFavoriteInFavoriteOffers: (state, action) => {
+    changeStatusFavoriteInFavoriteOffers: (state, action: PayloadAction<TOfferPreview>) => {
       if (state.favoriteOffers) {
         const index = state.favoriteOffers.findIndex((item) => item.id === action.payload.id);
         if (index !== -1) {
-          // state.favoriteOffers = [...state.favoriteOffers.filter((item) => item.id !== action.payload.id)];
+          state.favoriteOffers = [...state.favoriteOffers.filter((item) => item.id !== action.payload.id)];
         } else {
-          // state.favoriteOffers = [...state.favoriteOffers, action.payload];
+          state.favoriteOffers = [...state.favoriteOffers, action.payload];
         }
       }
     }
@@ -38,10 +39,10 @@ export const favoritesSlice = createSlice({
         state.hasError = false;
         state.favoriteOffers = action.payload;
       })
-      .addCase(fetchFavoriteOffersAction.pending, (state) => {
+      .addCase(fetchFavoriteOffersAction.rejected, (state) => {
         state.isLoading = false;
         state.hasError = true;
-        toast('Could not download favorite offers.');
+        toast.error('Could not download favorite offers.');
       })
       .addCase(sendChangedStatusFavoriteAction.pending, (state) => {
         state.isLoadingStatusChange = true;
