@@ -1,12 +1,14 @@
 import { createReducer } from '@reduxjs/toolkit';
 //import {setCity,setCardActiveId,setCurrentSort,setFavoriteOfferStatus,setError, setRequestCommentsByOffer} from './action';
-import { setCity, setCardActiveId, setCurrentSort, setFavoriteOfferStatus, setRequestCommentsByOffer } from './action';
+import { setFavoriteOfferStatus, setRequestCommentsByOffer } from './action';
 import { fillCommentsByOffer, changeStatusFavoriteInFavoriteOffers, setStatusFormSending } from './action';
 import { requireAuthorization, setRequestStatus, setAuthStatus, setRequestOffersNear, setRequestActiveOffer } from './action';
-import { changeStatusFavoriteInOffers, changeStatusFavoriteInOffersNear, changeStatusFavoriteInCurrentOffer } from './action';
+import { changeStatusFavoriteInOffersNear, changeStatusFavoriteInCurrentOffer } from './action';
 import { fillOffers, fillActiveOffer, fillOffersNear, fillFavoriteOffer } from './action';
 import { userDefault, RequestStatus, errorEmpty } from '../const';
 import type { TInitialState } from '../types';
+
+// changeStatusFavoriteInOffers, setCity, setCardActiveId, setCurrentSort,
 
 const cityDefault = {
   name: 'Paris',
@@ -39,9 +41,9 @@ export const initialState: TInitialState = {
 
 const reducer = createReducer(initialState, (builder) => {
   builder
-    .addCase(setCity, (state, action) => {
-      state.city = action.payload;
-    })
+    // .addCase(setCity, (state, action) => {
+    //   state.city = action.payload;
+    // })
     .addCase(fillActiveOffer, (state, action) => {
       state.activeOffer = action.payload;
     })
@@ -60,12 +62,12 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(fillOffersNear, (state, action) => {
       state.offersNear = action.payload;
     })
-    .addCase(setCardActiveId, (state, action) => {
-      state.cardActiveId = action.payload;
-    })
-    .addCase(setCurrentSort, (state, action) => {
-      state.currentSort = action.payload;
-    })
+    // .addCase(setCardActiveId, (state, action) => {
+    //   state.cardActiveId = action.payload;
+    // })
+    // .addCase(setCurrentSort, (state, action) => {
+    //   state.currentSort = action.payload;
+    // })
     .addCase(requireAuthorization, (state, action) => {
       state.user = action.payload;
     })
@@ -88,15 +90,15 @@ const reducer = createReducer(initialState, (builder) => {
       state.isRequestCommentsByOffer = action.payload;
     })
 
-    .addCase(changeStatusFavoriteInOffers, (state, action) => {
-      if (state.offers) {
-        const index = state.offers.findIndex((item) => item.id === action.payload.id)
-        const status = Boolean(action.payload.status);
-        if (index !== -1) {
-          state.offers[index].isFavorite = status;
-        }
-      }
-    })
+    // .addCase(changeStatusFavoriteInOffers, (state, action) => {
+    //   if (state.offers) {
+    //     const index = state.offers.findIndex((item) => item.id === action.payload.id)
+    //     const status = Boolean(action.payload.status);
+    //     if (index !== -1) {
+    //       state.offers[index].isFavorite = status;
+    //     }
+    //   }
+    // })
     .addCase(changeStatusFavoriteInOffersNear, (state, action) => {
       if (state.offersNear) {
         const index = state.offersNear.findIndex((item) => item.id === action.payload.id)

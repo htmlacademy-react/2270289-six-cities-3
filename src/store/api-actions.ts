@@ -1,8 +1,9 @@
 import {AxiosInstance } from 'axios';
 import {createAsyncThunk } from '@reduxjs/toolkit';
 import type {AppDispatch,State } from '../hooks';
-import {fillOffers,fillActiveOffer,fillFavoriteOffer,fillOffersNear,fillCommentsByOffer} from './action';
+import {fillActiveOffer,fillFavoriteOffer,fillOffersNear,fillCommentsByOffer} from './action';
 
+// fillOffers,
 //import {requireAuthorization,setRequestStatus,setError,setAuthStatus,setRequestActiveOffer,setRequestOffersNear,setRequestCommentsByOffer} from './action';
 import {requireAuthorization,setRequestStatus,setAuthStatus,setRequestActiveOffer,setRequestOffersNear,setRequestCommentsByOffer} from './action';
 
@@ -99,16 +100,17 @@ export const logoutAction = createAsyncThunk<void, undefined, {
   },
 );
 
-export const fetchOffersAction = createAsyncThunk<void,undefined,{
+export const fetchOffersAction = createAsyncThunk<TOfferPreview[],undefined,{
   dispatch: AppDispatch;
   extra: AxiosInstance;
 }>(
   'data/fetchOffers',
-  async(_arg,{dispatch, extra:api }) => {
-    dispatch(setRequestStatus(RequestStatus.Loading));
+  async(_arg,{ extra:api }) => {
+    //dispatch(setRequestStatus(RequestStatus.Loading));
     const {data} = await api.get<TOfferPreview[]>(ApiRoute.Offers);
-    dispatch(setRequestStatus(RequestStatus.Success));
-    dispatch(fillOffers(data));
+    return data
+    //dispatch(setRequestStatus(RequestStatus.Success));
+    //dispatch(fillOffers(data));
   }
 );
 

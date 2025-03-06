@@ -274,3 +274,28 @@ export const classButtonFaforiteType = {
   default : 'bookmark-button',
   favorite : 'bookmark-button--active',
 };
+
+export const cityDefault = {
+  name: 'Paris',
+  location: {
+    latitude: 48.85661,
+    longitude: 2.351499,
+    zoom: 13
+  }
+};
+
+export const NameSpaces = {
+  AllOffers: 'ALLOFFERS',
+  Offer: 'OFFER',
+  Favorites: 'FAVORITES',
+  Reviews: 'REVIEWS',
+  Nearby: 'NEARBY',
+  User: 'USER',
+};
+
+export const SortOptions = {
+  Popular: 'Popular',
+  PriceLowToHigh: 'Price: low to high',
+  PriceHighToLow: 'Price: high to low',
+  TopRatedFirst: 'Top rated first',
+};
