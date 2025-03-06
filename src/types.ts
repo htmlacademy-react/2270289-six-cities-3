@@ -176,6 +176,13 @@ type TInitialStateReview = {
   hasErrorFormCommentSending: boolean;
 }
 
+export type TInitialStateUser = {
+  userData: TUserData | null;
+  authorizationStatus: 'AUTH' | 'NO_AUTH' | 'UNKNOWN';
+// type State = ReturnType< typeof store.getState>;
+// type AppDispatch = typeof store.dispatch;
+};
+
 
 type TOfferFavoriteStatus = {
   id: string;

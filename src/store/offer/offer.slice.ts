@@ -9,7 +9,7 @@ const initialState : TInitialStateOffer = {
   hasError: false,
 }
 
-const offerSlice = createSlice({
+export const offerSlice = createSlice({
   name: NameSpaces.Offer,
   initialState,
   reducers: {

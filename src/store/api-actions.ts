@@ -18,22 +18,23 @@ import { saveToken, AUTH_TOKEN_KEY, dropToken } from '../services/token';
 
 import type { TOffer, TOfferPreview, TUserData, TAuthData, TUser, TCommentForOffer, TUserComment } from '../types';
 
-export const checkAuthAction = createAsyncThunk<void, undefined, {
+export const checkAuthAction = createAsyncThunk<TUser, undefined, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
   'user/checkAuth',
-  async (_arg, { dispatch, extra: api }) => {
-    try {
+  async (_arg, { extra: api }) => {
+    // try {
       const { data } = await api.get<TUser>(ApiRoute.Login);
-      dispatch(setAuthStatus(false));
-      dispatch(requireAuthorization(data));
-      dispatch(setAuthStatus(true));
-    } catch {
-      dispatch(requireAuthorization(userDefault));
-      dispatch(setAuthStatus(false));
-    }
+      // dispatch(setAuthStatus(false));
+      // dispatch(requireAuthorization(data));
+      // dispatch(setAuthStatus(true));
+      return data;
+    // } catch {
+    //   dispatch(requireAuthorization(userDefault));
+    //   dispatch(setAuthStatus(false));
+    // }
   },
 );
 
@@ -74,17 +75,18 @@ export const sendChangedStatusFavoriteAction = createAsyncThunk<{ offer: TOfferP
   }
 );
 
-export const loginAction = createAsyncThunk<void, TAuthData, {
+export const loginAction = createAsyncThunk<TUserData, TAuthData, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
   'user/login',
-  async ({ login: email, password }, { dispatch, extra: api }) => {
+  async ({ login: email, password }, { extra: api }) => {
     const { data } = await api.post<TUserData>(ApiRoute.Login, { email, password });
-    dispatch(requireAuthorization(data));
+    // dispatch(requireAuthorization(data));
     saveToken(AUTH_TOKEN_KEY, data.token);
-    dispatch(setAuthStatus(true));
+    // dispatch(setAuthStatus(true));
+    return data;
   },
 );
 
