@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { useAppDispatch, useAppSelector } from '../../hooks/index.ts';
+import { useAppDispatch } from '../../hooks/index.ts';
 
 import ListOffer from '../../components/card-offer-list/card-offer-list';
 import ReviewForm from '../../components/review-form/review-form';
@@ -12,13 +12,26 @@ import LoadingScreen from '../loading-screen/loading-screen.tsx';
 import Page404 from '../404/page-404.tsx';
 
 import { fetchCurrentOfferAction, fetchReviewsByOffer, fetchOffersNearAction, sendChangedStatusFavoriteAction, sendCommentAction } from '../../store/api-actions.ts';
-import { changeStatusFavoriteInCurrentOffer, changeStatusFavoriteInFavoriteOffers, changeStatusFavoriteInOffers } from '../../store/action.ts';
-import { changeStatusFavoriteInOffersNear, fillCommentsByOffer } from '../../store/action.ts';
 
-import { typeMap, Comment, classButtonFaforiteType, SvgSizeByPlace } from '../../const';
+import { changeStatusFavoriteInFavoriteOffers } from '../../store/favorites/favorites.slice.ts';
+import { changeStatusFavoriteInCurrentOffer} from '../../store/offer/offer.slice.ts';
+import { changeStatusFavoriteInOffers } from '../../store/all-offers/all-offers.slice.ts';
+//import { changeStatusFavoriteInOffersNear, fillCommentsByOffer } from '../../store/offers-near/offers-near.slice.ts';
+import { changeStatusFavoriteInOffersNear } from '../../store/offers-near/offers-near.slice.ts';
+
+//import { typeMap, Comment, classButtonFaforiteType, SvgSizeByPlace } from '../../const';
+import { typeMap, classButtonFaforiteType, SvgSizeByPlace, AuthorizationStatus } from '../../const';
 import { convertRatingToStyleWidthPercent } from '../../utils.ts';
 
-import type { TCommentForOffer, TOfferFavoriteStatus, TOfferPreview, TUserCommentWithID, TVariantPlace } from '../../types/types.ts';
+//import type { TCommentForOffer, TOfferFavoriteStatus, TOfferPreview, TUserCommentWithID, TVariantPlace } from '../../types/types.ts';
+import type { TOfferFavoriteStatus, TOfferPreview, TUserCommentWithID, TVariantPlace } from '../../types/types.ts';
+
+import { useSelector } from 'react-redux';
+import { currentCity } from '../../store/all-offers/all-offers.selectors.ts';
+import { currentOffer, currentOffersLoadingStatus } from '../../store/offer/offer.selectors.ts';
+import { nearAllOffers, nearAllOffersLoadingStatus } from '../../store/offers-near/offers-near.selectors.ts';
+import { reviewsByOffer, reviewsByOfferLoadingStatus, reviewsByOfferSorted } from '../../store/reviews/reviews.selectors.ts';
+import { userAuthorizationStatus } from '../../store/user/user.selectors.ts';
 
 type OfferProps = {
   variantPlace : TVariantPlace;
@@ -26,9 +39,9 @@ type OfferProps = {
 
 export default function Offer({variantPlace} : OfferProps): JSX.Element {
 
-  const currentCity = useAppSelector((state) => state.city);
+  const activeCity = useSelector(currentCity);
   const dispatch = useAppDispatch();
-  const isAuth = useAppSelector((state) => state.isAuth);
+  const isAuth = useSelector(userAuthorizationStatus) === AuthorizationStatus.Auth;
   const { id } = useParams();
 
   useEffect(() => {
@@ -39,29 +52,33 @@ export default function Offer({variantPlace} : OfferProps): JSX.Element {
     }
   }, []);
 
-  const requestActiveOfferStatus = useAppSelector((state) => state.isRequestActiveOffer);
-  const requestOffersNearStatus = useAppSelector((state) => state.isRequestOffersNear);
-  const requestCommentsByOffer = useAppSelector((state) => state.isRequestCommentsByOffer);
+  const isActiveOfferLoading = useSelector(currentOffersLoadingStatus);
+  const isOffersNearLoading = useSelector(nearAllOffersLoadingStatus);
+  const isCommentsByOfferLoading = useSelector(reviewsByOfferLoadingStatus);
 
-  const currentOffer = useAppSelector((state) => state.activeOffer);
-  const nearOffers = useAppSelector((state) => state.offersNear ? state.offersNear : []).slice(0, 3);
-  const reviewsByOffer = useAppSelector((state) => state.reviewsByOffer ? state.reviewsByOffer : []);
-  const reviewsByOfferSorted = reviewsByOffer
-    .toSorted((a, b) => Date.parse(b.date) - Date.parse(a.date))
-    .slice(Comment.MinCount, Comment.MaxCount);
-  const countAllComments = reviewsByOffer.length;
+  const activeOffer = useSelector(currentOffer);
+
+  const nearOffersAll = useSelector(nearAllOffers);
+  const nearOffersSlice = nearOffersAll ? nearOffersAll.slice(0,3) : [];
+
+  const commentsByOffer = useSelector(reviewsByOffer);
+  const commentsByOfferSorted = useSelector(reviewsByOfferSorted);
+  // const reviewsByOfferSorted = reviewsByOffer
+  //   .toSorted((a, b) => Date.parse(b.date) - Date.parse(a.date))
+  //   .slice(Comment.MinCount, Comment.MaxCount);
+  const countAllComments = commentsByOffer ? commentsByOffer.length : 0;
 
   const addComment = (comment: TUserCommentWithID): void => {
     dispatch(sendCommentAction(comment))
-      .then((response) => {
-        dispatch(fillCommentsByOffer([response.payload as TCommentForOffer, ...reviewsByOffer]));
-      });
+      // .then((response) => {
+      //   dispatch(sendCommentActionfillCommentsByOffer([response.payload as TCommentForOffer, ...commentsByOffer]));
+      // });
   };
 
   const [isVisibleLoadingScreen, setIsVisibleLoadingScreen] = useState(false);
 
   useEffect(() => {
-    if ((!requestActiveOfferStatus || !requestOffersNearStatus || !requestCommentsByOffer)) {
+    if ((isActiveOfferLoading || isOffersNearLoading || isCommentsByOfferLoading)) {
       setIsVisibleLoadingScreen(true);
       setTimeout(() => {
         setIsVisibleLoadingScreen(false);
@@ -70,11 +87,11 @@ export default function Offer({variantPlace} : OfferProps): JSX.Element {
   }, []);
 
   const changeStatusFavorite = () => {
-    if (currentOffer) {
-      const status = currentOffer.isFavorite;
+    if (activeOffer) {
+      const status = activeOffer.isFavorite;
       const statusNumber = status ? 0 : 1;
       const changeStatus: TOfferFavoriteStatus = {
-        id: currentOffer.id,
+        id: activeOffer.id,
         status: statusNumber,
       }
       dispatch(sendChangedStatusFavoriteAction(changeStatus))
@@ -93,7 +110,7 @@ export default function Offer({variantPlace} : OfferProps): JSX.Element {
     );
   }
 
-  if (!currentOffer) {
+  if (!activeOffer) {
     return (
       <Page404 />
     );
@@ -110,7 +127,7 @@ export default function Offer({variantPlace} : OfferProps): JSX.Element {
         <section className="offer">
           <div className="offer__gallery-container container">
             <div className="offer__gallery">
-              {(currentOffer.images.map((urlImage) => (
+              {(activeOffer.images.map((urlImage) => (
                 <div className="offer__image-wrapper" key={urlImage}>
                   <img className="offer__image" src={urlImage} alt="Photo studio" />
                 </div>
@@ -121,15 +138,15 @@ export default function Offer({variantPlace} : OfferProps): JSX.Element {
           <div className="offer__container container">
             <div className="offer__wrapper">
               <div className="offer__mark">
-                {(currentOffer.isPremium) && (<span>Premium</span>)}
+                {(activeOffer.isPremium) && (<span>Premium</span>)}
               </div>
               <div className="offer__name-wrapper">
                 <h1 className="offer__name">
-                  {currentOffer.title}
+                  {activeOffer.title}
                 </h1>
                 <button
                   className={
-                    (currentOffer.isFavorite) ?
+                    (activeOffer.isFavorite) ?
                       `offer__${classButtonFaforiteType.default} offer__${classButtonFaforiteType.favorite} button` :
                       `offer__${classButtonFaforiteType.default} button`
                   }
@@ -148,33 +165,33 @@ export default function Offer({variantPlace} : OfferProps): JSX.Element {
               </div>
               <div className="offer__rating rating">
                 <div className="offer__stars rating__stars">
-                  <span style={convertRatingToStyleWidthPercent(currentOffer.rating)}>
+                  <span style={convertRatingToStyleWidthPercent(activeOffer.rating)}>
                   </span>
                   <span className="visually-hidden">Rating</span>
                 </div>
                 <span className="offer__rating-value rating__value">
-                  {currentOffer.rating}
+                  {activeOffer.rating}
                 </span>
               </div>
               <ul className="offer__features">
                 <li className="offer__feature offer__feature--entire">
-                  {currentOffer.type}
+                  {activeOffer.type}
                 </li>
                 <li className="offer__feature offer__feature--bedrooms">
-                  {`${currentOffer.bedrooms} Bedrooms`}
+                  {`${activeOffer.bedrooms} Bedrooms`}
                 </li>
                 <li className="offer__feature offer__feature--adults">
-                  {`Max ${currentOffer.maxAdults} adults`}
+                  {`Max ${activeOffer.maxAdults} adults`}
                 </li>
               </ul>
               <div className="offer__price">
-                <b className="offer__price-value">&euro;{currentOffer.price}</b>
+                <b className="offer__price-value">&euro;{activeOffer.price}</b>
                 <span className="offer__price-text">&nbsp;night</span>
               </div>
               <div className="offer__inside">
                 <h2 className="offer__inside-title">What&apos;s inside</h2>
                 <ul className="offer__inside-list">
-                  {currentOffer.goods.map((itemGood) => (
+                  {activeOffer.goods.map((itemGood) => (
                     <li className="offer__inside-item" key={itemGood}>
                       {itemGood}
                     </li>)
@@ -186,39 +203,39 @@ export default function Offer({variantPlace} : OfferProps): JSX.Element {
                 <div className="offer__host-user user">
                   <div className="offer__avatar-wrapper offer__avatar-wrapper--pro user__avatar-wrapper">
                     <img className="offer__avatar user__avatar"
-                      src={currentOffer.host.avatarUrl}
+                      src={activeOffer.host.avatarUrl}
                       width="74" height="74" alt="Host avatar"
                     />
                   </div>
                   <span className="offer__user-name">
-                    {currentOffer.host.name}
+                    {activeOffer.host.name}
                   </span>
                   <span className="offer__user-status">
-                    {(currentOffer.host.isPro) && ('Pro')}
+                    {(activeOffer.host.isPro) && ('Pro')}
                   </span>
                 </div>
                 <div className="offer__description">
                   <p className="offer__text">
-                    {currentOffer.description}
+                    {activeOffer.description}
                   </p>
                 </div>
               </div>
               <section className="offer__reviews reviews">
 
-                <ReviewList commentsByOfferSorted={reviewsByOfferSorted} countAllComments={countAllComments} />
+                <ReviewList commentsByOfferSorted={commentsByOfferSorted} countAllComments={countAllComments} />
 
                 {(isAuth) && (<ReviewForm addComment={addComment} idOffer={(id) ? id : null} />)}
               </section>
             </div>
           </div>
-          <Map currentCity={currentCity} offers={nearOffers} currentOffer={currentOffer} typeMap={typeMap.offer} />
+          <Map currentCity={activeCity} offers={nearOffersSlice} currentOffer={activeOffer} typeMap={typeMap.offer} />
         </section>
 
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              <ListOffer listOffer={nearOffers} variantCard='near-places' variantPlace='place-card' />
+              <ListOffer listOffer={nearOffersSlice} variantCard='near-places' variantPlace='place-card' />
             </div>
           </section>
         </div>

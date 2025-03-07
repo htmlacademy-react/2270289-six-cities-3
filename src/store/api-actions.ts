@@ -5,12 +5,14 @@ import type { AppDispatch, State } from '../hooks';
 
 // fillOffers, fillActiveOffer, fillFavoriteOffer, fillOffersNear,
 // import {requireAuthorization,setRequestStatus,setError,setAuthStatus,setRequestActiveOffer,setRequestOffersNear,setRequestCommentsByOffer} from './action';
-import { requireAuthorization, setAuthStatus} from './action';
+
+// import { requireAuthorization, setAuthStatus} from './action';
+
 //setRequestStatus, setRequestActiveOffer, setRequestOffersNear, setRequestCommentsByOffer
 
 //import {ApiRoute,RequestStatus,TIMEOUT_SHOW_ERROR,errorEmpty,userDefault} from '../const';
-import { ApiRoute, userDefault } from '../const';
-//RequestStatus,
+import { ApiRoute } from '../const';
+//RequestStatus, userDefault
 
 import { saveToken, AUTH_TOKEN_KEY, dropToken } from '../services/token';
 
@@ -35,6 +37,35 @@ export const checkAuthAction = createAsyncThunk<TUser, undefined, {
     //   dispatch(requireAuthorization(userDefault));
     //   dispatch(setAuthStatus(false));
     // }
+  },
+);
+
+export const loginAction = createAsyncThunk<TUserData, TAuthData, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'user/login',
+  async ({ login: email, password }, { extra: api }) => {
+    const { data } = await api.post<TUserData>(ApiRoute.Login, { email, password });
+    // dispatch(requireAuthorization(data));
+    saveToken(AUTH_TOKEN_KEY, data.token);
+    // dispatch(setAuthStatus(true));
+    return data;
+  },
+);
+
+export const logoutAction = createAsyncThunk<void, undefined, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'user/logout',
+  async (_arg, { extra: api }) => {
+    await api.delete(ApiRoute.Logout);
+    dropToken(AUTH_TOKEN_KEY);
+    //dispatch(requireAuthorization(userDefault));
+    //dispatch(setAuthStatus(false));
   },
 );
 
@@ -75,37 +106,6 @@ export const sendChangedStatusFavoriteAction = createAsyncThunk<{ offer: TOfferP
   }
 );
 
-export const loginAction = createAsyncThunk<TUserData, TAuthData, {
-  dispatch: AppDispatch;
-  state: State;
-  extra: AxiosInstance;
-}>(
-  'user/login',
-  async ({ login: email, password }, { extra: api }) => {
-    const { data } = await api.post<TUserData>(ApiRoute.Login, { email, password });
-    // dispatch(requireAuthorization(data));
-    saveToken(AUTH_TOKEN_KEY, data.token);
-    // dispatch(setAuthStatus(true));
-    return data;
-  },
-);
-
-export const logoutAction = createAsyncThunk<void, undefined, {
-  dispatch: AppDispatch;
-  state: State;
-  extra: AxiosInstance;
-}>(
-  'user/logout',
-  async (_arg, { dispatch, extra: api }) => {
-    await api.delete(ApiRoute.Logout);
-    dropToken(AUTH_TOKEN_KEY);
-    dispatch(requireAuthorization(userDefault));
-    dispatch(setAuthStatus(false));
-  },
-);
-
-/* --------------------------------------------------------------------------- */
-/* --------------------------------------------------------------------------- */
 export const fetchOffersAction = createAsyncThunk<TOfferPreview[], undefined, {
   dispatch: AppDispatch;
   extra: AxiosInstance;

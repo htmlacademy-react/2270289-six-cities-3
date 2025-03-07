@@ -114,7 +114,6 @@ export const  SvgSizeByPlace : {[key: string] : ISizeImage} = {
   },
 };
 
-
 export const FavoriteStatus = {
   Add: 1,
   Remove: 0,
@@ -126,37 +125,37 @@ export const URL_MARKER_DEFAULT =
 export const URL_MARKER_CURRENT =
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/main-pin.svg';
 
-export const enum ActionType {
-  SetCity = 'offers/setCity',
+// export const enum ActionType {
+//   SetCity = 'offers/setCity',
 
-  FillOffers = 'offers/fillOffers',
-  FillActiveOffer = 'offers/fillActiveOffer',
-  FillCommentsByOffer = 'offers/fillCommentsByOffer',
-  FillOffersNear = 'offers/fillOffersNear',
-  FillFavoriteOffer = 'offers/fillFavoriteOffer',
-  SetFavoriteOfferStatus = 'offers/setFavoriteOfferStatus',
+//   FillOffers = 'offers/fillOffers',
+//   FillActiveOffer = 'offers/fillActiveOffer',
+//   FillCommentsByOffer = 'offers/fillCommentsByOffer',
+//   FillOffersNear = 'offers/fillOffersNear',
+//   FillFavoriteOffer = 'offers/fillFavoriteOffer',
+//   SetFavoriteOfferStatus = 'offers/setFavoriteOfferStatus',
 
-  SetCardActiveId = 'card/setActiveId',
-  SetCurrentSort = 'sort/setCurrentSort',
-  SetReviewByOffer = 'review/setReviewByOffer',
-  FetchAllOffers = 'fetchOffers/all',
-  RequireAuthorization = 'user/requireAuthorization',
-  SetRequestStatus = 'data/setRequestStatus',
-  SetError = 'request/setError',
+//   SetCardActiveId = 'card/setActiveId',
+//   SetCurrentSort = 'sort/setCurrentSort',
+//   SetReviewByOffer = 'review/setReviewByOffer',
+//   FetchAllOffers = 'fetchOffers/all',
+//   RequireAuthorization = 'user/requireAuthorization',
+//   SetRequestStatus = 'data/setRequestStatus',
+//   SetError = 'request/setError',
 
-  SetAuthStatus = 'data/setAuthStatus',
-  SetRequestActiveOffer = 'data/SetRequestActiveOffer',
-  SetRequestOffersNear = 'data/setRequestOffersNear',
-  SetRequestCommentsByOffer = 'data/setRequestCommentsByOffer',
+//   SetAuthStatus = 'data/setAuthStatus',
+//   SetRequestActiveOffer = 'data/SetRequestActiveOffer',
+//   SetRequestOffersNear = 'data/setRequestOffersNear',
+//   SetRequestCommentsByOffer = 'data/setRequestCommentsByOffer',
 
-  ChangeStatusFavoriteInOffers = 'data/changeStatusFavoriteInOffers',
-  ChangeStatusFavoriteInOffersNear = 'data/changeStatusFavoriteInOffersNear',
-  ChangeStatusFavoriteInCurrentOffer = 'data/changeStatusFavoriteInCurrentOffer',
-  ChangeStatusFavoriteInFavoriteOffers = 'data/changeStatusFavoriteInFavoriteOffers',
+//   ChangeStatusFavoriteInOffers = 'data/changeStatusFavoriteInOffers',
+//   ChangeStatusFavoriteInOffersNear = 'data/changeStatusFavoriteInOffersNear',
+//   ChangeStatusFavoriteInCurrentOffer = 'data/changeStatusFavoriteInCurrentOffer',
+//   ChangeStatusFavoriteInFavoriteOffers = 'data/changeStatusFavoriteInFavoriteOffers',
 
-  SetStatusFormSending = 'data/setStatusFormSending',
+//   SetStatusFormSending = 'data/setStatusFormSending',
 
-}
+// }
 
 export const RequestStatus = {
   Idle: 'idle',

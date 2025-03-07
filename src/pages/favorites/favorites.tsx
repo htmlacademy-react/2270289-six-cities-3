@@ -1,14 +1,16 @@
 import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
-import { useAppSelector, useAppDispatch } from '../../hooks/index.ts';
+import { useAppDispatch } from '../../hooks/index.ts';
 import FavoriteCardItemGroup from '../../components/favorite-card-item-group/favorite-card-item-group.tsx';
 import Header from '../../components/header/header.tsx';
 
 import { AppRoute } from '../../const.ts';
 import { fetchFavoriteOffersAction } from '../../store/api-actions.ts';
-import { setFavoriteOfferStatus } from '../../store/action.ts';
+// import { setFavoriteOfferStatus } from '../../store/favorites/favorites.slice.ts';
 import { Helmet } from 'react-helmet-async';
 import FavoritesEmpty from '../../components/favorites-empty/favorites-empty.tsx';
+import { useSelector } from 'react-redux';
+import { favoritesOffers, favoritesOffersLoadingStatus } from '../../store/favorites/favorites.selectors.ts';
 
 
 type ListOfferProps = {
@@ -17,18 +19,18 @@ type ListOfferProps = {
 
 export default function Favorites({ variantCard }: ListOfferProps): JSX.Element {
 
-  const isDownloadFavoriteOffers = useAppSelector((state) => state.isDownloadFavoriteOffers);
+  const isDownloadFavoriteOffers = useSelector(favoritesOffersLoadingStatus);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (!isDownloadFavoriteOffers) {
       dispatch(fetchFavoriteOffersAction());
-      dispatch(setFavoriteOfferStatus(true));
+      //dispatch(setFavoriteOfferStatus(true));
     }
   },[]);
 
-  const offersFavorite = useAppSelector((state) => state.favoriteOffers ? state.favoriteOffers : []);
-  const countOffersFavorite = offersFavorite.length;
+  const offersFavorite = useSelector(favoritesOffers);
+  const countOffersFavorite = offersFavorite ? offersFavorite.length : 0;
 
   if (!countOffersFavorite) {
     return (

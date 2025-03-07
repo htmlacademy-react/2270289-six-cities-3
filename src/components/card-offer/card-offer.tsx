@@ -1,7 +1,10 @@
 import { Link } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks/index.ts';
-import { changeStatusFavoriteInCurrentOffer, changeStatusFavoriteInFavoriteOffers, changeStatusFavoriteInOffers}from '../../store/action.ts';
-import { changeStatusFavoriteInOffersNear, setCardActiveId } from '../../store/action.ts';
+import { changeStatusFavoriteInCurrentOffer }from '../../store/offer/offer.slice.ts';
+import { changeStatusFavoriteInFavoriteOffers }from '../../store/favorites/favorites.slice.ts';
+import { changeStatusFavoriteInOffers}from '../../store/all-offers/all-offers.slice.ts';
+import { changeStatusFavoriteInOffersNear } from '../../store/offers-near/offers-near.slice.ts';
+import { setActiveOfferId } from '../../store/all-offers/all-offers.slice.ts';
 import { sendChangedStatusFavoriteAction } from '../../store/api-actions.ts';
 import { convertRatingToStyleWidthPercent } from '../../utils.ts';
 import { FavoriteStatus, ImageSizeByCard, SvgSizeByPlace, classButtonFaforiteType } from '../../const.ts';
@@ -47,10 +50,10 @@ export default function CardOffer({ offer, variantCard, variantPlace }: OfferPro
   return (
     <article className={`${variantCard}__card place-card`}
       onMouseEnter={() => {
-        dispatch(setCardActiveId(offer.id));
+        dispatch(setActiveOfferId(offer.id));
       }}
       onMouseLeave={() => {
-        dispatch(setCardActiveId(''));
+        dispatch(setActiveOfferId(''));
       }}
     >
 

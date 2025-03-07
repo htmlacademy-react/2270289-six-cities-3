@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 import { TOfferPreview } from "../../types/types";
 
 const initialState: TInitialStateFavorites = {
-  favoriteOffers: null,
+  favoriteOffers: [],
   isLoading: false,
   hasError: false,
   isLoadingStatusChange : false,

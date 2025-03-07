@@ -1,7 +1,7 @@
 import { useBoolean } from '../../hooks/use-boolean';
 import { useAppDispatch } from '../../hooks';
 import { SORT_OPTIONS } from '../../const';
-import { setCurrentSort } from '../../store/action';
+import { setCurrentSort } from '../../store/all-offers/all-offers.slice';
 import classNames from 'classnames';
 import { currentSort } from '../../store/all-offers/all-offers.selectors';
 import { useSelector } from 'react-redux';

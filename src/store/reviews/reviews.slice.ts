@@ -6,7 +6,7 @@ import { fetchReviewsByOffer, sendCommentAction } from "../api-actions";
 import { toast } from "react-toastify";
 
 const initialState: TInitialStateReview = {
-  reviewsByOffer: null,
+  reviewsByOffer: [],
   isLoading: false,
   hasError: false,
   isFormCommentSending: false,

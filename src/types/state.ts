@@ -21,13 +21,13 @@ type TInitialStateAllOffers = {
 };
 
 type TInitialStateOffersNear = {
-  offersNear: TOfferPreview[] | null;
+  offersNear: TOfferPreview[];
   isLoading: boolean,
   hasError: boolean,
 };
 
 type TInitialStateFavorites = {
-  favoriteOffers: TOfferPreview [] | null;
+  favoriteOffers: TOfferPreview [];
   isLoading: boolean,
   hasError: boolean,
   isLoadingStatusChange : boolean,
@@ -41,7 +41,7 @@ type TInitialStateOffer = {
 };
 
 type TInitialStateReview = {
-  reviewsByOffer: TCommentForOffer[] | null;
+  reviewsByOffer: TCommentForOffer[];
   isLoading: boolean,
   hasError: boolean,
   isFormCommentSending: boolean;
