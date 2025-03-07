@@ -1,11 +1,13 @@
 import { Link } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../../hooks/index.ts';
+import { useAppDispatch } from '../../hooks/index.ts';
 import { changeStatusFavoriteInCurrentOffer, changeStatusFavoriteInFavoriteOffers, changeStatusFavoriteInOffers}from '../../store/action.ts';
 import { changeStatusFavoriteInOffersNear, setCardActiveId } from '../../store/action.ts';
 import { sendChangedStatusFavoriteAction } from '../../store/api-actions.ts';
 import { convertRatingToStyleWidthPercent } from '../../utils.ts';
 import { FavoriteStatus, ImageSizeByCard, SvgSizeByPlace, classButtonFaforiteType } from '../../const.ts';
 import type { TOfferFavoriteStatus, TOfferPreview, TVariantCard, TVariantPlace } from '../../types/types.ts';
+import { useSelector } from 'react-redux';
+import { activeOfferId, selectorSortedListOffer } from '../../store/all-offers/all-offers.selectors.ts';
 
 type OfferProps = {
   offer: TOfferPreview;
@@ -18,8 +20,8 @@ export default function CardOffer({ offer, variantCard, variantPlace }: OfferPro
   const linkTo = `/offer/${offer.id}`;
   const isShowSpanPremium = variantCard !== 'near-places';
   const dispatch = useAppDispatch();
-  const cardActiveId = useAppSelector((state) => state.cardActiveId);
-  const offers = useAppSelector((state) => state.offers);
+  const cardActiveId = useSelector(activeOfferId);
+  const offers = useSelector(selectorSortedListOffer);
 
   const changeStatusFavorite = () => {
     if (offers) {

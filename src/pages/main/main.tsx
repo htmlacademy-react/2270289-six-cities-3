@@ -7,37 +7,42 @@ import Map from '../../components/map/map.tsx';
 import ListCity from '../../components/list-city/list-city.tsx';
 import LoadingScreen from '../loading-screen/loading-screen.tsx';
 
-import { selectorSortedListOffer } from '../../store/selectors.ts';
+import { selectorCurrentOffersByCity, selectorSortedListOffer } from '../../store/all-offers/all-offers.selectors.ts';
 import { fetchFavoriteOffersAction, fetchOffersAction } from '../../store/api-actions.ts';
 
-import { RequestStatus, typeMap } from '../../const.ts';
+//import { RequestStatus, typeMap } from '../../const.ts';
+import { typeMap } from '../../const.ts';
 import { Helmet } from 'react-helmet-async';
 import MainEmpty from '../../components/main-empty/main-empty.tsx';
+import { allOffers, currentCity } from '../../store/all-offers/all-offers.selectors.ts';
+import { useSelector } from 'react-redux';
 
 export default function Main(): JSX.Element {
 
   const dispatch = useAppDispatch();
-  const requestStatus = useAppSelector((state) => state.requestStatus);
+  const hasAllOffers = Boolean(useAppSelector(allOffers));
 
   useEffect(() => {
-    if (requestStatus !== RequestStatus.Success) {
+    if (!hasAllOffers) {
       dispatch(fetchOffersAction());
       dispatch(fetchFavoriteOffersAction());
     }
   }, []);
 
-  const offers = useAppSelector((state) => state.offers);
-  const currentCity = useAppSelector((state) => state.city);
-  const cityName = currentCity.name;
-  const currentOffersByCity = (offers) ? offers.filter((itemCard) => itemCard.city.name === cityName) : [];
+  //const offers = useAppSelector((state) => state.offers);
+  const activeCity = useAppSelector(currentCity)
+  const cityName = activeCity.name;
+  //const offers = useAppSelector((state) => state.offers);
+  const currentOffersByCity = useSelector(selectorCurrentOffersByCity);
+  //const currentOffersByCity = (offers) ? offers.filter((itemCard) => itemCard.city.name === cityName) : [];
   const countOffers = currentOffersByCity.length;
 
-  const sortedListOffer = useAppSelector(selectorSortedListOffer);
+  const sortedListOffer = useSelector(selectorSortedListOffer);
 
   const [isVisibleLoadingScreen, setIsVisibleLoadingScreen] = useState(false);
 
   useEffect(() => {
-    if ((requestStatus !== RequestStatus.Success)) {
+    if ((!hasAllOffers)) {
       setIsVisibleLoadingScreen(true);
       setTimeout(() => {
         setIsVisibleLoadingScreen(false);
@@ -84,7 +89,7 @@ export default function Main(): JSX.Element {
             </section>
             <div className="cities__right-section">
 
-              <Map currentCity={currentCity} offers={currentOffersByCity} currentOffer={null} typeMap={typeMap.cities} />
+              <Map currentCity={activeCity} offers={currentOffersByCity} currentOffer={null} typeMap={typeMap.cities} />
 
             </div>
           </div>

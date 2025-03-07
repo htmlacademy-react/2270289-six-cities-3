@@ -13,7 +13,7 @@ const initialState : TInitialStateAllOffers = {
 */
 type TInitialStateAllOffers = {
   currentCity : TCity;
-  currentSort: string | null;
+  currentSort: string;
   activeOfferId: string | null;
   offers : TOfferPreview[] | null;
   isLoading: boolean,

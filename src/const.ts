@@ -291,11 +291,11 @@ export const NameSpaces = {
   Favorites: 'FAVORITES',
   Reviews: 'REVIEWS',
   User: 'USER',
-};
+} as const;
 
 export const SortOptions = {
   Popular: 'Popular',
   PriceLowToHigh: 'Price: low to high',
   PriceHighToLow: 'Price: high to low',
   TopRatedFirst: 'Top rated first',
-};
+} as const;
