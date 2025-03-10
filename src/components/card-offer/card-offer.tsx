@@ -46,7 +46,6 @@ export default function CardOffer({ offer, variantCard, variantPlace }: OfferPro
         }
       } else {
         dispatch(redirectToRoute(AppRoute.Login));
-        return;
       }
     }
   };

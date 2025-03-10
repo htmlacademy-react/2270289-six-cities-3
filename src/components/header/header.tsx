@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { AppRoute, AuthorizationStatus, userDefault } from '../../const';
+import { AppRoute, AuthorizationStatus } from '../../const';
 import { useAppDispatch } from '../../hooks';
 import { logoutAction } from '../../store/api-actions';
 import { useSelector } from 'react-redux';
@@ -7,7 +7,7 @@ import { userAuthorizationStatus, userData } from '../../store/user/user.selecto
 import { favoritesOffers } from '../../store/favorites/favorites.selectors';
 
 export default function Header(): JSX.Element {
-  const user = useSelector(userData) ? useSelector(userData) : userDefault;
+  const user = useSelector(userData);
   const AuthStatus = useSelector(userAuthorizationStatus);
   const isAuth = (AuthStatus === AuthorizationStatus.Auth);
 
