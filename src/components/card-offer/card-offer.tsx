@@ -1,20 +1,22 @@
 import { Link } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks/index.ts';
-import { changeStatusFavoriteInCurrentOffer }from '../../store/offer/offer.slice.ts';
-import { changeStatusFavoriteInOffers}from '../../store/all-offers/all-offers.slice.ts';
+import { changeStatusFavoriteInCurrentOffer } from '../../store/offer/offer.slice.ts';
+import { changeStatusFavoriteInOffers } from '../../store/all-offers/all-offers.slice.ts';
 import { changeStatusFavoriteInOffersNear } from '../../store/offers-near/offers-near.slice.ts';
 import { setActiveOfferId } from '../../store/all-offers/all-offers.slice.ts';
 import { sendChangedStatusFavoriteAction } from '../../store/api-actions.ts';
 import { convertRatingToStyleWidthPercent } from '../../utils.ts';
-import { FavoriteStatus, ImageSizeByCard, SvgSizeByPlace, classButtonFaforiteType } from '../../const.ts';
+import { AppRoute, AuthorizationStatus, FavoriteStatus, ImageSizeByCard, SvgSizeByPlace, classButtonFaforiteType } from '../../const.ts';
 import type { TOfferFavoriteStatus, TOfferPreview, TVariantCard, TVariantPlace } from '../../types/types.ts';
 import { useSelector } from 'react-redux';
 import { activeOfferId, selectorSortedListOffer } from '../../store/all-offers/all-offers.selectors.ts';
+import { userAuthorizationStatus } from '../../store/user/user.selectors.ts';
+import { redirectToRoute } from '../../store/action.ts';
 
 type OfferProps = {
   offer: TOfferPreview;
   variantCard: TVariantCard;
-  variantPlace : TVariantPlace;
+  variantPlace: TVariantPlace;
 }
 
 export default function CardOffer({ offer, variantCard, variantPlace }: OfferProps): JSX.Element {
@@ -24,21 +26,27 @@ export default function CardOffer({ offer, variantCard, variantPlace }: OfferPro
   const dispatch = useAppDispatch();
   const cardActiveId = useSelector(activeOfferId);
   const offers = useSelector(selectorSortedListOffer);
+  const isAuth = useSelector(userAuthorizationStatus) === AuthorizationStatus.Auth;
 
   const changeStatusFavorite = () => {
     if (offers) {
-      const currentOffer = offers.find((item) => item.id === cardActiveId);
-      if (currentOffer) {
-        const status = currentOffer.isFavorite;
-        const statusNumber = status ? FavoriteStatus.Remove : FavoriteStatus.Add;
-        const changeStatus : TOfferFavoriteStatus = {
-          id : cardActiveId as string,
-          status: statusNumber,
-        };
-        dispatch(sendChangedStatusFavoriteAction(changeStatus));
-        dispatch(changeStatusFavoriteInOffers(changeStatus));
-        dispatch(changeStatusFavoriteInOffersNear(changeStatus));
-        dispatch(changeStatusFavoriteInCurrentOffer(changeStatus));
+      if (isAuth) {
+        const currentOffer = offers.find((item) => item.id === cardActiveId);
+        if (currentOffer) {
+          const status = currentOffer.isFavorite;
+          const statusNumber = status ? FavoriteStatus.Remove : FavoriteStatus.Add;
+          const changeStatus: TOfferFavoriteStatus = {
+            id: cardActiveId as string,
+            status: statusNumber,
+          };
+          dispatch(sendChangedStatusFavoriteAction(changeStatus));
+          dispatch(changeStatusFavoriteInOffers(changeStatus));
+          dispatch(changeStatusFavoriteInOffersNear(changeStatus));
+          dispatch(changeStatusFavoriteInCurrentOffer(changeStatus));
+        }
+      } else {
+        dispatch(redirectToRoute(AppRoute.Login));
+        return;
       }
     }
   };
@@ -78,7 +86,7 @@ export default function CardOffer({ offer, variantCard, variantPlace }: OfferPro
               `place-card__${classButtonFaforiteType.default} place-card__${classButtonFaforiteType.favorite} button` :
               `place-card__${classButtonFaforiteType.default} button`}
             type="button"
-            onClick = {changeStatusFavorite}
+            onClick={changeStatusFavorite}
           >
             <svg
               className="place-card__bookmark-icon"
