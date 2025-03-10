@@ -13,18 +13,14 @@ import Page404 from '../404/page-404.tsx';
 
 import { fetchCurrentOfferAction, fetchReviewsByOffer, fetchOffersNearAction, sendChangedStatusFavoriteAction, sendCommentAction } from '../../store/api-actions.ts';
 
-import { changeStatusFavoriteInFavoriteOffers } from '../../store/favorites/favorites.slice.ts';
 import { changeStatusFavoriteInCurrentOffer} from '../../store/offer/offer.slice.ts';
 import { changeStatusFavoriteInOffers } from '../../store/all-offers/all-offers.slice.ts';
-//import { changeStatusFavoriteInOffersNear, fillCommentsByOffer } from '../../store/offers-near/offers-near.slice.ts';
 import { changeStatusFavoriteInOffersNear } from '../../store/offers-near/offers-near.slice.ts';
 
-//import { typeMap, Comment, classButtonFaforiteType, SvgSizeByPlace } from '../../const';
 import { typeMap, classButtonFaforiteType, SvgSizeByPlace, AuthorizationStatus } from '../../const';
 import { convertRatingToStyleWidthPercent } from '../../utils.ts';
 
-//import type { TCommentForOffer, TOfferFavoriteStatus, TOfferPreview, TUserCommentWithID, TVariantPlace } from '../../types/types.ts';
-import type { TOfferFavoriteStatus, TOfferPreview, TUserCommentWithID, TVariantPlace } from '../../types/types.ts';
+import type { TOfferFavoriteStatus, TUserCommentWithID, TVariantPlace } from '../../types/types.ts';
 
 import { useSelector } from 'react-redux';
 import { currentCity } from '../../store/all-offers/all-offers.selectors.ts';
@@ -63,16 +59,10 @@ export default function Offer({variantPlace} : OfferProps): JSX.Element {
 
   const commentsByOffer = useSelector(reviewsByOffer);
   const commentsByOfferSorted = useSelector(reviewsByOfferSorted);
-  // const reviewsByOfferSorted = reviewsByOffer
-  //   .toSorted((a, b) => Date.parse(b.date) - Date.parse(a.date))
-  //   .slice(Comment.MinCount, Comment.MaxCount);
   const countAllComments = commentsByOffer ? commentsByOffer.length : 0;
 
   const addComment = (comment: TUserCommentWithID): void => {
-    dispatch(sendCommentAction(comment))
-      // .then((response) => {
-      //   dispatch(sendCommentActionfillCommentsByOffer([response.payload as TCommentForOffer, ...commentsByOffer]));
-      // });
+    dispatch(sendCommentAction(comment));
   };
 
   const [isVisibleLoadingScreen, setIsVisibleLoadingScreen] = useState(false);
@@ -93,16 +83,13 @@ export default function Offer({variantPlace} : OfferProps): JSX.Element {
       const changeStatus: TOfferFavoriteStatus = {
         id: activeOffer.id,
         status: statusNumber,
-      }
-      dispatch(sendChangedStatusFavoriteAction(changeStatus))
-        .then((response) => {
-          dispatch(changeStatusFavoriteInFavoriteOffers(response.payload as TOfferPreview));
-        })
+      };
+      dispatch(sendChangedStatusFavoriteAction(changeStatus));
       dispatch(changeStatusFavoriteInOffers(changeStatus));
       dispatch(changeStatusFavoriteInOffersNear(changeStatus));
       dispatch(changeStatusFavoriteInCurrentOffer(changeStatus));
     }
-  }
+  };
 
   if (isVisibleLoadingScreen) {
     return (

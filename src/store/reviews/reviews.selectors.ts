@@ -11,8 +11,8 @@ export const reviewsByOfferCommentSendHasError = (state: TState) => state[NameSp
 export const reviewsByOfferSorted = createSelector(
   [reviewsByOffer],
   (comments) => comments ?
-  comments
+    comments
       .toSorted((a, b) => Date.parse(b.date) - Date.parse(a.date))
       .slice(Comment.MinCount, Comment.MaxCount) :
     []
-)
+);

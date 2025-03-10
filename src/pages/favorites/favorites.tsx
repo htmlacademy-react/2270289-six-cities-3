@@ -6,12 +6,10 @@ import Header from '../../components/header/header.tsx';
 
 import { AppRoute } from '../../const.ts';
 import { fetchFavoriteOffersAction } from '../../store/api-actions.ts';
-// import { setFavoriteOfferStatus } from '../../store/favorites/favorites.slice.ts';
 import { Helmet } from 'react-helmet-async';
 import FavoritesEmpty from '../../components/favorites-empty/favorites-empty.tsx';
 import { useSelector } from 'react-redux';
 import { favoritesOffers, favoritesOffersLoadingStatus } from '../../store/favorites/favorites.selectors.ts';
-
 
 type ListOfferProps = {
   variantCard: 'cities' | 'favorite' | 'near-places';
@@ -25,7 +23,6 @@ export default function Favorites({ variantCard }: ListOfferProps): JSX.Element 
   useEffect(() => {
     if (!isDownloadFavoriteOffers) {
       dispatch(fetchFavoriteOffersAction());
-      //dispatch(setFavoriteOfferStatus(true));
     }
   },[]);
 
@@ -35,7 +32,7 @@ export default function Favorites({ variantCard }: ListOfferProps): JSX.Element 
   if (!countOffersFavorite) {
     return (
       <FavoritesEmpty />
-    )
+    );
   }
 
   return (

@@ -1,6 +1,6 @@
 
-type TVariantCard =  'cities' | 'favorite' | 'near-places';
-type TVariantPlace =  'place-card' | 'offer';
+type TVariantCard = 'cities' | 'favorite' | 'near-places';
+type TVariantPlace = 'place-card' | 'offer';
 
 type TUserAuthData = {
   email: string;
@@ -16,9 +16,8 @@ type TUser = {
   name: string;
   email: string;
   avatarUrl: string;
-  token :string;
+  token: string;
   isPro: boolean;
-  //authorizationStatus: string;
 };
 
 export type TUserData = {
@@ -49,7 +48,7 @@ type THostel = {
 type TImages = string[];
 
 type TOffer = {
-  id : string;
+  id: string;
   title: string;
   type: string;
   price: number;
@@ -67,7 +66,7 @@ type TOffer = {
 }
 
 type TOfferPreview = {
-  id : string;
+  id: string;
   title: string;
   type: string;
   price: number;
@@ -80,7 +79,7 @@ type TOfferPreview = {
 }
 
 type TCommentForOffer = {
-  id : string;
+  id: string;
   comment: string;
   date: string;
   rating: number;
@@ -110,15 +109,15 @@ type TErrorRequest = {
 }
 
 type TInitialState = {
-  city : TCity;
+  city: TCity;
   activeOffer: TOffer | null;
-  offers : TOfferPreview[] | null;
+  offers: TOfferPreview[] | null;
   offersNear: TOfferPreview[] | null;
-  favoriteOffers: TOfferPreview [] | null;
+  favoriteOffers: TOfferPreview[] | null;
   reviewsByOffer: TCommentForOffer[] | null;
   cardActiveId: string | null;
   currentSort: string | null;
-  requestStatus : string | null;
+  requestStatus: string | null;
   error: TErrorRequest | null;
   user: TUser | null;
   isAuth: boolean;
@@ -131,8 +130,8 @@ type TInitialState = {
 
 type TOfferFavoriteStatus = {
   id: string;
-  status : number;
+  status: number;
 }
 
-export type {TOffer,TOfferPreview,TCommentForOffer,TCity, TLocation,TPoints,TUser,TUserAuthData,TErrorRequest,};
-export type {TUserComment,TUserCommentWithID,TInitialState,TOfferFavoriteStatus,TVariantCard,TVariantPlace};
+export type { TOffer, TOfferPreview, TCommentForOffer, TCity, TLocation, TPoints, TUser, TUserAuthData, TErrorRequest, };
+export type { TUserComment, TUserCommentWithID, TInitialState, TOfferFavoriteStatus, TVariantCard, TVariantPlace };

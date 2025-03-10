@@ -1,4 +1,4 @@
-import { NameSpaces } from "../../const";
+import { NameSpaces } from '../../const';
 import { TState } from '../../types/state';
 
 export const favoritesOffers = (state: TState) => state[NameSpaces.Favorites].favoriteOffers;

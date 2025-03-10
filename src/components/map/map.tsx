@@ -6,7 +6,8 @@ import {URL_MARKER_DEFAULT, URL_MARKER_CURRENT } from '../../const';
 import 'leaflet/dist/leaflet.css';
 
 import type {TCity,TOfferPreview, TOffer } from '../../types/types';
-import { useAppSelector } from '../../hooks';
+import { useSelector } from 'react-redux';
+import { activeOfferId } from '../../store/all-offers/all-offers.selectors';
 
 type MapProps = {
   currentCity: TCity;
@@ -32,7 +33,7 @@ export default function Map({currentCity, offers, currentOffer, typeMap} : MapPr
   const mapRef = useRef(null);
   const map = useMap(mapRef, currentCity);
   const geolocation: [number,number] = [currentCity.location.latitude,currentCity.location.longitude];
-  const cardActiveId = useAppSelector((state) => state.cardActiveId);
+  const cardActiveId = useSelector(activeOfferId);
   const classNameByTypeMap = `${typeMap} map`;
 
   useEffect(() => {

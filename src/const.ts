@@ -74,18 +74,18 @@ export const typeCard = {
   near: 'near-places',
 };
 
-interface  ICardStyle {
+interface ICardStyle {
   width: number;
   height: number;
   class: string;
 }
 
-interface  ISizeImage {
+interface ISizeImage {
   width: number;
   height: number;
 }
 
-export const  ImageSizeByCard : {[key: string] : ICardStyle} = {
+export const ImageSizeByCard : {[key: string] : ICardStyle} = {
   'cities' : {
     width : 260,
     height: 200,
@@ -103,7 +103,7 @@ export const  ImageSizeByCard : {[key: string] : ICardStyle} = {
   },
 };
 
-export const  SvgSizeByPlace : {[key: string] : ISizeImage} = {
+export const SvgSizeByPlace : {[key: string] : ISizeImage} = {
   'place-card' : {
     width : 18,
     height: 19,
@@ -117,45 +117,13 @@ export const  SvgSizeByPlace : {[key: string] : ISizeImage} = {
 export const FavoriteStatus = {
   Add: 1,
   Remove: 0,
-}
+};
 
 export const URL_MARKER_DEFAULT =
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/pin.svg';
 
 export const URL_MARKER_CURRENT =
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/main-pin.svg';
-
-// export const enum ActionType {
-//   SetCity = 'offers/setCity',
-
-//   FillOffers = 'offers/fillOffers',
-//   FillActiveOffer = 'offers/fillActiveOffer',
-//   FillCommentsByOffer = 'offers/fillCommentsByOffer',
-//   FillOffersNear = 'offers/fillOffersNear',
-//   FillFavoriteOffer = 'offers/fillFavoriteOffer',
-//   SetFavoriteOfferStatus = 'offers/setFavoriteOfferStatus',
-
-//   SetCardActiveId = 'card/setActiveId',
-//   SetCurrentSort = 'sort/setCurrentSort',
-//   SetReviewByOffer = 'review/setReviewByOffer',
-//   FetchAllOffers = 'fetchOffers/all',
-//   RequireAuthorization = 'user/requireAuthorization',
-//   SetRequestStatus = 'data/setRequestStatus',
-//   SetError = 'request/setError',
-
-//   SetAuthStatus = 'data/setAuthStatus',
-//   SetRequestActiveOffer = 'data/SetRequestActiveOffer',
-//   SetRequestOffersNear = 'data/setRequestOffersNear',
-//   SetRequestCommentsByOffer = 'data/setRequestCommentsByOffer',
-
-//   ChangeStatusFavoriteInOffers = 'data/changeStatusFavoriteInOffers',
-//   ChangeStatusFavoriteInOffersNear = 'data/changeStatusFavoriteInOffersNear',
-//   ChangeStatusFavoriteInCurrentOffer = 'data/changeStatusFavoriteInCurrentOffer',
-//   ChangeStatusFavoriteInFavoriteOffers = 'data/changeStatusFavoriteInFavoriteOffers',
-
-//   SetStatusFormSending = 'data/setStatusFormSending',
-
-// }
 
 export const RequestStatus = {
   Idle: 'idle',
@@ -197,7 +165,6 @@ export const userDefault: TUser = {
   avatarUrl: '',
   isPro: false,
   token: '',
-//  authorizationStatus: <string>AuthorizationStatus.NoAuth,
 };
 
 export const errorEmpty: TErrorRequest = {

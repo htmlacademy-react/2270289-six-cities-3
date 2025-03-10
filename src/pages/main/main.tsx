@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useAppSelector, useAppDispatch } from '../../hooks/index.ts';
+import { useAppDispatch } from '../../hooks/index.ts';
 import Header from '../../components/header/header.tsx';
 import ListOffer from '../../components/card-offer-list/card-offer-list.tsx';
 import SortOffer from '../../components/sort-offer/sort-offer.tsx';
@@ -10,7 +10,6 @@ import LoadingScreen from '../loading-screen/loading-screen.tsx';
 import { selectorCurrentOffersByCity, selectorSortedListOffer } from '../../store/all-offers/all-offers.selectors.ts';
 import { fetchFavoriteOffersAction, fetchOffersAction } from '../../store/api-actions.ts';
 
-//import { RequestStatus, typeMap } from '../../const.ts';
 import { typeMap } from '../../const.ts';
 import { Helmet } from 'react-helmet-async';
 import MainEmpty from '../../components/main-empty/main-empty.tsx';
@@ -20,7 +19,7 @@ import { useSelector } from 'react-redux';
 export default function Main(): JSX.Element {
 
   const dispatch = useAppDispatch();
-  const hasAllOffers = Boolean(useAppSelector(allOffers));
+  const hasAllOffers = Boolean(useSelector(allOffers));
 
   useEffect(() => {
     if (!hasAllOffers) {
@@ -29,18 +28,13 @@ export default function Main(): JSX.Element {
     }
   }, []);
 
-  //const offers = useAppSelector((state) => state.offers);
-  const activeCity = useAppSelector(currentCity)
+  const activeCity = useSelector(currentCity);
   const cityName = activeCity.name;
-  //const offers = useAppSelector((state) => state.offers);
   const currentOffersByCity = useSelector(selectorCurrentOffersByCity);
-  //const currentOffersByCity = (offers) ? offers.filter((itemCard) => itemCard.city.name === cityName) : [];
   const countOffers = currentOffersByCity.length;
-
   const sortedListOffer = useSelector(selectorSortedListOffer);
 
   const [isVisibleLoadingScreen, setIsVisibleLoadingScreen] = useState(false);
-
   useEffect(() => {
     if ((!hasAllOffers)) {
       setIsVisibleLoadingScreen(true);

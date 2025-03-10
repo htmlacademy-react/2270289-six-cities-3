@@ -1,19 +1,23 @@
 import { Link } from 'react-router-dom';
 import { Navigate } from 'react-router-dom';
 import { useRef, FormEvent } from 'react';
-import { useAppDispatch, useAppSelector } from '../../hooks';
+import { useAppDispatch } from '../../hooks';
 import { loginAction } from '../../store/api-actions';
-import { AuthData } from '../../const';
+import { AuthData, AuthorizationStatus } from '../../const';
 import { AppRoute } from '../../const';
-import ErrorMessage from '../../components/error-message/error-message';
+//import ErrorMessage from '../../components/error-message/error-message';
 import { Helmet } from 'react-helmet-async';
+import { useSelector } from 'react-redux';
+import { userAuthorizationStatus } from '../../store/user/user.selectors';
 
 export default function Login(): JSX.Element {
 
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
   const dispatch = useAppDispatch();
-  const isAuth = useAppSelector((state) => state.isAuth);
+
+  const AuthStatus = useSelector(userAuthorizationStatus);
+  const isAuth = (AuthStatus === AuthorizationStatus.Auth);
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
@@ -36,7 +40,7 @@ export default function Login(): JSX.Element {
       <Helmet>
         <title>6 cities - Login Page</title>
       </Helmet>
-      <ErrorMessage />
+
       <header className="header">
         <div className="container">
           <div className="header__wrapper">
@@ -86,3 +90,5 @@ export default function Login(): JSX.Element {
     </div>
   );
 }
+
+//<ErrorMessage />

@@ -1,10 +1,8 @@
 import { ChangeEvent, Fragment, useState } from 'react';
 import { TUserCommentWithID } from '../../types/types.ts';
 import { RATINGS, Rating, Comment } from '../../const.ts';
-//import { useAppDispatch, useAppSelector } from '../../hooks/index.ts';
 import { useSelector } from 'react-redux';
 import { reviewsByOfferCommentSendStatus } from '../../store/reviews/reviews.selectors.ts';
-//import { setStatusFormSending } from '../../store/reviews/reviews.slice.ts';
 
 type ReviewFormProps = {
   idOffer: string | null;
@@ -12,8 +10,6 @@ type ReviewFormProps = {
 }
 
 export default function ReviewForm({ idOffer, addComment }: ReviewFormProps): JSX.Element {
-
-  //const dispatch = useAppDispatch();
 
   const isFormCommentSending = useSelector(reviewsByOfferCommentSendStatus);
 
@@ -46,9 +42,7 @@ export default function ReviewForm({ idOffer, addComment }: ReviewFormProps): JS
         rating: rating,
         comment: comment,
       };
-      //dispatch(setStatusFormSending(true));
       addComment(sentComment);
-      //dispatch(setStatusFormSending(false));
       changeToDefaultValues();
     }
   };

@@ -1,9 +1,9 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { TCommentForOffer } from "../../types/types";
-import { TInitialStateReview } from "../../types/state";
-import { NameSpaces } from "../../const";
-import { fetchReviewsByOffer, sendCommentAction } from "../api-actions";
-import { toast } from "react-toastify";
+import { createSlice } from '@reduxjs/toolkit';
+import { TCommentForOffer } from '../../types/types';
+import { TInitialStateReview } from '../../types/state';
+import { NameSpaces } from '../../const';
+import { fetchReviewsByOffer, sendCommentAction } from '../api-actions';
+import { toast } from 'react-toastify';
 
 const initialState: TInitialStateReview = {
   reviewsByOffer: [],
@@ -11,7 +11,7 @@ const initialState: TInitialStateReview = {
   hasError: false,
   isFormCommentSending: false,
   hasErrorFormCommentSending: false,
-}
+};
 
 export const reviewSlice = createSlice({
   name: NameSpaces.Reviews,
@@ -49,9 +49,6 @@ export const reviewSlice = createSlice({
         state.isFormCommentSending = false;
         state.hasErrorFormCommentSending = true;
         toast.error('Something went error when trying to submit your review');
-      })
-
-
+      });
   }
-
-})
+});

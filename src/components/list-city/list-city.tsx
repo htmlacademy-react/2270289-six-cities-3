@@ -1,13 +1,11 @@
 import {Link} from 'react-router-dom';
 import {AppRoute} from '../../const.ts';
-//import {setCity} from '../../store/action.ts';
 import {useAppDispatch} from '../../hooks/index.ts';
 import {citiesList} from '../../const.ts';
 import { setCurrentCity } from '../../store/all-offers/all-offers.slice.ts';
 
 export default function ListCity(): JSX.Element {
   const dispatch = useAppDispatch();
-  //const activeCity = useAppSelector(currentCity);
 
   return (
     <div className="tabs">
