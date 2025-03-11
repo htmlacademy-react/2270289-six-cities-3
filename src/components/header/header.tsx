@@ -1,18 +1,17 @@
 import { Link } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const';
-import { useAppDispatch } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { logoutAction } from '../../store/api-actions';
-import { useSelector } from 'react-redux';
 import { userAuthorizationStatus, userData } from '../../store/user/user.selectors';
 import { favoritesOffers } from '../../store/favorites/favorites.selectors';
 
 export default function Header(): JSX.Element {
-  const user = useSelector(userData);
-  const AuthStatus = useSelector(userAuthorizationStatus);
-  const isAuth = (AuthStatus === AuthorizationStatus.Auth);
 
-  const offersFavotite = useSelector(favoritesOffers);
   const dispatch = useAppDispatch();
+  const user = useAppSelector(userData);
+  const isAuth = (useAppSelector(userAuthorizationStatus) === AuthorizationStatus.Auth);
+
+  const offersFavotite = useAppSelector(favoritesOffers);
 
   return (
     <header className="header">

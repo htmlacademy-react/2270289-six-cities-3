@@ -13,11 +13,11 @@ import Page404 from '../404/page-404.tsx';
 
 import { fetchCurrentOfferAction, fetchReviewsByOffer, fetchOffersNearAction, sendChangedStatusFavoriteAction, sendCommentAction } from '../../store/api-actions.ts';
 
-import { changeStatusFavoriteInCurrentOffer} from '../../store/offer/offer.slice.ts';
+import { changeStatusFavoriteInCurrentOffer } from '../../store/offer/offer.slice.ts';
 import { changeStatusFavoriteInOffers } from '../../store/all-offers/all-offers.slice.ts';
 import { changeStatusFavoriteInOffersNear } from '../../store/offers-near/offers-near.slice.ts';
 
-import { typeMap, classButtonFaforiteType, SvgSizeByPlace, AuthorizationStatus } from '../../const';
+import { typeMap, classButtonFaforiteType, SvgSizeByPlace, AuthorizationStatus, AppRoute } from '../../const';
 import { convertRatingToStyleWidthPercent } from '../../utils.ts';
 
 import type { TCity, TOfferFavoriteStatus, TUserCommentWithID, TVariantPlace } from '../../types/types.ts';
@@ -28,19 +28,17 @@ import { currentOffer, currentOffersLoadingStatus } from '../../store/offer/offe
 import { nearAllOffers, nearAllOffersLoadingStatus } from '../../store/offers-near/offers-near.selectors.ts';
 import { reviewsByOffer, reviewsByOfferLoadingStatus, reviewsByOfferSorted } from '../../store/reviews/reviews.selectors.ts';
 import { userAuthorizationStatus } from '../../store/user/user.selectors.ts';
+import { redirectToRoute } from '../../store/action.ts';
 
 type OfferProps = {
-  variantPlace : TVariantPlace;
+  variantPlace: TVariantPlace;
 }
 
-export default function Offer({variantPlace} : OfferProps): JSX.Element {
+export default function Offer({ variantPlace }: OfferProps): JSX.Element {
 
   const activeOffer = useSelector(currentOffer);
   const cityActiveForCheck = useSelector(currentCity);
   const cityOfferForCheck = activeOffer ? activeOffer.city : null;
-
-  //const isEqualCities = cityOfferForCheck ===
-  //const activeCity = useSelector(currentCity);
 
   const activeCity = Boolean(cityOfferForCheck) ? cityOfferForCheck : cityActiveForCheck;
 
@@ -54,16 +52,14 @@ export default function Offer({variantPlace} : OfferProps): JSX.Element {
       dispatch(fetchReviewsByOffer(id));
       dispatch(fetchOffersNearAction(id));
     }
-  }, []);
+  }, [dispatch]);
 
   const isActiveOfferLoading = useSelector(currentOffersLoadingStatus);
   const isOffersNearLoading = useSelector(nearAllOffersLoadingStatus);
   const isCommentsByOfferLoading = useSelector(reviewsByOfferLoadingStatus);
 
-
-
   const nearOffersAll = useSelector(nearAllOffers);
-  const nearOffersSlice = nearOffersAll ? nearOffersAll.slice(0,3) : [];
+  const nearOffersSlice = nearOffersAll ? nearOffersAll.slice(0, 3) : [];
 
   const commentsByOffer = useSelector(reviewsByOffer);
   const commentsByOfferSorted = useSelector(reviewsByOfferSorted);
@@ -80,7 +76,7 @@ export default function Offer({variantPlace} : OfferProps): JSX.Element {
       setIsVisibleLoadingScreen(true);
       setTimeout(() => {
         setIsVisibleLoadingScreen(false);
-      }, 200);
+      }, 1200);
     }
   }, []);
 
@@ -92,10 +88,18 @@ export default function Offer({variantPlace} : OfferProps): JSX.Element {
         id: activeOffer.id,
         status: statusNumber,
       };
-      dispatch(sendChangedStatusFavoriteAction(changeStatus));
-      dispatch(changeStatusFavoriteInOffers(changeStatus));
-      dispatch(changeStatusFavoriteInOffersNear(changeStatus));
-      dispatch(changeStatusFavoriteInCurrentOffer(changeStatus));
+      if (isAuth) {
+        dispatch(sendChangedStatusFavoriteAction(changeStatus)).
+          then((response) => {
+            if (response.meta.requestStatus === 'fulfilled') {
+              dispatch(changeStatusFavoriteInOffers(changeStatus));
+              dispatch(changeStatusFavoriteInOffersNear(changeStatus));
+              dispatch(changeStatusFavoriteInCurrentOffer(changeStatus));
+            }
+          })
+      } else {
+        dispatch(redirectToRoute(AppRoute.Login));
+      }
     }
   };
 
@@ -116,6 +120,7 @@ export default function Offer({variantPlace} : OfferProps): JSX.Element {
       <Helmet>
         <title>6 cities - Offer Page</title>
       </Helmet>
+
       <Header />
 
       <main className="page__main page__main--offer" >
@@ -150,8 +155,8 @@ export default function Offer({variantPlace} : OfferProps): JSX.Element {
                 >
                   <svg
                     className="offer__bookmark-icon"
-                    width = {SvgSizeByPlace[variantPlace].width}
-                    height = {SvgSizeByPlace[variantPlace].height}
+                    width={SvgSizeByPlace[variantPlace].width}
+                    height={SvgSizeByPlace[variantPlace].height}
                   >
                     <use xlinkHref="#icon-bookmark"></use>
                   </svg>

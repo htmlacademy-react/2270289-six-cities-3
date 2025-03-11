@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { useAppDispatch } from '../../hooks/index.ts';
+import { useAppDispatch, useAppSelector } from '../../hooks/index.ts';
 import { changeStatusFavoriteInCurrentOffer } from '../../store/offer/offer.slice.ts';
 import { changeStatusFavoriteInOffers } from '../../store/all-offers/all-offers.slice.ts';
 import { changeStatusFavoriteInOffersNear } from '../../store/offers-near/offers-near.slice.ts';
@@ -8,8 +8,7 @@ import { sendChangedStatusFavoriteAction } from '../../store/api-actions.ts';
 import { convertRatingToStyleWidthPercent } from '../../utils.ts';
 import { AppRoute, AuthorizationStatus, FavoriteStatus, ImageSizeByCard, SvgSizeByPlace, classButtonFaforiteType } from '../../const.ts';
 import type { TOfferFavoriteStatus, TOfferPreview, TVariantCard, TVariantPlace } from '../../types/types.ts';
-import { useSelector } from 'react-redux';
-import { activeOfferId, selectorSortedListOffer } from '../../store/all-offers/all-offers.selectors.ts';
+import { activeOfferId, allOffers } from '../../store/all-offers/all-offers.selectors.ts';
 import { userAuthorizationStatus } from '../../store/user/user.selectors.ts';
 import { redirectToRoute } from '../../store/action.ts';
 
@@ -24,9 +23,9 @@ export default function CardOffer({ offer, variantCard, variantPlace }: OfferPro
   const linkTo = `/offer/${offer.id}`;
   const isShowSpanPremium = variantCard !== 'near-places';
   const dispatch = useAppDispatch();
-  const cardActiveId = useSelector(activeOfferId);
-  const offers = useSelector(selectorSortedListOffer);
-  const isAuth = useSelector(userAuthorizationStatus) === AuthorizationStatus.Auth;
+  const cardActiveId = useAppSelector(activeOfferId);
+  const offers = useAppSelector(allOffers);
+  const isAuth = useAppSelector(userAuthorizationStatus) === AuthorizationStatus.Auth;
 
   const changeStatusFavorite = () => {
     if (offers) {

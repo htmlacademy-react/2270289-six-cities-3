@@ -4,7 +4,7 @@ import HistoryRouter from '../routes/history-router.tsx';
 import browserHistory from '../browser-history.ts';
 
 import { useEffect } from 'react';
-import { useAppDispatch } from '../hooks/index.ts';
+import { useAppDispatch, useAppSelector } from '../hooks/index.ts';
 import { AppRoute, AuthorizationStatus } from '../../src/const.ts';
 import Main from '../pages/main/main.tsx';
 import Login from '../pages/login/login.tsx';
@@ -13,7 +13,6 @@ import Favorites from '../pages/favorites/favorites.tsx';
 import Page404 from '../pages/404/page-404.tsx';
 import PrivateRoute from '../components/private-route/private-route.tsx';
 import { checkAuthAction } from '../store/api-actions.ts';
-import { useSelector } from 'react-redux';
 import { userAuthorizationStatus } from '../store/user/user.selectors.ts';
 
 export default function App(): JSX.Element {
@@ -23,7 +22,8 @@ export default function App(): JSX.Element {
   useEffect(() => {
     dispatch(checkAuthAction());
   }, []);
-  const isAuth = useSelector(userAuthorizationStatus) === AuthorizationStatus.Auth;
+
+  const isAuth = useAppSelector(userAuthorizationStatus) === AuthorizationStatus.Auth;
 
   return (
     <HelmetProvider>
