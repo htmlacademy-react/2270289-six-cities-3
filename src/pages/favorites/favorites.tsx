@@ -10,9 +10,10 @@ import { Helmet } from 'react-helmet-async';
 import FavoritesEmpty from '../../components/favorites-empty/favorites-empty.tsx';
 import { useSelector } from 'react-redux';
 import { favoritesOffers, favoritesOffersLoadingStatus } from '../../store/favorites/favorites.selectors.ts';
+import { TVariantCard } from '../../types/types.ts';
 
 type ListOfferProps = {
-  variantCard: 'cities' | 'favorite' | 'near-places';
+  variantCard: TVariantCard;
 }
 
 export default function Favorites({ variantCard }: ListOfferProps): JSX.Element {

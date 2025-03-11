@@ -39,10 +39,14 @@ export default function CardOffer({ offer, variantCard, variantPlace }: OfferPro
             id: cardActiveId as string,
             status: statusNumber,
           };
-          dispatch(sendChangedStatusFavoriteAction(changeStatus));
-          dispatch(changeStatusFavoriteInOffers(changeStatus));
-          dispatch(changeStatusFavoriteInOffersNear(changeStatus));
-          dispatch(changeStatusFavoriteInCurrentOffer(changeStatus));
+          dispatch(sendChangedStatusFavoriteAction(changeStatus)).
+            then((response) => {
+              if (response.meta.requestStatus === 'fulfilled') {
+                dispatch(changeStatusFavoriteInOffers(changeStatus));
+                dispatch(changeStatusFavoriteInOffersNear(changeStatus));
+                dispatch(changeStatusFavoriteInCurrentOffer(changeStatus));
+              }
+            })
         }
       } else {
         dispatch(redirectToRoute(AppRoute.Login));

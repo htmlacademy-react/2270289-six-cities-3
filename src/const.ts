@@ -70,7 +70,7 @@ export enum AuthorizationStatus {
 
 export const typeCard = {
   cities: 'cities',
-  favorite: 'favorite',
+  favorite: 'favorites',
   near: 'near-places',
 };
 
@@ -91,7 +91,7 @@ export const ImageSizeByCard : {[key: string] : ICardStyle} = {
     height: 200,
     class : 'cities'
   },
-  'favorite' : {
+  'favorites' : {
     width : 150,
     height: 110,
     class : 'favorites',

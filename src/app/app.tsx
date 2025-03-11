@@ -36,7 +36,7 @@ export default function App(): JSX.Element {
           <Route path={AppRoute.Favorites}
             element={
               <PrivateRoute isAuth = {isAuth}>
-                <Favorites variantCard='favorite' />
+                <Favorites variantCard='favorites' />
               </PrivateRoute>
             }
           />

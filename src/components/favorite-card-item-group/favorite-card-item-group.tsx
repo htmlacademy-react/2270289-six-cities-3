@@ -1,9 +1,10 @@
-import type {TOfferPreview} from '../../types/types.ts';
+import { Link } from 'react-router-dom';
+import type {TOfferPreview, TVariantCard} from '../../types/types.ts';
 import CardOffer from '../card-offer/card-offer.tsx';
 
 type ListOfferProps = {
   listOffer: TOfferPreview[];
-  variantCard : 'cities'|'favorite'|'near-places';
+  variantCard : TVariantCard;
 }
 
 export default function FavoriteCardItemGroup({listOffer, variantCard}: ListOfferProps): JSX.Element {
@@ -15,15 +16,21 @@ export default function FavoriteCardItemGroup({listOffer, variantCard}: ListOffe
         <li className="favorites__locations-items" key={city}>
           <div className="favorites__locations locations locations--current">
             <div className="locations__item">
-              <a className="locations__item-link" href="#">
+              <Link className="locations__item-link" to="#">
                 <span>{city}</span>
-              </a>
+              </Link>
             </div>
           </div>
           <div className="favorites__places">
             {listOffer.map((itemOffer) =>
               (
-                (itemOffer.city.name === city) && <CardOffer offer = {itemOffer} key = {itemOffer.id} variantCard={variantCard} variantPlace='place-card' />
+                (itemOffer.city.name === city) &&
+                <CardOffer
+                  offer = {itemOffer}
+                  key = {itemOffer.id}
+                  variantCard={variantCard}
+                  variantPlace='place-card'
+                />
               )
             )}
           </div>

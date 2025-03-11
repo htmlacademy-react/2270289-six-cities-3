@@ -1,5 +1,5 @@
 
-type TVariantCard = 'cities' | 'favorite' | 'near-places';
+type TVariantCard = 'cities' | 'favorites' | 'near-places';
 type TVariantPlace = 'place-card' | 'offer';
 
 type TUserAuthData = {

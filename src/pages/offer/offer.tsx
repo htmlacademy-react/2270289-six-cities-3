@@ -20,7 +20,7 @@ import { changeStatusFavoriteInOffersNear } from '../../store/offers-near/offers
 import { typeMap, classButtonFaforiteType, SvgSizeByPlace, AuthorizationStatus } from '../../const';
 import { convertRatingToStyleWidthPercent } from '../../utils.ts';
 
-import type { TOfferFavoriteStatus, TUserCommentWithID, TVariantPlace } from '../../types/types.ts';
+import type { TCity, TOfferFavoriteStatus, TUserCommentWithID, TVariantPlace } from '../../types/types.ts';
 
 import { useSelector } from 'react-redux';
 import { currentCity } from '../../store/all-offers/all-offers.selectors.ts';
@@ -35,7 +35,15 @@ type OfferProps = {
 
 export default function Offer({variantPlace} : OfferProps): JSX.Element {
 
-  const activeCity = useSelector(currentCity);
+  const activeOffer = useSelector(currentOffer);
+  const cityActiveForCheck = useSelector(currentCity);
+  const cityOfferForCheck = activeOffer ? activeOffer.city : null;
+
+  //const isEqualCities = cityOfferForCheck ===
+  //const activeCity = useSelector(currentCity);
+
+  const activeCity = Boolean(cityOfferForCheck) ? cityOfferForCheck : cityActiveForCheck;
+
   const dispatch = useAppDispatch();
   const isAuth = useSelector(userAuthorizationStatus) === AuthorizationStatus.Auth;
   const { id } = useParams();
@@ -52,7 +60,7 @@ export default function Offer({variantPlace} : OfferProps): JSX.Element {
   const isOffersNearLoading = useSelector(nearAllOffersLoadingStatus);
   const isCommentsByOfferLoading = useSelector(reviewsByOfferLoadingStatus);
 
-  const activeOffer = useSelector(currentOffer);
+
 
   const nearOffersAll = useSelector(nearAllOffers);
   const nearOffersSlice = nearOffersAll ? nearOffersAll.slice(0,3) : [];
@@ -215,7 +223,7 @@ export default function Offer({variantPlace} : OfferProps): JSX.Element {
               </section>
             </div>
           </div>
-          <Map currentCity={activeCity} offers={nearOffersSlice} currentOffer={activeOffer} typeMap={typeMap.offer} />
+          <Map currentCity={activeCity as TCity} offers={nearOffersSlice} currentOffer={activeOffer} typeMap={typeMap.offer} />
         </section>
 
         <div className="container">
