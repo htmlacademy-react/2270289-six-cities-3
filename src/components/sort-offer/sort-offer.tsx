@@ -5,8 +5,9 @@ import { setCurrentSort } from '../../store/all-offers/all-offers.slice';
 import classNames from 'classnames';
 import { currentSort } from '../../store/all-offers/all-offers.selectors';
 import { useSelector } from 'react-redux';
+import { memo } from 'react';
 
-export default function SortOffer(): JSX.Element {
+function SortOffer(): JSX.Element {
   const { isOn, toggle } = useBoolean(false);
   const dispatch = useAppDispatch();
   const activeSort = useSelector(currentSort);
@@ -37,3 +38,6 @@ export default function SortOffer(): JSX.Element {
     </form>
   );
 }
+
+const MemoizedSortOffer = memo(SortOffer);
+export default MemoizedSortOffer

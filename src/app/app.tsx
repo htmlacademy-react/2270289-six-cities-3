@@ -38,7 +38,7 @@ export default function App(): JSX.Element {
 
   if (authStatus === AuthorizationStatus.Unknown) {
     return (
-      <LoadingScreen/>
+      <LoadingScreen />
     )
   }
 
@@ -49,10 +49,10 @@ export default function App(): JSX.Element {
         <Routes>
           <Route path={AppRoute.Main} element={<Main />} />
           <Route path={AppRoute.Login} element={<Login />} />
-          <Route path={AppRoute.Offer} element={<Offer variantPlace='offer'/>} />
+          <Route path={AppRoute.Offer} element={<Offer variantPlace='offer' />} />
           <Route path={AppRoute.Favorites}
             element={
-              <PrivateRoute isAuth = {isAuth}>
+              <PrivateRoute isAuth={isAuth}>
                 <Favorites variantCard='favorites' />
               </PrivateRoute>
             }
@@ -64,5 +64,9 @@ export default function App(): JSX.Element {
       </HistoryRouter>
     </HelmetProvider>
   );
-
 }
+
+/*
+const Memoized = memo();
+export default Memoized
+*/

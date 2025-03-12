@@ -1,10 +1,11 @@
-import {Link} from 'react-router-dom';
-import {AppRoute} from '../../const.ts';
-import {useAppDispatch} from '../../hooks/index.ts';
-import {citiesList} from '../../const.ts';
+import { Link } from 'react-router-dom';
+import { AppRoute } from '../../const.ts';
+import { useAppDispatch } from '../../hooks/index.ts';
+import { citiesList } from '../../const.ts';
 import { setCurrentCity } from '../../store/all-offers/all-offers.slice.ts';
+import { memo } from 'react';
 
-export default function ListCity(): JSX.Element {
+function ListCity(): JSX.Element {
   const dispatch = useAppDispatch();
 
   return (
@@ -29,3 +30,6 @@ export default function ListCity(): JSX.Element {
     </div>
   );
 }
+
+const MemoizedListCity = memo(ListCity);
+export default MemoizedListCity

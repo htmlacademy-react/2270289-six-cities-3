@@ -1,10 +1,11 @@
+import { memo } from "react";
 import { convertRatingToStyleWidthPercent } from "../../utils";
 
 type OfferRatingProps = {
   rating: number;
 }
 
-export default function OfferRating({ rating }: OfferRatingProps): JSX.Element {
+function OfferRating({ rating }: OfferRatingProps): JSX.Element {
   return (
     <div className="offer__rating rating">
       <div className="offer__stars rating__stars">
@@ -18,3 +19,6 @@ export default function OfferRating({ rating }: OfferRatingProps): JSX.Element {
     </div>
   )
 }
+
+const MemoizedOfferRating = memo(OfferRating);
+export default MemoizedOfferRating

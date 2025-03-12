@@ -1,4 +1,5 @@
 
+import { memo } from "react";
 import { TCommentForOffer, TOffer, TUserCommentWithID, TVariantPlace } from "../../types/types";
 
 import OfferFeatures from "../offer-features/offer-features";
@@ -21,7 +22,7 @@ type OfferWrapperProps = {
   countAllComments: number;
 }
 
-export default function OfferWrapper({
+function OfferWrapper({
   id,
   activeOffer,
   isAuth,
@@ -63,3 +64,6 @@ export default function OfferWrapper({
     </div>
   )
 }
+
+const MemoizedOfferWrapper = memo(OfferWrapper);
+export default MemoizedOfferWrapper

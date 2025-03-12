@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { SvgSizeByPlace, classButtonFaforiteType } from "../../const";
 import { TOffer, TVariantPlace } from "../../types/types";
 
@@ -7,7 +8,7 @@ type OfferWrapperNameProps = {
   changeStatusFavorite: () => void;
 }
 
-export default function OfferWrapperName({ activeOffer, variantPlace, changeStatusFavorite }: OfferWrapperNameProps): JSX.Element {
+function OfferWrapperName({ activeOffer, variantPlace, changeStatusFavorite }: OfferWrapperNameProps): JSX.Element {
   return (
     <div className="offer__name-wrapper">
       <h1 className="offer__name">
@@ -34,3 +35,6 @@ export default function OfferWrapperName({ activeOffer, variantPlace, changeStat
     </div>
   )
 }
+
+const MemoizedOfferWrapperName = memo(OfferWrapperName);
+export default MemoizedOfferWrapperName

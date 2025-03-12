@@ -4,8 +4,9 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { logoutAction } from '../../store/api-actions';
 import { userAuthorizationStatus, userData } from '../../store/user/user.selectors';
 import { favoritesOffers } from '../../store/favorites/favorites.selectors';
+import { memo } from 'react';
 
-export default function Header(): JSX.Element {
+function Header(): JSX.Element {
 
   const dispatch = useAppDispatch();
   const user = useAppSelector(userData);
@@ -58,3 +59,6 @@ export default function Header(): JSX.Element {
     </header>
   );
 }
+
+const MemoizedHeader = memo(Header);
+export default MemoizedHeader

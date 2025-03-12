@@ -11,6 +11,7 @@ import type { TOfferFavoriteStatus, TOfferPreview, TVariantCard, TVariantPlace }
 import { activeOfferId, allOffers } from '../../store/all-offers/all-offers.selectors.ts';
 import { userAuthorizationStatus } from '../../store/user/user.selectors.ts';
 import { redirectToRoute } from '../../store/action.ts';
+import { memo } from 'react';
 
 type OfferProps = {
   offer: TOfferPreview;
@@ -18,7 +19,7 @@ type OfferProps = {
   variantPlace: TVariantPlace;
 }
 
-export default function CardOffer({ offer, variantCard, variantPlace }: OfferProps): JSX.Element {
+function CardOffer({ offer, variantCard, variantPlace }: OfferProps): JSX.Element {
 
   const linkTo = `/offer/${offer.id}`;
   const isShowSpanPremium = variantCard !== 'near-places';
@@ -116,3 +117,6 @@ export default function CardOffer({ offer, variantCard, variantPlace }: OfferPro
     </article>
   );
 }
+
+const MemoizedCardOffer = memo(CardOffer);
+export default MemoizedCardOffer

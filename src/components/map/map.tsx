@@ -1,4 +1,4 @@
-import {useRef, useEffect} from 'react';
+import {useRef, useEffect, memo} from 'react';
 import useMap from '../../hooks/use-map';
 
 import {Marker,Icon,layerGroup} from 'leaflet';
@@ -28,7 +28,7 @@ const currentCustomIcon = new Icon({
   iconAnchor: [20, 40]
 });
 
-export default function Map({currentCity, offers, currentOffer, typeMap} : MapProps) : JSX.Element {
+function Map({currentCity, offers, currentOffer, typeMap} : MapProps) : JSX.Element {
 
   const mapRef = useRef(null);
   const map = useMap(mapRef, currentCity);
@@ -77,3 +77,6 @@ export default function Map({currentCity, offers, currentOffer, typeMap} : MapPr
     </section>
   );
 }
+
+const MemoizedMap = memo(Map);
+export default MemoizedMap

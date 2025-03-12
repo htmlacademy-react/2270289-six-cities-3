@@ -1,9 +1,10 @@
+import { memo } from "react";
 
 type OfferInsideProps = {
   goods: string[]
 }
 
-export default function OfferInside({ goods }: OfferInsideProps): JSX.Element {
+function OfferInside({ goods }: OfferInsideProps): JSX.Element {
   return (
     <div className="offer__inside">
       <h2 className="offer__inside-title">What&apos;s inside</h2>
@@ -18,3 +19,6 @@ export default function OfferInside({ goods }: OfferInsideProps): JSX.Element {
 
   )
 }
+
+const MemoizedOfferInside = memo(OfferInside);
+export default MemoizedOfferInside

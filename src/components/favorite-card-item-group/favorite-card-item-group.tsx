@@ -5,13 +5,14 @@ import { AppRoute } from '../../const.ts';
 import { setCurrentCity } from '../../store/all-offers/all-offers.slice.ts';
 import { useAppDispatch } from '../../hooks/index.ts';
 import { getCityByCityName } from '../../utils.ts';
+import { memo } from 'react';
 
 type ListOfferProps = {
   listOffer: TOfferPreview[];
   variantCard: TVariantCard;
 }
 
-export default function FavoriteCardItemGroup({ listOffer, variantCard }: ListOfferProps): JSX.Element {
+function FavoriteCardItemGroup({ listOffer, variantCard }: ListOfferProps): JSX.Element {
 
   const dispatch = useAppDispatch();
 
@@ -54,3 +55,6 @@ export default function FavoriteCardItemGroup({ listOffer, variantCard }: ListOf
     </section>
   );
 }
+
+const MemoizedFavoriteCardItemGroup = memo(FavoriteCardItemGroup);
+export default MemoizedFavoriteCardItemGroup

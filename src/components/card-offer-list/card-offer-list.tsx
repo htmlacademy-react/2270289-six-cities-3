@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import type {TOfferPreview, TVariantCard, TVariantPlace} from '../../types/types.ts';
 import CardOffer from '../card-offer/card-offer.tsx';
 
@@ -7,7 +8,7 @@ type ListOfferProps = {
   variantPlace : TVariantPlace;
 }
 
-export default function ListOffer({listOffer, variantCard, variantPlace }: ListOfferProps): JSX.Element {
+function ListOffer({listOffer, variantCard, variantPlace }: ListOfferProps): JSX.Element {
 
   return (
     <>
@@ -18,3 +19,6 @@ export default function ListOffer({listOffer, variantCard, variantPlace }: ListO
     </>
   );
 }
+
+const MemoizedListOffer = memo(ListOffer);
+export default MemoizedListOffer
