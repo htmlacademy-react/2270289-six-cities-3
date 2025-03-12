@@ -1,9 +1,6 @@
 import axios from 'axios';
 import {AxiosInstance,AxiosError} from 'axios';
 import {getToken,AUTH_TOKEN_KEY} from './token';
-
-//import { processErrorHandle } from './process-error-handle';
-
 import { TErrorRequest } from '../types/types';
 import {toast} from 'react-toastify';
 
@@ -42,8 +39,6 @@ export const createApi = () : AxiosInstance => {
           status : error.response.status,
           message: error.response.data.message,
         };
-        //console.log(errorRequest);
-        //processErrorHandle(errorRequest);
         toast.warn(errorRequest.message);
       }
       throw error;
