@@ -29,12 +29,7 @@ import { userAuthorizationStatus } from '../../store/user/user.selectors.ts';
 import { redirectToRoute } from '../../store/action.ts';
 
 import OfferWrapper from '../../components/offer-wrapper/offer-wrapper.tsx';
-
-// import ReviewForm from '../../components/review-form/review-form';
-// import ReviewList from '../../components/review-list/review-list';
-// import { classButtonFaforiteType, SvgSizeByPlace } from '../../const';
-// import { convertRatingToStyleWidthPercent } from '../../utils.ts';
-// import OfferHost from '../../components/offer-host/offer-host.tsx';
+import OfferGallery from '../../components/offer-gallery/offer-gallery.tsx';
 
 type OfferProps = {
   variantPlace: TVariantPlace;
@@ -122,27 +117,20 @@ export default function Offer({ variantPlace }: OfferProps): JSX.Element {
 
       <main className="page__main page__main--offer" >
         <section className="offer">
-          <div className="offer__gallery-container container">
-            <div className="offer__gallery">
-              {(activeOffer.images.map((urlImage) => (
-                <div className="offer__image-wrapper" key={urlImage}>
-                  <img className="offer__image" src={urlImage} alt="Photo studio" />
-                </div>
-              )
-              ))}
-            </div>
-          </div>
+
+          <OfferGallery images = {activeOffer.images}/>
+
           <div className="offer__container container">
 
             <OfferWrapper
-              id = {id as string}
+              id={id as string}
               activeOffer={activeOffer}
-              isAuth = {isAuth}
-              changeStatusFavorite = {changeStatusFavorite}
-              addComment = {addComment}
-              variantPlace = {variantPlace}
-              commentsByOfferSorted = {commentsByOfferSorted}
-              countAllComments = {countAllComments}
+              isAuth={isAuth}
+              changeStatusFavorite={changeStatusFavorite}
+              addComment={addComment}
+              variantPlace={variantPlace}
+              commentsByOfferSorted={commentsByOfferSorted}
+              countAllComments={countAllComments}
             />
 
           </div>
