@@ -12,8 +12,10 @@ import Offer from '../pages/offer/offer.tsx';
 import Favorites from '../pages/favorites/favorites.tsx';
 import Page404 from '../pages/404/page-404.tsx';
 import PrivateRoute from '../components/private-route/private-route.tsx';
-import { checkAuthAction } from '../store/api-actions.ts';
+import { checkAuthAction, fetchFavoriteOffersAction, fetchOffersAction } from '../store/api-actions.ts';
 import { userAuthorizationStatus } from '../store/user/user.selectors.ts';
+import LoadingScreen from '../pages/loading-screen/loading-screen.tsx';
+import { allOffers } from '../store/all-offers/all-offers.selectors.ts';
 
 export default function App(): JSX.Element {
 
@@ -23,7 +25,22 @@ export default function App(): JSX.Element {
     dispatch(checkAuthAction());
   }, []);
 
-  const isAuth = useAppSelector(userAuthorizationStatus) === AuthorizationStatus.Auth;
+  const authStatus = useAppSelector(userAuthorizationStatus);
+  const isAuth = authStatus === AuthorizationStatus.Auth;
+  const hasAllOffers = Boolean(useAppSelector(allOffers));
+
+  useEffect(() => {
+    if (!hasAllOffers) {
+      dispatch(fetchOffersAction());
+      dispatch(fetchFavoriteOffersAction());
+    }
+  }, [isAuth]);
+
+  if (authStatus === AuthorizationStatus.Unknown) {
+    return (
+      <LoadingScreen/>
+    )
+  }
 
   return (
     <HelmetProvider>

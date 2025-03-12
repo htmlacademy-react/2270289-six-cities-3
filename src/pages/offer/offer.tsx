@@ -1,11 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { useAppDispatch } from '../../hooks/index.ts';
+import { useAppDispatch, useAppSelector } from '../../hooks/index.ts';
 
 import ListOffer from '../../components/card-offer-list/card-offer-list';
-import ReviewForm from '../../components/review-form/review-form';
-import ReviewList from '../../components/review-list/review-list';
+
 import Header from '../../components/header/header.tsx';
 import Map from '../../components/map/map.tsx';
 import LoadingScreen from '../loading-screen/loading-screen.tsx';
@@ -17,8 +16,7 @@ import { changeStatusFavoriteInCurrentOffer } from '../../store/offer/offer.slic
 import { changeStatusFavoriteInOffers } from '../../store/all-offers/all-offers.slice.ts';
 import { changeStatusFavoriteInOffersNear } from '../../store/offers-near/offers-near.slice.ts';
 
-import { typeMap, classButtonFaforiteType, SvgSizeByPlace, AuthorizationStatus, AppRoute } from '../../const';
-import { convertRatingToStyleWidthPercent } from '../../utils.ts';
+import { typeMap, AuthorizationStatus, AppRoute } from '../../const';
 
 import type { TCity, TOfferFavoriteStatus, TUserCommentWithID, TVariantPlace } from '../../types/types.ts';
 
@@ -30,21 +28,25 @@ import { reviewsByOffer, reviewsByOfferLoadingStatus, reviewsByOfferSorted } fro
 import { userAuthorizationStatus } from '../../store/user/user.selectors.ts';
 import { redirectToRoute } from '../../store/action.ts';
 
+import OfferWrapper from '../../components/offer-wrapper/offer-wrapper.tsx';
+
+// import ReviewForm from '../../components/review-form/review-form';
+// import ReviewList from '../../components/review-list/review-list';
+// import { classButtonFaforiteType, SvgSizeByPlace } from '../../const';
+// import { convertRatingToStyleWidthPercent } from '../../utils.ts';
+// import OfferHost from '../../components/offer-host/offer-host.tsx';
+
 type OfferProps = {
   variantPlace: TVariantPlace;
 }
 
 export default function Offer({ variantPlace }: OfferProps): JSX.Element {
 
-  const activeOffer = useSelector(currentOffer);
-  const cityActiveForCheck = useSelector(currentCity);
-  const cityOfferForCheck = activeOffer ? activeOffer.city : null;
-
-  const activeCity = Boolean(cityOfferForCheck) ? cityOfferForCheck : cityActiveForCheck;
-
-  const dispatch = useAppDispatch();
-  const isAuth = useSelector(userAuthorizationStatus) === AuthorizationStatus.Auth;
   const { id } = useParams();
+  const dispatch = useAppDispatch();
+
+  const authStatus = useSelector(userAuthorizationStatus);
+  const isAuth = authStatus === AuthorizationStatus.Auth;
 
   useEffect(() => {
     if (id) {
@@ -52,33 +54,26 @@ export default function Offer({ variantPlace }: OfferProps): JSX.Element {
       dispatch(fetchReviewsByOffer(id));
       dispatch(fetchOffersNearAction(id));
     }
-  }, [dispatch]);
+  }, []);
 
   const isActiveOfferLoading = useSelector(currentOffersLoadingStatus);
   const isOffersNearLoading = useSelector(nearAllOffersLoadingStatus);
   const isCommentsByOfferLoading = useSelector(reviewsByOfferLoadingStatus);
 
-  const nearOffersAll = useSelector(nearAllOffers);
+  const activeOffer = useAppSelector(currentOffer);
+  const nearOffersAll = useAppSelector(nearAllOffers);
   const nearOffersSlice = nearOffersAll ? nearOffersAll.slice(0, 3) : [];
-
-  const commentsByOffer = useSelector(reviewsByOffer);
+  const commentsByOffer = useAppSelector(reviewsByOffer);
   const commentsByOfferSorted = useSelector(reviewsByOfferSorted);
   const countAllComments = commentsByOffer ? commentsByOffer.length : 0;
+
+  const cityActiveForCheck = useAppSelector(currentCity);
+  const cityOfferForCheck = activeOffer ? activeOffer.city : null;
+  const activeCity = Boolean(cityOfferForCheck) ? cityOfferForCheck : cityActiveForCheck;
 
   const addComment = (comment: TUserCommentWithID): void => {
     dispatch(sendCommentAction(comment));
   };
-
-  const [isVisibleLoadingScreen, setIsVisibleLoadingScreen] = useState(false);
-
-  useEffect(() => {
-    if ((isActiveOfferLoading || isOffersNearLoading || isCommentsByOfferLoading)) {
-      setIsVisibleLoadingScreen(true);
-      setTimeout(() => {
-        setIsVisibleLoadingScreen(false);
-      }, 1200);
-    }
-  }, []);
 
   const changeStatusFavorite = () => {
     if (activeOffer) {
@@ -103,7 +98,9 @@ export default function Offer({ variantPlace }: OfferProps): JSX.Element {
     }
   };
 
-  if (isVisibleLoadingScreen) {
+  const isAllLoading = (isActiveOfferLoading && isOffersNearLoading && isCommentsByOfferLoading);
+
+  if (isAllLoading) {
     return (
       <LoadingScreen />
     );
@@ -136,97 +133,18 @@ export default function Offer({ variantPlace }: OfferProps): JSX.Element {
             </div>
           </div>
           <div className="offer__container container">
-            <div className="offer__wrapper">
-              <div className="offer__mark">
-                {(activeOffer.isPremium) && (<span>Premium</span>)}
-              </div>
-              <div className="offer__name-wrapper">
-                <h1 className="offer__name">
-                  {activeOffer.title}
-                </h1>
-                <button
-                  className={
-                    (activeOffer.isFavorite) ?
-                      `offer__${classButtonFaforiteType.default} offer__${classButtonFaforiteType.favorite} button` :
-                      `offer__${classButtonFaforiteType.default} button`
-                  }
-                  type="button"
-                  onClick={changeStatusFavorite}
-                >
-                  <svg
-                    className="offer__bookmark-icon"
-                    width={SvgSizeByPlace[variantPlace].width}
-                    height={SvgSizeByPlace[variantPlace].height}
-                  >
-                    <use xlinkHref="#icon-bookmark"></use>
-                  </svg>
-                  <span className="visually-hidden">To bookmarks</span>
-                </button>
-              </div>
-              <div className="offer__rating rating">
-                <div className="offer__stars rating__stars">
-                  <span style={convertRatingToStyleWidthPercent(activeOffer.rating)}>
-                  </span>
-                  <span className="visually-hidden">Rating</span>
-                </div>
-                <span className="offer__rating-value rating__value">
-                  {activeOffer.rating}
-                </span>
-              </div>
-              <ul className="offer__features">
-                <li className="offer__feature offer__feature--entire">
-                  {activeOffer.type}
-                </li>
-                <li className="offer__feature offer__feature--bedrooms">
-                  {`${activeOffer.bedrooms} Bedrooms`}
-                </li>
-                <li className="offer__feature offer__feature--adults">
-                  {`Max ${activeOffer.maxAdults} adults`}
-                </li>
-              </ul>
-              <div className="offer__price">
-                <b className="offer__price-value">&euro;{activeOffer.price}</b>
-                <span className="offer__price-text">&nbsp;night</span>
-              </div>
-              <div className="offer__inside">
-                <h2 className="offer__inside-title">What&apos;s inside</h2>
-                <ul className="offer__inside-list">
-                  {activeOffer.goods.map((itemGood) => (
-                    <li className="offer__inside-item" key={itemGood}>
-                      {itemGood}
-                    </li>)
-                  )}
-                </ul>
-              </div>
-              <div className="offer__host">
-                <h2 className="offer__host-title">Meet the host</h2>
-                <div className="offer__host-user user">
-                  <div className="offer__avatar-wrapper offer__avatar-wrapper--pro user__avatar-wrapper">
-                    <img className="offer__avatar user__avatar"
-                      src={activeOffer.host.avatarUrl}
-                      width="74" height="74" alt="Host avatar"
-                    />
-                  </div>
-                  <span className="offer__user-name">
-                    {activeOffer.host.name}
-                  </span>
-                  <span className="offer__user-status">
-                    {(activeOffer.host.isPro) && ('Pro')}
-                  </span>
-                </div>
-                <div className="offer__description">
-                  <p className="offer__text">
-                    {activeOffer.description}
-                  </p>
-                </div>
-              </div>
-              <section className="offer__reviews reviews">
 
-                <ReviewList commentsByOfferSorted={commentsByOfferSorted} countAllComments={countAllComments} />
+            <OfferWrapper
+              id = {id as string}
+              activeOffer={activeOffer}
+              isAuth = {isAuth}
+              changeStatusFavorite = {changeStatusFavorite}
+              addComment = {addComment}
+              variantPlace = {variantPlace}
+              commentsByOfferSorted = {commentsByOfferSorted}
+              countAllComments = {countAllComments}
+            />
 
-                {(isAuth) && (<ReviewForm addComment={addComment} idOffer={(id) ? id : null} />)}
-              </section>
-            </div>
           </div>
           <Map currentCity={activeCity as TCity} offers={nearOffersSlice} currentOffer={activeOffer} typeMap={typeMap.offer} />
         </section>
