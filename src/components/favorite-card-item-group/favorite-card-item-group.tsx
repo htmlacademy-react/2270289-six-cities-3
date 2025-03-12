@@ -36,8 +36,7 @@ function FavoriteCardItemGroup({ listOffer, variantCard }: ListOfferProps): JSX.
               </div>
             </div>
             <div className="favorites__places">
-              {listOffer.map((itemOffer) =>
-              (
+              {listOffer.map((itemOffer) => (
                 (itemOffer.city.name === city) &&
                 <CardOffer
                   offer={itemOffer}
@@ -57,4 +56,4 @@ function FavoriteCardItemGroup({ listOffer, variantCard }: ListOfferProps): JSX.
 }
 
 const MemoizedFavoriteCardItemGroup = memo(FavoriteCardItemGroup);
-export default MemoizedFavoriteCardItemGroup
+export default MemoizedFavoriteCardItemGroup;

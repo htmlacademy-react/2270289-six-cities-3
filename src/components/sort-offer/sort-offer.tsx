@@ -40,4 +40,4 @@ function SortOffer(): JSX.Element {
 }
 
 const MemoizedSortOffer = memo(SortOffer);
-export default MemoizedSortOffer
+export default MemoizedSortOffer;

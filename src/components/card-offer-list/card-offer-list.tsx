@@ -21,4 +21,4 @@ function ListOffer({listOffer, variantCard, variantPlace }: ListOfferProps): JSX
 }
 
 const MemoizedListOffer = memo(ListOffer);
-export default MemoizedListOffer
+export default MemoizedListOffer;

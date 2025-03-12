@@ -79,4 +79,4 @@ function Map({currentCity, offers, currentOffer, typeMap} : MapProps) : JSX.Elem
 }
 
 const MemoizedMap = memo(Map);
-export default MemoizedMap
+export default MemoizedMap;

@@ -1,5 +1,5 @@
-import { memo } from "react";
-import { convertRatingToStyleWidthPercent } from "../../utils";
+import { memo } from 'react';
+import { convertRatingToStyleWidthPercent } from '../../utils';
 
 type OfferRatingProps = {
   rating: number;
@@ -17,8 +17,8 @@ function OfferRating({ rating }: OfferRatingProps): JSX.Element {
         {rating}
       </span>
     </div>
-  )
+  );
 }
 
 const MemoizedOfferRating = memo(OfferRating);
-export default MemoizedOfferRating
+export default MemoizedOfferRating;

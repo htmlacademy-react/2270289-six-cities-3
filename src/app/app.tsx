@@ -23,7 +23,7 @@ export default function App(): JSX.Element {
 
   useEffect(() => {
     dispatch(checkAuthAction());
-  }, []);
+  }, [dispatch]);
 
   const authStatus = useAppSelector(userAuthorizationStatus);
   const isAuth = authStatus === AuthorizationStatus.Auth;
@@ -34,12 +34,12 @@ export default function App(): JSX.Element {
       dispatch(fetchOffersAction());
       dispatch(fetchFavoriteOffersAction());
     }
-  }, [isAuth]);
+  }, [isAuth,dispatch,hasAllOffers]);
 
   if (authStatus === AuthorizationStatus.Unknown) {
     return (
       <LoadingScreen />
-    )
+    );
   }
 
   return (

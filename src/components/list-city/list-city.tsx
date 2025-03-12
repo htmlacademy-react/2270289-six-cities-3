@@ -37,4 +37,4 @@ function ListCity(): JSX.Element {
 }
 
 const MemoizedListCity = memo(ListCity);
-export default MemoizedListCity
+export default MemoizedListCity;

@@ -1,5 +1,5 @@
-import { memo } from "react";
-import { TOffer } from "../../types/types";
+import { memo } from 'react';
+import { TOffer } from '../../types/types';
 
 type OfferHostProps = {
   activeOffer: TOffer;
@@ -29,8 +29,8 @@ function OfferHost({ activeOffer }: OfferHostProps): JSX.Element {
         </p>
       </div>
     </div>
-  )
+  );
 }
 
 const MemoizedOfferHost = memo(OfferHost);
-export default MemoizedOfferHost
+export default MemoizedOfferHost;

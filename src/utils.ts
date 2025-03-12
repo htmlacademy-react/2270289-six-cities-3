@@ -78,18 +78,18 @@ export const convertRatingToStyleWidthPercent = (rating: number) => {
 };
 
 const getRandomNumber = (upperBound: number) => {
-  const randomNumber = Math.floor(Math.random() * upperBound + 1)
+  const randomNumber = Math.floor(Math.random() * upperBound + 1);
   return randomNumber;
-}
+};
 
 export const getCityByCityName = (name: string) => {
-  const city = citiesList.find((item) => item.name === name)
+  const city = citiesList.find((item) => item.name === name);
   return (city) ? city : citiesList[0];
-}
+};
 
 export const getRandomCityName = () => {
   const lengthCitiesArray = citiesList.length;
   const index = getRandomNumber(lengthCitiesArray) - 1;
   const city = citiesList[index];
   return city;
-}
+};

@@ -46,7 +46,7 @@ function CardOffer({ offer, variantCard, variantPlace }: OfferProps): JSX.Elemen
                 dispatch(changeStatusFavoriteInOffersNear(changeStatus));
                 dispatch(changeStatusFavoriteInCurrentOffer(changeStatus));
               }
-            })
+            });
         }
       } else {
         dispatch(redirectToRoute(AppRoute.Login));
@@ -119,4 +119,4 @@ function CardOffer({ offer, variantCard, variantPlace }: OfferProps): JSX.Elemen
 }
 
 const MemoizedCardOffer = memo(CardOffer);
-export default MemoizedCardOffer
+export default MemoizedCardOffer;

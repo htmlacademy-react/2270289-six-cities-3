@@ -30,8 +30,8 @@ export default function Favorites({ variantCard }: ListOfferProps): JSX.Element 
         <div className="page__favorites-container container">
           {
             !countOffersFavorite ?
-            <FavoritesEmpty />:
-            <FavoriteCardItemGroup listOffer={offersFavorite} variantCard={variantCard} />
+              <FavoritesEmpty /> :
+              <FavoriteCardItemGroup listOffer={offersFavorite} variantCard={variantCard} />
           }
         </div>
       </main>

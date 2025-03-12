@@ -1,6 +1,6 @@
-import { memo } from "react";
-import { SvgSizeByPlace, classButtonFaforiteType } from "../../const";
-import { TOffer, TVariantPlace } from "../../types/types";
+import { memo } from 'react';
+import { SvgSizeByPlace, classButtonFaforiteType } from '../../const';
+import { TOffer, TVariantPlace } from '../../types/types';
 
 type OfferWrapperNameProps = {
   activeOffer: TOffer;
@@ -33,8 +33,8 @@ function OfferWrapperName({ activeOffer, variantPlace, changeStatusFavorite }: O
         <span className="visually-hidden">To bookmarks</span>
       </button>
     </div>
-  )
+  );
 }
 
 const MemoizedOfferWrapperName = memo(OfferWrapperName);
-export default MemoizedOfferWrapperName
+export default MemoizedOfferWrapperName;

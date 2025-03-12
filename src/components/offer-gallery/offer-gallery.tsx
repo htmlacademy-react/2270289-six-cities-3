@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { memo } from 'react';
 
 type OfferGalleryProps = {
   images: string[];
@@ -16,8 +16,8 @@ function OfferGallery({ images }: OfferGalleryProps): JSX.Element {
         ))}
       </div>
     </div>
-  )
+  );
 }
 
 const MemoizedOfferGallery = memo(OfferGallery);
-export default MemoizedOfferGallery
+export default MemoizedOfferGallery;

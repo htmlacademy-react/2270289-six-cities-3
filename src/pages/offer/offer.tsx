@@ -18,7 +18,7 @@ import { changeStatusFavoriteInOffersNear } from '../../store/offers-near/offers
 
 import { typeMap, AuthorizationStatus, AppRoute } from '../../const';
 
-import type { TCity, TOfferFavoriteStatus, TUserCommentWithID, TVariantPlace } from '../../types/types.ts';
+import type { TOfferFavoriteStatus, TUserCommentWithID, TVariantPlace } from '../../types/types.ts';
 
 import { useSelector } from 'react-redux';
 import { currentCity } from '../../store/all-offers/all-offers.selectors.ts';
@@ -64,7 +64,7 @@ export default function Offer({ variantPlace }: OfferProps): JSX.Element {
 
   const cityActiveForCheck = useAppSelector(currentCity);
   const cityOfferForCheck = activeOffer ? activeOffer.city : null;
-  const activeCity = Boolean(cityOfferForCheck) ? cityOfferForCheck : cityActiveForCheck;
+  const activeCity = (cityOfferForCheck) ? cityOfferForCheck : cityActiveForCheck;
 
   const addComment = (comment: TUserCommentWithID): void => {
     dispatch(sendCommentAction(comment));
@@ -86,7 +86,7 @@ export default function Offer({ variantPlace }: OfferProps): JSX.Element {
               dispatch(changeStatusFavoriteInOffersNear(changeStatus));
               dispatch(changeStatusFavoriteInCurrentOffer(changeStatus));
             }
-          })
+          });
       } else {
         dispatch(redirectToRoute(AppRoute.Login));
       }
@@ -134,7 +134,7 @@ export default function Offer({ variantPlace }: OfferProps): JSX.Element {
             />
 
           </div>
-          <Map currentCity={activeCity as TCity} offers={nearOffersSlice} currentOffer={activeOffer} typeMap={typeMap.offer} />
+          <Map currentCity={activeCity} offers={nearOffersSlice} currentOffer={activeOffer} typeMap={typeMap.offer} />
         </section>
 
         <div className="container">

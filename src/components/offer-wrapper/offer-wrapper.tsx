@@ -1,15 +1,15 @@
 
-import { memo } from "react";
-import { TCommentForOffer, TOffer, TUserCommentWithID, TVariantPlace } from "../../types/types";
+import { memo } from 'react';
+import { TCommentForOffer, TOffer, TUserCommentWithID, TVariantPlace } from '../../types/types';
 
-import OfferFeatures from "../offer-features/offer-features";
-import OfferHost from "../offer-host/offer-host";
-import OfferInside from "../offer-inside/offer-inside";
-import OfferPrice from "../offer-price/offer-price";
-import OfferRating from "../offer-rating/offer-rating";
-import OfferWrapperName from "../offer-wrapper-name/offer-wrapper-name";
-import ReviewForm from "../review-form/review-form";
-import ReviewList from "../review-list/review-list";
+import OfferFeatures from '../offer-features/offer-features';
+import OfferHost from '../offer-host/offer-host';
+import OfferInside from '../offer-inside/offer-inside';
+import OfferPrice from '../offer-price/offer-price';
+import OfferRating from '../offer-rating/offer-rating';
+import OfferWrapperName from '../offer-wrapper-name/offer-wrapper-name';
+import ReviewForm from '../review-form/review-form';
+import ReviewList from '../review-list/review-list';
 
 type OfferWrapperProps = {
   id: string;
@@ -62,8 +62,8 @@ function OfferWrapper({
       </section>
 
     </div>
-  )
+  );
 }
 
 const MemoizedOfferWrapper = memo(OfferWrapper);
-export default MemoizedOfferWrapper
+export default MemoizedOfferWrapper;

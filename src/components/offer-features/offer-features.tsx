@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { memo } from 'react';
 
 type OfferFeaturesProps = {
   type: string;
@@ -19,8 +19,8 @@ function OfferFeatures({ type, bedrooms, maxAdults }: OfferFeaturesProps): JSX.E
         {`Max ${maxAdults} adults`}
       </li>
     </ul>
-  )
+  );
 }
 
 const MemoizedOfferFeatures = memo(OfferFeatures);
-export default MemoizedOfferFeatures
+export default MemoizedOfferFeatures;
