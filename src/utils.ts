@@ -1,4 +1,4 @@
-import { typeCard } from './const';
+import { citiesList, typeCard } from './const';
 import type { TOfferPreview } from './types/types';
 import { SORT_OPTIONS, SortOption } from './const';
 
@@ -76,3 +76,8 @@ export const convertRatingToStyleWidthPercent = (rating : number) => {
     width: `${ratingToPercent}%`,
   };
 };
+
+export const getCityByCityName = (name : string) => {
+  const city = citiesList.find((item) => item.name === name)
+  return (city) ? city : citiesList[0];
+}

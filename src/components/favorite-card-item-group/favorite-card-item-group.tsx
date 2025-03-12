@@ -1,6 +1,10 @@
 import { Link } from 'react-router-dom';
 import type { TOfferPreview, TVariantCard } from '../../types/types.ts';
 import CardOffer from '../card-offer/card-offer.tsx';
+import { AppRoute } from '../../const.ts';
+import { setCurrentCity } from '../../store/all-offers/all-offers.slice.ts';
+import { useAppDispatch } from '../../hooks/index.ts';
+import { getCityByCityName } from '../../utils.ts';
 
 type ListOfferProps = {
   listOffer: TOfferPreview[];
@@ -8,8 +12,12 @@ type ListOfferProps = {
 }
 
 export default function FavoriteCardItemGroup({ listOffer, variantCard }: ListOfferProps): JSX.Element {
+
+  const dispatch = useAppDispatch();
+
   const citySet = new Set(listOffer.map((item) => item.city.name));
   const cityArr = [...citySet];
+
   return (
     <section className="favorites">
       <h1 className="favorites__title">Saved listing</h1>
@@ -18,7 +26,10 @@ export default function FavoriteCardItemGroup({ listOffer, variantCard }: ListOf
           <li className="favorites__locations-items" key={city}>
             <div className="favorites__locations locations locations--current">
               <div className="locations__item">
-                <Link className="locations__item-link" to="#">
+                <Link className="locations__item-link"
+                  to={AppRoute.Main}
+                  onClick={() => dispatch(setCurrentCity(getCityByCityName(city)))}
+                >
                   <span>{city}</span>
                 </Link>
               </div>
