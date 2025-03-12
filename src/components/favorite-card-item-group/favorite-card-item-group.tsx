@@ -15,14 +15,14 @@ export default function FavoriteCardItemGroup({ listOffer, variantCard }: ListOf
 
   const dispatch = useAppDispatch();
 
-  const citySet = new Set(listOffer.map((item) => item.city.name));
-  const cityArr = [...citySet];
+  const citiesSet = new Set(listOffer.map((item) => item.city.name));
+  const citiesArray = [...citiesSet];
 
   return (
     <section className="favorites">
       <h1 className="favorites__title">Saved listing</h1>
       <ul className="favorites__list">
-        {cityArr.map((city) => (
+        {citiesArray.map((city) => (
           <li className="favorites__locations-items" key={city}>
             <div className="favorites__locations locations locations--current">
               <div className="locations__item">

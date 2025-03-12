@@ -5,10 +5,11 @@ import { useAppDispatch } from '../../hooks';
 import { loginAction } from '../../store/api-actions';
 import { AuthData, AuthorizationStatus } from '../../const';
 import { AppRoute } from '../../const';
-//import ErrorMessage from '../../components/error-message/error-message';
 import { Helmet } from 'react-helmet-async';
 import { useSelector } from 'react-redux';
 import { userAuthorizationStatus } from '../../store/user/user.selectors';
+import { getCityByCityName, getRandomCityName } from '../../utils';
+import { setCurrentCity } from '../../store/all-offers/all-offers.slice';
 
 export default function Login(): JSX.Element {
 
@@ -28,6 +29,8 @@ export default function Login(): JSX.Element {
       }));
     }
   };
+
+  const cityName = getRandomCityName().name;
 
   if (isAuth) {
     return (
@@ -80,8 +83,12 @@ export default function Login(): JSX.Element {
           </section>
           <section className="locations locations--login locations--current">
             <div className="locations__item">
-              <Link className="locations__item-link" to="/">
-                <span>Amsterdam</span>
+              <Link
+                className="locations__item-link"
+                to={AppRoute.Main}
+                onClick={() => dispatch(setCurrentCity(getCityByCityName(cityName)))}
+              >
+                <span>{cityName}</span>
               </Link>
             </div>
           </section>
@@ -90,5 +97,3 @@ export default function Login(): JSX.Element {
     </div>
   );
 }
-
-//<ErrorMessage />
