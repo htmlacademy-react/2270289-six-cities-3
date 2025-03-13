@@ -1,27 +1,66 @@
 import { Link } from 'react-router-dom';
-import { useAppDispatch } from '../../hooks/index.ts';
-import { setCardActiveId } from '../../store/action.ts';
-import type { OfferPreview } from '../../types.ts';
+import { useAppDispatch, useAppSelector } from '../../hooks/index.ts';
+import { changeStatusFavoriteInCurrentOffer } from '../../store/offer/offer.slice.ts';
+import { changeStatusFavoriteInOffers } from '../../store/all-offers/all-offers.slice.ts';
+import { changeStatusFavoriteInOffersNear } from '../../store/offers-near/offers-near.slice.ts';
+import { setActiveOfferId } from '../../store/all-offers/all-offers.slice.ts';
+import { sendChangedStatusFavoriteAction } from '../../store/api-actions.ts';
 import { convertRatingToStyleWidthPercent } from '../../utils.ts';
+import { AppRoute, AuthorizationStatus, FavoriteStatus, ImageSizeByCard, SvgSizeByPlace, classButtonFaforiteType } from '../../const.ts';
+import type { TOfferFavoriteStatus, TOfferPreview, TVariantCard, TVariantPlace } from '../../types/types.ts';
+import { activeOfferId, allOffers } from '../../store/all-offers/all-offers.selectors.ts';
+import { userAuthorizationStatus } from '../../store/user/user.selectors.ts';
+import { redirectToRoute } from '../../store/action.ts';
+import { memo } from 'react';
 
 type OfferProps = {
-  offer: OfferPreview;
-  variantCard: 'cities' | 'favorite' | 'near-places';
+  offer: TOfferPreview;
+  variantCard: TVariantCard;
+  variantPlace: TVariantPlace;
 }
 
-export default function CardOffer({ offer, variantCard }: OfferProps): JSX.Element {
+function CardOffer({ offer, variantCard, variantPlace }: OfferProps): JSX.Element {
 
   const linkTo = `/offer/${offer.id}`;
   const isShowSpanPremium = variantCard !== 'near-places';
   const dispatch = useAppDispatch();
+  const cardActiveId = useAppSelector(activeOfferId);
+  const offers = useAppSelector(allOffers);
+  const isAuth = useAppSelector(userAuthorizationStatus) === AuthorizationStatus.Auth;
+
+  const changeStatusFavorite = () => {
+    if (offers) {
+      if (isAuth) {
+        const currentOffer = offers.find((item) => item.id === cardActiveId);
+        if (currentOffer) {
+          const status = currentOffer.isFavorite;
+          const statusNumber = status ? FavoriteStatus.Remove : FavoriteStatus.Add;
+          const changeStatus: TOfferFavoriteStatus = {
+            id: cardActiveId as string,
+            status: statusNumber,
+          };
+          dispatch(sendChangedStatusFavoriteAction(changeStatus)).
+            then((response) => {
+              if (response.meta.requestStatus === 'fulfilled') {
+                dispatch(changeStatusFavoriteInOffers(changeStatus));
+                dispatch(changeStatusFavoriteInOffersNear(changeStatus));
+                dispatch(changeStatusFavoriteInCurrentOffer(changeStatus));
+              }
+            });
+        }
+      } else {
+        dispatch(redirectToRoute(AppRoute.Login));
+      }
+    }
+  };
 
   return (
     <article className={`${variantCard}__card place-card`}
       onMouseEnter={() => {
-        dispatch(setCardActiveId(offer.id));
+        dispatch(setActiveOfferId(offer.id));
       }}
       onMouseLeave={() => {
-        dispatch(setCardActiveId(''));
+        dispatch(setActiveOfferId(null));
       }}
     >
 
@@ -30,7 +69,12 @@ export default function CardOffer({ offer, variantCard }: OfferProps): JSX.Eleme
       <div className={`${variantCard}__image-wrapper place-card__image-wrapper`}>
 
         <Link to={linkTo}>
-          <img className="place-card__image" src={offer.previewImage} width="260" height="200" alt="Place image" />
+          <img className="place-card__image"
+            src={offer.previewImage}
+            width={ImageSizeByCard[variantCard].width}
+            height={ImageSizeByCard[variantCard].height}
+            alt="Place image"
+          />
         </Link>
 
       </div>
@@ -40,8 +84,18 @@ export default function CardOffer({ offer, variantCard }: OfferProps): JSX.Eleme
             <b className="place-card__price-value">&euro;{offer.price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className="place-card__bookmark-button button" type="button">
-            <svg className="place-card__bookmark-icon" width="18" height="19">
+          <button
+            className={(offer.isFavorite) ?
+              `place-card__${classButtonFaforiteType.default} place-card__${classButtonFaforiteType.favorite} button` :
+              `place-card__${classButtonFaforiteType.default} button`}
+            type="button"
+            onClick={changeStatusFavorite}
+          >
+            <svg
+              className="place-card__bookmark-icon"
+              width={SvgSizeByPlace[variantPlace].width}
+              height={SvgSizeByPlace[variantPlace].height}
+            >
               <use xlinkHref="#icon-bookmark"></use>
             </svg>
             <span className="visually-hidden">To bookmarks</span>
@@ -63,3 +117,6 @@ export default function CardOffer({ offer, variantCard }: OfferProps): JSX.Eleme
     </article>
   );
 }
+
+const MemoizedCardOffer = memo(CardOffer);
+export default MemoizedCardOffer;

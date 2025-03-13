@@ -1,56 +1,36 @@
-import { useEffect, useState } from 'react';
-import { useAppSelector, useAppDispatch } from '../../hooks/index.ts';
+import { useSelector } from 'react-redux';
+import { Helmet } from 'react-helmet-async';
+import { selectorCurrentOffersByCity, selectorSortedListOffer } from '../../store/all-offers/all-offers.selectors.ts';
+import { currentCity } from '../../store/all-offers/all-offers.selectors.ts';
+
 import Header from '../../components/header/header.tsx';
 import ListOffer from '../../components/card-offer-list/card-offer-list.tsx';
 import SortOffer from '../../components/sort-offer/sort-offer.tsx';
 import Map from '../../components/map/map.tsx';
 import ListCity from '../../components/list-city/list-city.tsx';
-import LoadingScreen from '../loading-screen/loading-screen.tsx';
+import MainEmpty from '../../components/main-empty/main-empty.tsx';
 
-import { selectorSortedListOffer } from '../../store/selectors.ts';
-import { fetchOffersAction } from '../../store/api-actions.ts';
-
-import { RequestStatus, typeMap } from '../../const.ts';
+import { typeMap } from '../../const.ts';
 
 export default function Main(): JSX.Element {
 
-  const requestStatus = useAppSelector((state) => state.requestStatus);
-
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    if (requestStatus !== RequestStatus.Success) {
-      dispatch(fetchOffersAction());
-    }
-  }, []);
-
-  const offers = useAppSelector((state) => state.offers);
-  const currentCity = useAppSelector((state) => state.city);
-  const cityName = currentCity.name;
-  const currentOffersByCity = offers.filter((itemCard: { city: { name: string } }) => itemCard.city.name === cityName);
+  const activeCity = useSelector(currentCity);
+  const cityName = activeCity.name;
+  const currentOffersByCity = useSelector(selectorCurrentOffersByCity);
   const countOffers = currentOffersByCity.length;
+  const sortedListOffer = useSelector(selectorSortedListOffer);
 
-  const sortedListOffer = useAppSelector(selectorSortedListOffer);
-
-  const [isVisibleLoadingScreen, setIsVisibleLoadingScreen] = useState(false);
-
-  useEffect(() => {
-    if ((requestStatus !== RequestStatus.Success)) {
-      setIsVisibleLoadingScreen(true);
-      setTimeout(() => {
-        setIsVisibleLoadingScreen(false);
-      }, 2000);
-    }
-  }, []);
-
-  if (isVisibleLoadingScreen) {
+  if (!countOffers) {
     return (
-      <LoadingScreen />
+      <MainEmpty cityName={cityName} />
     );
   }
 
   return (
     <div className="page page--gray page--main">
+      <Helmet>
+        <title>6 cities</title>
+      </Helmet>
       <Header />
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
@@ -67,13 +47,13 @@ export default function Main(): JSX.Element {
 
               <div className="cities__places-list places__list tabs__content">
 
-                <ListOffer listOffer={sortedListOffer} variantCard='cities' />
+                <ListOffer listOffer={sortedListOffer} variantCard='cities' variantPlace='place-card' />
 
               </div>
             </section>
             <div className="cities__right-section">
 
-              <Map currentCity={currentCity} currentOffers={currentOffersByCity} typeMap={typeMap.cities} />
+              <Map currentCity={activeCity} offers={currentOffersByCity} currentOffer={null} typeMap={typeMap.cities} />
 
             </div>
           </div>
@@ -83,8 +63,3 @@ export default function Main(): JSX.Element {
     </div>
   );
 }
-
-/*
-(requestStatus === RequestStatus.Loading) ?
-          <LoadingScreen /> :
-*/

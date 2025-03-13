@@ -1,16 +1,18 @@
-import {useRef, useEffect} from 'react';
+import {useRef, useEffect, memo} from 'react';
 import useMap from '../../hooks/use-map';
 
 import {Marker,Icon,layerGroup} from 'leaflet';
 import {URL_MARKER_DEFAULT, URL_MARKER_CURRENT } from '../../const';
 import 'leaflet/dist/leaflet.css';
 
-import type {CityDestination,OfferPreview } from '../../types';
-import { useAppSelector } from '../../hooks';
+import type {TCity,TOfferPreview, TOffer } from '../../types/types';
+import { useSelector } from 'react-redux';
+import { activeOfferId } from '../../store/all-offers/all-offers.selectors';
 
 type MapProps = {
-  currentCity: CityDestination;
-  currentOffers: OfferPreview[];
+  currentCity: TCity;
+  offers: TOfferPreview[];
+  currentOffer: TOffer | null;
   typeMap : string;
 }
 
@@ -26,19 +28,19 @@ const currentCustomIcon = new Icon({
   iconAnchor: [20, 40]
 });
 
-export default function Map({currentCity, currentOffers, typeMap} : MapProps) : JSX.Element {
+function Map({currentCity, offers, currentOffer, typeMap} : MapProps) : JSX.Element {
 
   const mapRef = useRef(null);
   const map = useMap(mapRef, currentCity);
   const geolocation: [number,number] = [currentCity.location.latitude,currentCity.location.longitude];
-  const cardActiveId = useAppSelector((state) => state.cardActiveId);
+  const cardActiveId = useSelector(activeOfferId);
   const classNameByTypeMap = `${typeMap} map`;
 
   useEffect(() => {
     if (map) {
       map.setView(geolocation);
       const markerLayer = layerGroup().addTo(map);
-      currentOffers.forEach((offer) => {
+      offers.forEach((offer) => {
         const marker = new Marker({
           lat: offer.location.latitude,
           lng: offer.location.longitude
@@ -46,18 +48,29 @@ export default function Map({currentCity, currentOffers, typeMap} : MapProps) : 
 
         marker
           .setIcon(
-            cardActiveId !== undefined && offer.id === cardActiveId
+            cardActiveId !== undefined && offer.id === cardActiveId && !currentOffer
               ? currentCustomIcon
               : defaultCustomIcon
           )
           .addTo(markerLayer);
       });
 
+      if (currentOffer) {
+        const markerCurrentOffer = new Marker({
+          lat: currentOffer.location.latitude,
+          lng: currentOffer.location.longitude
+        });
+
+        markerCurrentOffer
+          .setIcon(currentCustomIcon)
+          .addTo(markerLayer);
+      }
+
       return () => {
         map.removeLayer(markerLayer);
       };
     }
-  }, [map, currentCity, cardActiveId]);
+  }, [map, currentCity, cardActiveId, currentOffer]);
 
   return(
     <section className={classNameByTypeMap} ref={mapRef} id={currentCity.name}>
@@ -65,4 +78,5 @@ export default function Map({currentCity, currentOffers, typeMap} : MapProps) : 
   );
 }
 
-// <section className="offer__map map" ref={mapRef} ></section>
+const MemoizedMap = memo(Map);
+export default MemoizedMap;

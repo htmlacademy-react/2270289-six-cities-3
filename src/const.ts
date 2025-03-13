@@ -1,8 +1,8 @@
-import { type CityDestination, type CommentForOffer, type User, type errorRequestType } from './types';
+import type { TCity, TCommentForOffer, TUser, TErrorRequest } from './types/types';
 
 export const TIMEOUT_SHOW_ERROR = 5000;
 
-export const citiesList: CityDestination[] = [
+export const citiesList: TCity[] = [
   {
     name: 'Paris',
     location: {
@@ -70,8 +70,53 @@ export enum AuthorizationStatus {
 
 export const typeCard = {
   cities: 'cities',
-  favorite: 'favorite',
-  near: 'near',
+  favorite: 'favorites',
+  near: 'near-places',
+};
+
+interface ICardStyle {
+  width: number;
+  height: number;
+  class: string;
+}
+
+interface ISizeImage {
+  width: number;
+  height: number;
+}
+
+export const ImageSizeByCard : {[key: string] : ICardStyle} = {
+  'cities' : {
+    width : 260,
+    height: 200,
+    class : 'cities'
+  },
+  'favorites' : {
+    width : 150,
+    height: 110,
+    class : 'favorites',
+  },
+  'near-places': {
+    width : 260,
+    height: 200,
+    class : 'near-places',
+  },
+};
+
+export const SvgSizeByPlace : {[key: string] : ISizeImage} = {
+  'place-card' : {
+    width : 18,
+    height: 19,
+  },
+  'offer' : {
+    width : 31,
+    height: 33,
+  },
+};
+
+export const FavoriteStatus = {
+  Add: 1,
+  Remove: 0,
 };
 
 export const URL_MARKER_DEFAULT =
@@ -79,30 +124,6 @@ export const URL_MARKER_DEFAULT =
 
 export const URL_MARKER_CURRENT =
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/main-pin.svg';
-
-export const enum ActionType {
-  SetCity = 'offers/setCity',
-
-  FillOffers = 'offers/fillOffers',
-  FillActiveOffer = 'offers/fillActiveOffer',
-  FillCommentsByOffer = 'offers/fillCommentsByOffer',
-  FillOffersNear = 'offers/fillOffersNear',
-  FillFavoriteOffer = 'offers/fillFavoriteOffer',
-  SetFavoriteOfferStatus = 'offers/setFavoriteOfferStatus',
-
-  SetCardActiveId = 'card/setActiveId',
-  SetCurrentSort = 'sort/setCurrentSort',
-  SetReviewByOffer = 'review/setReviewByOffer',
-  FetchAllOffers = 'fetchOffers/all',
-  RequireAuthorization = 'user/requireAuthorization',
-  SetRequestStatus = 'data/setRequestStatus',
-  SetError = 'request/setError',
-
-  SetRequestAuthStatus = 'data/setRequestAuthStatus',
-  SetRequestActiveOffer = 'data/SetRequestActiveOffer',
-  SetRequestOffersNear = 'data/setRequestOffersNear',
-  SetRequestCommentsByOffer = 'data/setRequestCommentsByOffer',
-}
 
 export const RequestStatus = {
   Idle: 'idle',
@@ -138,16 +159,15 @@ export const AuthData = {
   password: 'passEdord12d',
 };
 
-export const userDefault: User = {
+export const userDefault: TUser = {
   name: '',
   email: '',
   avatarUrl: '',
   isPro: false,
   token: '',
-  authorizationStatus: <string>AuthorizationStatus.NoAuth,
 };
 
-export const errorEmpty: errorRequestType = {
+export const errorEmpty: TErrorRequest = {
   status: 0,
   message: '',
 };
@@ -157,7 +177,7 @@ export const typeMap = {
   offer: 'offer__map',
 };
 
-export const emptyComment: CommentForOffer = {
+export const emptyComment: TCommentForOffer = {
   id: '',
   comment: '',
   date: '',
@@ -169,7 +189,7 @@ export const emptyComment: CommentForOffer = {
   }
 };
 
-export const emptyComments: CommentForOffer[] = [{
+export const emptyComments: TCommentForOffer[] = [{
   id: '',
   comment: '',
   date: '',
@@ -180,3 +200,68 @@ export const emptyComments: CommentForOffer[] = [{
     isPro: false,
   }
 }];
+
+export const RATINGS = [
+  {
+    value: 5,
+    title: 'perfect',
+  },
+  {
+    value: 4,
+    title: 'good',
+  },
+  {
+    value: 3,
+    title: 'not bad',
+  },
+  {
+    value: 2,
+    title: 'badly',
+  },
+  {
+    value: 1,
+    title: 'terribly',
+  },
+];
+
+export const Comment = {
+  InitState: '',
+  MinLength: 50,
+  MaxLength: 300,
+  MinCount: 0,
+  MaxCount: 10,
+};
+
+export const Rating = {
+  InitState: 0,
+};
+
+export const classButtonFaforiteType = {
+  default : 'bookmark-button',
+  favorite : 'bookmark-button--active',
+};
+
+export const cityDefault = {
+  name: 'Paris',
+  location: {
+    latitude: 48.85661,
+    longitude: 2.351499,
+    zoom: 13
+  }
+};
+
+export const NameSpaces = {
+  AllOffers: 'ALLOFFERS',
+  OffersNear: 'OFFERSNEAR',
+  Offer: 'OFFER',
+  Favorites: 'FAVORITES',
+  Reviews: 'REVIEWS',
+  User: 'USER',
+} as const;
+
+export const SortOptions = {
+  Popular: 'Popular',
+  PriceLowToHigh: 'Price: low to high',
+  PriceHighToLow: 'Price: high to low',
+  TopRatedFirst: 'Top rated first',
+} as const;

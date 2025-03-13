@@ -1,13 +1,18 @@
 import { Link } from 'react-router-dom';
-import { AppRoute } from '../../const';
+import { AppRoute, AuthorizationStatus } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { logoutAction } from '../../store/api-actions';
+import { userAuthorizationStatus, userData } from '../../store/user/user.selectors';
+import { favoritesOffers } from '../../store/favorites/favorites.selectors';
+import { memo } from 'react';
 
-export default function Header(): JSX.Element {
-  const user = useAppSelector((state) => state.user);
-  const isAuth = user.authorizationStatus;
-  const countFavoriteOffers = useAppSelector((state) => state.favoriteOffers.length);
+function Header(): JSX.Element {
+
   const dispatch = useAppDispatch();
+  const user = useAppSelector(userData);
+  const isAuth = (useAppSelector(userAuthorizationStatus) === AuthorizationStatus.Auth);
+
+  const offersFavotite = useAppSelector(favoritesOffers);
 
   return (
     <header className="header">
@@ -23,18 +28,19 @@ export default function Header(): JSX.Element {
               <li className="header__nav-item user">
                 <Link className="header__nav-link header__nav-link--profile" to={AppRoute.Favorites}>
                   <div className="header__avatar-wrapper user__avatar-wrapper">
+                    { (isAuth) && (<img src = {user.avatarUrl} />)}
                   </div>
                   <span className="header__user-name user__name">
-                    {((isAuth === 'AUTH') && user.email)}
+                    {((isAuth) && user.email)}
                   </span>
-                  {((isAuth === 'AUTH') && <span className="header__favorite-count">{countFavoriteOffers}</span>)}
+                  {((isAuth) && <span className="header__favorite-count">{offersFavotite.length}</span>)}
                 </Link>
               </li>
               <li className="header__nav-item">
                 <Link className="header__nav-link" to={AppRoute.Login}
                   onClick={
                     (evt) => {
-                      if (isAuth === 'AUTH') {
+                      if (isAuth) {
                         evt.preventDefault();
                         dispatch(logoutAction());
                       }
@@ -42,9 +48,7 @@ export default function Header(): JSX.Element {
                   }
                 >
                   <span className="header__signout">
-                    {isAuth === 'AUTH' ?
-                      'Sign out' :
-                      'Sign in'}
+                    {isAuth ? 'Sign out' : 'Sign in'}
                   </span>
                 </Link>
               </li>
@@ -55,3 +59,6 @@ export default function Header(): JSX.Element {
     </header>
   );
 }
+
+const MemoizedHeader = memo(Header);
+export default MemoizedHeader;

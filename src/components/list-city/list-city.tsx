@@ -1,11 +1,15 @@
-import {Link} from 'react-router-dom';
-import {AppRoute} from '../../const.ts';
-import {setCity} from '../../store/action.ts';
-import {useAppDispatch} from '../../hooks/index.ts';
-import {citiesList} from '../../const.ts';
+import { Link } from 'react-router-dom';
+import { AppRoute } from '../../const.ts';
+import { useAppDispatch, useAppSelector } from '../../hooks/index.ts';
+import { citiesList } from '../../const.ts';
+import { setCurrentCity } from '../../store/all-offers/all-offers.slice.ts';
+import { memo } from 'react';
+import { currentCity } from '../../store/all-offers/all-offers.selectors.ts';
 
-export default function ListCity(): JSX.Element {
+function ListCity(): JSX.Element {
   const dispatch = useAppDispatch();
+  const activeCity = useAppSelector(currentCity);
+
   return (
     <div className="tabs">
       <section className="locations container">
@@ -13,10 +17,13 @@ export default function ListCity(): JSX.Element {
           {
             citiesList.map((item) => (
               <li className="locations__item" key={item.name} >
-                <Link className="locations__item-link tabs__item" to={AppRoute.Main} onClick={(evt) => {
-                  evt.preventDefault();
-                  dispatch(setCity(item));
-                }}
+                <Link
+                  className={`locations__item-link tabs__item ${item === activeCity && 'tabs__item--active'}`}
+                  to={AppRoute.Main}
+                  onClick={(evt) => {
+                    evt.preventDefault();
+                    dispatch(setCurrentCity(item));
+                  }}
                 >
                   <span>{item.name}</span>
                 </Link>
@@ -28,3 +35,6 @@ export default function ListCity(): JSX.Element {
     </div>
   );
 }
+
+const MemoizedListCity = memo(ListCity);
+export default MemoizedListCity;

@@ -1,5 +1,5 @@
-import { typeCard } from './const';
-import type { OfferPreview } from './types';
+import { citiesList, typeCard } from './const';
+import type { TOfferPreview } from './types/types';
 import { SORT_OPTIONS, SortOption } from './const';
 
 export const TYPE_FORMAT_DATE = {
@@ -52,7 +52,7 @@ function getClassCardByType(type: string) {
   }
 }
 
-const getSortedListOffer = (currentSort: string, listOffer: OfferPreview[]) => {
+const getSortedListOffer = (currentSort: string, listOffer: TOfferPreview[]) => {
   const sortedListOffer = [...listOffer];
 
   switch (currentSort) {
@@ -68,11 +68,28 @@ const getSortedListOffer = (currentSort: string, listOffer: OfferPreview[]) => {
   return sortedListOffer;
 };
 
-export { dateToTypeFormat, getClassCardByType, getSortedListOffer};
+export { dateToTypeFormat, getClassCardByType, getSortedListOffer };
 
-export const convertRatingToStyleWidthPercent = (rating : number) => {
+export const convertRatingToStyleWidthPercent = (rating: number) => {
   const ratingToPercent = (rating) ? (rating * 100 / 5).toFixed(0) : 80;
   return {
     width: `${ratingToPercent}%`,
   };
-}
+};
+
+const getRandomNumber = (upperBound: number) => {
+  const randomNumber = Math.floor(Math.random() * upperBound + 1);
+  return randomNumber;
+};
+
+export const getCityByCityName = (name: string) => {
+  const city = citiesList.find((item) => item.name === name);
+  return (city) ? city : citiesList[0];
+};
+
+export const getRandomCityName = () => {
+  const lengthCitiesArray = citiesList.length;
+  const index = getRandomNumber(lengthCitiesArray) - 1;
+  const city = citiesList[index];
+  return city;
+};
